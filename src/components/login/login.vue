@@ -1,6 +1,7 @@
 <template>
   <div class="login fillcontain">
-    <section class="form_contianer">
+    <transition name="form-fade" mode="in-out">
+    <section class="form_contianer" v-show="showLogin">
       <div class="manage_tip">
         <p>内容管理系统</p>
       </div>
@@ -16,6 +17,7 @@
         </el-form-item>
       </el-form>
     </section>
+    </transition>
   </div>
 </template>
 
@@ -24,8 +26,12 @@
     data () {
       return {
         name: '',
-        password: ''
+        password: '',
+        showLogin: false
       }
+    },
+    mounted () {
+      this.showLogin = true
     },
     methods: {
       jumpTo (path) {
@@ -50,6 +56,11 @@
       border-radius: 5px
       text-align: center
       background-color: #fff
+      &.form-fade-enter-active, &.form-fade-leave-active
+        transition: all 1s
+      &.form-fade-enter, &.form-fade-leave-active
+        transform: translate3d(0, -50px, 0)
+        opacity: 0
       .manage_tip
         position: absolute
         width: 100%
@@ -62,4 +73,5 @@
         .submit_btn
           width:100%
           color: #fff
+
 </style>

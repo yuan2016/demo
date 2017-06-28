@@ -1,10 +1,15 @@
 <template>
-  <div class="addProduct">我是添加产品</div>
+  <div class="addProduct">
+    <banner></banner>
+    我是添加产品</div>
 </template>
 
 <script type="text/ecmascript-6">
+  import banner from '../common/banner/banner'
   export default {
-
+    components: {
+      banner
+    }
   }
 </script>
 

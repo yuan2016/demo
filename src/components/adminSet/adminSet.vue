@@ -1,10 +1,15 @@
 <template>
-  <div class="adminSet">我是adminSet</div>
+  <div class="adminSet">
+    <banner></banner>
+    我是adminSet</div>
 </template>
 
 <script type="text/ecmascript-6">
+  import banner from '../common/banner/banner'
   export default {
-
+    components: {
+      banner
+    }
   }
 </script>
 

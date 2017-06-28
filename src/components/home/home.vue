@@ -1,9 +1,9 @@
 <template>
   <div class="manage_page fillcontain">
     <el-row style="height: 100%;">
-      <el-col :span="4"  style="min-height: 100%; background-color: #EEF1F6;">
-        <el-menu :default-active="defaultActive" style="min-height: 100%;" theme="light" router>
-          <el-menu-item><i class="el-icon-menu"></i>首页</el-menu-item>
+      <el-col :span="4"  style="min-height: 100%; background-color: #324057;">
+        <el-menu :default-active="defaultActive" style="min-height: 100%;" theme="dark" router>
+          <el-menu-item index="main"><i class="el-icon-menu"></i>首页</el-menu-item>
           <el-submenu index="2">
             <template slot="title"><i class="el-icon-document"></i>数据管理</template>
             <el-menu-item index="cashManage">现金管理</el-menu-item>
@@ -25,7 +25,7 @@
           </el-submenu>
           <el-submenu index="7">
             <template slot="title"><i class="el-icon-warning"></i>说明</template>
-            <el-menu-item index="explain">说明</el-menu-item>
+            <el-menu-item index="explain">产品说明</el-menu-item>
           </el-submenu>
         </el-menu>
       </el-col>
@@ -38,6 +38,11 @@
 
 <script type="text/ecmascript-6">
   export default {
+    computed: {
+      defaultActive: function () {
+        return this.$route.path.replace('/', '')
+      }
+    }
   }
 </script>
 

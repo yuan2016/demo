@@ -25,28 +25,36 @@ export default [{
       component: home,
       children: [{path: '', redirect: '/main'}, {
         path: '/main',
-        component: main
+        component: main,
+        meta: []
       }, {
         path: '/cashManage',
-        component: cashManage
+        component: cashManage,
+        meta: ['数据管理', '现金管理']
       }, {
         path: '/netProduct',
-        component: netProduct
+        component: netProduct,
+        meta: ['数据管理', '产品净值']
       }, {
         path: '/addProduct',
-        component: addProduct
+        component: addProduct,
+        meta: ['添加数据', '添加产品']
       }, {
         path: '/addMember',
-        component: addMember
+        component: addMember,
+        meta: ['添加数据', '现金成员']
       }, {
         path: '/visitor',
-        component: visitor
+        component: visitor,
+        meta: ['图标', '用户分布']
       }, {
         path: '/adminSet',
-        component: adminSet
+        component: adminSet,
+        meta: ['设置', '管理员设置']
       }, {
         path: '/explain',
-        component: explain
+        component: explain,
+        meta: ['说明', '产品说明']
       }]
     }]
 }]
