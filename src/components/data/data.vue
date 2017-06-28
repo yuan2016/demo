@@ -1,4 +1,5 @@
 <template>
+  <div class="data">我是data</div>
 </template>
 
 <script type="text/ecmascript-6">

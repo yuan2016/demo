@@ -1,5 +1,5 @@
 <template>
-  <div class=""></div>
+  <div class="cash_manage">我是现金管理</div>
 </template>
 
 <script type="text/ecmascript-6">
