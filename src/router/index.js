@@ -14,4 +14,4 @@ export default [{
     { path: '/home', component: home },
     { path: '/data', component: data }
   ]
-}];
+}]
