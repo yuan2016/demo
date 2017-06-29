@@ -38,6 +38,23 @@ router.post('/cashManage', (req, res) => {
   })
 })
 
+// 查询customers城市
+router.post('/cashManage?city', (req, res) => {
+  var select = $sql.customers.city
+  // var params = req.body
+  // console.log(params)
+  // conn.query(customers, [params.name, params.price])
+  conn.query(select, function (err, result) {
+    if (err) {
+      console.log(err)
+    }
+    if (result) {
+      console.log(result)
+      jsonWrite(res, result)
+    }
+  })
+})
+
 // 查询funds接口
 router.post('/fundProduct', (req, res) => {
   var select = $sql.funds.select

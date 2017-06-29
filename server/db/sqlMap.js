@@ -6,7 +6,8 @@
 var sqlMap = {
   // 用户
   customers: {
-    select: 'select * from customers'
+    select: 'select * from customers',
+    city: 'select city from customers'
   },
   funds: {
     select: 'select * from funds'

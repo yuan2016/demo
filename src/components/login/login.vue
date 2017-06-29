@@ -45,6 +45,8 @@
 <style lang="stylus" rel="stylesheet/stylus">
   .login
     background-color: #1d8ce0
+    background-image :url(../../../resource/image/background.jpg)
+    background-size:cover
     .form_contianer
       position: absolute
       top: 50%
@@ -59,7 +61,7 @@
       &.form-fade-enter-active, &.form-fade-leave-active
         transition: all 1s
       &.form-fade-enter, &.form-fade-leave-active
-        transform: translate3d(0, -50px, 0)
+        transform: translate3d(1000px, -1000px, 0)
         opacity: 0
       .manage_tip
         position: absolute
@@ -73,5 +75,4 @@
         .submit_btn
           width:100%
           color: #fff
-
 </style>
