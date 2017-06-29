@@ -1,20 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cbe5bfb0-19fd-479f-921e-3d5a302b50ae" name="Default" comment="2017.6.28提交">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/api/userApi.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/app.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/db/db.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/db/sqlMap.js" />
+    <list default="true" id="cbe5bfb0-19fd-479f-921e-3d5a302b50ae" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/index.js" afterPath="$PROJECT_DIR$/config/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sql" afterPath="$PROJECT_DIR$/sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/cashManage/cashManage.vue" afterPath="$PROJECT_DIR$/src/components/cashManage/cashManage.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/home/home.vue" afterPath="$PROJECT_DIR$/src/components/home/home.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main.js" afterPath="$PROJECT_DIR$/src/main.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/router/index.js" afterPath="$PROJECT_DIR$/src/router/index.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/components/netProduct/netProduct.vue" afterPath="$PROJECT_DIR$/src/components/fundProduct/fundProduct.vue" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -473,12 +461,20 @@
       <workItem from="1498557318715" duration="3496000" />
       <workItem from="1498613799657" duration="871000" />
       <workItem from="1498614991855" duration="25671000" />
-      <workItem from="1498699050694" duration="16901000" />
+      <workItem from="1498699050694" duration="16950000" />
     </task>
+    <task id="LOCAL-00001" summary="2017.6.29提交">
+      <created>1498722896598</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1498722896598</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="46945000" />
+    <option name="totallyTimeSpent" value="46994000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -520,7 +516,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="2017.6.28提交" />
-    <option name="LAST_COMMIT_MESSAGE" value="2017.6.28提交" />
+    <MESSAGE value="2017.6.29提交" />
+    <option name="LAST_COMMIT_MESSAGE" value="2017.6.29提交" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
