@@ -4,11 +4,13 @@
       <el-breadcrumb-item :to="{ path: '/main' }">首页</el-breadcrumb-item>
       <el-breadcrumb-item v-for="(item, index) in $route.meta" key="index">{{item}}</el-breadcrumb-item>
     </el-breadcrumb>
-    <el-dropdown menu-align='start' class="banner-right">
-      <img class="avator">
+    <el-dropdown class="banner_right">
+      <el-button type="primary">
+        更多<i class="el-icon-caret-bottom el-icon--right"></i>
+      </el-button>
       <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item command="home">设置</el-dropdown-item>
-        <el-dropdown-item command="singout">注销</el-dropdown-item>
+        <el-dropdown-item>设置</el-dropdown-item>
+        <el-dropdown-item>注销</el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
   </div>
@@ -28,10 +30,6 @@
     justify-content: space-between;
     align-items: center;
     padding-left: 20px;
-    .banner-right
-      .avator
-        width: 36px
-        height: 36px
-        border-radius:50%
-        margin-right: 37px
+    .banner_right
+      margin-right :20px
 </style>

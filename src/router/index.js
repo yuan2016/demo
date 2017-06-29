@@ -30,11 +30,11 @@ export default [{
       }, {
         path: '/cashManage',
         component: cashManage,
-        meta: ['数据管理', '现金管理']
+        meta: ['数据管理', '客户信息']
       }, {
         path: '/netProduct',
         component: netProduct,
-        meta: ['数据管理', '产品净值']
+        meta: ['数据管理', '基金信息']
       }, {
         path: '/addProduct',
         component: addProduct,
