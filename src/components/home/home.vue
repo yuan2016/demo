@@ -7,7 +7,7 @@
           <el-submenu index="2">
             <template slot="title"><i class="el-icon-document"></i>数据管理</template>
             <el-menu-item index="cashManage">客户信息</el-menu-item>
-            <el-menu-item index="netProduct">基金信息</el-menu-item>
+            <el-menu-item index="fundProduct">基金信息</el-menu-item>
           </el-submenu>
           <el-submenu index="3">
             <template slot="title"><i class="el-icon-plus"></i>添加数据</template>

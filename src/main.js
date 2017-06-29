@@ -8,11 +8,13 @@ import './common/stylus/include.styl'
 import 'element-ui/lib/theme-default/index.css'
 import Axios from 'axios'
 import routes from './router/index'
+import VueResource from 'vue-resource'
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 Vue.use(Axios)
 Vue.use(VueRouter)
+Vue.use(VueResource)
 
 const router = new VueRouter({
   routes

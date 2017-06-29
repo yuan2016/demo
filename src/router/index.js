@@ -6,7 +6,7 @@ const login = r => require.ensure([], () => r(require('../components/login/login
 const home = r => require.ensure([], () => r(require('../components/home/home')), 'home')
 const main = r => require.ensure([], () => r(require('../components/main/main')), 'main')
 const cashManage = r => require.ensure([], () => r(require('../components/cashManage/cashManage')), 'cashManage')
-const netProduct = r => require.ensure([], () => r(require('../components/netProduct/netProduct')), 'netProduct')
+const fundProduct = r => require.ensure([], () => r(require('../components/fundProduct/fundProduct')), 'fundProduct')
 const addProduct = r => require.ensure([], () => r(require('../components/addProduct/addProduct')), 'addProduct')
 const addMember = r => require.ensure([], () => r(require('../components/addMember/addMember')), 'addMember')
 const visitor = r => require.ensure([], () => r(require('../components/visitor/visitor')), 'visitor')
@@ -32,8 +32,8 @@ export default [{
         component: cashManage,
         meta: ['数据管理', '客户信息']
       }, {
-        path: '/netProduct',
-        component: netProduct,
+        path: '/fundProduct',
+        component: fundProduct,
         meta: ['数据管理', '基金信息']
       }, {
         path: '/addProduct',
