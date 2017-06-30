@@ -14,7 +14,7 @@
       <ul class="table_item">
         <li class="li_item" v-for="title in headData">{{title}}</li>
       </ul>
-      <ul class="table_item" v-for="data in tableData"><li class="li_item" v-for="n in name">{{data[n]}}</li></ul>
+      <ul class="table_item special" v-for="data in tableData"><li class="li_item" v-for="n in name">{{data[n]}}</li></ul>
     </div>
   </div>
 </template>
@@ -47,6 +47,8 @@
     display: flex
     .table_item
       flex:1
+      &:hover
+        background-color :#EEF1F6
       &>li:first-child
         background-color :#EEF1F6
         border-top :1px solid #dfe6ec
@@ -56,4 +58,6 @@
         font-size: 14px
         color: #1f2d3d
         text-align :left
+    .special>li:first-child
+      font-weight :bold
 </style>

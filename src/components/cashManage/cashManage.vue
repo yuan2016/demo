@@ -13,6 +13,16 @@
       <el-table-column property="payback_date" label="应还日期"></el-table-column>
       <el-table-column property="count" label="应还金额"></el-table-column>
     </el-table>
+    <div class="Pagination" style="text-align: center;margin-top: 10px;">
+      <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="currentPage"
+        :page-size="20"
+        layout="total, prev, pager, next"
+        :total="count">
+      </el-pagination>
+    </div>
   </div>
 </template>
 
@@ -25,7 +35,7 @@
         currentRow: null,
         offset: 0,
         limit: 20,
-        count: 0,
+        count: 1000,
         currentPage: 1
       }
     },
@@ -34,6 +44,16 @@
         console.log(response.body)
         this.tableData = response.body
       })
+    },
+    method: {
+      handleSizeChange (val) {
+        console.log(`每页 ${val} 条`)
+      },
+      handleCurrentChange (val) {
+        this.currentPage = val
+        this.offset = (val - 1) * this.limit
+        this.getUsers()
+      }
     },
     components: {
       banner
