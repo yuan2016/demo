@@ -12,6 +12,7 @@ const addMember = r => require.ensure([], () => r(require('../components/addMemb
 const visitor = r => require.ensure([], () => r(require('../components/visitor/visitor')), 'visitor')
 const adminSet = r => require.ensure([], () => r(require('../components/adminSet/adminSet')), 'adminSet')
 const explain = r => require.ensure([], () => r(require('../components/explain/explain')), 'explain')
+const customTable = r => require.ensure([], () => r(require('../components/customTable/customTable')), 'customTable')
 
 Vue.use(Router)
 
@@ -35,6 +36,10 @@ export default [{
         path: '/fundProduct',
         component: fundProduct,
         meta: ['数据管理', '基金信息']
+      }, {
+        path: '/customTable',
+        component: customTable,
+        meta: ['数据管理', '自定义表单']
       }, {
         path: '/addProduct',
         component: addProduct,
