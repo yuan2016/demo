@@ -7,14 +7,15 @@ import ElementUI from 'element-ui'
 import './common/stylus/include.styl'
 import 'element-ui/lib/theme-default/index.css'
 import Axios from 'axios'
+import VueAxios from 'vue-axios'
 import routes from './router/index'
-import VueResource from 'vue-resource'
+//import VueResource from 'vue-resource'
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)
-Vue.use(Axios)
+Vue.use(VueAxios, Axios)
 Vue.use(VueRouter)
-Vue.use(VueResource)
+//Vue.use(VueResource)
 
 const router = new VueRouter({
   routes

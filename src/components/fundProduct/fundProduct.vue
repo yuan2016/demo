@@ -39,9 +39,9 @@
       }
     },
     created () {
-      this.$http.post('/api/fundProduct').then((response) => {
-        console.log(response.body)
-        this.fundData = response.body
+      this.axios.post('/api/fundProduct').then((response) => {
+        console.log(response.data)
+        this.fundData = response.data
       })
     },
     method: {

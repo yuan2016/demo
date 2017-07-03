@@ -33,8 +33,8 @@
       banner
     },
     created () {
-      this.$http.post('/api/cashManage').then((response) => {
-        this.tableData = response.body
+      this.axios.post('/api/cashManage').then((response) => {
+        this.tableData = response.data
       })
     }
   }

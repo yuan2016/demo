@@ -40,9 +40,9 @@
       }
     },
     created () {
-      this.$http.post('/api/cashManage').then((response) => {
-        console.log(response.body)
-        this.tableData = response.body
+      this.axios.post('/api/cashManage').then((response) => {
+        console.log(response.data)
+        this.tableData = response.data
       })
     },
     method: {

@@ -1,28 +1,23 @@
 <template>
-  <div class="visitor">
+  <div class="loginCount">
     <banner></banner>
-    <visitor-pie :pieData="pieData"></visitor-pie>
+    <keyboard :loginData="loginData"></keyboard>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
   import banner from '../common/banner/banner'
-  import visitorPie from '../charts/visitoPie/visitorPie'
+  import keyboard from '../charts/keyboard/keyboard'
   export default {
     data () {
       return {
-        pieData: {
-          beijing: 5,
-          shanghai: 2,
-          guangzhou: 3,
-          hangzhou: 3,
-          qita: 7
+        loginData: {
         }
       }
     },
     components: {
       banner,
-      visitorPie
+      keyboard
     }
   }
 </script>

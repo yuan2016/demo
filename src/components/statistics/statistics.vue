@@ -1,28 +1,23 @@
 <template>
-  <div class="visitor">
+  <div class="statistics">
     <banner></banner>
-    <visitor-pie :pieData="pieData"></visitor-pie>
+    <mixchart :loginData="loginData"></mixchart>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
   import banner from '../common/banner/banner'
-  import visitorPie from '../charts/visitoPie/visitorPie'
+  import mixchart from '../charts/mixchart/mixchart'
   export default {
     data () {
       return {
-        pieData: {
-          beijing: 5,
-          shanghai: 2,
-          guangzhou: 3,
-          hangzhou: 3,
-          qita: 7
+        loginData: {
         }
       }
     },
     components: {
       banner,
-      visitorPie
+      mixchart
     }
   }
 </script>

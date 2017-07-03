@@ -13,6 +13,8 @@ const visitor = r => require.ensure([], () => r(require('../components/visitor/v
 const adminSet = r => require.ensure([], () => r(require('../components/adminSet/adminSet')), 'adminSet')
 const explain = r => require.ensure([], () => r(require('../components/explain/explain')), 'explain')
 const customTable = r => require.ensure([], () => r(require('../components/customTable/customTable')), 'customTable')
+const loginCount = r => require.ensure([], () => r(require('../components/loginCount/loginCount')), 'loginCount')
+const statistics = r => require.ensure([], () => r(require('../components/statistics/statistics')), 'statistics')
 
 Vue.use(Router)
 
@@ -51,7 +53,15 @@ export default [{
       }, {
         path: '/visitor',
         component: visitor,
-        meta: ['图标', '用户分布']
+        meta: ['图表', '用户分布']
+      }, {
+        path: '/loginCount',
+        component: loginCount,
+        meta: ['图表', '登录数']
+      }, {
+        path: '/statistics',
+        component: statistics,
+        meta: ['图表', '统计图表']
       }, {
         path: '/adminSet',
         component: adminSet,
