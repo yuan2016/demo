@@ -38,9 +38,9 @@ router.post('/cashManage', (req, res) => {
   })
 })
 
-// 查询customers城市
-router.post('/cashManage?city', (req, res) => {
-  var select = $sql.customers.city
+// 查询customers接口
+router.post('/cashManage', (req, res) => {
+  var select = $sql.customers.select
   // var params = req.body
   // console.log(params)
   // conn.query(customers, [params.name, params.price])
@@ -49,7 +49,6 @@ router.post('/cashManage?city', (req, res) => {
       console.log(err)
     }
     if (result) {
-      console.log(result)
       jsonWrite(res, result)
     }
   })
@@ -66,6 +65,23 @@ router.post('/fundProduct', (req, res) => {
       console.log(err)
     }
     if (result) {
+      jsonWrite(res, result)
+    }
+  })
+})
+
+// 登录验证
+router.post('/login', (req, res) => {
+  var select = $sql.user.select
+  var params = req.body
+  console.log(params)
+  conn.query(select, [params.name, params.password])
+  conn.query(select, function (err, result) {
+    if (err) {
+      console.log(err)
+    }
+    if (result) {
+      console.log(result)
       jsonWrite(res, result)
     }
   })

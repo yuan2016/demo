@@ -33,3 +33,10 @@ INSERT INTO FUNDS VALUES ('002','0.13%','0.23%','0.43%','-0.23%','-0.13%','-0.58
 INSERT INTO FUNDS VALUES ('003','0.13%','0.23%','0.43%','-0.23%','-0.13%','-0.58','1.16%','-1.97%');
 INSERT INTO FUNDS VALUES ('004','0.13%','0.23%','0.43%','-0.23%','-0.13%','-0.58','1.16%','-1.97%');
 INSERT INTO FUNDS VALUES ('005','0.13%','0.23%','0.43%','-0.23%','-0.13%','-0.58','1.16%','-1.97%');
+
+CREATE TABLE user(
+  name  VARCHAR (50),
+  password  VARCHAR (50)
+);
+INSERT INTO user VALUES ('admin','admin');
+INSERT INTO user VALUES ('super','123456');

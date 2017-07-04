@@ -11,6 +11,9 @@ var sqlMap = {
   },
   funds: {
     select: 'select * from funds'
+  },
+  user: {
+    select: 'select count(*) from user where name =? and password=?'
   }
 }
 module.exports = sqlMap

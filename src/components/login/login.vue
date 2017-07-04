@@ -35,8 +35,12 @@
     },
     methods: {
       jumpTo (path) {
-        console.log(1)
-        this.$router.push(path)
+        this.axios.post('/api/login', {
+          name: this.name,
+          password: this.password
+        }).then((response) => {
+          console.log(response.data)
+        })
       }
     }
   }
