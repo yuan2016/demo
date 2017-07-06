@@ -13,7 +13,7 @@ var sqlMap = {
     select: 'select * from funds'
   },
   user: {
-    select: 'select count(*) from user where name =? and password=?'
+    select: 'select password from user where name=?'
   }
 }
 module.exports = sqlMap

@@ -33,43 +33,43 @@ export default [{
       }, {
         path: '/cashManage',
         component: cashManage,
-        meta: ['数据管理', '客户信息']
+        meta: ['用户信息管理', '客户信息']
       }, {
         path: '/fundProduct',
         component: fundProduct,
-        meta: ['数据管理', '基金信息']
+        meta: ['用户信息管理', '基金信息']
       }, {
         path: '/customTable',
         component: customTable,
-        meta: ['数据管理', '自定义表单']
+        meta: ['用户信息管理', '自定义表单']
       }, {
         path: '/addProduct',
         component: addProduct,
-        meta: ['添加数据', '添加产品']
+        meta: ['借款管理', '添加产品']
       }, {
         path: '/addMember',
         component: addMember,
-        meta: ['添加数据', '现金成员']
+        meta: ['借款管理', '现金成员']
       }, {
         path: '/visitor',
         component: visitor,
-        meta: ['图表', '用户分布']
+        meta: ['还款管理', '用户分布']
       }, {
         path: '/loginCount',
         component: loginCount,
-        meta: ['图表', '登录数']
+        meta: ['还款管理', '登录数']
       }, {
         path: '/statistics',
         component: statistics,
-        meta: ['图表', '统计图表']
+        meta: ['还款管理', '统计图表']
       }, {
         path: '/adminSet',
         component: adminSet,
-        meta: ['设置', '管理员设置']
+        meta: ['数据分析', '管理员设置']
       }, {
         path: '/explain',
         component: explain,
-        meta: ['说明', '产品说明']
+        meta: ['推广管理', '产品说明']
       }]
     }]
 }]

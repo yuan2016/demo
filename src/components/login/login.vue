@@ -22,6 +22,7 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import {saveToken} from '../../utils/storage'
   export default {
     data () {
       return {
@@ -39,7 +40,11 @@
           name: this.name,
           password: this.password
         }).then((response) => {
-          console.log(response.data)
+          if (response.data !== 1) {
+            console.log(response.data + '111111111111')
+            saveToken(response.data)
+            this.$router.push(path)
+          }
         })
       }
     }
