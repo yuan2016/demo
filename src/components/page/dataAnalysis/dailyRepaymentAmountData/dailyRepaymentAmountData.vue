@@ -82,5 +82,19 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
+  .el-col-4
+    width: 10.66667%
 
+  .el-col-20
+    width: 89.33333%
+
+  .el-table .cell,.el-table th>div
+    padding-left: 0
+    padding-right:0
+    text-align :center
+    font-size:12px
+
+  .el-table th>.cell
+    text-align :center
+    font-weight:bold
 </style>
