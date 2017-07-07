@@ -1,7 +1,8 @@
 <template>
   <div class="dailyRepaymentUnitData">
     <banner></banner>
-    <el-table :data="fundData" highlight-current-row border height="800" style="width: 100%">
+    <date-filter v-on:child-say="transferDate"></date-filter>
+    <el-table :data="fundData" highlight-current-row border height="740" style="width: 100%">
       <el-table-column property="d_date" label="日期"></el-table-column>
       <el-table-column property="overdue_num" label="逾期单数"></el-table-column>
       <el-table-column property="overdue_rate" label="逾期率"></el-table-column>
@@ -30,6 +31,8 @@
 
 <script type="text/ecmascript-6">
   import banner from '../../../common/banner/banner'
+  import dateFilter from '../../../dateFilter/dateFilter'
+  import {getNowFormatDate} from '../../../../common/js/utils'
   export default {
     data () {
       return {
@@ -38,11 +41,14 @@
         offset: 0,
         limit: 20,
         count: 0,
-        currentPage: 1
+        currentPage: 1,
+        startTime: '1991-07-22',
+        endTime: getNowFormatDate()
       }
     },
     components: {
-      banner
+      banner,
+      dateFilter
     },
     created () {
       this.axios.post('/api/dailyRepaymentUnitData/count').then((response) => {
@@ -64,14 +70,22 @@
         console.log(this.pageSize)
         this.getData()
       },
+      // 取数据
       getData () {
+        this.transferDate()
         this.axios.post('/api/dailyRepaymentUnitData', {
           limit: this.limit,
-          offset: this.offset
+          offset: this.offset,
+          startTime: this.startTime,
+          endTime: this.endTime
         }).then((response) => {
           console.log(response.data)
           this.fundData = response.data
         })
+      },
+      transferDate (dates = []) {
+        this.startTime = dates[0] || '1991-07-22'
+        this.endTime = dates[1] || getNowFormatDate()
       }
     }
   }

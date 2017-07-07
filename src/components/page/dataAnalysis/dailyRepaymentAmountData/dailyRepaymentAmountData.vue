@@ -1,7 +1,8 @@
 <template>
   <div class="dailyRepaymentAmountData">
     <banner></banner>
-    <el-table :data="fundData" highlight-current-row border height="800" style="width: 100%">
+    <date-filter v-on:child-say="transferDate"></date-filter>
+    <el-table :data="fundData" highlight-current-row border height="740" style="width: 100%">
       <el-table-column property="d_date" label="日期" width="130px"></el-table-column>
       <el-table-column property="mature_money" label="到期金额" width="130px"></el-table-column>
       <el-table-column property="overdue_money" label="逾期金额" width="130px"></el-table-column>
@@ -34,6 +35,8 @@
 
 <script type="text/ecmascript-6">
   import banner from '../../../common/banner/banner'
+  import dateFilter from '../../../dateFilter/dateFilter'
+  import {getNowFormatDate} from '../../../../common/js/utils'
   export default {
     data () {
       return {
@@ -42,11 +45,14 @@
         offset: 0,
         limit: 20,
         count: 0,
-        currentPage: 1
+        currentPage: 1,
+        startTime: '1991-07-22',
+        endTime: getNowFormatDate()
       }
     },
     components: {
-      banner
+      banner,
+      dateFilter
     },
     created () {
       this.axios.post('/api/dailyRepaymentAmountData/count').then((response) => {
@@ -69,13 +75,20 @@
         this.getData()
       },
       getData () {
+        this.transferDate()
         this.axios.post('/api/dailyRepaymentAmountData', {
           limit: this.limit,
-          offset: this.offset
+          offset: this.offset,
+          startTime: this.startTime,
+          endTime: this.endTime
         }).then((response) => {
           console.log(response.data)
           this.fundData = response.data
         })
+      },
+      transferDate (dates = []) {
+        this.startTime = dates[0] || '1991-07-22'
+        this.endTime = dates[1] || getNowFormatDate()
       }
     }
   }
