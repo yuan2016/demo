@@ -15,6 +15,14 @@ const explain = r => require.ensure([], () => r(require('../components/explain/e
 const customTable = r => require.ensure([], () => r(require('../components/customTable/customTable')), 'customTable')
 const loginCount = r => require.ensure([], () => r(require('../components/loginCount/loginCount')), 'loginCount')
 const statistics = r => require.ensure([], () => r(require('../components/statistics/statistics')), 'statistics')
+//数据分析
+const daysStageStatistics = r => require.ensure([], () => r(require('../components/page/dataAnalysis/21daysStageStatistics/21daysStageStatistics')), '21daysStageStatistics')
+const collectionManagement = r => require.ensure([], () => r(require('../components/page/dataAnalysis/collectionManagement/collectionManagement')), 'collectionManagement')
+const dailyLendingData = r => require.ensure([], () => r(require('../components/page/dataAnalysis/dailyLendingData/dailyLendingData')), 'dailyLendingData')
+const dailyRepaymentAmountData = r => require.ensure([], () => r(require('../components/page/dataAnalysis/dailyRepaymentAmountData/dailyRepaymentAmountData')), 'dailyRepaymentAmountData')
+const dailyRepaymentUnitData = r => require.ensure([], () => r(require('../components/page/dataAnalysis/dailyRepaymentUnitData/dailyRepaymentUnitData')), 'dailyRepaymentUnitData')
+const fundAnalysis = r => require.ensure([], () => r(require('../components/page/dataAnalysis/fundAnalysis/fundAnalysis')), 'fundAnalysis')
+const overdueRepaymentStatistics = r => require.ensure([], () => r(require('../components/page/dataAnalysis/overdueRepaymentStatistics/overdueRepaymentStatistics')), 'overdueRepaymentStatistics')
 
 Vue.use(Router)
 
@@ -63,9 +71,33 @@ export default [{
         component: statistics,
         meta: ['还款管理', '统计图表']
       }, {
-        path: '/adminSet',
-        component: adminSet,
-        meta: ['数据分析', '管理员设置']
+        path: '/dailyLendingData',
+        component: dailyLendingData,
+        meta: ['数据分析', '每日放款数据']
+      }, {
+        path: '/dailyRepaymentUnitData',
+        component: dailyRepaymentUnitData,
+        meta: ['数据分析', '每日还款单位数据']
+      }, {
+        path: '/daysStageStatistics',
+        component: daysStageStatistics,
+        meta: ['数据分析', '21天分期统计']
+      }, {
+        path: '/dailyRepaymentAmountData',
+        component: dailyRepaymentAmountData,
+        meta: ['数据分析', '每日还款金额数据']
+      }, {
+        path: '/overdueRepaymentStatistics',
+        component: overdueRepaymentStatistics,
+        meta: ['数据分析', '还款逾期统计']
+      }, {
+        path: '/fundAnalysis',
+        component: fundAnalysis,
+        meta: ['数据分析', '资金分析']
+      }, {
+        path: '/collectionManagement',
+        component: collectionManagement,
+        meta: ['数据分析', '催收管理']
       }, {
         path: '/explain',
         component: explain,

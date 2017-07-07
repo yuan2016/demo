@@ -36,16 +36,17 @@
     },
     methods: {
       jumpTo (path) {
-        this.axios.post('/api/login', {
-          name: this.name,
-          password: this.password
-        }).then((response) => {
-          if (response.data !== 1) {
-            console.log(response.data + '111111111111')
-            saveToken(response.data)
-            this.$router.push(path)
-          }
-        })
+        this.$router.push(path)
+//        this.axios.post('/api/login', {
+//          name: this.name,
+//          password: this.password
+//        }).then((response) => {
+//          if (response.data !== 1) {
+//            console.log(response.data + '111111111111')
+//            saveToken(response.data)
+//            this.$router.push(path)
+//          }
+//        })
       }
     }
   }

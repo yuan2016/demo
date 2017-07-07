@@ -23,13 +23,13 @@
           </el-submenu>
           <el-submenu index="6">
             <template slot="title"><i class="el-icon-setting"></i>数据分析</template>
-            <el-menu-item index="adminSet">每日放款数据</el-menu-item>
-            <el-menu-item index="adminSet">每日还款单位数据</el-menu-item>
-            <el-menu-item index="adminSet">21天分期统计</el-menu-item>
-            <el-menu-item index="adminSet">每日还款金额数据</el-menu-item>
-            <el-menu-item index="adminSet">还款逾期统计</el-menu-item>
-            <el-menu-item index="adminSet">资金分析</el-menu-item>
-            <el-menu-item index="adminSet">催收管理</el-menu-item>
+            <el-menu-item index="dailyLendingData">每日放款数据</el-menu-item>
+            <el-menu-item index="dailyRepaymentUnitData">每日还款单位数据</el-menu-item>
+            <el-menu-item index="daysStageStatistics">21天分期统计</el-menu-item>
+            <el-menu-item index="dailyRepaymentAmountData">每日还款金额数据</el-menu-item>
+            <el-menu-item index="overdueRepaymentStatistics">还款逾期统计</el-menu-item>
+            <el-menu-item index="fundAnalysis">资金分析</el-menu-item>
+            <el-menu-item index="collectionManagement">催收管理</el-menu-item>
           </el-submenu>
           <el-submenu index="7">
             <template slot="title"><i class="el-icon-warning"></i>推广管理</template>

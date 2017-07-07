@@ -1,19 +1,16 @@
-/**
- * Created by Administrator on 2017/6/27.
- */
-// node 后端服务器入口
-const userApi = require('./api/userApi')
-const bodyParser = require('body-parser')
-const express = require('express')
+let express = require('express')
+let bodyParser = require('body-parser')
+let path = require('path')
+let router = require('./route/router.js')
 
-const app = express()
+let port = process.env.PORT || 3000
+let app = express()
 
-app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
+app.use(bodyParser.json())
 
-// 注册api路由
-app.use('/api', userApi)
+app.use(router)
 
-// 监听端口
-app.listen(3000)
-console.log('success listen at port:3000......')
+app.listen(port, () => {
+  console.log(`devServer start on port:${port}`)
+})
