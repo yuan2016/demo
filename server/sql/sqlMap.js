@@ -8,7 +8,7 @@ var sqlMap = {
   dataAnalysis: {
     //每日还款金额数据
     selectAll: 'select * from ?? where d_date between ? and ? limit ?,?',
-    getCount: 'select count(*) as count from ??'
+    getCount: 'select count(*) as count from ?? where d_date between ? and ?'
   }
 }
 module.exports = sqlMap

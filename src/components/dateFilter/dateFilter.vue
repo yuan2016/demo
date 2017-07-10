@@ -3,14 +3,12 @@
     <el-date-picker
       v-model="value0"
       type="date"
-      placeholder="从"
-      :picker-options="pickerOptions0">
+      placeholder="从">
     </el-date-picker>
     <el-date-picker
       v-model="value1"
       type="date"
-      placeholder="到"
-      :picker-options="pickerOptions1">
+      placeholder="到">
     </el-date-picker>
     <el-button type="primary" @click.prevent.stop="onClickMe">搜索</el-button>
   </div>

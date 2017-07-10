@@ -1,16 +1,16 @@
 let path = '/api'
 
 module.exports = {
-  // dataAnalysis
-  dailyLendingData: path + '/dailyLendingData',
   // 每日还款单位数据
   dailyRepaymentUnitData: path + '/dailyRepaymentUnitData',
   dailyRepaymentUnitDataCount: path + '/dailyRepaymentUnitData/count',
-  daysStageStatistics: path + '/daysStageStatistics',
   // 每日还款金额数据
   dailyRepaymentAmountData: path + '/dailyRepaymentAmountData',
   dailyRepaymentAmountDataCount: path + '/dailyRepaymentAmountData/count',
-  overdueRepaymentStatistics: path + '/overdueRepaymentStatistics',
-  fundAnalysis: path + '/fundAnalysis',
-  collectionManagement: path + '/collectionManagement'
+  // 21天分期统计
+  daysStageStatistics21: path + '/daysStageStatistics21',
+  daysStageStatistics21Count: path + '/daysStageStatistics21/count',
+  // 每日放款数据
+  dailyLendingData: path + '/dailyLendingData',
+  dailyLendingDataCount: path + '/dailyLendingData/count'
 }
