@@ -15,7 +15,7 @@
       <el-button type="primary" @click.prevent.stop="search">搜索</el-button>
     </div>
     <el-table :data="fundData" highlight-current-row border height="740" style="width: 100%">
-      <el-table-column property="due_date" label="到期日" width="130px"></el-table-column>
+      <el-table-column property="d_date" label="到期日" width="130px"></el-table-column>
       <el-table-column property="loan_date_f1" label="F1放款日" width="130px"></el-table-column>
       <el-table-column property="due_amount_f1" label="F1到期金额" width="130px"></el-table-column>
       <el-table-column property="repayment_amount_f1" label="F1还款金额" width="130px"></el-table-column>

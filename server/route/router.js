@@ -16,10 +16,11 @@ router.post(api.dailyRepaymentUnitDataCount, dailyRepaymentUnitData.getCount)
 router.post(api.dailyRepaymentUnitData, dailyRepaymentUnitData.fetchAll)
 
 // 数据分析 21天分期统计
-router.post(api.daysStageStatistics21, daysStageStatistics21.getCount)
-router.post(api.daysStageStatistics21Count, daysStageStatistics21.fetchAll)
+router.post(api.daysStageStatistics21Count, daysStageStatistics21.getCount)
+router.post(api.daysStageStatistics21, daysStageStatistics21.fetchAll)
+
 // 数据分析 每日放款数据
-router.post(api.dailyLendingData, dailyLendingData.getCount)
-router.post(api.dailyLendingDataCount, dailyLendingData.fetchAll)
+router.post(api.dailyLendingDataCount, dailyLendingData.getCount)
+router.post(api.dailyLendingData, dailyLendingData.fetchAll)
 
 module.exports = router
