@@ -29,7 +29,7 @@ module.exports = {
   //21天分期统计数据
   fetchAll (req, res) {
     let params = req.body
-    func.connPool1(sql.dataAnalysis.selectAll, [tableName.daysStageStatistics21, params.startTime, params.endTime, params.offset, params.limit], function (err, rs) {
+    func.connPool(sql.dataAnalysis.selectAll, [tableName.daysStageStatistics21, params.startTime, params.endTime, params.offset, params.limit], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
         throw new Error(err)
@@ -41,7 +41,7 @@ module.exports = {
   //21天分期统计总条数
   getCount (req, res) {
     let params = req.body
-    func.connPool1(sql.dataAnalysis.getCount, [tableName.daysStageStatistics21, params.startTime, params.endTime], function (err, rs) {
+    func.connPool(sql.dataAnalysis.getCount, [tableName.daysStageStatistics21, params.startTime, params.endTime], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
         throw new Error(err)

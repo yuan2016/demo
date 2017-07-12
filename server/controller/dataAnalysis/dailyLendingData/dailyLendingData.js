@@ -14,7 +14,7 @@ module.exports = {
   //每日还款金额数据
   fetchAll (req, res) {
     let params = req.body
-    func.connPool1(sql.dataAnalysis.selectAll, [tableName.dailyLendingData, params.startTime, params.endTime, params.offset, params.limit], function (err, rs) {
+    func.connPool(sql.dataAnalysis.selectAll, [tableName.dailyLendingData, params.startTime, params.endTime, params.offset, params.limit], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
         throw new Error(err)
@@ -26,7 +26,7 @@ module.exports = {
   //每日还款金额数据总条数
   getCount (req, res) {
     let params = req.body
-    func.connPool1(sql.dataAnalysis.getCount, [tableName.dailyLendingData, params.startTime, params.endTime], function (err, rs) {
+    func.connPool(sql.dataAnalysis.getCount, [tableName.dailyLendingData, params.startTime, params.endTime], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
         throw new Error(err)

@@ -6,11 +6,9 @@
           <el-menu-item index="main"><i class="el-icon-menu"></i>首页</el-menu-item>
           <el-submenu index="2">
             <template slot="title"><i class="el-icon-document"></i>用户信息管理</template>
-            <keep-alive><el-menu-item index="userList">用户列表</el-menu-item></keep-alive>
-            <keep-alive><el-menu-item index="userAddressBook">用户通讯录</el-menu-item></keep-alive>
-            <keep-alive><el-menu-item index="bankCardsList">银行卡列表</el-menu-item></keep-alive>
-            <keep-alive><el-menu-item index="userNameAuthenticationList">用户实名认证列表</el-menu-item></keep-alive>
-            <keep-alive><el-menu-item index="userAuthenticationList">用户认证列表</el-menu-item></keep-alive>
+            <el-menu-item index="cashManage">客户信息</el-menu-item>
+            <el-menu-item index="fundProduct">基金信息</el-menu-item>
+            <el-menu-item index="customTable">自定义表单</el-menu-item>
           </el-submenu>
           <el-submenu index="3">
             <template slot="title"><i class="el-icon-plus"></i>借款管理</template>
@@ -25,13 +23,13 @@
           </el-submenu>
           <el-submenu index="6">
             <template slot="title"><i class="el-icon-setting"></i>数据分析</template>
-            <keep-alive><el-menu-item index="dailyLendingData">每日放款数据</el-menu-item></keep-alive>
-            <keep-alive><el-menu-item index="dailyRepaymentUnitData">每日还款单位数据</el-menu-item></keep-alive>
-            <keep-alive><el-menu-item index="daysStageStatistics">21天分期统计</el-menu-item></keep-alive>
-            <keep-alive><el-menu-item index="dailyRepaymentAmountData">每日还款金额数据</el-menu-item></keep-alive>
-            <keep-alive><el-menu-item index="overdueRepaymentStatistics">还款逾期统计</el-menu-item></keep-alive>
-            <keep-alive><el-menu-item index="fundAnalysis">资金分析</el-menu-item></keep-alive>
-            <keep-alive> <el-menu-item index="collectionManagement">催收管理</el-menu-item></keep-alive>
+            <el-menu-item index="dailyLendingData">每日放款数据</el-menu-item>
+            <el-menu-item index="dailyRepaymentUnitData">每日还款单位数据</el-menu-item>
+            <el-menu-item index="daysStageStatistics">21天分期统计</el-menu-item>
+            <el-menu-item index="dailyRepaymentAmountData">每日还款金额数据</el-menu-item>
+            <el-menu-item index="overdueRepaymentStatistics">还款逾期统计</el-menu-item>
+            <el-menu-item index="fundAnalysis">资金分析</el-menu-item>
+            <el-menu-item index="collectionManagement">催收管理</el-menu-item>
           </el-submenu>
           <el-submenu index="7">
             <template slot="title"><i class="el-icon-warning"></i>推广管理</template>
