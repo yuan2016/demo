@@ -15,6 +15,12 @@ const explain = r => require.ensure([], () => r(require('../components/explain/e
 const customTable = r => require.ensure([], () => r(require('../components/customTable/customTable')), 'customTable')
 const loginCount = r => require.ensure([], () => r(require('../components/loginCount/loginCount')), 'loginCount')
 const statistics = r => require.ensure([], () => r(require('../components/statistics/statistics')), 'statistics')
+//用户信息管理
+const userList = r => require.ensure([], () => r(require('../components/page/userInformationManagement/userList/userList')), 'userList')
+const userAddressBook = r => require.ensure([], () => r(require('../components/page/userInformationManagement/userAddressBook/userAddressBook')), 'userAddressBook')
+const bankCardsList = r => require.ensure([], () => r(require('../components/page/userInformationManagement/bankCardsList/bankCardsList')), 'bankCardsList')
+const userNameAuthenticationList = r => require.ensure([], () => r(require('../components/page/userInformationManagement/userNameAuthenticationList/userNameAuthenticationList')), 'userNameAuthenticationList')
+const userAuthenticationList = r => require.ensure([], () => r(require('../components/page/userInformationManagement/userAuthenticationList/userAuthenticationList')), 'userAuthenticationList')
 //数据分析
 const daysStageStatistics = r => require.ensure([], () => r(require('../components/page/dataAnalysis/21daysStageStatistics/21daysStageStatistics')), '21daysStageStatistics')
 const collectionManagement = r => require.ensure([], () => r(require('../components/page/dataAnalysis/collectionManagement/collectionManagement')), 'collectionManagement')
@@ -39,17 +45,25 @@ export default [{
         component: main,
         meta: []
       }, {
-        path: '/cashManage',
-        component: cashManage,
-        meta: ['用户信息管理', '客户信息']
+        path: '/userList',
+        component: userList,
+        meta: ['用户信息管理', '用户列表']
       }, {
-        path: '/fundProduct',
-        component: fundProduct,
-        meta: ['用户信息管理', '基金信息']
+        path: '/userAddressBook',
+        component: userAddressBook,
+        meta: ['用户信息管理', '用户通讯录']
       }, {
-        path: '/customTable',
-        component: customTable,
-        meta: ['用户信息管理', '自定义表单']
+        path: '/bankCardsList',
+        component: bankCardsList,
+        meta: ['用户信息管理', '银行卡列表']
+      }, {
+        path: '/userNameAuthenticationList',
+        component: userNameAuthenticationList,
+        meta: ['用户信息管理', '用户实名认证列表']
+      }, {
+        path: '/userAuthenticationList',
+        component: userAuthenticationList,
+        meta: ['用户信息管理', '用户认证列表']
       }, {
         path: '/addProduct',
         component: addProduct,

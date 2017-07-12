@@ -1,34 +1,61 @@
 <template>
   <div class="login fillcontain">
     <transition name="form-fade" mode="in-out">
-    <section class="form_contianer" v-show="showLogin">
-      <div class="manage_tip">
-        <p>报表系统</p>
-      </div>
-      <el-form ref="loginForm" class="loginForm">
-        <el-form-item prop="username">
-          <el-input v-model="name" placeholder="用户名"></el-input>
-        </el-form-item>
-        <el-form-item prop="password">
-          <el-input type="password" placeholder="密码" v-model="password"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" class="submit_btn" @click="jumpTo({path:'/home'})">登陆</el-button>
-        </el-form-item>
-      </el-form>
-    </section>
+      <section class="form_contianer" v-show="showLogin">
+        <div class="manage_tip">
+          <p>报表系统</p>
+        </div>
+        <el-form ref="loginForm" class="loginForm" :rules="loginRules" :model="loginForm">
+          <el-form-item prop="email">
+            <el-input type="text" placeholder="邮箱" v-model="loginForm.email"></el-input>
+          </el-form-item>
+          <el-form-item prop="password">
+            <el-input type="password" placeholder="密码" v-model="loginForm.password"></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" class="submit_btn" :loading="loading" @click="jumpTo({path:'/home'})">登陆
+            </el-button>
+          </el-form-item>
+        </el-form>
+      </section>
     </transition>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-  import {saveToken} from '../../utils/storage'
+  import { saveToken } from '../../utils/storage'
+  import { isCfEmail } from '../../utils/validate'
   export default {
     data () {
+      const validateEmail = (rule, value, callback) => {
+        if (!isCfEmail(value)) {
+          callback(new Error('请输入正确的合法邮箱'))
+        } else {
+          callback()
+        }
+      }
+      const validatePass = (rule, value, callback) => {
+        if (value.length < 6) {
+          callback(new Error('密码不能小于6位'))
+        } else {
+          callback()
+        }
+      }
       return {
-        name: '',
-        password: '',
-        showLogin: false
+        loginForm: {
+          email: '',
+          password: ''
+        },
+        showLogin: false,
+        loading: false,
+        loginRules: {
+          email: [
+            {required: true, trigger: 'blur', validator: validateEmail}
+          ],
+          password: [
+            {required: true, trigger: 'blur', validator: validatePass}
+          ]
+        }
       }
     },
     mounted () {
@@ -37,10 +64,7 @@
     methods: {
       jumpTo (path) {
         this.$router.push(path)
-//        this.axios.post('/api/login', {
-//          name: this.name,
-//          password: this.password
-//        }).then((response) => {
+//        this.axios.post('/api/login', loginForm).then((response) => {
 //          if (response.data !== 1) {
 //            console.log(response.data + '111111111111')
 //            saveToken(response.data)
@@ -55,15 +79,15 @@
 <style lang="stylus" rel="stylesheet/stylus">
   .login
     background-color: #1d8ce0
-    background-image :url(../../../resource/image/background.jpg)
-    background-size:cover
+    background-image: url(../../../resource/image/background.jpg)
+    background-size: cover
     .form_contianer
       position: absolute
       top: 50%
       left: 50%
       transform: translate(-50%, -50%)
       width: 320px
-      height:160px
+      height: 160px
       padding: 25px
       border-radius: 5px
       text-align: center
@@ -80,9 +104,9 @@
         left: 0
         p
           font-size: 50px
-          color :#fff
+          color: #fff
       .loginForm
         .submit_btn
-          width:100%
+          width: 100%
           color: #fff
 </style>

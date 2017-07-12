@@ -15,7 +15,7 @@
       <el-button type="primary" @click.prevent.stop="search">搜索</el-button>
     </div>
     <el-table :data="fundData" highlight-current-row border height="740" style="width: 100%">
-      <el-table-column property="d_date" label="日期" width="130px"></el-table-column>
+      <el-table-column property="d_date" label="日期" width="130px" sortable></el-table-column>
       <el-table-column property="register_num" label="注册人数" width="130px"></el-table-column>
       <el-table-column property="loan_num" label="借款人数" width="130px"></el-table-column>
       <el-table-column property="success_loan_num" label="成功借款人数" width="130px"></el-table-column>
