@@ -4,25 +4,49 @@ import App from '../App'
 
 const login = r => require.ensure([], () => r(require('../components/login/login')), 'login')
 const home = r => require.ensure([], () => r(require('../components/home/home')), 'home')
-const main = r => require.ensure([], () => r(require('../components/main/main')), 'main')
-const cashManage = r => require.ensure([], () => r(require('../components/cashManage/cashManage')), 'cashManage')
-const fundProduct = r => require.ensure([], () => r(require('../components/fundProduct/fundProduct')), 'fundProduct')
-const addProduct = r => require.ensure([], () => r(require('../components/addProduct/addProduct')), 'addProduct')
-const addMember = r => require.ensure([], () => r(require('../components/addMember/addMember')), 'addMember')
-const visitor = r => require.ensure([], () => r(require('../components/visitor/visitor')), 'visitor')
-const adminSet = r => require.ensure([], () => r(require('../components/adminSet/adminSet')), 'adminSet')
-const explain = r => require.ensure([], () => r(require('../components/explain/explain')), 'explain')
-const customTable = r => require.ensure([], () => r(require('../components/customTable/customTable')), 'customTable')
-const loginCount = r => require.ensure([], () => r(require('../components/loginCount/loginCount')), 'loginCount')
-const statistics = r => require.ensure([], () => r(require('../components/statistics/statistics')), 'statistics')
+const main = r => require.ensure([], () => r(require('../components/page/main/main')), 'main')
+//用户信息管理
+const userList = r => require.ensure([], () => r(require('../components/page/userInformationManagement/userList/userList')), 'userList')
+const userAddressBook = r => require.ensure([], () => r(require('../components/page/userInformationManagement/userAddressBook/userAddressBook')), 'userAddressBook')
+const bankCardsList = r => require.ensure([], () => r(require('../components/page/userInformationManagement/bankCardsList/bankCardsList')), 'bankCardsList')
+const userNameAuthenticationList = r => require.ensure([], () => r(require('../components/page/userInformationManagement/userNameAuthenticationList/userNameAuthenticationList')), 'userNameAuthenticationList')
+const userAuthenticationList = r => require.ensure([], () => r(require('../components/page/userInformationManagement/userAuthenticationList/userAuthenticationList')), 'userAuthenticationList')
+//借款管理
+const assetInformation = r => require.ensure([], () => r(require('../components/page/loanManagement/assetInformation/assetInformation')), 'assetInformation')
+const loanApplicationsList = r => require.ensure([], () => r(require('../components/page/loanManagement/loanApplicationsList/loanApplicationsList')), 'loanApplicationsList')
+const loanAuditList = r => require.ensure([], () => r(require('../components/page/loanManagement/loanAuditList/loanAuditList')), 'loanAuditList')
+const raiseQuotaRecord = r => require.ensure([], () => r(require('../components/page/loanManagement/raiseQuotaRecord/raiseQuotaRecord')), 'raiseQuotaRecord')
+const reconciliationFunction = r => require.ensure([], () => r(require('../components/page/loanManagement/reconciliationFunction/reconciliationFunction')), 'reconciliationFunction')
+//还款管理
+//还款列表
+const waitingForReturnList = r => require.ensure([], () => r(require('../components/page/repaymentManagement/repaymentList/waitingForReturnList/waitingForReturnList')), 'waitingForReturnList')
+const returnedList = r => require.ensure([], () => r(require('../components/page/repaymentManagement/repaymentList/returnedList/returnedList')), 'returnedList')
+//对账列表
+const repaymentReconciliation = r => require.ensure([], () => r(require('../components/page/repaymentManagement/reconciliationList/repaymentReconciliation/repaymentReconciliation')), 'repaymentReconciliation')
+const renewalReconciliation = r => require.ensure([], () => r(require('../components/page/repaymentManagement/reconciliationList/renewalReconciliation/renewalReconciliation')), 'renewalReconciliation')
+//退款列表
+const repaymentDetails = r => require.ensure([], () => r(require('../components/page/repaymentManagement/refundList/repaymentDetails/repaymentDetails')), 'repaymentDetails')
+const renewalParticulars = r => require.ensure([], () => r(require('../components/page/repaymentManagement/refundList/renewalParticulars/renewalParticulars')), 'renewalParticulars')
+const rebackedList = r => require.ensure([], () => r(require('../components/page/repaymentManagement/refundList/rebackedList/rebackedList')), 'rebackedList')
+//续期管理
+const renewalsList = r => require.ensure([], () => r(require('../components/page/repaymentManagement/renewalManagement/renewalsList/renewalsList')), 'renewalsList')
+
 //数据分析
-const daysStageStatistics = r => require.ensure([], () => r(require('../components/page/dataAnalysis/21daysStageStatistics/21daysStageStatistics')), '21daysStageStatistics')
-const collectionManagement = r => require.ensure([], () => r(require('../components/page/dataAnalysis/collectionManagement/collectionManagement')), 'collectionManagement')
-const dailyLendingData = r => require.ensure([], () => r(require('../components/page/dataAnalysis/dailyLendingData/dailyLendingData')), 'dailyLendingData')
-const dailyRepaymentAmountData = r => require.ensure([], () => r(require('../components/page/dataAnalysis/dailyRepaymentAmountData/dailyRepaymentAmountData')), 'dailyRepaymentAmountData')
-const dailyRepaymentUnitData = r => require.ensure([], () => r(require('../components/page/dataAnalysis/dailyRepaymentUnitData/dailyRepaymentUnitData')), 'dailyRepaymentUnitData')
-const fundAnalysis = r => require.ensure([], () => r(require('../components/page/dataAnalysis/fundAnalysis/fundAnalysis')), 'fundAnalysis')
-const overdueRepaymentStatistics = r => require.ensure([], () => r(require('../components/page/dataAnalysis/overdueRepaymentStatistics/overdueRepaymentStatistics')), 'overdueRepaymentStatistics')
+const daysStageStatistics = r => require.ensure([], () => r(require('../components/page/dataAnalysis/financialData/21daysStageStatistics/21daysStageStatistics')), '21daysStageStatistics')
+const collectionManagement = r => require.ensure([], () => r(require('../components/page/dataAnalysis/financialData/collectionManagement/collectionManagement')), 'collectionManagement')
+const dailyLendingData = r => require.ensure([], () => r(require('../components/page/dataAnalysis/financialData/dailyLendingData/dailyLendingData')), 'dailyLendingData')
+const dailyRepaymentAmountData = r => require.ensure([], () => r(require('../components/page/dataAnalysis/financialData/dailyRepaymentAmountData/dailyRepaymentAmountData')), 'dailyRepaymentAmountData')
+const dailyRepaymentUnitData = r => require.ensure([], () => r(require('../components/page/dataAnalysis/financialData/dailyRepaymentUnitData/dailyRepaymentUnitData')), 'dailyRepaymentUnitData')
+const fundAnalysis = r => require.ensure([], () => r(require('../components/page/dataAnalysis/financialData/fundAnalysis/fundAnalysis')), 'fundAnalysis')
+const overdueRepaymentStatistics = r => require.ensure([], () => r(require('../components/page/dataAnalysis/financialData/overdueRepaymentStatistics/overdueRepaymentStatistics')), 'overdueRepaymentStatistics')
+const platformData = r => require.ensure([], () => r(require('../components/page/dataAnalysis/dataReport/platformData/platformData.vue')), 'platformData')
+
+//推广管理
+const promotionChannel = r => require.ensure([], () => r(require('../components/page/promotionManagement/promotionChannel/promotionChannel')), 'promotionChannel')
+const promoterManagement = r => require.ensure([], () => r(require('../components/page/promotionManagement/promoterManagement/promoterManagement')), 'promoterManagement')
+const promotionChannelStatistics = r => require.ensure([], () => r(require('../components/page/promotionManagement/promotionChannelStatistics/promotionChannelStatistics')), 'promotionChannelStatistics')
+const promotionRegionStatistics = r => require.ensure([], () => r(require('../components/page/promotionManagement/promotionRegionStatistics/promotionRegionStatistics')), 'promotionRegionStatistics')
+const channelStatisticsSummary = r => require.ensure([], () => r(require('../components/page/promotionManagement/channelStatisticsSummary/channelStatisticsSummary')), 'channelStatisticsSummary')
 
 Vue.use(Router)
 
@@ -39,37 +63,77 @@ export default [{
         component: main,
         meta: []
       }, {
-        path: '/cashManage',
-        component: cashManage,
-        meta: ['用户信息管理', '客户信息']
+        path: '/userList',
+        component: userList,
+        meta: ['用户信息管理', '用户列表']
       }, {
-        path: '/fundProduct',
-        component: fundProduct,
-        meta: ['用户信息管理', '基金信息']
+        path: '/userAddressBook',
+        component: userAddressBook,
+        meta: ['用户信息管理', '用户通讯录']
       }, {
-        path: '/customTable',
-        component: customTable,
-        meta: ['用户信息管理', '自定义表单']
+        path: '/bankCardsList',
+        component: bankCardsList,
+        meta: ['用户信息管理', '银行卡列表']
       }, {
-        path: '/addProduct',
-        component: addProduct,
-        meta: ['借款管理', '添加产品']
+        path: '/userNameAuthenticationList',
+        component: userNameAuthenticationList,
+        meta: ['用户信息管理', '用户实名认证列表']
       }, {
-        path: '/addMember',
-        component: addMember,
-        meta: ['借款管理', '现金成员']
+        path: '/userAuthenticationList',
+        component: userAuthenticationList,
+        meta: ['用户信息管理', '用户认证列表']
       }, {
-        path: '/visitor',
-        component: visitor,
-        meta: ['还款管理', '用户分布']
+        path: '/loanApplicationsList',
+        component: loanApplicationsList,
+        meta: ['借款管理', '借款申请列表']
       }, {
-        path: '/loginCount',
-        component: loginCount,
-        meta: ['还款管理', '登录数']
+        path: '/loanAuditList',
+        component: loanAuditList,
+        meta: ['借款管理', '放款审核列表']
       }, {
-        path: '/statistics',
-        component: statistics,
-        meta: ['还款管理', '统计图表']
+        path: '/raiseQuotaRecord',
+        component: raiseQuotaRecord,
+        meta: ['借款管理', '提额记录表']
+      }, {
+        path: '/reconciliationFunction',
+        component: reconciliationFunction,
+        meta: ['借款管理', '对账功能']
+      }, {
+        path: '/assetInformation',
+        component: assetInformation,
+        meta: ['借款管理', '资产信息-招财猫']
+      }, {
+        path: '/waitingForReturnList',
+        component: waitingForReturnList,
+        meta: ['还款管理', '还款列表', '待还列表']
+      }, {
+        path: '/returnedList',
+        component: returnedList,
+        meta: ['还款管理', '还款列表', '已还列表']
+      }, {
+        path: '/repaymentReconciliation',
+        component: repaymentReconciliation,
+        meta: ['还款管理', '对账列表', '还款对账']
+      }, {
+        path: '/renewalReconciliation',
+        component: renewalReconciliation,
+        meta: ['还款管理', '对账列表', '续期对账']
+      }, {
+        path: '/repaymentDetails',
+        component: repaymentDetails,
+        meta: ['还款管理', '退款列表', '还款详情']
+      }, {
+        path: '/renewalParticulars',
+        component: renewalParticulars,
+        meta: ['还款管理', '退款列表', '续期详情']
+      }, {
+        path: '/rebackedList',
+        component: rebackedList,
+        meta: ['还款管理', '退款列表', '已退列表']
+      }, {
+        path: '/renewalsList',
+        component: renewalsList,
+        meta: ['还款管理', '续期管理', '续期列表']
       }, {
         path: '/dailyLendingData',
         component: dailyLendingData,
@@ -77,31 +141,51 @@ export default [{
       }, {
         path: '/dailyRepaymentUnitData',
         component: dailyRepaymentUnitData,
-        meta: ['数据分析', '每日还款单位数据']
+        meta: ['数据分析', '财务数据', '每日还款单位数据']
       }, {
         path: '/daysStageStatistics',
         component: daysStageStatistics,
-        meta: ['数据分析', '21天分期统计']
+        meta: ['数据分析', '财务数据', '21天分期统计']
       }, {
         path: '/dailyRepaymentAmountData',
         component: dailyRepaymentAmountData,
-        meta: ['数据分析', '每日还款金额数据']
+        meta: ['数据分析', '财务数据', '每日还款金额数据']
       }, {
         path: '/overdueRepaymentStatistics',
         component: overdueRepaymentStatistics,
-        meta: ['数据分析', '还款逾期统计']
+        meta: ['数据分析', '财务数据', '还款逾期统计']
       }, {
         path: '/fundAnalysis',
         component: fundAnalysis,
-        meta: ['数据分析', '资金分析']
+        meta: ['数据分析', '财务数据', '资金分析']
       }, {
         path: '/collectionManagement',
         component: collectionManagement,
-        meta: ['数据分析', '催收管理']
+        meta: ['数据分析', '财务数据', '催收管理']
       }, {
-        path: '/explain',
-        component: explain,
-        meta: ['推广管理', '产品说明']
+        path: '/platformData',
+        component: platformData,
+        meta: ['数据分析', '数据报表', '平台数据']
+      }, {
+        path: '/promotionChannel',
+        component: promotionChannel,
+        meta: ['推广管理', '推广渠道']
+      }, {
+        path: '/promoterManagement',
+        component: promoterManagement,
+        meta: ['推广管理', '推广员管理']
+      }, {
+        path: '/promotionChannelStatistics',
+        component: promotionChannelStatistics,
+        meta: ['推广管理', '推广统计(渠道)']
+      }, {
+        path: '/promotionRegionStatistics',
+        component: promotionRegionStatistics,
+        meta: ['推广管理', '推广统计(地区)']
+      }, {
+        path: '/channelStatisticsSummary',
+        component: channelStatisticsSummary,
+        meta: ['推广管理', '渠道统计汇总']
       }]
     }]
 }]

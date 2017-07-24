@@ -9,7 +9,7 @@ import 'element-ui/lib/theme-default/index.css'
 import Axios from 'axios'
 import VueAxios from 'vue-axios'
 import routes from './router/index'
-import {getToken} from './utils/storage'
+import { getToken } from './utils/storage'
 //import VueResource from 'vue-resource'
 
 Vue.config.productionTip = false
@@ -21,7 +21,7 @@ Vue.use(VueRouter)
 const router = new VueRouter({
   routes
 })
-// const whiteList = ['/login']// 不重定向白名单
+const whiteList = ['/login']// 不重定向白名单
 // router.beforeEach((to, from, next) => {
 //   if (whiteList.indexOf(to.path) !== -1) { // 在免登录白名单，直接进入
 //     next()
@@ -34,10 +34,26 @@ const router = new VueRouter({
 //   }
 // })
 
+router.beforeEach((to, from, next) => {
+  if (getToken()) {
+    if (to.path === '/login') {
+      next({path: '/main'})
+    } else {
+      next()
+    }
+  } else {
+    if (whiteList.indexOf(to.path) !== -1) { // 在免登录白名单，直接进入
+      next()
+    } else {
+      next('/login') // 否则全部重定向到登录页
+    }
+  }
+})
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
   template: '<App/>',
-  components: { App }
+  components: {App}
 })

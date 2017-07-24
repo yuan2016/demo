@@ -1,14 +1,20 @@
 export function saveToken (value) {
   let token = 'token'
-  var Days = 1
-  var exp = new Date()
-  exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1000)
-  document.cookie = token + '=' + value + ';expires=' + exp.toGMTString()
+  var Days = 1 / 24
+  // var exp = new Date()
+  // exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1000)
+  // document.cookie = token + '=' + value + ';expires=' + exp.toGMTString()
+  setCookie(token, value, Days)
 }
 
 export function getToken () {
   let token = 'token'
   return getCookie(token)
+}
+
+export function clearToken () {
+  let token = 'token'
+  setCookie(token, '', -1)
 }
 
 function getCookie (name) {
@@ -19,4 +25,11 @@ function getCookie (name) {
   } else {
     return null
   }
+}
+
+function setCookie (cname, cvalue, exdays) {
+  var d = new Date()
+  d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000))
+  var expires = 'expires=' + d.toUTCString()
+  document.cookie = cname + '=' + cvalue + '; ' + expires
 }

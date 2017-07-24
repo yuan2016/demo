@@ -1,10 +1,27 @@
 let mysql = require('mysql')
 let db = require('../config/db')
-let pool = mysql.createPool(db)
+let pool1 = mysql.createPool(db.report)
+let pool2 = mysql.createPool(db.xianjinkd)
 
 module.exports = {
-  connPool (sql, val, cb) {
-    pool.getConnection((err, conn) => {
+  connPool1 (sql, val, cb) {
+    pool1.getConnection((err, conn) => {
+      if (err) {
+        console.log(err)
+        throw new Error(err)
+      }
+      let q = conn.query(sql, val, (err, rows) => {
+        if (err) {
+          console.log(err)
+          throw new Error(err)
+        }
+        cb(err, rows)
+        conn.release()
+      })
+    })
+  },
+  connPool2 (sql, val, cb) {
+    pool2.getConnection((err, conn) => {
       if (err) {
         console.log(err)
         throw new Error(err)

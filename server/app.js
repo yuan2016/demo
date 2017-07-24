@@ -6,6 +6,7 @@ let router = require('./route/router.js')
 let port = process.env.PORT || 3000
 let app = express()
 
+app.use(express.static(path.resolve(__dirname, '../dist')))
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
 
