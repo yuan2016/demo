@@ -2,19 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="181d2e6f-b045-479f-8e94-e4e94e6e67e8" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/components/addMember/addMember.vue" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/components/addProduct/addProduct.vue" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/components/adminSet/adminSet.vue" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/components/cashManage/cashManage.vue" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/components/customTable/customTable.vue" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/components/data/data.vue" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/components/dateFilter/dateFilter.vue" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/components/explain/explain.vue" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/components/fundProduct/fundProduct.vue" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/components/loginCount/loginCount.vue" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/components/statistics/statistics.vue" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/components/template.vue" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/components/visitor/visitor.vue" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -28,7 +15,18 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="app.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/server/app.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="69">
+              <caret line="3" column="41" lean-forward="true" selection-start-line="3" selection-start-column="41" selection-end-line="3" selection-end-column="41" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -194,17 +192,6 @@
               <item name="demo" type="b2602c69:ProjectViewProjectNode" />
               <item name="demo" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="demo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="demo" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="demo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="demo" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -219,7 +206,7 @@
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.selected.package.eslint" value="E:\demo\node_modules\eslint" />
     <property name="standardjs.codestyle.accepted" value="true" />
-    <property name="settings.editor.selected.configurable" value="vcs.Git" />
+    <property name="settings.editor.selected.configurable" value="settings.github" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -341,12 +328,20 @@
       <workItem from="1500515655936" duration="25792000" />
       <workItem from="1500602022214" duration="43229000" />
       <workItem from="1500861109897" duration="17564000" />
-      <workItem from="1500889799407" duration="1057000" />
+      <workItem from="1500889799407" duration="1171000" />
     </task>
+    <task id="LOCAL-00001" summary="删除">
+      <created>1500891212654</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1500891212654</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="228893000" />
+    <option name="totallyTimeSpent" value="229007000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="0" />
@@ -376,6 +371,10 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="删除" />
+    <option name="LAST_COMMIT_MESSAGE" value="删除" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <option name="time" value="8" />
@@ -383,13 +382,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/components/page/repaymentManagement/repaymentList/waitingForReturnList/waitingForReturnList.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="11" column="134" lean-forward="false" selection-start-line="11" selection-start-column="134" selection-end-line="11" selection-end-column="134" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/page/dataAnalysis/financialData/21daysStageStatistics/21daysStageStatistics.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
@@ -733,6 +725,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-55">
           <caret line="47" column="281" lean-forward="false" selection-start-line="47" selection-start-column="281" selection-end-line="47" selection-end-column="281" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="69">
+          <caret line="3" column="41" lean-forward="true" selection-start-line="3" selection-start-column="41" selection-end-line="3" selection-end-column="41" />
+          <folding />
         </state>
       </provider>
     </entry>
