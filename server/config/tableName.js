@@ -113,6 +113,7 @@ module.exports = {
   // 推广统计(渠道)
   promotionChannelStatistics: 'PR_PM_PROMOTION_STATISTIC_CHANNEL',
   // 推广统计(地区)
-  promotionRegionStatistics: 'PR_PM_PROMOTION_STATISTIC_REGION'
+  promotionRegionStatistics: 'PR_PM_PROMOTION_STATISTIC_REGION',
   // 渠道统计汇总
+  channelStatisticsSummary: 'pr_pm_channel_statistic_sum'
 }

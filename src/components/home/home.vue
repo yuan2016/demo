@@ -2,7 +2,7 @@
   <div class="manage_page fillcontain">
     <el-row style="height: 100%;">
       <el-col :span="4" style="min-height: 100%; background-color: #324057;">
-        <el-menu :default-active="defaultActive" style="min-height: 100%;" theme="dark" router>
+        <el-menu :default-active="defaultActive" unique-opened style="min-height: 100%;" theme="dark" router>
           <el-menu-item index="main"><i class="el-icon-menu"></i>首页</el-menu-item>
           <el-submenu index="1">
             <template slot="title"><i class="el-icon-document"></i>用户信息管理</template>
@@ -76,7 +76,7 @@
             <el-menu-item index="promoterManagement"><i class="el-icon-star-on"></i>推广员管理</el-menu-item>
             <el-menu-item index="promotionChannelStatistics"><i class="el-icon-star-on"></i>推广统计(渠道)</el-menu-item>
             <el-menu-item index="promotionRegionStatistics"><i class="el-icon-star-on"></i>推广统计(地区)</el-menu-item>
-            <!--<el-menu-item index="channelStatisticsSummary"><i class="el-icon-star-on"></i>渠道统计汇总</el-menu-item>-->
+            <el-menu-item index="channelStatisticsSummary"><i class="el-icon-star-on"></i>渠道统计汇总</el-menu-item>
           </el-submenu>
         </el-menu>
       </el-col>
@@ -101,10 +101,10 @@
 
 <style lang="stylus" rel="stylesheet/stylus">
   .el-col-4
-    width: 10.66667%
+    width: 15.66667%
 
   .el-col-20
-    width: 89.33333%
+    width: 84.33333%
 
   .el-table .cell, .el-table th > div
     padding-left: 0

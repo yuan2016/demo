@@ -40,6 +40,7 @@ let promotionChannel = require('../controller/promotionManagement/promotionChann
 let promoterManagement = require('../controller/promotionManagement/promoterManagement/promoterManagement')
 let promotionChannelStatistics = require('../controller/promotionManagement/promotionChannelStatistics/promotionChannelStatistics')
 let promotionRegionStatistics = require('../controller/promotionManagement/promotionRegionStatistics/promotionRegionStatistics')
+let channelStatisticsSummary = require('../controller/promotionManagement/channelStatisticsSummary/channelStatisticsSummary')
 
 let api = require('../api')
 
@@ -169,5 +170,7 @@ router.post(api.promotionChannelStatistics, promotionChannelStatistics.fetchAll)
 //推广统计(地区)
 router.post(api.promotionRegionStatisticsCount, promotionRegionStatistics.getCount)
 router.post(api.promotionRegionStatistics, promotionRegionStatistics.fetchAll)
-
+//渠道统计汇总
+router.post(api.channelStatisticsSummaryCount, channelStatisticsSummary.getCount)
+router.post(api.channelStatisticsSummary, channelStatisticsSummary.fetchAll)
 module.exports = router

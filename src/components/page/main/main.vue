@@ -223,7 +223,7 @@
       font-size: 0px
       border: 1px solid #ccc
       border-radius: 3px
-      .userStatisticsLeft, .userStatisticsRight, .riskControlStatisticsLeft, .riskControlStatisticsMiddle, .riskControlStatisticsRight
+      .userStatisticsLeft, .userStatisticsRight
         flex: 1
         li
           margin-bottom: 2px
@@ -252,12 +252,41 @@
             line-height: 40px
             text-align: center
             background-color: #F6F6F6
+      .riskControlStatisticsLeft, .riskControlStatisticsMiddle, .riskControlStatisticsRight
+        flex: 1
+        li
+          margin-bottom: 2px
+          .userLeft
+            display: inline-block
+            width: 150px
+            color: #666
+            font-size: 15px
+            line-height: 40px
+            background-color: #F6F6F6
+            text-align: right
+          .userMiddle
+            display: inline-block
+            padding-left: 5px
+            width: 110px
+            font-size: 15px
+            line-height: 40px
+            color: #000
+            font-weight: bold
+            background-color: #E9E9E9
+          .userRight
+            display: inline-block
+            width: 70px
+            color: #666
+            font-size: 15px
+            line-height: 40px
+            text-align: center
+            background-color: #F6F6F6
 
-    .el-col-4
-      width: 10.66667%
+  .el-col-4
+    width: 15.66667%
 
-    .el-col-20
-      width: 89.33333%
+  .el-col-20
+    width: 84.33333%
 
     .el-table .cell, .el-table th > div
       padding-left: 0

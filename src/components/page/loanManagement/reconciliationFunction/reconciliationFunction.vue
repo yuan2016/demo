@@ -153,10 +153,10 @@
       width: 90px
 
   .el-col-4
-    width: 10.66667%
+    width: 15.66667%
 
   .el-col-20
-    width: 89.33333%
+    width: 84.33333%
 
   .el-table .cell, .el-table th > div
     padding-left: 0

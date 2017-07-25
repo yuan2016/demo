@@ -107,5 +107,8 @@ module.exports = {
   promotionChannelStatisticsCount: path + '/promotionChannelStatistics/count',
   // 推广统计(地区)
   promotionRegionStatistics: path + '/promotionRegionStatistics',
-  promotionRegionStatisticsCount: path + '/promotionRegionStatistics/count'
+  promotionRegionStatisticsCount: path + '/promotionRegionStatistics/count',
+  //渠道统计汇总
+  channelStatisticsSummary: path + '/channelStatisticsSummary',
+  channelStatisticsSummaryCount: path + '/channelStatisticsSummary/count'
 }

@@ -139,6 +139,11 @@ var sqlMap = {
       selectAllFront: 'select * from ?? where (d_date between ? and ?) and ',
       selectAllBack: ' order by d_date desc limit ?,?',
       getCount: 'select count(*) as count from ?? where d_date between ? and ?'
+    },
+    channelStatisticsSummary: {
+      selectAllFront: 'select * from ?? where ',
+      selectAllBack: ' limit ?,?',
+      getCount: 'select count(*) as count from ??'
     }
   }
 }

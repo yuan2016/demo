@@ -2,8 +2,6 @@
   <div class="promotionChannelStatistics">
     <banner></banner>
     <div class="date-filter">
-      <span class="managerFront">渠道商：</span>
-      <el-input size="small" type="text" placeholder="请输入内容" class="managerText" v-model.trim="channel_trader"></el-input>
       <span class="managerFront">渠道商名称：</span>
       <el-input size="small" type="text" placeholder="请输入内容" class="managerText" v-model.trim="channel_trader_name"></el-input>
       <span class="managerFront">日期：</span>
@@ -12,7 +10,6 @@
       <el-button type="primary" size="small" class="userButton" @click.prevent.stop="search">搜索</el-button>
     </div>
     <el-table v-loading.body="loading" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border height="740" stripe style="width: 100%">
-      <el-table-column property="channel_trader" label="渠道商"></el-table-column>
       <el-table-column property="channel_trader_name" label="渠道商名称"></el-table-column>
       <el-table-column property="d_date" sortable label="日期"></el-table-column>
       <el-table-column property="settle_method" label="结算方式" width="170px"></el-table-column>
@@ -139,10 +136,10 @@
       width: 80px
 
   .el-col-4
-    width: 10.66667%
+    width: 15.66667%
 
   .el-col-20
-    width: 89.33333%
+    width: 84.33333%
 
   .el-table .cell, .el-table th > div
     padding-left: 0
