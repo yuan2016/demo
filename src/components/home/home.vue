@@ -1,7 +1,7 @@
 <template>
   <div class="manage_page fillcontain">
     <el-row style="height: 100%;">
-      <el-col :span="4" style="min-height: 100%; background-color: #324057;">
+      <el-col :xs="9" :sm="7" :md="5" :lg="4" style="min-height: 100%; background-color: #324057;">
         <el-menu :default-active="defaultActive" unique-opened style="min-height: 100%;" theme="dark" router>
           <el-menu-item index="main"><i class="el-icon-menu"></i>首页</el-menu-item>
           <el-submenu index="1">
@@ -80,7 +80,7 @@
           </el-submenu>
         </el-menu>
       </el-col>
-      <el-col :span="20" style="height: 100%;overflow: auto;">
+      <el-col :xs="15" :sm="17" :md="19" :lg="20" style="height: 100%;overflow: auto;">
         <router-view></router-view>
       </el-col>
     </el-row>
@@ -100,11 +100,6 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  .el-col-4
-    width: 15.66667%
-
-  .el-col-20
-    width: 84.33333%
 
   .el-table .cell, .el-table th > div
     padding-left: 0

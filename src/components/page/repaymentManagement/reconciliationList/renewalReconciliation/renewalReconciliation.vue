@@ -1,35 +1,40 @@
 <template>
   <div class="renewalReconciliation">
     <banner></banner>
-    <div class="date-filter">
-      <span class="managerFront">手机号：</span>
-      <el-input size="small" type="text" placeholder="请输入内容" class="managerText" v-model.trim="user_phone"></el-input>
-      <span class="managerFront">订单号：</span>
-      <el-input size="small" type="text" placeholder="请输入内容" class="managerText" v-model.trim="order_id"></el-input>
-      <span class="managerFront">续期时间：</span>
-      <el-date-picker v-model.trim="startTime" type="date" size="small" placeholder="从"
-                      class="userListTimeSelect"></el-date-picker>
-      <el-date-picker v-model.trim="endTime" type="date" size="small" placeholder="到"
-                      class="userListTimeSelect"></el-date-picker>
-      <span class="managerFront">续期方式：</span>
-      <el-select v-model.trim="renewal_type" size="small" placeholder="不限" class="renewalSelect">
-        <el-option
-          v-for="item in options"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value">
-        </el-option>
-      </el-select>
-      <el-button type="primary" size="small" class="loanAuditButton" @click.prevent.stop="search">搜索</el-button>
-    </div>
-    <el-table v-loading.body="loading" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border height="740" stripe style="width: 100%">
+    <ul class="date-filter">
+      <li>
+        <span class="managerFront">手机号：</span>
+        <el-input size="small" type="text" placeholder="请输入内容" class="managerText" v-model.trim="user_phone"></el-input>
+        <span class="managerFront">订单号：</span>
+        <el-input size="small" type="text" placeholder="请输入内容" class="managerText" v-model.trim="order_id"></el-input>
+      </li>
+      <li>
+        <span class="managerFront">续期时间：</span>
+        <el-date-picker v-model.trim="startTime" type="date" size="small" placeholder="从"
+                        class="userListTimeSelect"></el-date-picker>
+        <el-date-picker v-model.trim="endTime" type="date" size="small" placeholder="到"
+                        class="userListTimeSelect"></el-date-picker>
+        <span class="managerFront">续期方式：</span>
+        <el-select v-model.trim="renewal_type" size="small" placeholder="不限" class="renewalSelect">
+          <el-option
+            v-for="item in options"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+          </el-option>
+        </el-select>
+        <el-button type="primary" size="small" class="loanAuditButton" @click.prevent.stop="search">搜索</el-button>
+      </li>
+    </ul>
+    <el-table v-loading.body="loading" class="userTable" element-loading-text="拼命加载中" :data="fundData"
+              highlight-current-row border stripe style="width: 100%;overflow: auto;">
       <el-table-column property="user_id" label="用户ID" width="80px"></el-table-column>
       <el-table-column property="realname" label="姓名" width="80px"></el-table-column>
       <el-table-column property="user_phone" label="手机号"></el-table-column>
       <el-table-column property="asset_repayment_id" label="还款ID"></el-table-column>
       <el-table-column property="order_id" label="订单号" width="150px"></el-table-column>
-      <el-table-column property="repayment_amount" label="总还款金额(元)"></el-table-column>
-      <el-table-column property="repaymented_amount" label="已还款金额(元)"></el-table-column>
+      <el-table-column property="repayment_amount" label="总还款金额(元)" width="120px"></el-table-column>
+      <el-table-column property="repaymented_amount" label="已还款金额(元)" width="120px"></el-table-column>
       <el-table-column property="repayment_interest" label="服务费(元)"></el-table-column>
       <el-table-column property="renewal_day" label="续期天数"></el-table-column>
       <el-table-column property="reback_count" label="续期费(元)"></el-table-column>
@@ -41,7 +46,7 @@
       <el-table-column property="order_time" sortable label="续期时间"></el-table-column>
       <el-table-column property="lending_account" label="还款账户"></el-table-column>
     </el-table>
-    <div class="Pagination" style="text-align: center;margin-top: 10px;">
+    <div class="pagination" style="text-align: center;margin-top: 10px;">
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
@@ -135,32 +140,44 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  .date-filter
-    padding: 15px 0 15px 1px
-    .managerFront
-      padding-left: 5px
-      font-size: 14px
-      color: #666
-    .managerText
-      width: 180px
-    .loanAuditButton
-      margin-left: 5px
-    .renewalSelect
-      width: 140px
+  .renewalReconciliation
+    height: 100%
+    .date-filter
+      padding: 15px 0 15px 1px
+      height: 8%
+      li
+        margin-bottom: 5px
+      .managerFront
+        display: inline-block
+        width: 80px
+        text-align: right
+        padding-left: 5px
+        font-size: 14px
+        color: #666
+      .managerText
+        width: 180px
+      .loanAuditButton
+        margin-left: 5px
+      .renewalSelect
+        width: 140px
 
-  .el-col-4
-    width: 15.66667%
+    /*.el-col-4*/
+    /*width: 15.66667%*/
 
-  .el-col-20
-    width: 84.33333%
+    /*.el-col-20*/
+    /*width: 84.33333%*/
+    .userTable
+      height: 70%
+    .pagination
+      padding-top: 1.5%
 
-  .el-table .cell, .el-table th > div
-    padding-left: 0
-    padding-right: 0
-    text-align: center
-    font-size: 12px
+    .el-table .cell, .el-table th > div
+      padding-left: 0
+      padding-right: 0
+      text-align: center
+      font-size: 12px
 
-  .el-table th > .cell
-    text-align: center
-    font-weight: bold
+    .el-table th > .cell
+      text-align: center
+      font-weight: bold
 </style>

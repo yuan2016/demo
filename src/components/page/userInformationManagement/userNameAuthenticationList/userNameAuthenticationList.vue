@@ -7,14 +7,14 @@
       <span class="managerFront">身份证号：</span><el-input type="text" size="small" placeholder="请输入内容" class="managerText" v-model.trim="id_number"></el-input>
       <el-button type="primary" size="small" class="userButton" @click.prevent.stop="search">搜索</el-button>
     </div>
-    <el-table v-loading.body="loading" element-loading-text="拼命加载中" :data="fundData" stripe highlight-current-row border height="740" style="width: 100%">
+    <el-table v-loading.body="loading" class="userTable" element-loading-text="拼命加载中" :data="fundData" stripe highlight-current-row border style="width: 99%;overflow: auto">
       <el-table-column property="id" label="用户ID"></el-table-column>
       <el-table-column property="realname" label="真实姓名"></el-table-column>
       <el-table-column property="id_number" label="身份证号"></el-table-column>
       <el-table-column property="create_time" sortable label="添加时间"></el-table-column>
       <el-table-column property="update_time" sortable label="修改时间"></el-table-column>
     </el-table>
-    <div class="Pagination" style="text-align: center;margin-top: 10px;">
+    <div class="pagination" style="text-align: center;margin-top: 10px;">
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
@@ -95,8 +95,11 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
+.userNameAuthenticationList
+  height:100%
   .date-filter
     padding: 15px 0 15px 1px
+    height:4%
     .managerFront
       padding-left :5px
       font-size: 14px
@@ -113,11 +116,15 @@
     .userButton
       margin-left: 5px
 
-  .el-col-4
-    width: 15.66667%
+  /*.el-col-4*/
+    /*width: 15.66667%*/
 
-  .el-col-20
-    width: 84.33333%
+  /*.el-col-20*/
+    /*width: 84.33333%*/
+  .userTable
+    height: 74%
+  .pagination
+    padding-top :1.5%
 
   .el-table .cell, .el-table th > div
     padding-left: 0

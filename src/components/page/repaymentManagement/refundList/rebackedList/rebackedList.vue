@@ -1,35 +1,40 @@
 <template>
   <div class="rebackedList">
     <banner></banner>
-    <div class="date-filter">
-      <span class="managerFront">手机号：</span>
-      <el-input size="small" type="text" placeholder="请输入内容" class="managerText" v-model.trim="user_phone"></el-input>
-      <span class="managerFront">退款时间：</span>
-      <el-date-picker v-model.trim="startTime" type="date" size="small" placeholder="从"
-                      class="userListTimeSelect"></el-date-picker>
-      <el-date-picker v-model.trim="endTime" type="date" size="small" placeholder="到"
-                      class="userListTimeSelect"></el-date-picker>
-      <span class="managerFront">退款方式：</span>
-      <el-select v-model.trim="return_type" size="small" placeholder="不限" class="repaySelect">
-        <el-option
-          v-for="item in options"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value">
-        </el-option>
-      </el-select>
-      <span class="managerFront">退款来源：</span>
-      <el-select v-model.trim="return_source" size="small" placeholder="不限" class="repaySelect">
-        <el-option
-          v-for="item in options1"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value">
-        </el-option>
-      </el-select>
-      <el-button type="primary" size="small" class="loanAuditButton" @click.prevent.stop="search">搜索</el-button>
-    </div>
-    <el-table v-loading.body="loading" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border height="740" stripe style="width: 100%">
+    <ul class="date-filter">
+      <li>
+        <span class="managerFront">手机号：</span>
+        <el-input size="small" type="text" placeholder="请输入内容" class="managerText" v-model.trim="user_phone"></el-input>
+        <span class="managerFront">退款时间：</span>
+        <el-date-picker v-model.trim="startTime" type="date" size="small" placeholder="从"
+                        class="userListTimeSelect"></el-date-picker>
+        <el-date-picker v-model.trim="endTime" type="date" size="small" placeholder="到"
+                        class="userListTimeSelect"></el-date-picker>
+      </li>
+      <li>
+        <span class="managerFront">退款方式：</span>
+        <el-select v-model.trim="return_type" size="small" placeholder="不限" class="repaySelect">
+          <el-option
+            v-for="item in options"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+          </el-option>
+        </el-select>
+        <span class="managerFront">退款来源：</span>
+        <el-select v-model.trim="return_source" size="small" placeholder="不限" class="repaySelect">
+          <el-option
+            v-for="item in options1"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+          </el-option>
+        </el-select>
+        <el-button type="primary" size="small" class="loanAuditButton" @click.prevent.stop="search">搜索</el-button>
+      </li>
+    </ul>
+    <el-table v-loading.body="loading" class="userTable" element-loading-text="拼命加载中" :data="fundData"
+              highlight-current-row border stripe style="width: 99%;overflow: auto">
       <el-table-column property="id" label="退款ID"></el-table-column>
       <el-table-column property="return_order_id" label="订单号" width="150px"></el-table-column>
       <el-table-column property="realname" label="姓名"></el-table-column>
@@ -41,7 +46,7 @@
       <el-table-column property="return_source" label="退款来源"></el-table-column>
       <el-table-column property="return_time" sortable label="退款时间"></el-table-column>
     </el-table>
-    <div class="Pagination" style="text-align: center;margin-top: 10px;">
+    <div class="pagination" style="text-align: center;margin-top: 10px;">
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
@@ -148,9 +153,17 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
+.rebackedList
+  height: 100%
   .date-filter
     padding: 15px 0 15px 1px
+    height: 8%
+    li
+      margin-bottom :5px
     .managerFront
+      display: inline-block
+      width: 90px
+      text-align :right
       padding-left: 5px
       font-size: 14px
       color: #666
@@ -161,11 +174,16 @@
     .repaySelect
       width: 140px
 
-  .el-col-4
-    width: 15.66667%
+  /*.el-col-4*/
+  /*width: 15.66667%*/
 
-  .el-col-20
-    width: 84.33333%
+  /*.el-col-20*/
+  /*width: 84.33333%*/
+  .userTable
+    height: 70%
+
+  .pagination
+    padding-top: 1.5%
 
   .el-table .cell, .el-table th > div
     padding-left: 0

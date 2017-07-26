@@ -15,24 +15,24 @@
       </el-date-picker>
       <el-button type="primary" @click.prevent.stop="search">搜索</el-button>
     </div>
-    <el-table v-loading.body="loading" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border height="740" stripe style="width: 100%">
+    <el-table v-loading.body="loading" class="userTable" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border stripe style="width: 99%;overflow: auto;">
       <el-table-column property="d_date" sortable label="日期" width="80px"></el-table-column>
-      <el-table-column property="loan_amount_total" label="当前借款总数量"></el-table-column>
-      <el-table-column property="loan_money_total" label="当前借款总额(元)"></el-table-column>
-      <el-table-column property="repayment_amount_total" label="已经还款总数量"></el-table-column>
-      <el-table-column property="repayment_money_total" label="已经还款总额(元)"></el-table-column>
+      <el-table-column property="loan_amount_total" label="当前借款总数量" width="110px"></el-table-column>
+      <el-table-column property="loan_money_total" label="当前借款总额(元)" width="110px"></el-table-column>
+      <el-table-column property="repayment_amount_total" label="已经还款总数量"width="110px"></el-table-column>
+      <el-table-column property="repayment_money_total" label="已经还款总额(元)"width="110px"></el-table-column>
       <el-table-column property="quantity_overdue" label="逾期中数量"></el-table-column>
-      <el-table-column property="total_overdue" label="逾期中总额(元)"></el-table-column>
-      <el-table-column property="m_overdue_rate_s1" label="S1级逾期率(按金额)"></el-table-column>
-      <el-table-column property="m_overdue_rate_s2" label="S2级逾期率(按金额)"></el-table-column>
-      <el-table-column property="m_overdue_rate_s3" label="S3级逾期率(按金额)"></el-table-column>
-      <el-table-column property="m_overdue_rate_m3" label="M3级逾期率(按金额)"></el-table-column>
-      <el-table-column property="n_overdue_rate_s1" label="S1级逾期率(按单数)"></el-table-column>
-      <el-table-column property="n_overdue_rate_s2" label="S2级逾期率(按单数)"></el-table-column>
-      <el-table-column property="n_overdue_rate_s3" label="S3级逾期率(按单数)"></el-table-column>
-      <el-table-column property="n_overdue_rate_m3" label="M3级逾期率(按单数)"></el-table-column>
+      <el-table-column property="total_overdue" label="逾期中总额(元)"width="110px"></el-table-column>
+      <el-table-column property="m_overdue_rate_s1" label="S1级逾期率(按金额)"width="120px"></el-table-column>
+      <el-table-column property="m_overdue_rate_s2" label="S2级逾期率(按金额)"width="120px"></el-table-column>
+      <el-table-column property="m_overdue_rate_s3" label="S3级逾期率(按金额)"width="120px"></el-table-column>
+      <el-table-column property="m_overdue_rate_m3" label="M3级逾期率(按金额)"width="120px"></el-table-column>
+      <el-table-column property="n_overdue_rate_s1" label="S1级逾期率(按单数)"width="120px"></el-table-column>
+      <el-table-column property="n_overdue_rate_s2" label="S2级逾期率(按单数)"width="120px"></el-table-column>
+      <el-table-column property="n_overdue_rate_s3" label="S3级逾期率(按单数)"width="120px"></el-table-column>
+      <el-table-column property="n_overdue_rate_m3" label="M3级逾期率(按单数)"width="120px"></el-table-column>
     </el-table>
-    <div class="Pagination" style="text-align: center;margin-top: 10px;">
+    <div class="pagination" style="text-align: center;margin-top: 10px;">
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
@@ -119,18 +119,25 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
+.overdueRepaymentStatistics
+  height: 100%
   .date-filter
     padding: 15px 0 15px 1px
+    height: 4%
     .managerFront
       padding-left: 5px
       font-size: 14px
       color: #666
 
-  .el-col-4
-    width: 15.66667%
+  /*.el-col-4*/
+    /*width: 15.66667%*/
 
-  .el-col-20
-    width: 84.33333%
+  /*.el-col-20*/
+    /*width: 84.33333%*/
+  .userTable
+    height: 74%
+  .pagination
+    padding-top :1.5%
 
   .el-table .cell, .el-table th > div
     padding-left: 0

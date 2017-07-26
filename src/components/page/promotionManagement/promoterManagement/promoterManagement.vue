@@ -22,7 +22,7 @@
                       class="userListTimeSelect"></el-date-picker>
       <el-button type="primary" size="small" class="userButton" @click.prevent.stop="search">搜索</el-button>
     </div>
-    <el-table v-loading.body="loading" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border height="740" stripe style="width: 100%">
+    <el-table v-loading.body="loading" class="userTable" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto">
       <el-table-column property="realname" label="推广员姓名"></el-table-column>
       <el-table-column property="user_phone" label="推广员电话"></el-table-column>
       <el-table-column property="channel_name" label="渠道商名称"></el-table-column>
@@ -33,7 +33,7 @@
       <el-table-column property="ref_id" label="推广链接"></el-table-column>
 
     </el-table>
-    <div class="Pagination" style="text-align: center;margin-top: 10px;">
+    <div class="pagination" style="text-align: center;margin-top: 10px;">
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
@@ -125,14 +125,17 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
+.promoterManagement
+  height: 100%
   .date-filter
     padding: 15px 0 15px 1px
+    height: 4%
     .managerFront
       padding-left: 5px
       font-size: 14px
       color: #666
     .managerText
-      width: 180px
+      width: 150px
     .userButton
       margin-left: 5px
     .userListTimeSelect
@@ -140,11 +143,15 @@
     .promoterSelect
       width: 120px
 
-  .el-col-4
-    width: 15.66667%
+  /*.el-col-4*/
+    /*width: 15.66667%*/
 
-  .el-col-20
-    width: 84.33333%
+  /*.el-col-20*/
+    /*width: 84.33333%*/
+  .userTable
+    height: 74%
+  .pagination
+    padding-top :1.5%
 
   .el-table .cell, .el-table th > div
     padding-left: 0

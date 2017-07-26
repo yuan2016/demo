@@ -173,4 +173,5 @@ router.post(api.promotionRegionStatistics, promotionRegionStatistics.fetchAll)
 //渠道统计汇总
 router.post(api.channelStatisticsSummaryCount, channelStatisticsSummary.getCount)
 router.post(api.channelStatisticsSummary, channelStatisticsSummary.fetchAll)
+router.post(api.channelStatisticsSummaryGetOptions, channelStatisticsSummary.getSelectOptions)
 module.exports = router

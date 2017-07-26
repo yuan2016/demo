@@ -15,25 +15,25 @@
       </el-date-picker>
       <el-button type="primary" @click.prevent.stop="search">搜索</el-button>
     </div>
-    <el-table v-loading.body="loading" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border height="740" stripe style="width: 100%">
+    <el-table v-loading.body="loading" class="userTable" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto">
       <el-table-column property="d_date" sortable label="日期"></el-table-column>
-      <el-table-column property="total_amount" label="当日应还总额(元)"></el-table-column>
-      <el-table-column property="actual_repayment_amount" label="实际还款金额(元)"></el-table-column>
+      <el-table-column property="total_amount" label="当日应还总额(元)"width="110px"></el-table-column>
+      <el-table-column property="actual_repayment_amount" label="实际还款金额(元)"width="110px"></el-table-column>
       <el-table-column property="repayment_ratio" label="还款比例"></el-table-column>
       <el-table-column property="renewal_amount" label="续期金额(元)"></el-table-column>
-      <el-table-column property="renewal_commission" label="续期手续费收入(元)"></el-table-column>
+      <el-table-column property="renewal_commission" label="续期手续费收入(元)"width="120px"></el-table-column>
       <el-table-column property="renewal_ratio" label="续期比例"></el-table-column>
       <el-table-column property="overdue_amount" label="逾期金额(元)"></el-table-column>
       <el-table-column property="overdue_proportion" label="逾期比例"></el-table-column>
-      <el-table-column property="overdue_payment_amount" label="逾期还款金额(元)"></el-table-column>
-      <el-table-column property="late_fees_income" label="滞纳金收入(元)"></el-table-column>
-      <el-table-column property="comp_service_income" label="综合服务费收入(元)"></el-table-column>
-      <el-table-column property="service_charge" label="实收服务费(元)"></el-table-column>
-      <el-table-column property="equal_amount_income" label="同等金额收益(元)"></el-table-column>
-      <el-table-column property="capital_surplus" label="当日资金盈余(元)"></el-table-column>
+      <el-table-column property="overdue_payment_amount" label="逾期还款金额(元)"width="110px"></el-table-column>
+      <el-table-column property="late_fees_income" label="滞纳金收入(元)"width="110px"></el-table-column>
+      <el-table-column property="comp_service_income" label="综合服务费收入(元)"width="110px"></el-table-column>
+      <el-table-column property="service_charge" label="实收服务费(元)"width="110px"></el-table-column>
+      <el-table-column property="equal_amount_income" label="同等金额收益(元)"width="110px"></el-table-column>
+      <el-table-column property="capital_surplus" label="当日资金盈余(元)"width="110px"></el-table-column>
       <el-table-column property="create_time" sortable label="更新时间"></el-table-column>
     </el-table>
-    <div class="Pagination" style="text-align: center;margin-top: 10px;">
+    <div class="pagination" style="text-align: center;margin-top: 10px;">
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
@@ -120,18 +120,25 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
+.fundAnalysis
+  height :100%
   .date-filter
     padding: 15px 0 15px 1px
+    height:4%
     .managerFront
       padding-left: 5px
       font-size: 14px
       color: #666
 
-  .el-col-4
-    width: 15.66667%
+  /*.el-col-4*/
+    /*width: 15.66667%*/
 
-  .el-col-20
-    width: 84.33333%
+  /*.el-col-20*/
+    /*width: 84.33333%*/
+  .userTable
+    height: 74%
+  .pagination
+    padding-top :1.5%
 
   .el-table .cell, .el-table th > div
     padding-left: 0

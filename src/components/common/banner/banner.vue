@@ -26,7 +26,7 @@
 <style lang="stylus" rel="stylesheet/stylus">
   .banner
     background-color: #EFF2F7
-    height: 60px
+    height: 7%
     display: flex
     justify-content: space-between
     align-items: center

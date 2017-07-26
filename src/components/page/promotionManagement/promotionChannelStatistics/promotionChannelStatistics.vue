@@ -9,7 +9,7 @@
       <el-date-picker v-model.trim="endTime" type="date" size="small" placeholder="到" class="userListTimeSelect"></el-date-picker>
       <el-button type="primary" size="small" class="userButton" @click.prevent.stop="search">搜索</el-button>
     </div>
-    <el-table v-loading.body="loading" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border height="740" stripe style="width: 100%">
+    <el-table v-loading.body="loading" class="userTable" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto">
       <el-table-column property="channel_trader_name" label="渠道商名称"></el-table-column>
       <el-table-column property="d_date" sortable label="日期"></el-table-column>
       <el-table-column property="settle_method" label="结算方式" width="170px"></el-table-column>
@@ -30,7 +30,7 @@
       <el-table-column property="overdue_num" label="逾期人数"></el-table-column>
       <el-table-column property="create_time" sortable label="更新时间"></el-table-column>
     </el-table>
-    <div class="Pagination" style="text-align: center;margin-top: 10px;">
+    <div class="pagination" style="text-align: center;margin-top: 10px;">
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
@@ -120,8 +120,11 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
+.promotionChannelStatistics
+  height: 100%
   .date-filter
     padding: 15px 0 15px 1px
+    height: 4%
     .managerFront
       padding-left: 5px
       font-size: 14px
@@ -135,11 +138,15 @@
     .userListSelect
       width: 80px
 
-  .el-col-4
-    width: 15.66667%
+  /*.el-col-4*/
+    /*width: 15.66667%*/
 
-  .el-col-20
-    width: 84.33333%
+  /*.el-col-20*/
+    /*width: 84.33333%*/
+  .userTable
+    height: 74%
+  .pagination
+    padding-top :1.5%
 
   .el-table .cell, .el-table th > div
     padding-left: 0

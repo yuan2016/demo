@@ -1,31 +1,39 @@
 <template>
   <div class="loanApplicationsList">
     <banner></banner>
-    <div class="date-filter">
-      <span class="managerFront">订单号：</span><el-input size="small" type="text" placeholder="请输入内容" class="managerText" v-model.trim="out_trade_no"></el-input>
-      <span class="managerFront">姓名：</span><el-input size="small" type="text" placeholder="请输入内容" class="managerText" v-model.trim="realname"></el-input>
-      <span class="managerFront">手机号：</span><el-input size="small" type="text" placeholder="请输入内容" class="managerText" v-model.trim="user_phone"></el-input>
-      <span class="managerFront">用户类型：</span>
-      <el-select v-model.trim="customer_type" size="small" placeholder="不限" class="loanAppSelect">
-        <el-option
-          v-for="item in options1"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value">
-        </el-option>
-      </el-select>
-      <span class="managerFront">状态：</span>
-      <el-select v-model.trim="status" size="small" placeholder="不限" class="loanAppSelectLong">
-        <el-option
-          v-for="item in options2"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value">
-        </el-option>
-      </el-select>
-      <el-button type="primary" size="small" class="loanAppButton" @click.prevent.stop="search">搜索</el-button>
-    </div>
-    <el-table stripe v-loading.body="loading" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border height="740" style="width: 100%">
+    <ul class="date-filter">
+      <li>
+        <span class="managerFront">订单号：</span>
+        <el-input size="small" type="text" placeholder="请输入内容" class="managerText"
+                  v-model.trim="out_trade_no"></el-input>
+        <span class="managerFront">姓名：</span>
+        <el-input size="small" type="text" placeholder="请输入内容" class="managerText" v-model.trim="realname"></el-input>
+        <span class="managerFront">手机号：</span>
+        <el-input size="small" type="text" placeholder="请输入内容" class="managerText" v-model.trim="user_phone"></el-input>
+      </li>
+      <li>
+        <span class="managerFront">用户类型：</span>
+        <el-select v-model.trim="customer_type" size="small" placeholder="不限" class="loanAppSelect">
+          <el-option
+            v-for="item in options1"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+          </el-option>
+        </el-select>
+        <span class="managerFront">状态：</span>
+        <el-select v-model.trim="status" size="small" placeholder="不限" class="loanAppSelectLong">
+          <el-option
+            v-for="item in options2"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+          </el-option>
+        </el-select>
+        <el-button type="primary" size="small" class="loanAppButton" @click.prevent.stop="search">搜索</el-button>
+      </li>
+    </ul>
+    <el-table stripe v-loading.body="loading" class="userTable" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border style="width: 100%;overflow: auto">
       <el-table-column property="out_trade_no" label="订单号" width="150px"></el-table-column>
       <el-table-column property="realname" label="姓名"></el-table-column>
       <el-table-column property="user_phone" label="手机号"></el-table-column>
@@ -42,7 +50,7 @@
       <el-table-column property="child_type" label="子类型"></el-table-column>
       <el-table-column property="status" label="状态"></el-table-column>
     </el-table>
-    <div class="Pagination" style="text-align: center;margin-top: 10px;">
+    <div class="pagination" style="text-align: center;margin-top: 10px;">
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
@@ -176,14 +184,19 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
+.loanApplicationsList
+  height: 100%
   .date-filter
     padding: 15px 0 15px 1px
+    height: 8%
+    li
+      margin-bottom :5px
     .managerFront
       padding-left: 5px
       font-size: 14px
       color: #666
     .managerText
-      width: 180px
+      width: 188px
     .loanAppButton
       margin-left: 5px
     .loanAppSelect
@@ -191,11 +204,15 @@
     .loanAppSelectLong
       width: 150px
 
-  .el-col-4
-    width: 15.66667%
+  /*.el-col-4*/
+  /*width: 15.66667%*/
 
-  .el-col-20
-    width: 84.33333%
+  /*.el-col-20*/
+  /*width: 84.33333%*/
+  .userTable
+    height: 70%
+  .pagination
+    padding-top :1.5%
 
   .el-table .cell, .el-table th > div
     padding-left: 0

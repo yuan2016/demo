@@ -143,7 +143,8 @@ var sqlMap = {
     channelStatisticsSummary: {
       selectAllFront: 'select * from ?? where ',
       selectAllBack: ' limit ?,?',
-      getCount: 'select count(*) as count from ??'
+      getCount: 'select count(*) as count from ??',
+      getSelectOptions: 'select channel_trader from pr_pm_channel_statistic_sum group by channel_trader '
     }
   }
 }

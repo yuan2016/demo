@@ -15,8 +15,8 @@
       </el-date-picker>
       <el-button type="primary" @click.prevent.stop="search">搜索</el-button>
     </div>
-    <el-table v-loading.body="loading" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border height="740" stripe style="width: 100%">
-      <el-table-column property="d_date" fixed sortable label="日期"></el-table-column>
+    <el-table v-loading.body="loading" class="userTable" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto">
+      <el-table-column property="d_date" sortable label="日期"></el-table-column>
       <el-table-column property="register_num" label="注册人数"width="100px"></el-table-column>
       <el-table-column property="realname_auth_num" label="实名认证人数"width="100px"></el-table-column>
       <el-table-column property="realname_auth_freq" label="实名认证次数"width="100px"></el-table-column>
@@ -129,18 +129,25 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
+.platformData
+  height: 100%
   .date-filter
     padding: 15px 0 15px 1px
+    height: 4%
     .managerFront
       padding-left: 5px
       font-size: 14px
       color: #666
 
-  .el-col-4
-    width: 15.66667%
+  /*.el-col-4*/
+    /*width: 15.66667%*/
 
-  .el-col-20
-    width: 84.33333%
+  /*.el-col-20*/
+    /*width: 84.33333%*/
+  .userTable
+    height: 74%
+  .pagination
+    padding-top :1.5%
 
   .el-table .cell, .el-table th > div
     padding-left: 0

@@ -110,5 +110,6 @@ module.exports = {
   promotionRegionStatisticsCount: path + '/promotionRegionStatistics/count',
   //渠道统计汇总
   channelStatisticsSummary: path + '/channelStatisticsSummary',
-  channelStatisticsSummaryCount: path + '/channelStatisticsSummary/count'
+  channelStatisticsSummaryCount: path + '/channelStatisticsSummary/count',
+  channelStatisticsSummaryGetOptions: path + '/channelStatisticsSummary/getSelectOptions',
 }

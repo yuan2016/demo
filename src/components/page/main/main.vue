@@ -210,91 +210,91 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  .mainContent
-    padding: 10px
-    .title
-      display: inline-block
-      font-size: 20px
-      border-bottom: 3px solid #20A0FF
-    .userStatistics, .lendingStatistics, .riskControlStatistics
-      display: flex
-      padding: 20px
-      margin-bottom: 30px
-      font-size: 0px
-      border: 1px solid #ccc
-      border-radius: 3px
-      .userStatisticsLeft, .userStatisticsRight
-        flex: 1
-        li
-          margin-bottom: 2px
-          .userLeft
-            display: inline-block
-            width: 150px
-            color: #666
-            font-size: 15px
-            line-height: 40px
-            background-color: #F6F6F6
-            text-align: right
-          .userMiddle
-            display: inline-block
-            padding-left: 5px
-            width: 200px
-            font-size: 15px
-            line-height: 40px
-            color: #000
-            font-weight: bold
-            background-color: #E9E9E9
-          .userRight
-            display: inline-block
-            width: 100px
-            color: #666
-            font-size: 15px
-            line-height: 40px
-            text-align: center
-            background-color: #F6F6F6
-      .riskControlStatisticsLeft, .riskControlStatisticsMiddle, .riskControlStatisticsRight
-        flex: 1
-        li
-          margin-bottom: 2px
-          .userLeft
-            display: inline-block
-            width: 150px
-            color: #666
-            font-size: 15px
-            line-height: 40px
-            background-color: #F6F6F6
-            text-align: right
-          .userMiddle
-            display: inline-block
-            padding-left: 5px
-            width: 110px
-            font-size: 15px
-            line-height: 40px
-            color: #000
-            font-weight: bold
-            background-color: #E9E9E9
-          .userRight
-            display: inline-block
-            width: 70px
-            color: #666
-            font-size: 15px
-            line-height: 40px
-            text-align: center
-            background-color: #F6F6F6
+  .main
+    height: 100%
+    .mainContent
+      height: 93%
+      .title
+        display: inline-block
+        font-size: 20px
+        border-bottom: 3px solid #20A0FF
+      .userStatistics, .lendingStatistics, .riskControlStatistics
+        display: flex
+        padding: 0.5% 20px
+        margin-bottom: 2%
+        font-size: 0px
+        border: 1px solid #ccc
+        border-radius: 3px
+        .userStatisticsLeft, .userStatisticsRight
+          flex: 1
+          font-size: 13px
+          li
+            margin-bottom: 2px
+            .userLeft
+              display: inline-block
+              width: 150px
+              color: #666
+              line-height: 40px
+              background-color: #F6F6F6
+              text-align: right
+            .userMiddle
+              display: inline-block
+              padding-left: 5px
+              width: 200px
+              line-height: 40px
+              color: #000
+              font-weight: bold
+              background-color: #E9E9E9
+            .userRight
+              display: inline-block
+              width: 100px
+              color: #666
+              line-height: 40px
+              text-align: center
+              background-color: #F6F6F6
+        .riskControlStatisticsLeft, .riskControlStatisticsMiddle, .riskControlStatisticsRight
+          flex: 1
+          font-size: 13px
+          li
+            margin-bottom: 2px
+            .userLeft
+              display: inline-block
+              width: 130px
+              color: #666
+              line-height: 40px
+              background-color: #F6F6F6
+              text-align: right
+            .userMiddle
+              display: inline-block
+              padding-left: 5px
+              width: 110px
+              line-height: 40px
+              color: #000
+              font-weight: bold
+              background-color: #E9E9E9
+            .userRight
+              display: inline-block
+              width: 60px
+              color: #666
+              line-height: 40px
+              text-align: center
+              background-color: #F6F6F6
 
-  .el-col-4
-    width: 15.66667%
+      .riskControlStatistics
+        margin-bottom: 0
+      /*.el-col-4*/
+      /*width: 15.66667%*/
 
-  .el-col-20
-    width: 84.33333%
+      /*.el-col-20*/
+      /*width: 84.33333%*/
 
-    .el-table .cell, .el-table th > div
-      padding-left: 0
-      padding-right: 0
-      text-align: center
-      font-size: 12px
+      .el-table .cell, .el-table th > div
+        padding-left: 0
+        padding-right: 0
+        text-align: center
+        font-size: 12px
 
-    .el-table th > .cell
-      text-align: center
-      font-weight: bold
+      .el-table th > .cell
+        text-align: center
+        font-weight: bold
 </style>

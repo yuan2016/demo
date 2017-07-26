@@ -20,7 +20,7 @@ function packageRows (rows) {
   let options = [{value: '', label: '不限'}]
   for (let row of rows) {
     let option = {}
-    if (row.channel_name !== '') {
+    if (row.channel_name && row.channel_name !== '') {
       option.value = row.channel_name
       option.label = row.channel_name
       options.push(option)

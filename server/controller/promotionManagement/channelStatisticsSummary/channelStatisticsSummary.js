@@ -53,6 +53,19 @@ function formatData (rows) {
   })
 }
 
+function packageRows (rows) {
+  let options = [{value: '', label: '不限'}]
+  for (let row of rows) {
+    let option = {}
+    if (row.channel_trader && row.channel_trader !== '') {
+      option.value = row.channel_trader
+      option.label = row.channel_trader
+      options.push(option)
+    }
+  }
+  return options
+}
+
 module.exports = {
   //渠道统计汇总
   fetchAll (req, res) {
@@ -75,6 +88,16 @@ module.exports = {
         console.log('[query] - :' + err)
         throw new Error(err)
       }
+      res.json(rs)
+    })
+  },
+  getSelectOptions (req, res) {
+    func.connPool1(sql.promotionManagement.channelStatisticsSummary.getSelectOptions, function (err, rs) {
+      if (err) {
+        console.log('[query] - :' + err)
+        throw new Error(err)
+      }
+      rs = packageRows(rs)
       res.json(rs)
     })
   }

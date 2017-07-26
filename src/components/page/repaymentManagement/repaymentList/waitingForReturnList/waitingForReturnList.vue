@@ -2,14 +2,17 @@
   <div class="waitingForReturnList">
     <banner></banner>
     <div class="date-filter">
-      <span class="managerFront">姓名：</span><el-input type="text" size="small" placeholder="请输入内容" class="managerText" v-model.trim="realname"></el-input>
-      <span class="managerFront">手机号：</span><el-input type="text" size="small" placeholder="请输入内容" class="managerText" v-model.trim="user_phone"></el-input>
+      <span class="managerFront">姓名：</span>
+      <el-input type="text" size="small" placeholder="请输入内容" class="managerText" v-model.trim="realname"></el-input>
+      <span class="managerFront">手机号：</span>
+      <el-input type="text" size="small" placeholder="请输入内容" class="managerText" v-model.trim="user_phone"></el-input>
       <span class="managerFront">状态：</span>
       <el-select v-model.trim="status" size="small" disabled placeholder="已放款/待还款" class="watingSelect">
       </el-select>
       <el-button type="primary" size="small" class="watingButton" @click.prevent.stop="search">搜索</el-button>
     </div>
-    <el-table v-loading.body="loading" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border height="740" stripe style="width: 100%">
+    <el-table v-loading.body="loading" class="userTable" element-loading-text="拼命加载中" :data="fundData"
+              highlight-current-row border stripe style="width: 99%;overflow: auto">
       <el-table-column property="realname" label="姓名"></el-table-column>
       <el-table-column property="user_phone" label="手机号"></el-table-column>
       <el-table-column property="customer_type" label="用户类型"></el-table-column>
@@ -23,7 +26,7 @@
       <el-table-column property="status" label="状态"></el-table-column>
       <el-table-column property="is_fenqi" label="是否分期"></el-table-column>
     </el-table>
-    <div class="Pagination" style="text-align: center;margin-top: 10px;">
+    <div class="pagination" style="text-align: center;margin-top: 10px;">
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
@@ -38,6 +41,7 @@
 
 <script type="text/ecmascript-6">
   import banner from '../../../../common/banner/banner'
+
   export default {
     data () {
       return {
@@ -103,39 +107,46 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  .date-filter
-    padding: 15px 0 15px 1px
-    .managerFront
-      padding-left :5px
-      font-size: 14px
-      color: #666
-    .managerText
-      width: 180px
-    /*&:before*/
-    /*position: absolute*/
-    /*right: 10px*/
-    /*top: 8px*/
-    /*content: "X"*/
-    /*font-size: 16px*/
-    /*color: #ccc*/
-    .watingButton
-      margin-left: 5px
-    .watingSelect
-      width: 130px
+  .waitingForReturnList
+    height: 100%
+    .date-filter
+      padding: 15px 0 15px 1px
+      height: 4%
+      .managerFront
+        padding-left: 5px
+        font-size: 14px
+        color: #666
+      .managerText
+        width: 180px
+      /*&:before*/
+      /*position: absolute*/
+      /*right: 10px*/
+      /*top: 8px*/
+      /*content: "X"*/
+      /*font-size: 16px*/
+      /*color: #ccc*/
+      .watingButton
+        margin-left: 5px
+      .watingSelect
+        width: 130px
 
-  .el-col-4
-    width: 15.66667%
+    /*.el-col-4*/
+    /*width: 15.66667%*/
 
-  .el-col-20
-    width: 84.33333%
+    /*.el-col-20*/
+    /*width: 84.33333%*/
+    .userTable
+      height: 74%
+    .pagination
+      padding-top: 1.5%
 
-  .el-table .cell, .el-table th > div
-    padding-left: 0
-    padding-right: 0
-    text-align: center
-    font-size: 12px
+    .el-table .cell, .el-table th > div
+      padding-left: 0
+      padding-right: 0
+      text-align: center
+      font-size: 12px
 
-  .el-table th > .cell
-    text-align: center
-    font-weight: bold
+    .el-table th > .cell
+      text-align: center
+      font-weight: bold
 </style>

@@ -1,6 +1,6 @@
 export function saveToken (value) {
   let token = 'token'
-  var Days = 1 / 24
+  var Days = 3 / 24
   // var exp = new Date()
   // exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1000)
   // document.cookie = token + '=' + value + ';expires=' + exp.toGMTString()

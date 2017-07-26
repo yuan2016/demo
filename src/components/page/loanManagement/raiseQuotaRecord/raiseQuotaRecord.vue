@@ -7,24 +7,24 @@
       <span class="managerFront">手机号：</span><el-input type="text" size="small" placeholder="请输入内容" class="managerText" v-model.trim="user_phone"></el-input>
       <el-button type="primary" size="small" class="userButton" @click.prevent.stop="search">搜索</el-button>
     </div>
-    <el-table v-loading.body="loading" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border height="740" stripe style="width: 100%">
+    <el-table v-loading.body="loading" class="userTable" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto;">
       <el-table-column property="user_id" label="用户ID" width="70px"></el-table-column>
       <el-table-column property="realname" label="姓名" width="70px"></el-table-column>
       <el-table-column property="user_phone" label="手机号"></el-table-column>
-      <el-table-column property="new_amount_max" label="提额后总额度(元)"></el-table-column>
-      <el-table-column property="add_amount" label="本次提升额度(元)"></el-table-column>
+      <el-table-column property="new_amount_max" label="提额后总额度(元)" width="130px"></el-table-column>
+      <el-table-column property="add_amount" label="本次提升额度(元)" width="130px"></el-table-column>
       <el-table-column property="repayment_succ_count" label="成功还款次数"></el-table-column>
       <el-table-column property="repayment_norm_count" label="正常还款次数"></el-table-column>
-      <el-table-column property="repayment_succ_amount" label="成功还款金额(元)"></el-table-column>
-      <el-table-column property="repayment_norm_amount" label="正常还款金额(元)"></el-table-column>
-      <el-table-column property="last_apply_at" sortable label="上次提额时间"></el-table-column>
+      <el-table-column property="repayment_succ_amount" label="成功还款金额(元)" width="130px"></el-table-column>
+      <el-table-column property="repayment_norm_amount" label="正常还款金额(元)" width="130px"></el-table-column>
+      <el-table-column property="last_apply_at" sortable label="上次提额时间"  width="130px"></el-table-column>
       <el-table-column property="create_at" sortable label="创建时间"></el-table-column>
       <el-table-column property="updated_at" sortable label="更新时间"></el-table-column>
       <el-table-column property="status" label="状态"></el-table-column>
       <el-table-column property="audit_user" label="操作人"></el-table-column>
       <el-table-column property="remark" label="备注" width="230px"></el-table-column>
     </el-table>
-    <div class="Pagination" style="text-align: center;margin-top: 10px;">
+    <div class="pagination" style="text-align: center;margin-top: 10px;">
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
@@ -105,8 +105,11 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
+.raiseQuotaRecord
+  height: 100%
   .date-filter
     padding: 15px 0 15px 1px
+    height:4%
     .managerFront
       padding-left :5px
       font-size: 14px
@@ -123,11 +126,15 @@
     .userButton
       margin-left: 5px
 
-  .el-col-4
-    width: 15.66667%
+  /*.el-col-4*/
+    /*width: 15.66667%*/
 
-  .el-col-20
-    width: 84.33333%
+  /*.el-col-20*/
+    /*width: 84.33333%*/
+    .userTable
+      height: 74%
+    .pagination
+      padding-top :1.5%
 
   .el-table .cell, .el-table th > div
     padding-left: 0
