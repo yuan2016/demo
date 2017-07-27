@@ -34,7 +34,6 @@ function formatData (rows) {
       row.apr = formatCurrency(row.apr)
     }
     row.child_type = '现金快贷'
-    row.condition = '放款中'
     return row
   })
 }
@@ -45,7 +44,7 @@ module.exports = {
   fetchAll (req, res) {
     let params = req.body
     let queries = analysis(params)
-    let query = sql.loanManagement.loanAuditList.selectAllFront + queries.slice(0, 4).join(' and ') + sql.loanManagement.loanAuditList.selectAllBack
+    let query = sql.loanManagement.loanAuditList.selectAllFront + queries.slice(0, 5).join(' and ') + sql.loanManagement.loanAuditList.selectAllBack
     func.connPool2(query, [tableName.loanAuditList, params.startTime, params.endTime, params.offset, params.limit], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)

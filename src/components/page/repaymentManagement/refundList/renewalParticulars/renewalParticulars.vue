@@ -11,24 +11,24 @@
                       class="userListTimeSelect"></el-date-picker>
       <el-button type="primary" size="small" class="loanAuditButton" @click.prevent.stop="search">搜索</el-button>
     </div>
-    <el-table v-loading.body="loading" class="userTable" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border stripe style="width: 99%;overflow: auto;">
+    <el-table v-loading.body="loading" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto;" height="500">
       <el-table-column property="id" label="续期ID"></el-table-column>
       <el-table-column property="realname" label="姓名"></el-table-column>
       <el-table-column property="user_phone" label="手机号"></el-table-column>
       <el-table-column property="customer_type" label="用户类型"></el-table-column>
       <el-table-column property="repayment_principal" label="借款到账金额(元)" width="100px"></el-table-column>
       <el-table-column property="repayment_interest" label="服务费(元)"></el-table-column>
-      <el-table-column property="old_repayment_time" sortable label="续期前还款时间" width="110px"></el-table-column>
-      <el-table-column property="repayment_time" sortable label="到期时间"></el-table-column>
+      <el-table-column property="old_repayment_time" sortable label="续期前还款时间" width="130"></el-table-column>
+      <el-table-column property="repayment_time" sortable label="到期时间" width="130"></el-table-column>
       <el-table-column property="renewal_count" label="续期次数"></el-table-column>
       <el-table-column property="renewal_day" label="续期天数"></el-table-column>
       <el-table-column property="renewal_amount" label="续期金额(元)"></el-table-column>
       <el-table-column property="renewal_type" label="续期方式"></el-table-column>
-      <el-table-column property="order_time" sortable label="续期时间"></el-table-column>
+      <el-table-column property="order_time" sortable label="续期时间" width="130"></el-table-column>
       <el-table-column property="status" label="还款状态"></el-table-column>
 
     </el-table>
-    <div class="pagination" style="text-align: center;margin-top: 10px;">
+    <div style="text-align: center;margin-top: 10px;">
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
@@ -112,9 +112,10 @@
   height: 100%
   .date-filter
     padding: 15px 0 15px 1px
-    height: 4%
+    box-sizing border-box
+    height 60px
     .managerFront
-      padding-left: 5px
+      padding-left :5px
       font-size: 14px
       color: #666
     .managerText

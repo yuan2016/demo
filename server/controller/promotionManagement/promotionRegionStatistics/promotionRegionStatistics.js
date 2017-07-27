@@ -67,7 +67,7 @@ module.exports = {
       params.city = ''
     }
     let queries = analysis(params)
-    let query = sql.promotionManagement.promotionCommon.selectAllFront + queries.slice(0, 2).join(' and ') + sql.promotionManagement.promotionCommon.selectAllBack
+    let query = sql.promotionManagement.promotionRegionStatistics.selectAllFront + queries.slice(0, 2).join(' and ') + sql.promotionManagement.promotionRegionStatistics.selectAllBack
     func.connPool1(query, [tableName.promotionRegionStatistics, params.startTime, params.endTime, params.offset, params.limit], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
@@ -80,7 +80,7 @@ module.exports = {
   //每日还款金额数据总条数
   getCount (req, res) {
     let params = req.body
-    func.connPool1(sql.promotionManagement.promotionCommon.getCount, [tableName.promotionRegionStatistics, params.startTime, params.endTime], function (err, rs) {
+    func.connPool1(sql.promotionManagement.promotionRegionStatistics.getCount, [tableName.promotionRegionStatistics, params.startTime, params.endTime], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
         throw new Error(err)

@@ -10,7 +10,7 @@ let {analysis, mosaic, formatCurrency} = require('../../../../utils/utils')
 function formatData (rows) {
   return rows.map(row => {
     if (row.repayment_time) {
-      row.repayment_time = moment(row.repayment_time).format('YYYY-MM-DD')
+      row.repayment_time = moment(row.repayment_time).format('YYYY-MM-DD hh:mm:ss')
     }
     if (row.sum_fee) {
       row.sum_fee = formatCurrency(row.sum_fee)

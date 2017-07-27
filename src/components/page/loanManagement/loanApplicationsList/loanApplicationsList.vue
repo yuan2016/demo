@@ -6,10 +6,12 @@
         <span class="managerFront">订单号：</span>
         <el-input size="small" type="text" placeholder="请输入内容" class="managerText"
                   v-model.trim="out_trade_no"></el-input>
-        <span class="managerFront">姓名：</span>
-        <el-input size="small" type="text" placeholder="请输入内容" class="managerText" v-model.trim="realname"></el-input>
         <span class="managerFront">手机号：</span>
-        <el-input size="small" type="text" placeholder="请输入内容" class="managerText" v-model.trim="user_phone"></el-input>
+        <el-input size="small" type="text" placeholder="请输入内容" class="managerTextMiddle"
+                  v-model.trim="user_phone"></el-input>
+        <span class="managerFrontSpecial">姓名：</span>
+        <el-input size="small" type="text" placeholder="请输入内容" class="managerTextShort"
+                  v-model.trim="realname"></el-input>
       </li>
       <li>
         <span class="managerFront">用户类型：</span>
@@ -33,7 +35,8 @@
         <el-button type="primary" size="small" class="loanAppButton" @click.prevent.stop="search">搜索</el-button>
       </li>
     </ul>
-    <el-table stripe v-loading.body="loading" class="userTable" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border style="width: 100%;overflow: auto">
+    <el-table stripe v-loading.body="loading" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border
+              style="width: 100%;overflow: auto" height="500">
       <el-table-column property="out_trade_no" label="订单号" width="150px"></el-table-column>
       <el-table-column property="realname" label="姓名"></el-table-column>
       <el-table-column property="user_phone" label="手机号"></el-table-column>
@@ -184,43 +187,43 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-.loanApplicationsList
-  height: 100%
-  .date-filter
-    padding: 15px 0 15px 1px
-    height: 8%
-    li
-      margin-bottom :5px
-    .managerFront
-      padding-left: 5px
-      font-size: 14px
-      color: #666
-    .managerText
-      width: 188px
-    .loanAppButton
-      margin-left: 5px
-    .loanAppSelect
-      width: 100px
-    .loanAppSelectLong
-      width: 150px
+  .loanApplicationsList
+    height: 100%
+    .date-filter
+      padding: 15px 0 15px 1px
+      box-sizing border-box
+      height 90px
+      li
+        margin-bottom: 5px
+      .managerFront, .managerFrontSpecial
+        display: inline-block
+        padding-left: 5px
+        width: 80px
+        text-align: right
+        font-size: 14px
+        color: #666
+      .managerFrontSpecial
+        width: 50px
+      .managerText
+        width: 180px
+      .managerTextMiddle
+        width: 153px
+      .managerTextShort
+        width: 120px
+      .loanAppButton
+        margin-left: 5px
+      .loanAppSelect
+        width: 180px
+      .loanAppSelectLong
+        width: 283px
 
-  /*.el-col-4*/
-  /*width: 15.66667%*/
+    .el-table .cell, .el-table th > div
+      padding-left: 0
+      padding-right: 0
+      text-align: center
+      font-size: 12px
 
-  /*.el-col-20*/
-  /*width: 84.33333%*/
-  .userTable
-    height: 70%
-  .pagination
-    padding-top :1.5%
-
-  .el-table .cell, .el-table th > div
-    padding-left: 0
-    padding-right: 0
-    text-align: center
-    font-size: 12px
-
-  .el-table th > .cell
-    text-align: center
-    font-weight: bold
+    .el-table th > .cell
+      text-align: center
+      font-weight: bold
 </style>

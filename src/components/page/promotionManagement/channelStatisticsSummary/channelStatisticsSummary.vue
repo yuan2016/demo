@@ -13,8 +13,8 @@
       </el-select>
       <el-button type="primary" size="small" class="userButton" @click.prevent.stop="search">搜索</el-button>
     </div>
-    <el-table v-loading.body="loading" class="userTable" element-loading-text="拼命加载中" :data="fundData"
-              highlight-current-row border stripe style="width: 100%;overflow: auto;">
+    <el-table v-loading.body="loading" element-loading-text="拼命加载中" :data="fundData"
+              highlight-current-row border stripe style="width: 100%;overflow: auto;" height="500">
       <el-table-column property="channel_trader" label="渠道商"></el-table-column>
       <el-table-column property="register_num" label="注册量"></el-table-column>
       <el-table-column property="realname_auth_num" sortable label="实名认证"></el-table-column>
@@ -31,7 +31,7 @@
       <el-table-column property="loan_amount" label="放款金额"></el-table-column>
       <el-table-column property="overdue_num" label="逾期人数"></el-table-column>
     </el-table>
-    <div class="Pagination" style="text-align: center;margin-top: 10px;">
+    <div style="text-align: center;margin-top: 10px;">
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
@@ -134,29 +134,19 @@
     height: 100%
     .date-filter
       padding: 15px 0 15px 1px
-      height: 4%
+      box-sizing border-box
+      height 60px
       .managerFront
-        padding-left: 5px
+        padding-left :5px
         font-size: 14px
         color: #666
       .managerText
         width: 180px
       .userButton
         margin-left: 5px
-      .userListTimeSelect
-        width: 120px
-      .userListSelect
-        width: 80px
+      .promoterSelect
+        width: 180px
 
-    /*.el-col-4*/
-    /*width: 15.66667%*/
-
-    /*.el-col-20*/
-    /*width: 84.33333%*/
-    .userTable
-      height: 74%
-    .pagination
-      padding-top: 1.5%
 
     .el-table .cell, .el-table th > div
       padding-left: 0

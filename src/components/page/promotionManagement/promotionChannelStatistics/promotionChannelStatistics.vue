@@ -9,8 +9,8 @@
       <el-date-picker v-model.trim="endTime" type="date" size="small" placeholder="到" class="userListTimeSelect"></el-date-picker>
       <el-button type="primary" size="small" class="userButton" @click.prevent.stop="search">搜索</el-button>
     </div>
-    <el-table v-loading.body="loading" class="userTable" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto">
-      <el-table-column property="channel_trader_name" label="渠道商名称"></el-table-column>
+    <el-table v-loading.body="loading" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto" height="500">
+      <el-table-column property="channel_trader_name" fixed label="渠道商名称"></el-table-column>
       <el-table-column property="d_date" sortable label="日期"></el-table-column>
       <el-table-column property="settle_method" label="结算方式" width="170px"></el-table-column>
       <el-table-column property="effe_cust_acqu_cost" label="有效获客成本(元)" width="100px"></el-table-column>
@@ -28,9 +28,9 @@
       <el-table-column property="ouser_adoption_rate" label="老用户通过率"></el-table-column>
       <el-table-column property="ouser_loan_amount" label="老用户放款金额(元)" width="120px"></el-table-column>
       <el-table-column property="overdue_num" label="逾期人数"></el-table-column>
-      <el-table-column property="create_time" sortable label="更新时间"></el-table-column>
+      <el-table-column property="create_time" sortable label="更新时间" width="130px"></el-table-column>
     </el-table>
-    <div class="pagination" style="text-align: center;margin-top: 10px;">
+    <div style="text-align: center;margin-top: 10px;">
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
@@ -124,9 +124,10 @@
   height: 100%
   .date-filter
     padding: 15px 0 15px 1px
-    height: 4%
+    box-sizing border-box
+    height 60px
     .managerFront
-      padding-left: 5px
+      padding-left :5px
       font-size: 14px
       color: #666
     .managerText
@@ -138,15 +139,6 @@
     .userListSelect
       width: 80px
 
-  /*.el-col-4*/
-    /*width: 15.66667%*/
-
-  /*.el-col-20*/
-    /*width: 84.33333%*/
-  .userTable
-    height: 74%
-  .pagination
-    padding-top :1.5%
 
   .el-table .cell, .el-table th > div
     padding-left: 0

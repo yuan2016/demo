@@ -22,7 +22,7 @@
       </el-select>
       <el-button type="primary" size="small" class="loanAuditButton" @click.prevent.stop="search">搜索</el-button>
     </div>
-    <el-table v-loading.body="loading" class="userTable" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto">
+    <el-table v-loading.body="loading" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto" height="500">
       <el-table-column property="id" label="还款ID"></el-table-column>
       <el-table-column property="realname" label="姓名"></el-table-column>
       <el-table-column property="user_phone" label="手机号"></el-table-column>
@@ -32,13 +32,13 @@
       <el-table-column property="repayment_interest" label="服务费(元)"></el-table-column>
       <el-table-column property="repayment_amount" label="总需要还款金额(元)" width="130px"></el-table-column>
       <el-table-column property="repaymented_amount" label="已还金额(元)"></el-table-column>
-      <el-table-column property="credit_repayment_time" sortable label="放款时间"></el-table-column>
-      <el-table-column property="repayment_real_time" sortable label="还款时间"></el-table-column>
+      <el-table-column property="credit_repayment_time" sortable label="放款时间" width="130px"></el-table-column>
+      <el-table-column property="repayment_real_time" sortable label="还款时间" width="130px"></el-table-column>
       <el-table-column property="repayment_time" sortable label="到期日期"></el-table-column>
       <el-table-column property="status" label="状态"></el-table-column>
       <el-table-column property="is_fenqi" label="是否分期"></el-table-column>
     </el-table>
-    <div class="pagination" style="text-align: center;margin-top: 10px;">
+    <div style="text-align: center;margin-top: 10px;">
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
@@ -136,9 +136,10 @@
   height: 100%
   .date-filter
     padding: 15px 0 15px 1px
-    height: 4%
+    box-sizing border-box
+    height 60px
     .managerFront
-      padding-left: 5px
+      padding-left :5px
       font-size: 14px
       color: #666
     .managerText
@@ -150,15 +151,6 @@
     .userListTimeSelect
       width: 160px
 
-    /*.el-col-4*/
-    /*width: 15.66667%*/
-
-  /*.el-col-20*/
-    /*width: 84.33333%*/
-    .userTable
-      height: 74%
-    .pagination
-      padding-top :1.5%
 
   .el-table .cell, .el-table th > div
     padding-left: 0

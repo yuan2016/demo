@@ -30,9 +30,8 @@
         <el-button type="primary" size="small" class="userButton" @click.prevent.stop="search">搜索</el-button>
       </li>
     </ul>
-    <el-table v-loading.body="loading" element-loading-text="拼命加载中" stripe :data="fundData" highlight-current-row
-              border class="userTable" style="width: 99%;overflow: auto">
-      <el-table-column property="id" label="用户ID" width="70px"></el-table-column>
+    <el-table v-loading.body="loading" element-loading-text="拼命加载中" stripe :data="fundData" highlight-current-row border height="500" style="width:100%;overflow: auto">
+      <el-table-column property="id" label="用户ID"></el-table-column>
       <el-table-column property="realname" label="姓名"></el-table-column>
       <el-table-column property="company_name" label="公司名称"></el-table-column>
       <el-table-column property="user_phone" label="联系方式"></el-table-column>
@@ -42,7 +41,7 @@
       <el-table-column property="status" label="是否黑名单"></el-table-column>
       <el-table-column property="create_time" sortable label="创建时间"></el-table-column>
     </el-table>
-    <div class="pagination" style="text-align: center;margin-top: 10px;">
+    <div style="text-align: center;margin-top: 10px;">
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
@@ -144,7 +143,8 @@
     height: 100%
     .date-filter
       padding: 15px 0 15px 1px
-      height: 8%
+      box-sizing border-box
+      height 90px
       li
         margin-bottom :5px
       .managerFront
@@ -162,16 +162,6 @@
         width: 120px
       .userListSelect
         width: 80px
-
-    /*.el-col-4*/
-    /*width: 15.66667%*/
-
-    /*.el-col-20*/
-    /*width: 84.33333%*/
-    .userTable
-      height: 70%
-    .pagination
-      padding-top :1.5%
 
     .el-table .cell, .el-table th > div
       padding-left: 0

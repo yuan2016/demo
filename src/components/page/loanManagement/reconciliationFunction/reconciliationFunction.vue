@@ -6,19 +6,19 @@
         <span class="managerFront">订单号：</span>
         <el-input size="small" type="text" placeholder="请输入内容" class="managerText"
                   v-model.trim="out_trade_no"></el-input>
-        <span class="managerFront">姓名：</span>
-        <el-input size="small" type="text" placeholder="请输入内容" class="managerText" v-model.trim="realname"></el-input>
+        <span class="managerFrontShort">姓名：</span>
+        <el-input size="small" type="text" placeholder="请输入内容" class="managerTextShort" v-model.trim="realname"></el-input>
         <span class="managerFront">手机号：</span>
         <el-input size="small" type="text" placeholder="请输入内容" class="managerText" v-model.trim="user_phone"></el-input>
       </li>
       <li>
         <span class="managerFront">放款时间：</span>
         <el-date-picker v-model.trim="startTime" type="date" size="small" placeholder="从"
-                        class="userListTimeSelect"></el-date-picker>
+                        class="reconciliationTimeSelect"></el-date-picker>
         <el-date-picker v-model.trim="endTime" type="date" size="small" placeholder="到"
-                        class="userListTimeSelect"></el-date-picker>
+                        class="reconciliationTimeSelect"></el-date-picker>
         <span class="managerFront">用户类型：</span>
-        <el-select v-model.trim="customer_type" size="small" placeholder="不限" class="loanAuditSelect">
+        <el-select v-model.trim="customer_type" size="small" placeholder="不限" class="reconciliationSelect">
           <el-option
             v-for="item in options"
             :key="item.value"
@@ -29,8 +29,8 @@
         <el-button type="primary" size="small" class="loanAuditButton" @click.prevent.stop="search">搜索</el-button>
       </li>
     </ul>
-    <el-table v-loading.body="loading" class="userTable" element-loading-text="拼命加载中" :data="fundData"
-              highlight-current-row border stripe style="width: 100%;overflow: auto">
+    <el-table v-loading.body="loading" element-loading-text="拼命加载中" :data="fundData"
+              highlight-current-row border stripe style="width: 100%;overflow: auto" height="500">
       <el-table-column property="out_trade_no" label="订单号" width="150px"></el-table-column>
       <el-table-column property="yurref" label="打款订单号" width="170px"></el-table-column>
       <el-table-column property="realname" label="姓名"></el-table-column>
@@ -43,12 +43,12 @@
       <el-table-column property="sjloan_urgent_fee" label="加急费(元)"></el-table-column>
       <el-table-column property="apr" label="服务费利率(万分之一)" width="150px"></el-table-column>
       <el-table-column property="is_fenqi" label="是否分期"></el-table-column>
-      <el-table-column property="order_time" sortable label="下单时间"></el-table-column>
-      <el-table-column property="loan_time" sortable label="放款时间"></el-table-column>
+      <el-table-column property="order_time" sortable label="下单时间"width="130px"></el-table-column>
+      <el-table-column property="loan_time" sortable label="放款时间"width="130px"></el-table-column>
       <el-table-column property="child_type" label="子类型"></el-table-column>
-      <el-table-column property="status" label="状态" width="120px"></el-table-column>
+      <el-table-column property="pay_remark" label="状态" width="120px"></el-table-column>
     </el-table>
-    <div class="pagination" style="text-align: center;margin-top: 10px;">
+    <div style="text-align: center;margin-top: 10px;">
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
@@ -149,32 +149,29 @@
     height: 100%
     .date-filter
       padding: 15px 0 15px 1px
-      height: 8%
+      box-sizing border-box
+      height 90px
       li
         margin-bottom :5px
-      .managerFront
+      .managerFront,.managerFrontShort
         display: inline-block
-        width: 70px
-        text-align :right
         padding-left: 5px
+        width: 70px
+        text-align:right
         font-size: 14px
         color: #666
+      .managerFrontShort
+        width: 50px
       .managerText
         width: 180px
+      .managerTextShort
+        width :100px
       .loanAuditButton
         margin-left: 5px
-      .loanAuditSelect
-        width: 90px
-
-    /*.el-col-4*/
-    /*width: 15.66667%*/
-
-    /*.el-col-20*/
-    /*width: 84.33333%*/
-    .userTable
-      height: 70%
-    .pagination
-      padding-top :1.5%
+      .reconciliationSelect
+        width: 126px
+      .reconciliationTimeSelect
+        width: 170px
 
     .el-table .cell, .el-table th > div
       padding-left: 0

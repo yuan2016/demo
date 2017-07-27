@@ -7,13 +7,13 @@ let {analysis, formatCurrency} = require('../../../utils/utils')
 function formatData (rows) {
   return rows.map(row => {
     if (row.last_apply_at) {
-      row.last_apply_at = moment(row.last_apply_at).format('YYYY-MM-DD')
+      row.last_apply_at = moment(row.last_apply_at).format('YYYY-MM-DD hh:mm:ss')
     }
     if (row.create_at) {
-      row.create_at = moment(row.create_at).format('YYYY-MM-DD')
+      row.create_at = moment(row.create_at).format('YYYY-MM-DD hh:mm:ss')
     }
     if (row.updated_at) {
-      row.updated_at = moment(row.updated_at).format('YYYY-MM-DD')
+      row.updated_at = moment(row.updated_at).format('YYYY-MM-DD hh:mm:ss')
     }
     if (row.add_amount) {
       row.add_amount = formatCurrency(row.add_amount / 100)

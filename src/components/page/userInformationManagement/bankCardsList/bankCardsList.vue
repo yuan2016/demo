@@ -30,19 +30,19 @@
         <el-button type="primary" size="small" class="userButton" @click.prevent.stop="search">搜索</el-button>
       </li>
     </ul>
-    <el-table v-loading.body="loading" class="userTable" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border stripe style="width: 99%;overflow: auto">
+    <el-table v-loading.body="loading" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border stripe height="500" style="width: 100%;overflow: auto">
       <el-table-column property="id" label="ID" width="80px"></el-table-column>
       <el-table-column property="user_id" label="借款人ID" width="80px"></el-table-column>
       <el-table-column property="open_name" label="持卡人姓名"></el-table-column>
       <el-table-column property="phone" label="手机号"></el-table-column>
       <el-table-column property="bank_name" label="银行名称"></el-table-column>
-      <el-table-column property="card_no" label="银行卡号"></el-table-column>
+      <el-table-column property="card_no" label="银行卡号" width="150px"></el-table-column>
       <el-table-column property="main_card" label="是否主卡" width="80px"></el-table-column>
       <el-table-column property="type" label="卡片类型"></el-table-column>
       <el-table-column property="card_status" label="状态"></el-table-column>
-      <el-table-column property="create_time" sortable label="添加时间"></el-table-column>
+      <el-table-column property="create_time" sortable label="添加时间"width="140px"></el-table-column>
     </el-table>
-    <div class="pagination" style="text-align: center;margin-top: 10px;">
+    <div style="text-align: center;margin-top: 10px;">
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
@@ -143,8 +143,9 @@
 .bankCardsList
   height: 100%
   .date-filter
-    height: 8%
     padding: 15px 0 15px 1px
+    box-sizing border-box
+    height 90px
     li
       margin-bottom :5px
     .managerFront
@@ -162,16 +163,7 @@
       width: 120px
     .userListSelect
       width: 80px
-  .userTable
-    height: 70%
-  .pagination
-    padding-top :1.5%
 
-  /*.el-col-4*/
-  /*width: 15.66667%*/
-
-  /*.el-col-20*/
-  /*width: 84.33333%*/
 
   .el-table .cell, .el-table th > div
     padding-left: 0

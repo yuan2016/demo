@@ -9,9 +9,9 @@
         <el-input size="small" type="text" placeholder="请输入内容" class="managerText" v-model.trim="user_phone"></el-input>
         <span class="managerFront">放款时间：</span>
         <el-date-picker v-model.trim="startTime" type="date" size="small" placeholder="从"
-                        class="userListTimeSelect"></el-date-picker>
+                        class="assetInformationTimeSelect"></el-date-picker>
         <el-date-picker v-model.trim="endTime" type="date" size="small" placeholder="到"
-                        class="userListTimeSelect"></el-date-picker>
+                        class="assetInformationTimeSelect"></el-date-picker>
       </li>
       <li>
         <span class="managerFront">状态：</span>
@@ -27,7 +27,7 @@
         <el-select v-model.trim="assets_owned" size="small" disabled placeholder="招财猫" class="assetInfoSelect">
         </el-select>
         <span class="managerFront">资产类别：</span>
-        <el-select v-model.trim="credit_lv" size="small" placeholder="不限" class="assetInfoSelect">
+        <el-select v-model.trim="credit_lv" size="small" placeholder="不限" class="assetInfoSelectLong">
           <el-option
             v-for="item in options2"
             :key="item.value"
@@ -38,7 +38,7 @@
         <el-button type="primary" size="small" class="loanAuditButton" @click.prevent.stop="search">搜索</el-button>
       </li>
     </ul>
-    <el-table stripe v-loading.body="loading" class="userTable" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border style="width: 100%;overflow:auto;">
+    <el-table stripe v-loading.body="loading" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border style="width: 100%;overflow:auto;" height="500">
       <el-table-column property="asset_order_id" label="订单号" width="150px"></el-table-column>
       <el-table-column property="realname" label="姓名"></el-table-column>
       <el-table-column property="user_phone" label="手机号"></el-table-column>
@@ -47,16 +47,16 @@
       <el-table-column property="loan_term" label="借款期限" width="170px"></el-table-column>
       <el-table-column property="apr" label="服务费利率(万分之一)" width="150px"></el-table-column>
       <el-table-column property="loan_interests" label="服务费(元)"></el-table-column>
-      <el-table-column property="order_time" sortable label="下单时间"></el-table-column>
-      <el-table-column property="loan_time" sortable label="放款时间"></el-table-column>
-      <el-table-column property="updated_at" sortable label="更新时间"></el-table-column>
+      <el-table-column property="order_time" sortable label="下单时间"width="130px"></el-table-column>
+      <el-table-column property="loan_time" sortable label="放款时间"width="130px"></el-table-column>
+      <el-table-column property="updated_at" sortable label="更新时间"width="130px"></el-table-column>
       <el-table-column property="assets_owned" label="资产所属"></el-table-column>
       <el-table-column property="credit_lv" label="资产类别"></el-table-column>
       <el-table-column property="status" label="状态"></el-table-column>
       <el-table-column property="pay_remark" label="备注"></el-table-column>
 
     </el-table>
-    <div class="pagination" style="text-align: center;margin-top: 10px;">
+    <div style="text-align: center;margin-top: 10px;">
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
@@ -180,29 +180,27 @@
     height: 100%
     .date-filter
       padding: 15px 0 15px 1px
-      height: 8%
+      box-sizing border-box
+      height 90px
       li
-        margin-bottom: 5px
+        margin-bottom :5px
       .managerFront
+        display: inline-block
         padding-left: 5px
+        width: 70px
+        text-align:right
         font-size: 14px
         color: #666
       .managerText
-        width: 180px
+        width: 160px
       .loanAuditButton
         margin-left: 5px
       .assetInfoSelect
-        width: 100px
-
-      /*.el-col-4*/
-      /*width: 15.66667%*/
-
-      /*.el-col-20*/
-      /*width: 84.33333%*/
-    .userTable
-      height: 70%
-    .pagination
-      padding-top: 1.5%
+        width: 160px
+      .assetInfoSelectLong
+        width: 232px
+      .assetInformationTimeSelect
+        width: 140px
 
     .el-table .cell, .el-table th > div
       padding-left: 0

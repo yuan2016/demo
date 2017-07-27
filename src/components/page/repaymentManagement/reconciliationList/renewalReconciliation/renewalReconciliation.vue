@@ -5,16 +5,9 @@
       <li>
         <span class="managerFront">手机号：</span>
         <el-input size="small" type="text" placeholder="请输入内容" class="managerText" v-model.trim="user_phone"></el-input>
-        <span class="managerFront">订单号：</span>
+        <span class="managerFrontShort">订单号：</span>
         <el-input size="small" type="text" placeholder="请输入内容" class="managerText" v-model.trim="order_id"></el-input>
-      </li>
-      <li>
-        <span class="managerFront">续期时间：</span>
-        <el-date-picker v-model.trim="startTime" type="date" size="small" placeholder="从"
-                        class="userListTimeSelect"></el-date-picker>
-        <el-date-picker v-model.trim="endTime" type="date" size="small" placeholder="到"
-                        class="userListTimeSelect"></el-date-picker>
-        <span class="managerFront">续期方式：</span>
+        <span class="managerFrontShort">续期方式：</span>
         <el-select v-model.trim="renewal_type" size="small" placeholder="不限" class="renewalSelect">
           <el-option
             v-for="item in options"
@@ -23,11 +16,18 @@
             :value="item.value">
           </el-option>
         </el-select>
+      </li>
+      <li>
+        <span class="managerFront">续期时间：</span>
+        <el-date-picker v-model.trim="startTime" type="date" size="small" placeholder="从"
+                        class="renewalReconciliationTimeSelect"></el-date-picker>
+        <el-date-picker v-model.trim="endTime" type="date" size="small" placeholder="到"
+                        class="renewalReconciliationTimeSelect"></el-date-picker>
         <el-button type="primary" size="small" class="loanAuditButton" @click.prevent.stop="search">搜索</el-button>
       </li>
     </ul>
-    <el-table v-loading.body="loading" class="userTable" element-loading-text="拼命加载中" :data="fundData"
-              highlight-current-row border stripe style="width: 100%;overflow: auto;">
+    <el-table v-loading.body="loading" element-loading-text="拼命加载中" :data="fundData"
+              highlight-current-row border stripe style="width: 100%;overflow: auto;" height="500">
       <el-table-column property="user_id" label="用户ID" width="80px"></el-table-column>
       <el-table-column property="realname" label="姓名" width="80px"></el-table-column>
       <el-table-column property="user_phone" label="手机号"></el-table-column>
@@ -43,7 +43,7 @@
       <el-table-column property="repayment_time" sortable label="续期后应还时间" width="130px"></el-table-column>
       <el-table-column property="renewal_type" label="续期方式"></el-table-column>
       <el-table-column property="renewal_status" label="续期状态"></el-table-column>
-      <el-table-column property="order_time" sortable label="续期时间"></el-table-column>
+      <el-table-column property="order_time" sortable label="续期时间" width="130"></el-table-column>
       <el-table-column property="lending_account" label="还款账户"></el-table-column>
     </el-table>
     <div class="pagination" style="text-align: center;margin-top: 10px;">
@@ -87,6 +87,12 @@
         }, {
           value: '2',
           label: '支付宝'
+        }, {
+          value: '3',
+          label: '连连'
+        }, {
+          value: '4',
+          label: '益码通支付宝'
         }]
       }
     },
@@ -144,32 +150,28 @@
     height: 100%
     .date-filter
       padding: 15px 0 15px 1px
-      height: 8%
+      box-sizing border-box
+      height 90px
       li
-        margin-bottom: 5px
-      .managerFront
+        margin-bottom :5px
+      .managerFront,.managerFrontShort
         display: inline-block
-        width: 80px
-        text-align: right
         padding-left: 5px
+        width: 90px
+        text-align:right
         font-size: 14px
         color: #666
+      .managerFrontShort
+        width:70px
       .managerText
-        width: 180px
+        width: 135px
       .loanAuditButton
         margin-left: 5px
       .renewalSelect
-        width: 140px
+        width: 130px
+      .renewalReconciliationTimeSelect
+        width: 255px
 
-    /*.el-col-4*/
-    /*width: 15.66667%*/
-
-    /*.el-col-20*/
-    /*width: 84.33333%*/
-    .userTable
-      height: 70%
-    .pagination
-      padding-top: 1.5%
 
     .el-table .cell, .el-table th > div
       padding-left: 0

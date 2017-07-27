@@ -5,9 +5,9 @@
       <li>
         <span class="managerFront">手机号：</span>
         <el-input size="small" type="text" placeholder="请输入内容" class="managerText" v-model.trim="user_phone"></el-input>
-        <span class="managerFront">订单号：</span>
+        <span class="managerFrontShort">订单号：</span>
         <el-input size="small" type="text" placeholder="请输入内容" class="managerText" v-model.trim="order_id"></el-input>
-        <span class="managerFront">还款方式：</span>
+        <span class="managerFrontShort">还款方式：</span>
         <el-select v-model.trim="repayment_type" size="small" placeholder="不限" class="repaySelect">
           <el-option
             v-for="item in options"
@@ -20,14 +20,14 @@
       <li>
         <span class="managerFront">还款时间：</span>
         <el-date-picker v-model.trim="startTime" type="date" size="small" placeholder="从"
-                        class="userListTimeSelect"></el-date-picker>
+                        class="repaymentReconciliationTimeSelect"></el-date-picker>
         <el-date-picker v-model.trim="endTime" type="date" size="small" placeholder="到"
-                        class="userListTimeSelect"></el-date-picker>
+                        class="repaymentReconciliationTimeSelect"></el-date-picker>
         <el-button type="primary" size="small" class="loanAuditButton" @click.prevent.stop="search">搜索</el-button>
       </li>
     </ul>
-    <el-table v-loading.body="loading" class="userTable" element-loading-text="拼命加载中" :data="fundData"
-              highlight-current-row border stripe style="width: 100%;overflow: auto;">
+    <el-table v-loading.body="loading" element-loading-text="拼命加载中" :data="fundData"
+              highlight-current-row border stripe style="width: 100%;overflow: auto;" height="500">
       <el-table-column property="user_id" label="用户ID"></el-table-column>
       <el-table-column property="order_id" label="订单号" width="150px"></el-table-column>
       <el-table-column property="id" label="还款ID"></el-table-column>
@@ -36,15 +36,15 @@
       <el-table-column property="money_amount" label="借款金额(元)"></el-table-column>
       <el-table-column property="repayment_principal" label="借款到账金额(元)" width="120px"></el-table-column>
       <el-table-column property="repayment_amount" label="总还款金额(元)" width="120px"></el-table-column>
-      <el-table-column property="reduction_amount" label="已还款金额(元)" width="120px"></el-table-column>
+      <el-table-column property="repaymented_amount" label="已还款金额(元)" width="120px"></el-table-column>
       <el-table-column property="true_repayment_money" label="实还金额(元)"></el-table-column>
       <el-table-column property="return_money" label="退款金额(元)"></el-table-column>
       <el-table-column property="repayment_type" label="还款方式"></el-table-column>
       <el-table-column property="conditions" label="还款状态"></el-table-column>
       <el-table-column property="status" label="还款详情状态"></el-table-column>
-      <el-table-column property="repayment_time" sortable label="还款时间"></el-table-column>
+      <el-table-column property="repayment_time" sortable label="还款时间" width="130px"></el-table-column>
     </el-table>
-    <div class="Pagination" style="text-align: center;margin-top: 10px;">
+    <div style="text-align: center;margin-top: 10px;">
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
@@ -84,13 +84,28 @@
           label: '支付宝'
         }, {
           value: '2',
-          label: '银行卡主动还款'
+          label: '富友'
         }, {
           value: '3',
-          label: '银行卡自动扣款'
+          label: '连连'
         }, {
           value: '4',
+          label: '连连代扣服务费'
+        }, {
+          value: '5',
           label: '对公银行卡转账'
+        }, {
+          value: '6',
+          label: '减免'
+        }, {
+          value: '7',
+          label: '线下还款'
+        }, {
+          value: '8',
+          label: '益码通支付宝'
+        }, {
+          value: '9',
+          label: '借款优惠服务费'
         }]
       }
     },
@@ -126,6 +141,7 @@
           offset: this.offset
         }).then((response) => {
           this.fundData = response.data
+          console.log(response.data)
           this.loading = false
         })
       },
@@ -148,32 +164,28 @@
     height: 100%
     .date-filter
       padding: 15px 0 15px 1px
-      height: 8%
+      box-sizing border-box
+      height 90px
       li
         margin-bottom :5px
-      .managerFront
+      .managerFront,.managerFrontShort
         display: inline-block
-        width: 80px
-        text-align :right
         padding-left: 5px
+        width: 90px
+        text-align:right
         font-size: 14px
         color: #666
+      .managerFrontShort
+        width:70px
       .managerText
-        width: 180px
+        width: 135px
       .loanAuditButton
         margin-left: 5px
       .repaySelect
         width: 140px
+      .repaymentReconciliationTimeSelect
+        width: 260px
 
-    /*.el-col-4*/
-    /*width: 15.66667%*/
-
-    /*.el-col-20*/
-    /*width: 84.33333%*/
-    .userTable
-      height: 70%
-    .pagination
-      padding-top: 1.5%
 
     .el-table .cell, .el-table th > div
       padding-left: 0

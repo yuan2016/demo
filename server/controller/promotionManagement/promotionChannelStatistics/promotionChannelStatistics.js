@@ -10,7 +10,7 @@ function formatData (rows) {
       row.d_date = moment(row.d_date).format('YYYY-MM-DD')
     }
     if (row.create_time) {
-      row.create_time = moment(row.create_time).format('YYYY-MM-DD')
+      row.create_time = moment(row.create_time).format('YYYY-MM-DD hh:mm:ss')
     }
     if (row.nuser_loan_ratio) {
       row.nuser_loan_ratio = (row.nuser_loan_ratio * 100).toFixed(2) + '%'
@@ -67,7 +67,7 @@ module.exports = {
   fetchAll (req, res) {
     let params = req.body
     let queries = analysis(params)
-    let query = sql.promotionManagement.promotionCommon.selectAllFront + queries.slice(0, 2).join(' and ') + sql.promotionManagement.promotionCommon.selectAllBack
+    let query = sql.promotionManagement.promotionChannelStatistics.selectAllFront + queries.slice(0, 2).join(' and ') + sql.promotionManagement.promotionChannelStatistics.selectAllBack
     func.connPool1(query, [tableName.promotionChannelStatistics, params.startTime, params.endTime, params.offset, params.limit], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
@@ -80,7 +80,7 @@ module.exports = {
   //每日还款金额数据总条数
   getCount (req, res) {
     let params = req.body
-    func.connPool1(sql.promotionManagement.promotionCommon.getCount, [tableName.promotionChannelStatistics, params.startTime, params.endTime], function (err, rs) {
+    func.connPool1(sql.promotionManagement.promotionChannelStatistics.getCount, [tableName.promotionChannelStatistics, params.startTime, params.endTime], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
         throw new Error(err)

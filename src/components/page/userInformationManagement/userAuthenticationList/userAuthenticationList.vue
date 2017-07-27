@@ -7,10 +7,10 @@
       <span class="managerFront">手机号：</span><el-input type="text" size="small" placeholder="请输入内容" class="managerText" v-model.trim="user_phone"></el-input>
       <el-button type="primary" size="small" class="userButton" @click.prevent.stop="search">搜索</el-button>
     </div>
-    <el-table v-loading.body="loading" class="userTable" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border stripe style="width: 99%;overflow: auto">
+    <el-table v-loading.body="loading" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto" height="500">
       <el-table-column property="user_id" label="用户ID"></el-table-column>
       <el-table-column property="realname" label="用户姓名"></el-table-column>
-      <el-table-column property="user_phone" label="手机号"></el-table-column>
+      <el-table-column property="user_phone" label="手机号" width="120px"></el-table-column>
       <el-table-column property="auth_pay_password" label="支付密码"></el-table-column>
       <el-table-column property="auth_id_number" label="身份认证"></el-table-column>
       <el-table-column property="auth_company" label="工作信息"></el-table-column>
@@ -22,7 +22,7 @@
       <el-table-column property="auth_zfb" label="支付宝"></el-table-column>
       <el-table-column property="auth_taobao" label="淘宝"></el-table-column>
     </el-table>
-    <div class="Pagination" style="text-align: center;margin-top: 10px;">
+    <div style="text-align: center;margin-top: 10px;">
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
@@ -107,32 +107,17 @@
   height: 100%
   .date-filter
     padding: 15px 0 15px 1px
-    height:4%
+    box-sizing border-box
+    height 60px
     .managerFront
       padding-left :5px
       font-size: 14px
       color: #666
     .managerText
       width: 180px
-    /*&:before*/
-    /*position: absolute*/
-    /*right: 10px*/
-    /*top: 8px*/
-    /*content: "X"*/
-    /*font-size: 16px*/
-    /*color: #ccc*/
     .userButton
       margin-left: 5px
 
-  /*.el-col-4*/
-    /*width: 15.66667%*/
-
-  /*.el-col-20*/
-    /*width: 84.33333%*/
-  .userTable
-    height: 74%
-  .pagination
-    padding-top :1.5%
 
   .el-table .cell, .el-table th > div
     padding-left: 0

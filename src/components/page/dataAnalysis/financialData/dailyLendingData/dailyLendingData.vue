@@ -4,19 +4,21 @@
     <div class="date-filter">
       <span class="managerFront">日期：</span>
       <el-date-picker
+        size="small"
         v-model.trim="startTime"
         type="date"
         placeholder="从">
       </el-date-picker>
       <el-date-picker
+        size="small"
         v-model.trim="endTime"
         type="date"
         placeholder="到">
       </el-date-picker>
-      <el-button type="primary" @click.prevent.stop="search">搜索</el-button>
+      <el-button type="primary" size="small" @click.prevent.stop="search">搜索</el-button>
     </div>
-    <el-table v-loading.body="loading" class="userTable" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border stripe style="width: 99%;overflow: auto;">
-      <el-table-column property="d_date" sortable label="日期" width="130px" sortable></el-table-column>
+    <el-table v-loading.body="loading" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto;" height="500">
+      <el-table-column property="d_date" fixed sortable label="日期" width="130px" sortable></el-table-column>
       <el-table-column property="register_num" label="注册人数" width="130px"></el-table-column>
       <el-table-column property="loan_num" label="借款人数" width="130px"></el-table-column>
       <el-table-column property="success_loan_num" label="成功借款人数" width="130px"></el-table-column>
@@ -34,8 +36,9 @@
       <el-table-column property="loans_total_ouser" label="老用户放款总额(元)" width="130px"></el-table-column>
       <el-table-column property="loan_singular_nuser" label="新用户放款单数" width="130px"></el-table-column>
       <el-table-column property="loans_total_nuser" label="新用户放款总额(元)" width="130px"></el-table-column>
+      <el-table-column property="create_time" label="更新时间" width="130px"></el-table-column>
     </el-table>
-    <div class="Pagination" style="text-align: center;margin-top: 10px;">
+    <div style="text-align: center;margin-top: 10px;">
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
@@ -95,6 +98,7 @@
           endTime: this.endTime || getNowFormatDate()
         }).then((response) => {
           this.fundData = response.data
+          console.log(response.data)
           this.loading = false
         })
       },
@@ -126,21 +130,13 @@
   height: 100%
   .date-filter
     padding: 15px 0 15px 1px
-    height: 4%
+    box-sizing border-box
+    height 60px
     .managerFront
-      padding-left: 5px
+      padding-left :5px
       font-size: 14px
       color: #666
 
-  /*.el-col-4*/
-    /*width: 15.66667%*/
-
-  /*.el-col-20*/
-    /*width: 84.33333%*/
-  .userTable
-    height: 74%
-  .pagination
-    padding-top :1.5%
 
   .el-table .cell, .el-table th > div
     padding-left: 0

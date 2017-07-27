@@ -3,20 +3,24 @@
     <banner></banner>
     <ul class="date-filter">
       <li>
-        <span class="managerFront">订单号：</span>
-        <el-input size="small" type="text" placeholder="请输入内容" class="managerText"
-                  v-model.trim="out_trade_no"></el-input>
-        <span class="managerFront">姓名：</span>
-        <el-input size="small" type="text" placeholder="请输入内容" class="managerText" v-model.trim="realname"></el-input>
         <span class="managerFront">手机号：</span>
         <el-input size="small" type="text" placeholder="请输入内容" class="managerText" v-model.trim="user_phone"></el-input>
+        <span class="managerFront">姓名：</span>
+        <el-input size="small" type="text" placeholder="请输入内容" class="managerText" v-model.trim="realname"></el-input>
+        <span class="managerFront">订单号：</span>
+        <el-input size="small" type="text" placeholder="请输入内容" class="managerTextLong"
+                  v-model.trim="out_trade_no"></el-input>
       </li>
       <li>
-        <span class="managerFront">放款时间：</span>
-        <el-date-picker v-model.trim="startTime" type="date" size="small" placeholder="从"
-                        class="userListTimeSelect"></el-date-picker>
-        <el-date-picker v-model.trim="endTime" type="date" size="small" placeholder="到"
-                        class="userListTimeSelect"></el-date-picker>
+        <span class="managerFront">状态：</span>
+        <el-select v-model.trim="status" size="small" placeholder="放款中" class="loanAuditSelectLong">
+          <el-option
+            v-for="item in options2"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+          </el-option>
+        </el-select>
         <span class="managerFront">用户类型：</span>
         <el-select v-model.trim="customer_type" size="small" placeholder="不限" class="loanAuditSelect">
           <el-option
@@ -26,21 +30,17 @@
             :value="item.value">
           </el-option>
         </el-select>
-        <span class="managerFront">状态：</span>
-        <el-select v-model.trim="status" size="small" placeholder="放款中" disabled class="loanAuditSelect">
-          <el-option
-            v-for="item in options2"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value">
-          </el-option>
-        </el-select>
+        <span class="managerFront">放款时间：</span>
+        <el-date-picker v-model.trim="startTime" type="date" size="small" placeholder="从"
+                        class="loanAuditTimeSelect"></el-date-picker>
+        <el-date-picker v-model.trim="endTime" type="date" size="small" placeholder="到"
+                        class="loanAuditTimeSelect"></el-date-picker>
         <el-button type="primary" size="small" class="loanAuditButton" @click.prevent.stop="search">搜索</el-button>
       </li>
     </ul>
-    <el-table v-loading.body="loading" class="userTable" element-loading-text="拼命加载中" :data="fundData"
-              highlight-current-row border stripe style="width: 100%;overflow: auto">
-      <el-table-column property="id" label="主键"></el-table-column>
+    <el-table v-loading.body="loading" element-loading-text="拼命加载中" :data="fundData"
+              highlight-current-row border stripe style="width: 100%;overflow: auto" height="500">
+      <el-table-column property="id" fixed label="主键"></el-table-column>
       <el-table-column property="out_trade_no" label="订单号" width="150px"></el-table-column>
       <el-table-column property="yurref" label="打款订单" width="180px"></el-table-column>
       <el-table-column property="realname" label="姓名"></el-table-column>
@@ -56,12 +56,12 @@
       <el-table-column property="loan_end_time" sortable label="预计还款时间" width="130px"></el-table-column>
       <el-table-column property="updated_at" sortable label="更新时间" width="130px"></el-table-column>
       <el-table-column property="child_type" label="子类型"></el-table-column>
-      <el-table-column property="condition" label="状态"></el-table-column>
+      <el-table-column property="state" label="状态"></el-table-column>
       <el-table-column property="status" label="放款状态"></el-table-column>
       <el-table-column property="pay_remark" label="放款备注"></el-table-column>
 
     </el-table>
-    <div class="pagination" style="text-align: center;margin-top: 10px;">
+    <div style="text-align: center;margin-top: 10px;">
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
@@ -85,6 +85,7 @@
         realname: '',
         user_phone: '',
         customer_type: '',
+        status: '',
         fundData: [],
         loading: false,
         currentRow: null,
@@ -94,7 +95,6 @@
         currentPage: 1,
         startTime: '',
         endTime: '',
-        status: '放款中',
         options1: [{
           value: '',
           label: '不限'
@@ -109,8 +109,20 @@
           value: '',
           label: '不限'
         }, {
-          value: '0',
-          label: '待初审'
+          value: '22',
+          label: '放款中'
+        }, {
+          value: '-5',
+          label: '放款驳回'
+        }, {
+          value: '-10',
+          label: '放款失败'
+        }, {
+          value: '21',
+          label: '已放款，还款中'
+        }, {
+          value: '20',
+          label: '复审通过,待放款'
         }]
       }
     },
@@ -141,12 +153,12 @@
           realname: this.realname,
           user_phone: this.user_phone,
           customer_type: this.customer_type,
+          status: this.status,
           startTime: this.startTime || '1991-07-22',
           endTime: this.endTime || getNowFormatDate(),
           limit: this.limit,
           offset: this.offset
         }).then((response) => {
-          console.log(response.data)
           this.fundData = response.data
           this.loading = false
         })
@@ -170,31 +182,29 @@
     height: 100%
     .date-filter
       padding: 15px 0 15px 1px
-      height: 8%
+      box-sizing border-box
+      height 90px
       li
-        margin-bottom: 5px
+        margin-bottom :5px
       .managerFront
         display: inline-block
-        text-align:right
         padding-left: 5px
+        width: 80px
+        text-align:right
         font-size: 14px
         color: #666
+      .managerTextLong
+        width:263px
       .managerText
         width: 180px
       .loanAuditButton
         margin-left: 5px
       .loanAuditSelect
         width: 90px
-
-    /*.el-col-4*/
-    /*width: 15.66667%*/
-
-    /*.el-col-20*/
-    /*width: 84.33333%*/
-    .userTable
-      height: 70%
-    .pagination
-      padding-top: 1.5%
+      .loanAuditSelectLong
+        width:180px
+      .loanAuditTimeSelect
+        width: 148px
 
     .el-table .cell, .el-table th > div
       padding-left: 0

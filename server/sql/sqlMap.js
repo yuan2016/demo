@@ -45,17 +45,17 @@ var sqlMap = {
     },
     loanAuditList: {
       // getCount: 'select count(*) as count from ?? where ',
-      selectAllFront: 'select id, out_trade_no, yurref, realname, user_phone, case when customer_type = 0 then "新用户" when customer_type = 1 then "老用户" end as customer_type, money_amount, loan_term, apr, loan_interests, into_money, order_time, loan_time, loan_end_time, updated_at, status, pay_remark from ?? where (loan_time between ? and ?) and ',
+      selectAllFront: 'select id, out_trade_no, yurref, realname, user_phone, case when customer_type = 0 then "新用户" when customer_type = 1 then "老用户" end as customer_type, money_amount, loan_term, apr, loan_interests, into_money, order_time, loan_time, loan_end_time, updated_at, case when status=20 then "复审通过,待放款" when status=-5 then "放款驳回" when status=22 then "放款中" when status=-10 then "放款失败" when status=21 then "已放款，还款中" end as state, status, pay_remark from ?? where (loan_time between ? and ?) and ',
       selectAllBack: ' limit ?,?'
     },
     raiseQuotaRecord: {
       // getCount: 'select count(*) as count from ?? where ',
-      selectAllFront: 'select user_id, realname, user_phone, new_amount_max, add_amount, repayment_succ_count, repayment_norm_count, repayment_succ_amount, repayment_norm_amount, last_apply_at, create_at, updated_at, case when status=0 then "待审核"when status=1 then "审核通过" else "审核失败" end as status, audit_user, remark from ?? where ',
+      selectAllFront: 'select user_id, realname, user_phone, new_amount_max, add_amount, repayment_succ_count, repayment_norm_count, repayment_succ_amount, ifnull(repayment_norm_amount,0), last_apply_at, create_at, updated_at, case when status=0 then "待审核"when status=1 then "审核通过" else "审核失败" end as status, audit_user, remark from ?? where ',
       selectAllBack: ' limit ?,?'
     },
     reconciliationFunction: {
       // getCount: 'select count(*) as count from ?? where ',
-      selectAllFront: 'select t.out_trade_no, t.yurref, t.realname, t.user_phone, case when t.customer_type = 1 then "老用户" when t.customer_type = 0 then "新用户" end as customer_type, t.money_amount/100 as money_amount, t.into_money/100 as into_money,   t.loan_term as loan_term, t.loan_interests/100 as loan_interests, t.sjloan_urgent_fee/100 as sjloan_urgent_fee,   t.apr, case when t.is_fenqi = 1 then "否" else "是" end as is_fenqi, t.order_time, t.loan_time, case when t1.status=0 then "待推送" when t1.status=1 then "推送中" when t1.status=2 then "推送成功" when t1.status=3 then "推送失败" end as status from ?? t1 inner join ?? t on t.id=t1.id where (t.loan_time between ? and ?) and ',
+      selectAllFront: 'select t.out_trade_no, t.yurref, t.realname, t.user_phone, case when t.customer_type = 1 then "老用户" when t.customer_type = 0 then "新用户" end as customer_type, t.money_amount/100 as money_amount, t.into_money/100 as into_money,   t.loan_term as loan_term, t.loan_interests/100 as loan_interests, t.sjloan_urgent_fee/100 as sjloan_urgent_fee,   t.apr, case when t.is_fenqi = 1 then "否" else "是" end as is_fenqi, t.order_time, t.loan_time, t.pay_remark from ?? t1 inner join ?? t on t.id=t1.id where (t.loan_time between ? and ?) and ',
       selectAllBack: ' limit ?,?'
     },
     assetInformation: {
@@ -81,13 +81,13 @@ var sqlMap = {
     //对账列表  还款对账
     repaymentReconciliation: {
       // getCount: 'select count(*) as count from ?? where ',
-      selectAllFront: 'select t.user_id, t2.order_id, t.id, t1.realname, t1.user_phone, t.money_amount/100 as money_amount,   t.repayment_principal/100 as repayment_principal, t.repayment_amount/100 as repayment_amount, t.reduction_amount/100 as reduction_amount, t2.true_repayment_money/100 as true_repayment_money, ifnull(t2.return_money/100,0) as return_money, case when t2.repayment_type =1 then "支付宝" when t2.repayment_type =2 then "银行卡主动还款" when t2.repayment_type =3 then "银行卡自动扣款" when t2.repayment_type =4 then "对公银行卡转账" end as repayment_type, case when t.status=30 then "已还款" when t.status=21 then "已放款，还款中" when t.status=23 then "部分还款" when t.status=-11 then "已逾期" when t.status=-20 then "已坏账" when t.status=34 then "逾期已还款" end as conditions, t2.status, t.repayment_time from ?? t inner join ?? t1 on t.user_id=t1.id inner join ?? t2 on t.user_id =t2.user_id where (t.user_id="2323482") and (t.status in (30,34,21,23,-11,-20)) and (t.repayment_time between ? and ?) and ',
+      selectAllFront: 'select t.user_id, t2.order_id, t.id, t1.realname, t1.user_phone, t.money_amount/100 as money_amount,   t.repayment_principal/100 as repayment_principal, t.repayment_amount/100 as repayment_amount, t.repaymented_amount/100 as repaymented_amount, t2.true_repayment_money/100 as true_repayment_money, ifnull(t2.return_money/100,0) as return_money, case when t2.repayment_type=1 then "支付宝" when t2.repayment_type=2 then "富友" when t2.repayment_type=3 then "连连" when t2.repayment_type=4 then "连连代扣服务费" when t2.repayment_type=5 then "对公银行卡转账" when t2.repayment_type=6 then "减免" when t2.repayment_type=7 then "线下还款" when t2.repayment_type=8 then "益码通支付宝" when t2.repayment_type=9 then "借款优惠服务费" end as repayment_type, case when t.status=30 then "已还款" when t.status=21 then "已放款，还款中" when t.status=23 then "部分还款" when t.status=-11 then "已逾期" when t.status=-20 then "已坏账" when t.status=34 then "逾期已还款" end as conditions, t2.status, t.repayment_time from ?? t inner join ?? t1 on t.user_id=t1.id inner join ?? t2 on t.user_id =t2.user_id where (t.user_id="2323482") and (t.status in (30,34,21,23,-11,-20)) and (t.repayment_time between ? and ?) and ',
       selectAllBack: ' limit ?,?'
     },
     //对账列表  续期对账
     renewalReconciliation: {
       // getCount: 'select count(*) as count from ?? where ',
-      selectAllFront: 'select t.user_id, t1.realname, t1.user_phone, t.asset_repayment_id, t.order_id, t2.repayment_amount/100 as repayment_amount, t2.repaymented_amount/100 as repaymented_amount, t2.repayment_interest/100 as repayment_interest,   t.renewal_day, (t.loan_urgent_fee+t.plan_late_fee+t.loan_accrual+t.repayment_interest+t.renewal_fee)/100 as reback_count,   t.return_money/100 as return_money, t.old_repayment_time, t.repayment_time, case when t.renewal_type =1 then "富友" else "支付宝" end as renewal_type, t.order_time from ?? t inner join ?? t1 on t.user_id=t1.id inner join ?? t2 on t.user_id=t2.user_id where t.status=1 and t.ts_status in (0,1) and (t.order_time between ? and ?) and ',
+      selectAllFront: 'select t.user_id, t1.realname, t1.user_phone, t.asset_repayment_id, t.order_id, t2.repayment_amount/100 as repayment_amount, t2.repaymented_amount/100 as repaymented_amount, t2.repayment_interest/100 as repayment_interest,   t.renewal_day, (t.loan_urgent_fee+t.plan_late_fee+t.loan_accrual+t.repayment_interest+t.renewal_fee)/100 as reback_count,   t.return_money/100 as return_money, t.old_repayment_time, t.repayment_time, case when t.renewal_type =1 then "富友" when t.renewal_type =2 then "支付宝" when t.renewal_type =3 then "连连" when t.renewal_type =4 then "益码通支付宝" end as renewal_type, t.order_time from ?? t inner join ?? t1 on t.user_id=t1.id inner join ?? t2 on t.asset_repayment_id=t2.id where t.status=1 and t.ts_status in (0,1) and (t.order_time between ? and ?) and ',
       selectAllBack: ' limit ?,?'
     },
     //退款列表  还款详情
@@ -124,24 +124,30 @@ var sqlMap = {
   promotionManagement: {
     promotionChannel: {
       // getCount: 'select count(*) as count from ?? where ',
-      selectAllFront: 'select t.channel_name, t.channel_code, t.operator_name, t.channel_tel, t.channel_province, t.channel_city, t.channel_area, t1.canal_rate_name, t.created_at from ?? t left join ?? t1 on t.rate_id=t1.id where length(t.channel_name)>0 and (t.created_at between ? and ?) and ',
+      selectAllFront: 'select t.channel_name, t.channel_code, t.operator_name, t.channel_tel, t.channel_province, t.channel_city, t.channel_area, t1.canal_rate_name, t.created_at from ?? t left join ?? t1 on t.rate_id=t1.id where (t.channel_name is not null and t.channel_name !="") and length(t.channel_name)>0 and (t.created_at between ? and ?) and ',
       selectAllBack: ' limit ?,?'
     },
     //推广管理 推广员管理
     promoterManagement: {
       // getCount: 'select count(*) as count from ?? where ',
-      selectAllFront: 'select t1.realname, t1.user_phone, t2.channel_name, t2.operator_name, t2.channel_tel, t.created_at, t.rel_path, t.ref_id from ?? t left join ?? t1 on t.user_id = t1.id left join ?? t2 on t.channel_id = t2.id where (t.created_at between ? and ?) and ',
+      selectAllFront: 'select t1.realname, t1.user_phone, t2.channel_name, t2.operator_name, t2.channel_tel, t.created_at, t.rel_path, t.ref_id from ?? t left join ?? t1 on t.user_id = t1.id left join ?? t2 on t.channel_id = t2.id where (t1.realname is not null and t1.realname !="") and (t.created_at between ? and ?) and ',
       selectAllBack: ' limit ?,?',
       getSelectOptions: 'select channel_name from canal_info group by channel_name '
     },
-    //推广管理 公共 (推广统计（渠道），推广统计（地区）)
-    promotionCommon: {
+    //推广管理 推广统计（渠道）
+    promotionChannelStatistics: {
+      selectAllFront: 'select * from ?? where (channel_trader_name is not null and channel_trader_name !="") and (d_date between ? and ?) and ',
+      selectAllBack: ' order by d_date desc limit ?,?',
+      getCount: 'select count(*) as count from ?? where d_date between ? and ?'
+    },
+    //推广管理 推广统计（地区）
+    promotionRegionStatistics: {
       selectAllFront: 'select * from ?? where (d_date between ? and ?) and ',
       selectAllBack: ' order by d_date desc limit ?,?',
       getCount: 'select count(*) as count from ?? where d_date between ? and ?'
     },
     channelStatisticsSummary: {
-      selectAllFront: 'select * from ?? where ',
+      selectAllFront: 'select * from ?? where (channel_trader is not null and channel_trader !="") and ',
       selectAllBack: ' limit ?,?',
       getCount: 'select count(*) as count from ??',
       getSelectOptions: 'select channel_trader from pr_pm_channel_statistic_sum group by channel_trader '

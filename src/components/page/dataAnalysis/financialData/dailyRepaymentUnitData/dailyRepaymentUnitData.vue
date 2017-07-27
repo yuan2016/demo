@@ -4,18 +4,20 @@
     <div class="date-filter">
       <span class="managerFront">日期：</span>
       <el-date-picker
+        size="small"
         v-model.trim="startTime"
         type="date"
         placeholder="从">
       </el-date-picker>
       <el-date-picker
+        size="small"
         v-model.trim="endTime"
         type="date"
         placeholder="到">
       </el-date-picker>
-      <el-button type="primary" @click.prevent.stop="search">搜索</el-button>
+      <el-button type="primary" size="small" @click.prevent.stop="search">搜索</el-button>
     </div>
-    <el-table v-loading.body="loading" class="userTable" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border stripe style="width: 99%;overflow: auto">
+    <el-table v-loading.body="loading" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto" height="500">
       <el-table-column property="d_date" sortable label="日期"></el-table-column>
       <el-table-column property="overdue_num" label="逾期单数"></el-table-column>
       <el-table-column property="overdue_rate" label="逾期率"></el-table-column>
@@ -120,21 +122,13 @@
   height: 100%
   .date-filter
     padding: 15px 0 15px 1px
-    height: 4%
+    box-sizing border-box
+    height 60px
     .managerFront
-      padding-left: 5px
+      padding-left :5px
       font-size: 14px
       color: #666
 
-  /*.el-col-4*/
-    /*width: 15.66667%*/
-
-  /*.el-col-20*/
-    /*width: 84.33333%*/
-  .userTable
-    height: 74%
-  .pagination
-    padding-top :1.5%
 
   .el-table .cell, .el-table th > div
     padding-left: 0

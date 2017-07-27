@@ -10,13 +10,13 @@ let {mosaic, formatCurrency} = require('../../../../utils/utils')
 function formatData (rows) {
   return rows.map(row => {
     if (row.old_repayment_time) {
-      row.old_repayment_time = moment(row.old_repayment_time).format('YYYY-MM-DD')
+      row.old_repayment_time = moment(row.old_repayment_time).format('YYYY-MM-DD hh:mm:ss')
     }
     if (row.repayment_time) {
-      row.repayment_time = moment(row.repayment_time).format('YYYY-MM-DD')
+      row.repayment_time = moment(row.repayment_time).format('YYYY-MM-DD hh:mm:ss')
     }
     if (row.order_time) {
-      row.order_time = moment(row.order_time).format('YYYY-MM-DD')
+      row.order_time = moment(row.order_time).format('YYYY-MM-DD hh:mm:ss')
     }
     if (row.repayment_principal) {
       row.repayment_principal = formatCurrency(row.repayment_principal)

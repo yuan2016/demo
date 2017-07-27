@@ -7,13 +7,15 @@
         </div>
         <el-form ref="loginForm" class="loginForm" :rules="loginRules" :model="loginForm">
           <el-form-item prop="email">
-            <el-input type="text" placeholder="邮箱" v-model="loginForm.email"></el-input>
+            <el-input type="text" placeholder="邮箱" v-model="loginForm.email">
+            </el-input>
           </el-form-item>
           <el-form-item prop="password">
-            <el-input type="password" placeholder="密码" v-model="loginForm.password"></el-input>
+            <el-input type="password" placeholder="密码" v-model="loginForm.password" @keyup.enter.native="jumpTo({path:'/home'})">
+            </el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" class="submit_btn" :loading="loading" @click="jumpTo({path:'/home'})">登陆
+            <el-button type="primary" class="submit_btn" :loading="loading" @click.stop.prevent="jumpTo({path:'/home'})">登陆
             </el-button>
           </el-form-item>
         </el-form>

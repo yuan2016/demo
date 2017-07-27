@@ -10,7 +10,7 @@ let {analysis} = require('../../../utils/utils')
 function formatData (rows) {
   return rows.map(row => {
     if (row.created_at) {
-      row.created_at = moment(row.created_at).format('YYYY-MM-DD')
+      row.created_at = moment(row.created_at).format('YYYY-MM-DD hh:mm:ss')
     }
     return row
   })

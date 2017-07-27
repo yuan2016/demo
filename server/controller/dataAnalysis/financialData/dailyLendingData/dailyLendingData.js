@@ -6,7 +6,12 @@ let {formatCurrency} = require('../../../../utils/utils')
 
 function formatData (rows) {
   return rows.map(row => {
-    row.d_date = moment(row.d_date).format('YYYY-MM-DD')
+    if (row.d_date) {
+      row.d_date = moment(row.d_date).format('YYYY-MM-DD')
+    }
+    if (row.create_time) {
+      row.create_time = moment(row.create_time).format('YYYY-MM-DD hh:mm:ss')
+    }
     if (row.loans_total) {
       row.loans_total = formatCurrency(row.loans_total)
     }

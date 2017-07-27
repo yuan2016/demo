@@ -12,7 +12,7 @@
                       class="userListTimeSelect"></el-date-picker>
       <el-button type="primary" size="small" class="userButton" @click.prevent.stop="search">搜索</el-button>
     </div>
-    <el-table  v-loading.body="loading" class="userTable" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto;">
+    <el-table  v-loading.body="loading" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto;" height="500">
       <el-table-column property="d_date" sortable label="日期"></el-table-column>
       <el-table-column property="Province" label="省份"></el-table-column>
       <el-table-column property="city" label="城市"></el-table-column>
@@ -31,7 +31,7 @@
       <el-table-column property="blacklist_num" label="黑名单人数"></el-table-column>
       <el-table-column property="overdue_num" label="逾期人数"></el-table-column>
     </el-table>
-    <div class="pagination" style="text-align: center;margin-top: 10px;">
+    <div style="text-align: center;margin-top: 10px;">
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
@@ -145,7 +145,8 @@
   height: 100%
   .date-filter
     padding: 15px 0 15px 1px
-    height: 4%
+    box-sizing border-box
+    height 60px
     .selectContent
       display: inline-block
       vertical-align: middle
@@ -164,15 +165,6 @@
     .userListSelect
       width: 80px
 
-  /*.el-col-4*/
-    /*width: 15.66667%*/
-
-  /*.el-col-20*/
-    /*width: 84.33333%*/
-  .userTable
-    height: 74%
-  .pagination
-    padding-top :1.5%
 
   .el-table .cell, .el-table th > div
     padding-left: 0

@@ -4,19 +4,21 @@
     <div class="date-filter">
       <span class="managerFront">到期日：</span>
       <el-date-picker
+        size="small"
         v-model.trim="startTime"
         type="date"
         placeholder="从">
       </el-date-picker>
       <el-date-picker
+        size="small"
         v-model.trim="endTime"
         type="date"
         placeholder="到">
       </el-date-picker>
-      <el-button type="primary" @click.prevent.stop="search">搜索</el-button>
+      <el-button type="primary" size="small" @click.prevent.stop="search">搜索</el-button>
     </div>
-    <el-table v-loading.body="loading" class="userTable" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border stripe style="width: 99%;overflow: auto;">
-      <el-table-column property="d_date" label="到期日" stripe sortable width="130px"></el-table-column>
+    <el-table v-loading.body="loading" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto;" height="500">
+      <el-table-column property="d_date" label="到期日" fixed sortable width="130px"></el-table-column>
       <el-table-column property="loan_date_f1" label="F1放款日" sortable width="130px"></el-table-column>
       <el-table-column property="due_amount_f1" label="F1到期金额(元)" width="130px"></el-table-column>
       <el-table-column property="repayment_amount_f1" label="F1还款金额(元)" width="130px"></el-table-column>
@@ -39,7 +41,7 @@
       <el-table-column property="overdue_rate_ouser_f3" label="F3老用户逾期率" width="130px"></el-table-column>
       <el-table-column property="overdue_rate_nuser_f3" label="F3新用户逾期率" width="130px"></el-table-column>
     </el-table>
-    <div class="pagination" style="text-align: center;margin-top: 10px;">
+    <div style="text-align: center;margin-top: 10px;">
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
@@ -130,20 +132,13 @@
   height: 100%
   .date-filter
     padding: 15px 0 15px 1px
-    height: 4%
+    box-sizing border-box
+    height 60px
     .managerFront
-      padding-left: 5px
+      padding-left :5px
       font-size: 14px
       color: #666
 
-    /*.el-col-4*/
-      /*width: 10.66667%*/
-    /*.el-col-20*/
-      /*width: 89.33333%*/
-    .userTable
-      height: 74%
-    .pagination
-      padding-top :1.5%
 
   .el-table .cell, .el-table th > div
     padding-left: 0
