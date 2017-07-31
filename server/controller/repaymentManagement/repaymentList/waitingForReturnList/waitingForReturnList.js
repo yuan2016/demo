@@ -5,15 +5,15 @@ let sql = require('../../../../sql/sqlMap')
 let func = require('../../../../sql/func')
 let moment = require('moment')
 let tableName = require('../../../../config/tableName')
-let {analysis, formatCurrency} = require('../../../../utils/utils')
+let {analysis, mosaic, formatCurrency} = require('../../../../utils/utils')
 
 function formatData (rows) {
   return rows.map(row => {
     if (row.credit_repayment_time) {
-      row.credit_repayment_time = moment(row.credit_repayment_time).format('YYYY-MM-DD hh:mm:ss')
+      row.credit_repayment_time = moment(row.credit_repayment_time).format('YYYY-MM-DD HH:mm:ss')
     }
     if (row.repayment_time) {
-      row.repayment_time = moment(row.repayment_time).format('YYYY-MM-DD hh:mm:ss')
+      row.repayment_time = moment(row.repayment_time).format('YYYY-MM-DD HH:mm:ss')
     }
     if (row.repayment_principal) {
       row.repayment_principal = formatCurrency(row.repayment_principal)
@@ -27,7 +27,6 @@ function formatData (rows) {
     if (row.repaymented_amount) {
       row.repaymented_amount = formatCurrency(row.repaymented_amount)
     }
-    row.status = '已放款/待还款'
     return row
   })
 }
@@ -38,7 +37,8 @@ module.exports = {
   fetchAll (req, res) {
     let params = req.body
     let queries = analysis(params, 't1')
-    let query = sql.repaymentManagement.waitingForReturnList.selectAllFront + queries.slice(0, 2).join(' and ') + sql.repaymentManagement.waitingForReturnList.selectAllBack
+    let add = mosaic(params, 'status', 't')
+    let query = sql.repaymentManagement.waitingForReturnList.selectAllFront + queries.slice(0, 2).join(' and ') + add + sql.repaymentManagement.waitingForReturnList.selectAllBack
     func.connPool2(query, [tableName.waitingForReturnList.t, tableName.waitingForReturnList.t1, params.offset, params.limit], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)

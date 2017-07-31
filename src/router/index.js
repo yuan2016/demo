@@ -5,6 +5,7 @@ import App from '../App'
 const login = r => require.ensure([], () => r(require('../components/login/login')), 'login')
 const home = r => require.ensure([], () => r(require('../components/home/home')), 'home')
 const main = r => require.ensure([], () => r(require('../components/page/main/main')), 'main')
+const error = r => require.ensure([], () => r(require('../components/page/404/404')), '404')
 //用户信息管理
 const userList = r => require.ensure([], () => r(require('../components/page/userInformationManagement/userList/userList')), 'userList')
 const userAddressBook = r => require.ensure([], () => r(require('../components/page/userInformationManagement/userAddressBook/userAddressBook')), 'userAddressBook')
@@ -61,6 +62,10 @@ export default [{
       children: [{path: '', redirect: '/main'}, {
         path: '/main',
         component: main,
+        meta: []
+      }, {
+        path: '/404',
+        component: error,
         meta: []
       }, {
         path: '/userList',
@@ -188,5 +193,8 @@ export default [{
         meta: ['推广管理', '渠道统计汇总']
       }]
     }]
+}, {
+  path: '*',
+  component: error
 }]
 

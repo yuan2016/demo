@@ -7,7 +7,13 @@
       <span class="managerFront">手机号：</span>
       <el-input type="text" size="small" placeholder="请输入内容" class="managerText" v-model.trim="user_phone"></el-input>
       <span class="managerFront">状态：</span>
-      <el-select v-model.trim="status" size="small" disabled placeholder="已放款/待还款" class="watingSelect">
+      <el-select v-model.trim="status" size="small"  placeholder="不限" class="watingSelect">
+        <el-option
+          v-for="item in options"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value">
+        </el-option>
       </el-select>
       <el-button type="primary" size="small" class="watingButton" @click.prevent.stop="search">搜索</el-button>
     </div>
@@ -45,16 +51,32 @@
   export default {
     data () {
       return {
-        status: '已放款/待还款',
         realname: '',
         user_phone: '',
+        status: '',
         fundData: [],
         loading: false,
         currentRow: null,
         offset: 0,
         limit: 20,
         count: 0,
-        currentPage: 1
+        currentPage: 1,
+        options: [{
+          value: '',
+          label: '不限'
+        }, {
+          value: '21',
+          label: '已放款/待还款'
+        }, {
+          value: '23',
+          label: '部分还款'
+        }, {
+          value: '-11',
+          label: '已逾期'
+        }, {
+          value: '-20',
+          label: '已坏账'
+        }]
       }
     },
     components: {
@@ -82,6 +104,7 @@
         this.axios.post('/api/waitingForReturnList', {
           realname: this.realname,
           user_phone: this.user_phone,
+          status: this.status,
           limit: this.limit,
           offset: this.offset
         }).then((response) => {

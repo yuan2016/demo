@@ -105,7 +105,10 @@ module.exports = {
     func.connPool1(sql.main.selectAll, tableName.main, function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
-        throw new Error(err)
+        res.json({
+          code: '404'
+        })
+        return
       }
       formatData(rs)
       res.json(rs)

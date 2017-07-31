@@ -26,7 +26,7 @@
         @current-change="handleCurrentChange"
         :current-page="currentPage"
         :page-size="20"
-        layout="sizes"
+        :layout="pageContent"
         :total="count">
       </el-pagination>
     </div>
@@ -44,6 +44,8 @@
         contact_name: '',
         fundData: [],
         loading: false,
+        isShowPage: false,
+        pageContent: 'sizes',
         currentRow: null,
         offset: 0,
         limit: 20,
@@ -56,23 +58,23 @@
     },
     created () {
       this.loading = true
-      this.getData()
+      this.getDataInit()
     },
     methods: {
       //每页显示数据量变更
       handleSizeChange (val) {
         this.limit = val
         this.loading = true
-        this.getData()
+        this.getDataInit()
       },
       //页码变更
       handleCurrentChange (val) {
         this.currentPage = val
         this.offset = (val - 1) * this.limit
         this.loading = true
-        this.getData()
+        this.getDataInit()
       },
-      getData () {
+      getDataInit () {
         this.axios.post('/api/userAddressBook', {
           user_id: this.user_id,
           contact_phone: this.contact_phone,
@@ -80,13 +82,72 @@
           limit: this.limit,
           offset: this.offset
         }).then((response) => {
-          this.fundData = response.data
+          if (response.data.code === '404') {
+            this.$router.push('./404')
+          } else {
+            this.fundData = response.data
+            this.loading = false
+          }
+        }).catch(() => {
+          this.fundData = []
           this.loading = false
+          this.$message({
+            message: '请检查搜索条件或者多选几条搜索条件进行搜索',
+            type: 'warning'
+          })
+        })
+      },
+      getData () {
+        return this.axios.post('/api/userAddressBook', {
+          user_id: this.user_id,
+          contact_phone: this.contact_phone,
+          contact_name: this.contact_name,
+          limit: this.limit,
+          offset: this.offset
+        })
+      },
+      getCount () {
+        return this.axios.post('/api/userAddressBook/count', {
+          user_id: this.user_id,
+          contact_phone: this.contact_phone,
+          contact_name: this.contact_name,
+          limit: this.limit,
+          offset: this.offset
         })
       },
       search () {
         this.loading = true
-        this.getData()
+        this.pageContent = 'sizes'
+        if (this.user_id === '' && this.contact_phone === '' && this.contact_name === '') {
+          console.log(false)
+          this.isShowPage = false
+          this.pageContent = 'sizes'
+          this.getDataInit()
+        } else {
+          console.log(true)
+          this.isShowPage = true
+          this.axios.all([this.getCount(), this.getData()])
+            .then(this.axios.spread((acct, perms) => {
+              if (perms.data.code === '404' || acct.data[0].code === '404') {
+                this.$router.push('./404')
+              } else {
+                console.log(acct.data[0].count)
+                console.log(perms.data)
+                this.count = acct.data[0].count
+                this.fundData = perms.data
+                this.loading = false
+                this.pageContent = 'total, sizes, prev, pager, next, jumper'
+              }
+            })).catch(() => {
+              this.fundData = []
+              this.loading = false
+              this.$message({
+                message: '请检查搜索条件或者多选几条搜索条件进行搜索',
+                type: 'warning'
+              })
+            }
+          )
+        }
       }
     }
   }

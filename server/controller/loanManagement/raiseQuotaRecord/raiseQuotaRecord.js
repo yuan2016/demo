@@ -7,25 +7,25 @@ let {analysis, formatCurrency} = require('../../../utils/utils')
 function formatData (rows) {
   return rows.map(row => {
     if (row.last_apply_at) {
-      row.last_apply_at = moment(row.last_apply_at).format('YYYY-MM-DD hh:mm:ss')
+      row.last_apply_at = moment(row.last_apply_at).format('YYYY-MM-DD HH:mm:ss')
     }
     if (row.create_at) {
-      row.create_at = moment(row.create_at).format('YYYY-MM-DD hh:mm:ss')
+      row.create_at = moment(row.create_at).format('YYYY-MM-DD HH:mm:ss')
     }
     if (row.updated_at) {
-      row.updated_at = moment(row.updated_at).format('YYYY-MM-DD hh:mm:ss')
+      row.updated_at = moment(row.updated_at).format('YYYY-MM-DD HH:mm:ss')
     }
     if (row.add_amount) {
-      row.add_amount = formatCurrency(row.add_amount / 100)
+      row.add_amount = formatCurrency(row.add_amount)
     }
     if (row.new_amount_max) {
-      row.new_amount_max = formatCurrency(row.new_amount_max / 100)
+      row.new_amount_max = formatCurrency(row.new_amount_max)
     }
     if (row.repayment_norm_amount) {
-      row.repayment_norm_amount = formatCurrency(row.repayment_norm_amount / 100)
+      row.repayment_norm_amount = formatCurrency(row.repayment_norm_amount)
     }
     if (row.repayment_succ_amount) {
-      row.repayment_succ_amount = formatCurrency(row.repayment_succ_amount / 100)
+      row.repayment_succ_amount = formatCurrency(row.repayment_succ_amount)
     }
     return row
   })
@@ -36,6 +36,7 @@ module.exports = {
   fetchAll (req, res) {
     let params = req.body
     let queries = analysis(params)
+    console.log(params)
     let query = sql.loanManagement.raiseQuotaRecord.selectAllFront + queries.slice(0, 3).join(' and ') + sql.loanManagement.raiseQuotaRecord.selectAllBack
     func.connPool2(query, [tableName.raiseQuotaRecord, params.offset, params.limit], function (err, rs) {
       if (err) {

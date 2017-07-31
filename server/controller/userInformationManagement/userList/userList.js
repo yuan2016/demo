@@ -2,12 +2,12 @@ let sql = require('../../../sql/sqlMap')
 let func = require('../../../sql/func')
 let moment = require('moment')
 let tableName = require('../../../config/tableName')
-let {analysis} = require('../../../utils/utils')
+let {analysis, complexMosaic} = require('../../../utils/utils')
 
 function formatData (rows) {
   return rows.map(row => {
     if (row.create_time) {
-      row.create_time = moment(row.create_time).format('YYYY-MM-DD hh:mm:ss')
+      row.create_time = moment(row.create_time).format('YYYY-MM-DD HH:mm:ss')
     }
     if (row.birthday) {
       row.birthday = moment(row.birthday).format('YYYY-MM-DD')
@@ -21,30 +21,55 @@ module.exports = {
   fetchAll (req, res) {
     let params = req.body
     let queries = analysis(params)
-    let query = sql.userInformationManagement.userList.selectAllFront + queries.slice(0, 5).join(' and ') + sql.userInformationManagement.userList.selectAllBack
+    let add = complexMosaic(params, 'status', '2')
+    let query = sql.userInformationManagement.userList.selectAllFront + queries.slice(0, 4).join(' and ') + add + sql.userInformationManagement.userList.selectAllBack
+    console.log(query)
     func.connPool2(query, [tableName.userList, params.startTime, params.endTime, params.offset, params.limit], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
-        throw new Error(err)
+        if (err.message === 'Query inactivity timeout') {
+          res.json({
+            code: '1024'
+          })
+        } else {
+          res.json({
+            code: '404'
+          })
+        }
+        console.log(2222)
+        return
       }
       rs = formatData(rs)
       res.json(rs)
     })
-  }
+  },
   //用户通讯录总条数
-  /*  getCount (req, res) {
-   let params = req.body
-   let queries = analysis(params)
-   let query = sql.userInformationManagement.userNameAuthenticationList.getCount + queries.slice(0, 3).join(' and ')
-   func.connPool2(query, tableName.userList, function (err, rs) {
-   if (err) {
-   console.log('[query] - :' + err)
-   throw new Error(err)
-   }
-   res.json(rs)
-   })
-   }*/
+  getCount (req, res) {
+    let params = req.body
+    let queries = analysis(params)
+    let query = sql.userInformationManagement.userList.getCount + queries.slice(0, 5).join(' and ')
+    console.log(query)
+    func.connPool2(query, [tableName.userList, params.startTime, params.endTime], function (err, rs) {
+      if (err) {
+        console.log('[query] - :' + err)
+        console.log(err.message)
+        console.log(err.message === 'Query inactivity timeout')
+        if (err.message === 'Query inactivity timeout') {
+          console.log(11111)
+          res.json({
+            code: '1024'
+          })
+        } else {
+          res.json({
+            code: '404'
+          })
+        }
+        console.log(3333)
+        return
+      }
+      console.log(rs)
+      res.json(rs)
+    })
+  }
 }
-/**
- * Created by Administrator on 2017/7/10.
- */
+

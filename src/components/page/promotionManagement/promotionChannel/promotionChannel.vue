@@ -91,6 +91,7 @@
           limit: this.limit,
           offset: this.offset
         }).then((response) => {
+          console.log(response.data)
           this.fundData = response.data
           this.loading = false
         })

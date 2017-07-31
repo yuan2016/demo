@@ -10,7 +10,7 @@ function formatData (rows) {
       row.d_date = moment(row.d_date).format('YYYY-MM-DD')
     }
     if (row.create_time) {
-      row.create_time = moment(row.create_time).format('YYYY-MM-DD hh:mm:ss')
+      row.create_time = moment(row.create_time).format('YYYY-MM-DD HH:mm:ss')
     }
     if (row.overdue_index_s1) {
       row.overdue_index_s1 = (row.overdue_index_s1 * 100).toFixed(2) + '%'

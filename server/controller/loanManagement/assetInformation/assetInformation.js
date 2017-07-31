@@ -10,13 +10,13 @@ let {analysis, mosaic, formatCurrency} = require('../../../utils/utils')
 function formatData (rows) {
   return rows.map(row => {
     if (row.order_time) {
-      row.order_time = moment(row.order_time).format('YYYY-MM-DD hh:mm:ss')
+      row.order_time = moment(row.order_time).format('YYYY-MM-DD HH:mm:ss')
     }
     if (row.loan_time) {
-      row.loan_time = moment(row.loan_time).format('YYYY-MM-DD hh:mm:ss')
+      row.loan_time = moment(row.loan_time).format('YYYY-MM-DD HH:mm:ss')
     }
     if (row.updated_at) {
-      row.updated_at = moment(row.updated_at).format('YYYY-MM-DD hh:mm:ss')
+      row.updated_at = moment(row.updated_at).format('YYYY-MM-DD HH:mm:ss')
     }
     if (row.credit_lv && (row.credit_lv !== '未知')) {
       row.credit_lv = row.credit_lv + '类'

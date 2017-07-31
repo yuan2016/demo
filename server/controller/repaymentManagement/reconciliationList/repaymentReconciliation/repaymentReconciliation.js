@@ -10,7 +10,7 @@ let {analysis, mosaic, formatCurrency} = require('../../../../utils/utils')
 function formatData (rows) {
   return rows.map(row => {
     if (row.repayment_time) {
-      row.repayment_time = moment(row.repayment_time).format('YYYY-MM-DD hh:mm:ss')
+      row.repayment_time = moment(row.repayment_time).format('YYYY-MM-DD HH:mm:ss')
     }
     if (row.money_amount) {
       row.money_amount = formatCurrency(row.money_amount)
@@ -42,6 +42,7 @@ module.exports = {
     let queries = analysis(params, 't2')
     let add = mosaic(params, 'user_phone', 't1')
     let query = sql.repaymentManagement.repaymentReconciliation.selectAllFront + queries.slice(0, 2).join(' and ') + add + sql.repaymentManagement.repaymentReconciliation.selectAllBack
+    console.log(query)
     func.connPool2(query, [tableName.repaymentReconciliation.t, tableName.repaymentReconciliation.t1, tableName.repaymentReconciliation.t2, params.startTime, params.endTime, params.offset, params.limit], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)

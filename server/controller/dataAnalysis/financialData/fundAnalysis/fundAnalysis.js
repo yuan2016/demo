@@ -7,7 +7,7 @@ let {formatCurrency} = require('../../../../utils/utils')
 function formatData (rows) {
   return rows.map(row => {
     if (row.create_time) {
-      row.create_time = moment(row.create_time).format('YYYY-MM-DD hh:mm:ss')
+      row.create_time = moment(row.create_time).format('YYYY-MM-DD HH:mm:ss')
     }
     if (row.d_date) {
       row.d_date = moment(row.d_date).format('YYYY-MM-DD')

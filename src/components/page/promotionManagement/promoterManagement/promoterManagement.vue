@@ -15,7 +15,7 @@
           :value="item.value">
         </el-option>
       </el-select>
-      <span class="managerFront">添加时间：</span>
+      <span class="managerFront">创建时间：</span>
       <el-date-picker v-model.trim="startTime" type="date" size="small" placeholder="从"
                       class="userListTimeSelect"></el-date-picker>
       <el-date-picker v-model.trim="endTime" type="date" size="small" placeholder="到"
@@ -23,14 +23,14 @@
       <el-button type="primary" size="small" class="userButton" @click.prevent.stop="search">搜索</el-button>
     </div>
     <el-table v-loading.body="loading" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto" height="500">
-      <el-table-column property="realname" label="推广员姓名"></el-table-column>
+      <el-table-column property="realname" label="推广员姓名" width="80"></el-table-column>
       <el-table-column property="user_phone" label="推广员电话"></el-table-column>
       <el-table-column property="channel_name" label="渠道商名称"></el-table-column>
       <el-table-column property="operator_name" label="负责人"></el-table-column>
       <el-table-column property="channel_tel" label="联系方式"></el-table-column>
       <el-table-column property="created_at" sortable label="创建时间"></el-table-column>
       <el-table-column property="rel_path" label="推广二维码"></el-table-column>
-      <el-table-column property="ref_id" label="推广链接"></el-table-column>
+      <el-table-column property="remark" label="推广链接" width="400"></el-table-column>
 
     </el-table>
     <div style="text-align: center;margin-top: 10px;">
@@ -102,6 +102,7 @@
           offset: this.offset
         }).then((response) => {
           this.fundData = response.data
+          console.log(response.data)
           this.loading = false
         })
       },

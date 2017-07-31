@@ -2,37 +2,50 @@ let mysql = require('mysql')
 let db = require('../config/db')
 let pool1 = mysql.createPool(db.report)
 let pool2 = mysql.createPool(db.xianjinkd)
+const timeout = 10000
 
 module.exports = {
   connPool1 (sql, val, cb) {
     pool1.getConnection((err, conn) => {
       if (err) {
-        console.log(err)
-        throw new Error(err)
+        console.log('DB-获取数据库连接异常！')
+        console.log(err.message)
       }
-      let q = conn.query(sql, val, (err, rows) => {
+      let q = conn.query({sql: sql, timeout: timeout, values: val}, (err, rows) => {
         if (err) {
-          console.log(err)
-          throw new Error(err)
+          console.log('DB-执行查询语句异常！')
+          console.log(err.message)
         }
         cb(err, rows)
-        conn.release()
+        // 返回连接池
+        conn.release(function (err) {
+          if (err) {
+            console.log('DB-关闭数据库连接异常！')
+            console.log(err.message)
+          }
+        })
       })
     })
   },
   connPool2 (sql, val, cb) {
     pool2.getConnection((err, conn) => {
       if (err) {
-        console.log(err)
-        throw new Error(err)
+        console.log('DB-获取数据库连接异常！')
+        console.log(err.message)
       }
-      let q = conn.query(sql, val, (err, rows) => {
+      let q = conn.query({sql: sql, timeout: timeout, values: val}, (err, rows) => {
         if (err) {
-          console.log(err)
-          throw new Error(err)
+          console.log('DB-执行查询语句异常！')
+          console.log(err.message)
         }
         cb(err, rows)
-        conn.release()
+        // 返回连接池
+        conn.release(function (err) {
+          if (err) {
+            console.log('DB-关闭数据库连接异常！')
+            console.log(err.message)
+          }
+        })
       })
     })
   },

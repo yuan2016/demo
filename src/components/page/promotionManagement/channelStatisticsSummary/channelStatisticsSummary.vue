@@ -28,7 +28,7 @@
       <el-table-column property="apply_loan_num" label="申请借款人数"></el-table-column>
       <el-table-column property="apply_succ_num" label="申请成功人数"></el-table-column>
       <el-table-column property="Pass_rate" label="通过率"></el-table-column>
-      <el-table-column property="loan_amount" label="放款金额"></el-table-column>
+      <el-table-column property="loan_amount" label="放款金额(元)"></el-table-column>
       <el-table-column property="overdue_num" label="逾期人数"></el-table-column>
     </el-table>
     <div style="text-align: center;margin-top: 10px;">

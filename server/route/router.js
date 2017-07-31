@@ -52,10 +52,10 @@ router.post(api.login, login.fetchAll)
 router.post(api.main, main.fetchAll)
 /*用户信息管理*/
 // 用户列表
-// router.post(api.userListCount, userList.getCount)
+router.post(api.userListCount, userList.getCount)
 router.post(api.userList, userList.fetchAll)
 // 用户通讯录
-// router.post(api.userAddressBookCount, userAddressBook.getCount)
+router.post(api.userAddressBookCount, userAddressBook.getCount)
 router.post(api.userAddressBook, userAddressBook.fetchAll)
 // 银行卡列表
 // router.post(api.bankcardsListCount, bankcardsList.getCount)

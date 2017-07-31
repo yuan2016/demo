@@ -4,13 +4,15 @@ module.exports = {
     port: 3306,
     user: 'report',
     password: 'report',
-    database: 'report'
+    database: 'report',
+    connectionLimit: 100
   },
   xianjinkd: {
     host: 'rr-uf6s9izb0x73214n0o.mysql.rds.aliyuncs.com',
     port: 3306,
     user: 'canshman',
     password: 'Ajiushibuaini123',
-    database: 'xianjinkd'
+    database: 'xianjinkd',
+    connectionLimit: 100
   }
 }

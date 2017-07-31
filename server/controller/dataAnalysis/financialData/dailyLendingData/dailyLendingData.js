@@ -10,7 +10,7 @@ function formatData (rows) {
       row.d_date = moment(row.d_date).format('YYYY-MM-DD')
     }
     if (row.create_time) {
-      row.create_time = moment(row.create_time).format('YYYY-MM-DD hh:mm:ss')
+      row.create_time = moment(row.create_time).format('YYYY-MM-DD HH:mm:ss')
     }
     if (row.loans_total) {
       row.loans_total = formatCurrency(row.loans_total)

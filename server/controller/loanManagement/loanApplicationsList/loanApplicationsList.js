@@ -10,13 +10,13 @@ let {analysis, formatCurrency} = require('../../../utils/utils')
 function formatData (rows) {
   return rows.map(row => {
     if (row.order_time) {
-      row.order_time = moment(row.order_time).format('YYYY-MM-DD hh:mm:ss')
+      row.order_time = moment(row.order_time).format('YYYY-MM-DD HH:mm:ss')
     }
     if (row.verify_loan_time) {
-      row.verify_loan_time = moment(row.verify_loan_time).format('YYYY-MM-DD hh:mm:ss')
+      row.verify_loan_time = moment(row.verify_loan_time).format('YYYY-MM-DD HH:mm:ss')
     }
     if (row.updated_at) {
-      row.updated_at = moment(row.updated_at).format('YYYY-MM-DD hh:mm:ss')
+      row.updated_at = moment(row.updated_at).format('YYYY-MM-DD HH:mm:ss')
     }
     if (row.money_amount) {
       row.money_amount = formatCurrency(row.money_amount / 100)

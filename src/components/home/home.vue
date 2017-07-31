@@ -1,7 +1,7 @@
 <template>
-  <div class="app-wrapper">
-    <div class="sidebar-wrapper">
-      <el-menu class="sidebar-container" unique-opened :default-active="defaultActive" style="min-height: 100%;" theme="dark" router>
+  <div class="appWrapper">
+    <div class="sidebarWrapper">
+      <el-menu class="sidebarContainer" unique-opened :default-active="defaultActive" style="min-height: 100%;" theme="dark" router>
         <el-menu-item index="main"><i class="el-icon-menu"></i>首页</el-menu-item>
         <el-submenu index="1">
           <template slot="title"><i class="el-icon-document"></i>用户信息管理</template>
@@ -79,7 +79,7 @@
         </el-submenu>
       </el-menu>
     </div>
-    <div class="main-container">
+    <div class="mainContainer">
       <router-view></router-view>
     </div>
   </div>
@@ -99,11 +99,11 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  .app-wrapper
+  .appWrapper
     position: relative
     height: 100%
     width: 100%
-    .sidebar-wrapper
+    .sidebarWrapper
       width: 230px
       position: fixed
       top: 0
@@ -111,14 +111,14 @@
       left: 0
       z-index: 1001
       overflow: hidden
-      .sidebar-container
+      .sidebarContainer
         position: absolute
         top: 0
         bottom: 0
         left: 0
         right: -10px
         overflow-y: scroll
-    .main-container
+    .mainContainer
       min-height: 100%
       margin-left: 230px
 
