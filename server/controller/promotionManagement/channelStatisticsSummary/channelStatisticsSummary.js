@@ -75,7 +75,16 @@ module.exports = {
     func.connPool1(query, [tableName.channelStatisticsSummary, params.offset, params.limit], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
-        throw new Error(err)
+        if (err.message === 'Query inactivity timeout') {
+          res.json({
+            code: '1024'
+          })
+        } else {
+          res.json({
+            code: '404'
+          })
+        }
+        return
       }
       rs = formatData(rs)
       res.json(rs)
@@ -83,19 +92,30 @@ module.exports = {
   },
   //渠道统计汇总总条数
   getCount (req, res) {
-    func.connPool1(sql.promotionManagement.channelStatisticsSummary.getCount, tableName.channelStatisticsSummary, function (err, rs) {
+    let params = req.body
+    let queries = analysis(params)
+    let query = sql.promotionManagement.channelStatisticsSummary.getCount + queries.slice(0, 1).join(' and ')
+    func.connPool1(query, tableName.channelStatisticsSummary, function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
-        throw new Error(err)
+        if (err.message === 'Query inactivity timeout') {
+          res.json({
+            code: '1024'
+          })
+        } else {
+          res.json({
+            code: '404'
+          })
+        }
+        return
       }
       res.json(rs)
     })
   },
   getSelectOptions (req, res) {
-    func.connPool1(sql.promotionManagement.channelStatisticsSummary.getSelectOptions, function (err, rs) {
+    func.connPool1(sql.promotionManagement.channelStatisticsSummary.getSelectOptions, tableName.channelStatisticsSummary, function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
-        throw new Error(err)
       }
       rs = packageRows(rs)
       res.json(rs)

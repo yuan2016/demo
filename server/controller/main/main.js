@@ -105,9 +105,15 @@ module.exports = {
     func.connPool1(sql.main.selectAll, tableName.main, function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
-        res.json({
-          code: '404'
-        })
+        if (err.message === 'Query inactivity timeout') {
+          res.json({
+            code: '1024'
+          })
+        } else {
+          res.json({
+            code: '404'
+          })
+        }
         return
       }
       formatData(rs)

@@ -199,7 +199,20 @@
     methods: {
       getData () {
         this.axios.post('/api/main').then((response) => {
-          this.fundData = response.data[0]
+          if (response.data[0].code === '404') {
+            this.$router.push('./404')
+          } else if (response.data[0].code === '1024') {
+            this.fundData = []
+            this.$message({
+              message: '请求超时，请增加搜索条件以便搜索',
+              type: 'warning'
+            })
+          } else {
+            this.fundData = response.data[0]
+          }
+        }).catch(() => {
+          this.fundData = []
+          this.$message.error('搜索出现错误，请重试')
         })
       }
     },

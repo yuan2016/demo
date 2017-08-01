@@ -1,5 +1,5 @@
 <template>
-  <div class="reconciliationFunction">
+  <div class="reconciliationFunction" v-loading.body="loading" element-loading-text="拼命加载中">
     <banner></banner>
     <ul class="date-filter">
       <li>
@@ -29,7 +29,7 @@
         <el-button type="primary" size="small" class="loanAuditButton" @click.prevent.stop="search">搜索</el-button>
       </li>
     </ul>
-    <el-table v-loading.body="loading" element-loading-text="拼命加载中" :data="fundData"
+    <el-table :data="fundData"
               highlight-current-row border stripe style="width: 100%;overflow: auto" height="500">
       <el-table-column property="out_trade_no" label="订单号" width="150px"></el-table-column>
       <el-table-column property="yurref" label="打款订单号" width="170px"></el-table-column>
@@ -54,7 +54,7 @@
         @current-change="handleCurrentChange"
         :current-page="currentPage"
         :page-size="20"
-        layout="sizes"
+        :layout="pageContent"
         :total="count">
       </el-pagination>
     </div>
@@ -81,6 +81,8 @@
         currentPage: 1,
         startTime: '',
         endTime: '',
+        isShowPage: false,
+        pageContent: 'sizes',
         status: '放款中',
         options: [{
           value: '',
@@ -99,23 +101,23 @@
     },
     created () {
       this.loading = true
-      this.getData()
+      this.getDataInit()
     },
     methods: {
       //每页显示数据量变更
       handleSizeChange (val) {
         this.limit = val
         this.loading = true
-        this.getData()
+        this.getDataInit()
       },
       //页码变更
       handleCurrentChange (val) {
         this.currentPage = val
         this.offset = (val - 1) * this.limit
         this.loading = true
-        this.getData()
+        this.getDataInit()
       },
-      getData () {
+      getDataInit () {
         this.axios.post('/api/reconciliationFunction', {
           out_trade_no: this.out_trade_no,
           realname: this.realname,
@@ -126,19 +128,87 @@
           limit: this.limit,
           offset: this.offset
         }).then((response) => {
-          this.fundData = response.data
+          if (response.data.code === '404') {
+            this.$router.push('./404')
+          } else if (response.data.code === '1024') {
+            this.fundData = []
+            this.loading = false
+            this.$message({
+              message: '请求超时，请增加搜索条件以便搜索',
+              type: 'warning'
+            })
+          } else {
+            this.fundData = response.data
+            this.loading = false
+          }
+        }).catch(() => {
+          this.fundData = []
           this.loading = false
+          this.$message.error('搜索出现错误，请重试')
+        })
+      },
+      getData () {
+        return this.axios.post('/api/reconciliationFunction', {
+          out_trade_no: this.out_trade_no,
+          realname: this.realname,
+          user_phone: this.user_phone,
+          customer_type: this.customer_type,
+          startTime: this.startTime || '1991-07-22',
+          endTime: this.endTime || getNowFormatDate(),
+          limit: this.limit,
+          offset: this.offset
+        })
+      },
+      getCount () {
+        return this.axios.post('/api/reconciliationFunction/count', {
+          out_trade_no: this.out_trade_no,
+          realname: this.realname,
+          user_phone: this.user_phone,
+          customer_type: this.customer_type,
+          startTime: this.startTime || '1991-07-22',
+          endTime: this.endTime || getNowFormatDate()
         })
       },
       search () {
         this.loading = true
-        if (this.startTime !== '') {
-          this.startTime = formatDate(new Date(this.startTime), 'yyyy-MM-dd')
+        this.pageContent = ''
+        if (this.out_trade_no === '' && this.realname === '' && this.customer_type === '' && this.user_phone === '' && this.startTime === '' && this.endTime === '') {
+          console.log(false)
+          this.isShowPage = false
+          this.pageContent = 'sizes'
+          this.getDataInit()
+        } else {
+          if (this.startTime !== '') {
+            this.startTime = formatDate(new Date(this.startTime), 'yyyy-MM-dd')
+          }
+          if (this.endTime !== '') {
+            this.endTime = formatDate(new Date(this.endTime), 'yyyy-MM-dd')
+          }
+          console.log(true)
+          this.isShowPage = true
+          this.axios.all([this.getCount(), this.getData()])
+            .then(this.axios.spread((acct, perms) => {
+              if (perms.data.code === '404' || acct.data.code === '404') {
+                this.$router.push('./404')
+              } else if (perms.data.code === '1024' || acct.data.code === '1024') {
+                this.fundData = []
+                this.loading = false
+                this.$message({
+                  message: '请求超时，请增加搜索条件以便搜索',
+                  type: 'warning'
+                })
+              } else {
+                this.count = acct.data[0].count
+                this.fundData = perms.data
+                this.loading = false
+                this.pageContent = 'total, sizes, prev, pager, next, jumper'
+              }
+            })).catch(() => {
+            this.fundData = []
+            this.loading = false
+            this.$message.error('搜索出现错误，请重试')
+          })
         }
-        if (this.endTime !== '') {
-          this.endTime = formatDate(new Date(this.endTime), 'yyyy-MM-dd')
-        }
-        this.getData()
       }
     }
   }

@@ -1,5 +1,5 @@
 <template>
-  <div class="assetInformation">
+  <div class="assetInformation" v-loading.body="loading" element-loading-text="拼命加载中">
     <banner></banner>
     <ul class="date-filter">
       <li>
@@ -38,7 +38,7 @@
         <el-button type="primary" size="small" class="loanAuditButton" @click.prevent.stop="search">搜索</el-button>
       </li>
     </ul>
-    <el-table stripe v-loading.body="loading" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border style="width: 100%;overflow:auto;" height="500">
+    <el-table stripe :data="fundData" highlight-current-row border style="width: 100%;overflow:auto;" height="500">
       <el-table-column property="asset_order_id" label="订单号" width="150px"></el-table-column>
       <el-table-column property="realname" label="姓名"></el-table-column>
       <el-table-column property="user_phone" label="手机号"></el-table-column>
@@ -62,7 +62,7 @@
         @current-change="handleCurrentChange"
         :current-page="currentPage"
         :page-size="20"
-        layout="sizes"
+        :layout="pageContent"
         :total="count">
       </el-pagination>
     </div>
@@ -82,6 +82,8 @@
         credit_lv: '',
         fundData: [],
         loading: false,
+        isShowPage: false,
+        pageContent: 'sizes',
         currentRow: null,
         offset: 0,
         limit: 20,
@@ -129,23 +131,23 @@
     },
     created () {
       this.loading = true
-      this.getData()
+      this.getDataInit()
     },
     methods: {
       //每页显示数据量变更
       handleSizeChange (val) {
         this.limit = val
         this.loading = true
-        this.getData()
+        this.getDataInit()
       },
       //页码变更
       handleCurrentChange (val) {
         this.currentPage = val
         this.offset = (val - 1) * this.limit
         this.loading = true
-        this.getData()
+        this.getDataInit()
       },
-      getData () {
+      getDataInit () {
         this.axios.post('/api/assetInformation', {
           realname: this.realname,
           user_phone: this.user_phone,
@@ -156,20 +158,87 @@
           limit: this.limit,
           offset: this.offset
         }).then((response) => {
-          console.log(response.data)
-          this.fundData = response.data
+          if (response.data.code === '404') {
+            this.$router.push('./404')
+          } else if (response.data.code === '1024') {
+            this.fundData = []
+            this.loading = false
+            this.$message({
+              message: '请求超时，请增加搜索条件以便搜索',
+              type: 'warning'
+            })
+          } else {
+            this.fundData = response.data
+            this.loading = false
+          }
+        }).catch(() => {
+          this.fundData = []
           this.loading = false
+          this.$message.error('搜索出现错误，请重试')
+        })
+      },
+      getData () {
+        return this.axios.post('/api/assetInformation', {
+          realname: this.realname,
+          user_phone: this.user_phone,
+          status: this.status,
+          credit_lv: this.credit_lv,
+          startTime: this.startTime || '1991-07-22',
+          endTime: this.endTime || getNowFormatDate(),
+          limit: this.limit,
+          offset: this.offset
+        })
+      },
+      getCount () {
+        return this.axios.post('/api/assetInformation/count', {
+          realname: this.realname,
+          user_phone: this.user_phone,
+          status: this.status,
+          credit_lv: this.credit_lv,
+          startTime: this.startTime || '1991-07-22',
+          endTime: this.endTime || getNowFormatDate()
         })
       },
       search () {
         this.loading = true
-        if (this.startTime !== '') {
-          this.startTime = formatDate(new Date(this.startTime), 'yyyy-MM-dd')
+        this.pageContent = ''
+        if (this.realname === '' && this.credit_lv === '' && this.user_phone === '' && this.status === '' && this.startTime === '' && this.endTime === '') {
+          console.log(false)
+          this.isShowPage = false
+          this.pageContent = 'sizes'
+          this.getDataInit()
+        } else {
+          if (this.startTime !== '') {
+            this.startTime = formatDate(new Date(this.startTime), 'yyyy-MM-dd')
+          }
+          if (this.endTime !== '') {
+            this.endTime = formatDate(new Date(this.endTime), 'yyyy-MM-dd')
+          }
+          console.log(true)
+          this.isShowPage = true
+          this.axios.all([this.getCount(), this.getData()])
+            .then(this.axios.spread((acct, perms) => {
+              if (perms.data.code === '404' || acct.data.code === '404') {
+                this.$router.push('./404')
+              } else if (perms.data.code === '1024' || acct.data.code === '1024') {
+                this.fundData = []
+                this.loading = false
+                this.$message({
+                  message: '请求超时，请增加搜索条件以便搜索',
+                  type: 'warning'
+                })
+              } else {
+                this.count = acct.data[0].count
+                this.fundData = perms.data
+                this.loading = false
+                this.pageContent = 'total, sizes, prev, pager, next, jumper'
+              }
+            })).catch(() => {
+            this.fundData = []
+            this.loading = false
+            this.$message.error('搜索出现错误，请重试')
+          })
         }
-        if (this.endTime !== '') {
-          this.endTime = formatDate(new Date(this.endTime), 'yyyy-MM-dd')
-        }
-        this.getData()
       }
     }
   }

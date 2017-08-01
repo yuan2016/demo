@@ -36,30 +36,47 @@ module.exports = {
   fetchAll (req, res) {
     let params = req.body
     let queries = analysis(params)
-    console.log(params)
     let query = sql.loanManagement.raiseQuotaRecord.selectAllFront + queries.slice(0, 3).join(' and ') + sql.loanManagement.raiseQuotaRecord.selectAllBack
     func.connPool2(query, [tableName.raiseQuotaRecord, params.offset, params.limit], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
-        throw new Error(err)
+        if (err.message === 'Query inactivity timeout') {
+          res.json({
+            code: '1024'
+          })
+        } else {
+          res.json({
+            code: '404'
+          })
+        }
+        return
       }
       rs = formatData(rs)
       res.json(rs)
     })
-  }
+  },
   //用户通讯录总条数
-  /*  getCount (req, res) {
-   let params = req.body
-   let queries = analysis(params)
-   let query = sql.userInformationManagement.userNameAuthenticationList.getCount + queries.slice(0, 3).join(' and ')
-   func.connPool2(query, tableName.userNameAuthenticationList, function (err, rs) {
-   if (err) {
-   console.log('[query] - :' + err)
-   throw new Error(err)
-   }
-   res.json(rs)
-   })
-   }*/
+  getCount (req, res) {
+    let params = req.body
+    let queries = analysis(params)
+    let query = sql.loanManagement.raiseQuotaRecord.getCount + queries.slice(0, 3).join(' and ')
+    func.connPool2(query, tableName.raiseQuotaRecord, function (err, rs) {
+      if (err) {
+        console.log('[query] - :' + err)
+        if (err.message === 'Query inactivity timeout') {
+          res.json({
+            code: '1024'
+          })
+        } else {
+          res.json({
+            code: '404'
+          })
+        }
+        return
+      }
+      res.json(rs)
+    })
+  }
 }
 /**
  * Created by Administrator on 2017/7/10.

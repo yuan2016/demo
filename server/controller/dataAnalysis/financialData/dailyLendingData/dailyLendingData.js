@@ -75,7 +75,16 @@ module.exports = {
     func.connPool1(sql.dataAnalysis.selectAll, [tableName.dailyLendingData, params.startTime, params.endTime, params.offset, params.limit], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
-        throw new Error(err)
+        if (err.message === 'Query inactivity timeout') {
+          res.json({
+            code: '1024'
+          })
+        } else {
+          res.json({
+            code: '404'
+          })
+        }
+        return
       }
       rs = formatData(rs)
       res.json(rs)
@@ -87,7 +96,16 @@ module.exports = {
     func.connPool1(sql.dataAnalysis.getCount, [tableName.dailyLendingData, params.startTime, params.endTime], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
-        throw new Error(err)
+        if (err.message === 'Query inactivity timeout') {
+          res.json({
+            code: '1024'
+          })
+        } else {
+          res.json({
+            code: '404'
+          })
+        }
+        return
       }
       res.json(rs)
     })

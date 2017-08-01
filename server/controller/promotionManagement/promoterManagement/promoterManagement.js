@@ -40,7 +40,39 @@ module.exports = {
     func.connPool2(query, [tableName.promoterManagement.t, tableName.promoterManagement.t1, tableName.promoterManagement.t2, params.startTime, params.endTime, params.offset, params.limit], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
-        throw new Error(err)
+        if (err.message === 'Query inactivity timeout') {
+          res.json({
+            code: '1024'
+          })
+        } else {
+          res.json({
+            code: '404'
+          })
+        }
+        return
+      }
+      rs = formatData(rs)
+      res.json(rs)
+    })
+  },
+  getCount (req, res) {
+    let params = req.body
+    let queries = analysis(params, 't1')
+    let add = mosaic(params, 'channel_name', 't2')
+    let query = sql.promotionManagement.promoterManagement.getCount + queries.slice(0, 2).join(' and ') + add
+    func.connPool2(query, [tableName.promoterManagement.t, tableName.promoterManagement.t1, tableName.promoterManagement.t2, params.startTime, params.endTime], function (err, rs) {
+      if (err) {
+        console.log('[query] - :' + err)
+        if (err.message === 'Query inactivity timeout') {
+          res.json({
+            code: '1024'
+          })
+        } else {
+          res.json({
+            code: '404'
+          })
+        }
+        return
       }
       rs = formatData(rs)
       res.json(rs)
@@ -48,10 +80,9 @@ module.exports = {
   },
   //拿到下拉框数据
   getSelectOptions (req, res) {
-    func.connPool2(sql.promotionManagement.promoterManagement.getSelectOptions, function (err, rs) {
+    func.connPool2(sql.promotionManagement.promoterManagement.getSelectOptions, tableName.promoterManagement.t2, function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
-        throw new Error(err)
       }
       rs = packageRows(rs)
       res.json(rs)

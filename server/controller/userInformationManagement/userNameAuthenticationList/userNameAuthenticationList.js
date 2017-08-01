@@ -17,7 +17,7 @@ function formatData (rows) {
 }
 
 module.exports = {
-  //用户通讯录数据
+  //用户实名认证数据
   fetchAll (req, res) {
     let params = req.body
     let queries = analysis(params)
@@ -25,25 +25,47 @@ module.exports = {
     func.connPool2(query, [tableName.userNameAuthenticationList, params.offset, params.limit], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
-        throw new Error(err)
+        console.log(err.message)
+        console.log(err.message === 'Query inactivity timeout')
+        if (err.message === 'Query inactivity timeout') {
+          res.json({
+            code: '1024'
+          })
+        } else {
+          res.json({
+            code: '404'
+          })
+        }
+        return
       }
       rs = formatData(rs)
       res.json(rs)
     })
-  }
-  //用户通讯录总条数
-  /*  getCount (req, res) {
-      let params = req.body
-      let queries = analysis(params)
-      let query = sql.userInformationManagement.userNameAuthenticationList.getCount + queries.slice(0, 3).join(' and ')
-      func.connPool2(query, tableName.userNameAuthenticationList, function (err, rs) {
-        if (err) {
-          console.log('[query] - :' + err)
-          throw new Error(err)
+  },
+  //用户实名认证总条数
+  getCount (req, res) {
+    let params = req.body
+    let queries = analysis(params)
+    let query = sql.userInformationManagement.userNameAuthenticationList.getCount + queries.slice(0, 3).join(' and ')
+    func.connPool2(query, tableName.userNameAuthenticationList, function (err, rs) {
+      if (err) {
+        console.log('[query] - :' + err)
+        console.log(err.message)
+        console.log(err.message === 'Query inactivity timeout')
+        if (err.message === 'Query inactivity timeout') {
+          res.json({
+            code: '1024'
+          })
+        } else {
+          res.json({
+            code: '404'
+          })
         }
-        res.json(rs)
-      })
-    }*/
+        return
+      }
+      res.json(rs)
+    })
+  }
 }
 /**
  * Created by Administrator on 2017/7/10.

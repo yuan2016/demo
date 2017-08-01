@@ -1,9 +1,10 @@
 <template>
-  <div class="channelStatisticsSummary">
+  <div class="channelStatisticsSummary" v-loading.body="loading" element-loading-text="拼命加载中">
     <banner></banner>
     <div class="date-filter">
       <span class="managerFront">渠道商：</span>
-      <el-select v-model.trim="channel_trader" filterable clearable size="small" placeholder="不限" class="promoterSelect">
+      <el-select v-model.trim="channel_trader" filterable clearable size="small" placeholder="不限"
+                 class="promoterSelect">
         <el-option
           v-for="item in options"
           :key="item.value"
@@ -13,7 +14,7 @@
       </el-select>
       <el-button type="primary" size="small" class="userButton" @click.prevent.stop="search">搜索</el-button>
     </div>
-    <el-table v-loading.body="loading" element-loading-text="拼命加载中" :data="fundData"
+    <el-table :data="fundData"
               highlight-current-row border stripe style="width: 100%;overflow: auto;" height="500">
       <el-table-column property="channel_trader" label="渠道商"></el-table-column>
       <el-table-column property="register_num" label="注册量"></el-table-column>
@@ -37,7 +38,7 @@
         @current-change="handleCurrentChange"
         :current-page="currentPage"
         :page-size="20"
-        layout="sizes"
+        :layout="pageContent"
         :total="count">
       </el-pagination>
     </div>
@@ -55,14 +56,12 @@
         fundData: [],
         loading: false,
         currentRow: null,
+        pageContent: 'sizes',
         options: [],
         offset: 0,
         limit: 20,
         count: 0,
         currentPage: 1
-//        ,
-//        startTime: '',
-//        endTime: ''
       }
     },
     components: {
@@ -71,42 +70,56 @@
     created () {
       this.loading = true
       this.getSelectOptions()
-      this.getData()
+      this.getDataInit()
     },
     methods: {
       //每页显示数据量变更
       handleSizeChange (val) {
         this.limit = val
         this.loading = true
-        this.getData()
+        this.getDataInit()
       },
       //页码变更
       handleCurrentChange (val) {
         this.currentPage = val
         this.offset = (val - 1) * this.limit
         this.loading = true
-        this.getData()
+        this.getDataInit()
+      },
+      getDataInit () {
+        this.axios.all([this.getCount(), this.getData()])
+          .then(this.axios.spread((acct, perms) => {
+            if (perms.data.code === '404' || acct.data.code === '404') {
+              this.$router.push('./404')
+            } else if (perms.data.code === '1024' || acct.data.code === '1024') {
+              this.fundData = []
+              this.loading = false
+              this.$message({
+                message: '请求超时，请增加搜索条件以便搜索',
+                type: 'warning'
+              })
+            } else {
+              this.count = acct.data[0].count
+              this.fundData = perms.data
+              this.loading = false
+              this.pageContent = 'total, sizes, prev, pager, next, jumper'
+            }
+          })).catch(() => {
+          this.fundData = []
+          this.loading = false
+          this.$message.error('搜索出现错误，请重试')
+        })
       },
       getData () {
-        this.axios.post('/api/channelStatisticsSummary', {
+        return this.axios.post('/api/channelStatisticsSummary', {
           channel_trader: this.channel_trader,
-//          startTime: this.startTime || '1991-07-22',
-//          endTime: this.endTime || getNowFormatDate(),
           limit: this.limit,
           offset: this.offset
-        }).then((response) => {
-          this.fundData = response.data
-          this.loading = false
         })
       },
       getCount () {
-        this.axios.post('/api/channelStatisticsSummary/count'
-//          , {
-//          startTime: this.startTime || '1991-07-22',
-//          endTime: this.endTime || getNowFormatDate()
-//        }
-        ).then((response) => {
-          this.count = response.data[0].count
+        return this.axios.post('/api/channelStatisticsSummary/count', {
+          channel_trader: this.channel_trader
         })
       },
       getSelectOptions () {
@@ -117,13 +130,7 @@
       },
       search () {
         this.loading = true
-//        if (this.startTime !== '') {
-//          this.startTime = formatDate(new Date(this.startTime), 'yyyy-MM-dd')
-//        }
-//        if (this.endTime !== '') {
-//          this.endTime = formatDate(new Date(this.endTime), 'yyyy-MM-dd')
-//        }
-        this.getData()
+        this.getDataInit()
       }
     }
   }
@@ -137,7 +144,7 @@
       box-sizing border-box
       height 60px
       .managerFront
-        padding-left :5px
+        padding-left: 5px
         font-size: 14px
         color: #666
       .managerText
@@ -146,7 +153,6 @@
         margin-left: 5px
       .promoterSelect
         width: 180px
-
 
     .el-table .cell, .el-table th > div
       padding-left: 0

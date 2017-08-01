@@ -50,7 +50,7 @@
         @current-change="handleCurrentChange"
         :current-page="currentPage"
         :page-size="20"
-        layout="total, sizes, prev, pager, next, jumper"
+        :layout="pageContent"
         :total="count">
       </el-pagination>
     </div>
@@ -72,7 +72,8 @@
         count: 0,
         currentPage: 1,
         startTime: '',
-        endTime: ''
+        endTime: '',
+        pageContent: 'sizes'
       }
     },
     components: {
@@ -80,50 +81,58 @@
     },
     created () {
       this.loading = true
-      this.getCount()
-      this.getData()
+      this.getDataInit()
     },
     methods: {
       //每页显示数据量变更
       handleSizeChange (val) {
         this.limit = val
         this.loading = true
-        this.getData()
+        this.getDataInit()
       },
       //页码变更
       handleCurrentChange (val) {
         this.currentPage = val
         this.offset = (val - 1) * this.limit
         this.loading = true
-        this.getData()
+        this.getDataInit()
+      },
+      getDataInit () {
+        this.axios.all([this.getCount(), this.getData()])
+          .then(this.axios.spread((acct, perms) => {
+            if (perms.data.code === '404' || acct.data.code === '404') {
+              this.$router.push('./404')
+            } else if (perms.data.code === '1024' || acct.data.code === '1024') {
+              this.fundData = []
+              this.loading = false
+              this.$message({
+                message: '请求超时，请增加搜索条件以便搜索',
+                type: 'warning'
+              })
+            } else {
+              this.count = acct.data[0].count
+              this.fundData = perms.data
+              this.loading = false
+              this.pageContent = 'total, sizes, prev, pager, next, jumper'
+            }
+          })).catch(() => {
+          this.fundData = []
+          this.loading = false
+          this.$message.error('搜索出现错误，请重试')
+        })
       },
       getData () {
-        this.axios.post('/api/platformData', {
+        return this.axios.post('/api/platformData', {
           limit: this.limit,
           offset: this.offset,
           startTime: this.startTime || '1991-07-22',
           endTime: this.endTime || getNowFormatDate()
-        }).then((response) => {
-          console.log(response)
-          if (response.data.code === '404') {
-            this.$router.push('./404')
-          } else {
-            this.fundData = response.data
-            this.loading = false
-          }
         })
       },
       getCount () {
-        this.axios.post('/api/platformData/count', {
+        return this.axios.post('/api/platformData/count', {
           startTime: this.startTime || '1991-07-22',
           endTime: this.endTime || getNowFormatDate()
-        }).then((response) => {
-          console.log(response)
-          if (response.data.code === '404') {
-            this.$router.push('./404')
-          } else {
-            this.count = response.data[0].count
-          }
         })
       },
       search () {
@@ -134,8 +143,7 @@
         if (this.endTime !== '') {
           this.endTime = formatDate(new Date(this.endTime), 'yyyy-MM-dd')
         }
-        this.getCount()
-        this.getData()
+        this.getDataInit()
       }
     }
   }

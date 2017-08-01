@@ -58,66 +58,66 @@ router.post(api.userList, userList.fetchAll)
 router.post(api.userAddressBookCount, userAddressBook.getCount)
 router.post(api.userAddressBook, userAddressBook.fetchAll)
 // 银行卡列表
-// router.post(api.bankcardsListCount, bankcardsList.getCount)
+router.post(api.bankcardsListCount, bankcardsList.getCount)
 router.post(api.bankcardsList, bankcardsList.fetchAll)
 // 用户认证列表
-// router.post(api.userAuthenticationListCount, userAuthenticationList.getCount)
+router.post(api.userAuthenticationListCount, userAuthenticationList.getCount)
 router.post(api.userAuthenticationList, userAuthenticationList.fetchAll)
 // 用户实名认证列表
-// router.post(api.userNameAuthenticationListCount, userNameAuthenticationList.getCount)
+router.post(api.userNameAuthenticationListCount, userNameAuthenticationList.getCount)
 router.post(api.userNameAuthenticationList, userNameAuthenticationList.fetchAll)
 
 /*借款管理*/
 // 借款申请列表
-// router.post(api.loanApplicationsListCount, loanApplicationsList.getCount)
+router.post(api.loanApplicationsListCount, loanApplicationsList.getCount)
 router.post(api.loanApplicationsList, loanApplicationsList.fetchAll)
 
 // 放款审核列表
-// router.post(api.loanAuditListCount, loanAuditList.getCount)
+router.post(api.loanAuditListCount, loanAuditList.getCount)
 router.post(api.loanAuditList, loanAuditList.fetchAll)
 
 // 提额记录表
-// router.post(api.raiseQuotaRecordCount, raiseQuotaRecord.getCount)
+router.post(api.raiseQuotaRecordCount, raiseQuotaRecord.getCount)
 router.post(api.raiseQuotaRecord, raiseQuotaRecord.fetchAll)
 // 对账功能
-// router.post(api.reconciliationFunctionCount, reconciliationFunction.getCount)
+router.post(api.reconciliationFunctionCount, reconciliationFunction.getCount)
 router.post(api.reconciliationFunction, reconciliationFunction.fetchAll)
 
 // 资产管理
-// router.post(api.assetInformationCount, assetInformation.getCount)
+router.post(api.assetInformationCount, assetInformation.getCount)
 router.post(api.assetInformation, assetInformation.fetchAll)
 
 /*还款管理*/
 //还款列表  待还列表
-// router.post(api.waitingForReturnListCount, waitingForReturnList.getCount)
+router.post(api.waitingForReturnListCount, waitingForReturnList.getCount)
 router.post(api.waitingForReturnList, waitingForReturnList.fetchAll)
 
 //还款列表  已还列表
-// router.post(api.returnedListCount, returnedList.getCount)
+router.post(api.returnedListCount, returnedList.getCount)
 router.post(api.returnedList, returnedList.fetchAll)
 
 //对账列表  还款对账
-// router.post(api.repaymentReconciliationCount, repaymentReconciliation.getCount)
+router.post(api.repaymentReconciliationCount, repaymentReconciliation.getCount)
 router.post(api.repaymentReconciliation, repaymentReconciliation.fetchAll)
 
 //对账列表  续期对账
-// router.post(api.renewalReconciliationCount, renewalReconciliation.getCount)
+router.post(api.renewalReconciliationCount, renewalReconciliation.getCount)
 router.post(api.renewalReconciliation, renewalReconciliation.fetchAll)
 
 //退款列表  还款详情
-// router.post(api.repaymentDetailsCount, repaymentDetails.getCount)
+router.post(api.repaymentDetailsCount, repaymentDetails.getCount)
 router.post(api.repaymentDetails, repaymentDetails.fetchAll)
 
 //退款列表  续期详情
-// router.post(api.renewalParticularsCount, renewalParticulars.getCount)
+router.post(api.renewalParticularsCount, renewalParticulars.getCount)
 router.post(api.renewalParticulars, renewalParticulars.fetchAll)
 
 //退款列表  已退列表
-// router.post(api.rebackedListCount, rebackedList.getCount)
+router.post(api.rebackedListCount, rebackedList.getCount)
 router.post(api.rebackedList, rebackedList.fetchAll)
 
 //续期管理  续期列表
-// router.post(api.renewalsListCount, renewalsList.getCount)
+router.post(api.renewalsListCount, renewalsList.getCount)
 router.post(api.renewalsList, renewalsList.fetchAll)
 
 /*数据分析*/
@@ -155,11 +155,11 @@ router.post(api.platformData, platformData.fetchAll)
 
 /*推广管理*/
 // 推广渠道
-//router.post(api.promotionChannelCount, promotionChannel.getCount)
+router.post(api.promotionChannelCount, promotionChannel.getCount)
 router.post(api.promotionChannel, promotionChannel.fetchAll)
 
 // 推广员管理
-//router.post(api.promoterManagementCount, promoterManagement.getCount)
+router.post(api.promoterManagementCount, promoterManagement.getCount)
 router.post(api.promoterManagement, promoterManagement.fetchAll)
 router.post(api.promoterManagementGetOptions, promoterManagement.getSelectOptions)
 

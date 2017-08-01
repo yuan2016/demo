@@ -1,19 +1,23 @@
 <template>
-  <div class="promotionChannel">
+  <div class="promotionChannel" v-loading.body="loading" element-loading-text="拼命加载中">
     <banner></banner>
     <div class="date-filter">
       <span class="managerFront">渠道商名称：</span>
       <el-input size="small" type="text" placeholder="请输入内容" class="managerText" v-model.trim="channel_name"></el-input>
       <span class="managerFront">负责人：</span>
-      <el-input size="small" type="text" placeholder="请输入内容" class="managerText" v-model.trim="operator_name"></el-input>
+      <el-input size="small" type="text" placeholder="请输入内容" class="managerText"
+                v-model.trim="operator_name"></el-input>
       <span class="managerFront">联系方式：</span>
       <el-input size="small" type="text" placeholder="请输入内容" class="managerText" v-model.trim="channel_tel"></el-input>
       <span class="managerFront">添加时间：</span>
-      <el-date-picker v-model.trim="startTime" type="date" size="small" placeholder="从" class="userListTimeSelect"></el-date-picker>
-      <el-date-picker v-model.trim="endTime" type="date" size="small" placeholder="到" class="userListTimeSelect"></el-date-picker>
+      <el-date-picker v-model.trim="startTime" type="date" size="small" placeholder="从"
+                      class="userListTimeSelect"></el-date-picker>
+      <el-date-picker v-model.trim="endTime" type="date" size="small" placeholder="到"
+                      class="userListTimeSelect"></el-date-picker>
       <el-button type="primary" size="small" class="userButton" @click.prevent.stop="search">搜索</el-button>
     </div>
-    <el-table v-loading.body="loading" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto" height="500">
+    <el-table :data="fundData" highlight-current-row border stripe
+              style="width: 100%;overflow: auto" height="500">
       <el-table-column property="channel_name" label="渠道商名称"></el-table-column>
       <el-table-column property="channel_code" label="渠道商编码"></el-table-column>
       <el-table-column property="operator_name" label="负责人"></el-table-column>
@@ -31,7 +35,7 @@
         @current-change="handleCurrentChange"
         :current-page="currentPage"
         :page-size="20"
-        layout="sizes"
+        :layout="pageContent"
         :total="count">
       </el-pagination>
     </div>
@@ -50,6 +54,7 @@
         channel_tel: '',
         fundData: [],
         loading: false,
+        pageContent: 'sizes',
         currentRow: null,
         offset: 0,
         limit: 20,
@@ -65,24 +70,48 @@
     },
     created () {
       this.loading = true
-      this.getData()
+      this.getDataInit()
     },
     methods: {
       //每页显示数据量变更
       handleSizeChange (val) {
         this.limit = val
         this.loading = true
-        this.getData()
+        this.getDataInit()
       },
       //页码变更
       handleCurrentChange (val) {
         this.currentPage = val
         this.offset = (val - 1) * this.limit
         this.loading = true
-        this.getData()
+        this.getDataInit()
+      },
+      getDataInit () {
+        this.axios.all([this.getCount(), this.getData()])
+          .then(this.axios.spread((acct, perms) => {
+            if (perms.data.code === '404' || acct.data.code === '404') {
+              this.$router.push('./404')
+            } else if (perms.data.code === '1024' || acct.data.code === '1024') {
+              this.fundData = []
+              this.loading = false
+              this.$message({
+                message: '请求超时，请增加搜索条件以便搜索',
+                type: 'warning'
+              })
+            } else {
+              this.count = acct.data[0].count
+              this.fundData = perms.data
+              this.loading = false
+              this.pageContent = 'total, sizes, prev, pager, next, jumper'
+            }
+          })).catch(() => {
+          this.fundData = []
+          this.loading = false
+          this.$message.error('搜索出现错误，请重试')
+        })
       },
       getData () {
-        this.axios.post('/api/promotionChannel', {
+        return this.axios.post('/api/promotionChannel', {
           channel_name: this.channel_name,
           operator_name: this.operator_name,
           channel_tel: this.channel_tel,
@@ -90,53 +119,59 @@
           endTime: this.endTime || getNowFormatDate(),
           limit: this.limit,
           offset: this.offset
-        }).then((response) => {
-          console.log(response.data)
-          this.fundData = response.data
-          this.loading = false
+        })
+      },
+      getCount () {
+        return this.axios.post('/api/promotionChannel/count', {
+          channel_name: this.channel_name,
+          operator_name: this.operator_name,
+          channel_tel: this.channel_tel,
+          startTime: this.startTime || '1991-07-22',
+          endTime: this.endTime || getNowFormatDate()
         })
       },
       search () {
         this.loading = true
+        this.pageContent = ''
         if (this.startTime !== '') {
           this.startTime = formatDate(new Date(this.startTime), 'yyyy-MM-dd')
         }
         if (this.endTime !== '') {
           this.endTime = formatDate(new Date(this.endTime), 'yyyy-MM-dd')
         }
-        this.getData()
+        this.getDataInit()
       }
     }
   }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-.promotionChannel
-  height: 100%
-  .date-filter
-    padding: 15px 0 15px 1px
-    box-sizing border-box
-    height 60px
-    .managerFront
-      padding-left :5px
-      font-size: 14px
-      color: #666
-    .managerText
-      width: 140px
-    .userButton
-      margin-left: 5px
-    .userListTimeSelect
-      width: 120px
-    .userListSelect
-      width: 80px
+  .promotionChannel
+    height: 100%
+    .date-filter
+      padding: 15px 0 15px 1px
+      box-sizing border-box
+      height 60px
+      .managerFront
+        padding-left: 5px
+        font-size: 14px
+        color: #666
+      .managerText
+        width: 140px
+      .userButton
+        margin-left: 5px
+      .userListTimeSelect
+        width: 120px
+      .userListSelect
+        width: 80px
 
-  .el-table .cell, .el-table th > div
-    padding-left: 0
-    padding-right: 0
-    text-align: center
-    font-size: 12px
+    .el-table .cell, .el-table th > div
+      padding-left: 0
+      padding-right: 0
+      text-align: center
+      font-size: 12px
 
-  .el-table th > .cell
-    text-align: center
-    font-weight: bold
+    .el-table th > .cell
+      text-align: center
+      font-weight: bold
 </style>

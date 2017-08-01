@@ -1,5 +1,5 @@
 <template>
-  <div class="promotionChannelStatistics">
+  <div class="promotionChannelStatistics" v-loading.body="loading" element-loading-text="拼命加载中" >
     <banner></banner>
     <div class="date-filter">
       <span class="managerFront">渠道商名称：</span>
@@ -9,7 +9,7 @@
       <el-date-picker v-model.trim="endTime" type="date" size="small" placeholder="到" class="userListTimeSelect"></el-date-picker>
       <el-button type="primary" size="small" class="userButton" @click.prevent.stop="search">搜索</el-button>
     </div>
-    <el-table v-loading.body="loading" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto" height="500">
+    <el-table :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto" height="500">
       <el-table-column property="channel_trader_name" fixed label="渠道商名称"></el-table-column>
       <el-table-column property="d_date" sortable label="日期"></el-table-column>
       <el-table-column property="settle_method" label="结算方式" width="170px"></el-table-column>
@@ -36,7 +36,7 @@
         @current-change="handleCurrentChange"
         :current-page="currentPage"
         :page-size="20"
-        layout="sizes"
+        :layout="pageContent"
         :total="count">
       </el-pagination>
     </div>
@@ -54,6 +54,7 @@
         channel_trader_name: '',
         fundData: [],
         loading: false,
+        pageContent: 'sizes',
         currentRow: null,
         offset: 0,
         limit: 20,
@@ -68,41 +69,62 @@
     },
     created () {
       this.loading = true
-      this.getData()
+      this.getDataInit()
     },
     methods: {
       //每页显示数据量变更
       handleSizeChange (val) {
         this.limit = val
         this.loading = true
-        this.getData()
+        this.getDataInit()
       },
       //页码变更
       handleCurrentChange (val) {
         this.currentPage = val
         this.offset = (val - 1) * this.limit
         this.loading = true
-        this.getData()
+        this.getDataInit()
+      },
+      getDataInit () {
+        this.axios.all([this.getCount(), this.getData()])
+          .then(this.axios.spread((acct, perms) => {
+            if (perms.data.code === '404' || acct.data.code === '404') {
+              this.$router.push('./404')
+            } else if (perms.data.code === '1024' || acct.data.code === '1024') {
+              this.fundData = []
+              this.loading = false
+              this.$message({
+                message: '请求超时，请增加搜索条件以便搜索',
+                type: 'warning'
+              })
+            } else {
+              this.count = acct.data[0].count
+              this.fundData = perms.data
+              this.loading = false
+              this.pageContent = 'total, sizes, prev, pager, next, jumper'
+            }
+          })).catch(() => {
+          this.fundData = []
+          this.loading = false
+          this.$message.error('搜索出现错误，请重试')
+        })
       },
       getData () {
-        this.axios.post('/api/promotionChannelStatistics', {
+        return this.axios.post('/api/promotionChannelStatistics', {
           channel_trader: this.channel_trader,
           channel_trader_name: this.channel_trader_name,
           startTime: this.startTime || '1991-07-22',
           endTime: this.endTime || getNowFormatDate(),
           limit: this.limit,
           offset: this.offset
-        }).then((response) => {
-          this.fundData = response.data
-          this.loading = false
         })
       },
       getCount () {
-        this.axios.post('/api/promotionChannelStatistics/count', {
+        return this.axios.post('/api/promotionChannelStatistics/count', {
+          channel_trader: this.channel_trader,
+          channel_trader_name: this.channel_trader_name,
           startTime: this.startTime || '1991-07-22',
           endTime: this.endTime || getNowFormatDate()
-        }).then((response) => {
-          this.count = response.data[0].count
         })
       },
       search () {
@@ -113,7 +135,7 @@
         if (this.endTime !== '') {
           this.endTime = formatDate(new Date(this.endTime), 'yyyy-MM-dd')
         }
-        this.getData()
+        this.getDataInit()
       }
     }
   }

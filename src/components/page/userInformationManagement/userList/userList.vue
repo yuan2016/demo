@@ -1,5 +1,5 @@
 <template>
-  <div class="userList">
+  <div class="userList" v-loading.body="loading" element-loading-text="拼命加载中">
     <banner></banner>
     <ul class="date-filter">
       <li>
@@ -35,7 +35,7 @@
         <el-button type="primary" size="small" class="userButton" @click.prevent.stop="search">搜索</el-button>
       </li>
     </ul>
-    <el-table v-loading.body="loading" element-loading-text="拼命加载中" stripe :data="fundData" highlight-current-row border
+    <el-table stripe :data="fundData" highlight-current-row border
               height="500" style="width:100%;overflow: auto">
       <el-table-column property="id" label="用户ID"></el-table-column>
       <el-table-column property="realname" label="姓名"></el-table-column>
@@ -130,6 +130,13 @@
         }).then((response) => {
           if (response.data.code === '404') {
             this.$router.push('./404')
+          } else if (response.data.code === '1024') {
+            this.fundData = []
+            this.loading = false
+            this.$message({
+              message: '请求超时，请增加搜索条件以便搜索',
+              type: 'warning'
+            })
           } else {
             this.fundData = response.data
             this.loading = false
@@ -137,10 +144,7 @@
         }).catch(() => {
           this.fundData = []
           this.loading = false
-          this.$message({
-            message: '请检查搜索条件或者多选几条搜索条件进行搜索',
-            type: 'warning'
-          })
+          this.$message.error('搜索出现错误，请重试')
         })
       },
       getData () {
@@ -169,7 +173,7 @@
       },
       search () {
         this.loading = true
-        this.pageContent = 'sizes'
+        this.pageContent = ''
         if (this.id === '' && this.realname === '' && this.id_number === '' && this.user_phone === '' && this.status === '' && this.startTime === '' && this.endTime === '') {
           console.log(false)
           this.isShowPage = false
@@ -202,11 +206,10 @@
                 this.pageContent = 'total, sizes, prev, pager, next, jumper'
               }
             })).catch(() => {
-              this.fundData = []
-              this.loading = false
-              this.$message.error('搜索出现错误，请重试')
-            }
-          )
+            this.fundData = []
+            this.loading = false
+            this.$message.error('搜索出现错误，请重试')
+          })
         }
       }
     }

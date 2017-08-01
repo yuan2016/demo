@@ -17,7 +17,7 @@ function formatData (rows) {
 }
 
 module.exports = {
-  //用户通讯录数据
+  //用户列表数据
   fetchAll (req, res) {
     let params = req.body
     let queries = analysis(params)
@@ -36,18 +36,18 @@ module.exports = {
             code: '404'
           })
         }
-        console.log(2222)
         return
       }
       rs = formatData(rs)
       res.json(rs)
     })
   },
-  //用户通讯录总条数
+  //用户列表总条数
   getCount (req, res) {
     let params = req.body
     let queries = analysis(params)
-    let query = sql.userInformationManagement.userList.getCount + queries.slice(0, 5).join(' and ')
+    let add = complexMosaic(params, 'status', '2')
+    let query = sql.userInformationManagement.userList.getCount + queries.slice(0, 5).join(' and ') + add
     console.log(query)
     func.connPool2(query, [tableName.userList, params.startTime, params.endTime], function (err, rs) {
       if (err) {
@@ -55,7 +55,6 @@ module.exports = {
         console.log(err.message)
         console.log(err.message === 'Query inactivity timeout')
         if (err.message === 'Query inactivity timeout') {
-          console.log(11111)
           res.json({
             code: '1024'
           })
@@ -64,10 +63,8 @@ module.exports = {
             code: '404'
           })
         }
-        console.log(3333)
         return
       }
-      console.log(rs)
       res.json(rs)
     })
   }

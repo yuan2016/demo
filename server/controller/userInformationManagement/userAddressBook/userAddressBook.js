@@ -24,13 +24,18 @@ module.exports = {
     func.connPool2(query, [tableName.userAddressBook, params.offset, params.limit], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
-        res.json({
-          code: '404'
-        })
+        if (err.message === 'Query inactivity timeout') {
+          res.json({
+            code: '1024'
+          })
+        } else {
+          res.json({
+            code: '404'
+          })
+        }
         return
       }
       rs = formatData(rs)
-      console.log(rs)
       res.json(rs)
     })
   },
@@ -43,12 +48,19 @@ module.exports = {
     func.connPool2(query, tableName.userAddressBook, function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
-        res.json({
-          code: '404'
-        })
+        console.log(err.message)
+        console.log(err.message === 'Query inactivity timeout')
+        if (err.message === 'Query inactivity timeout') {
+          res.json({
+            code: '1024'
+          })
+        } else {
+          res.json({
+            code: '404'
+          })
+        }
         return
       }
-      console.log(rs)
       res.json(rs)
     })
   }

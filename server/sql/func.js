@@ -2,7 +2,7 @@ let mysql = require('mysql')
 let db = require('../config/db')
 let pool1 = mysql.createPool(db.report)
 let pool2 = mysql.createPool(db.xianjinkd)
-const timeout = 10000
+const timeout = 20000
 
 module.exports = {
   connPool1 (sql, val, cb) {

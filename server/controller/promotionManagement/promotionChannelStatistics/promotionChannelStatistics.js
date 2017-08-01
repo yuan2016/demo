@@ -71,7 +71,16 @@ module.exports = {
     func.connPool1(query, [tableName.promotionChannelStatistics, params.startTime, params.endTime, params.offset, params.limit], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
-        throw new Error(err)
+        if (err.message === 'Query inactivity timeout') {
+          res.json({
+            code: '1024'
+          })
+        } else {
+          res.json({
+            code: '404'
+          })
+        }
+        return
       }
       rs = formatData(rs)
       res.json(rs)
@@ -80,10 +89,21 @@ module.exports = {
   //每日还款金额数据总条数
   getCount (req, res) {
     let params = req.body
-    func.connPool1(sql.promotionManagement.promotionChannelStatistics.getCount, [tableName.promotionChannelStatistics, params.startTime, params.endTime], function (err, rs) {
+    let queries = analysis(params)
+    let query = sql.promotionManagement.promotionChannelStatistics.getCount + queries.slice(0, 2).join(' and ')
+    func.connPool1(query, [tableName.promotionChannelStatistics, params.startTime, params.endTime], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
-        throw new Error(err)
+        if (err.message === 'Query inactivity timeout') {
+          res.json({
+            code: '1024'
+          })
+        } else {
+          res.json({
+            code: '404'
+          })
+        }
+        return
       }
       res.json(rs)
     })
