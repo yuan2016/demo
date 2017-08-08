@@ -5,6 +5,9 @@ module.exports = {
   login: path + '/login',
   /*首页*/
   main: path + '/main',
+  /*修改密码*/
+  passwordConfirm: path + '/passwordConfirm',
+  passwordModify: path + '/passwordModify',
   /*用户信息管理*/
   // 用户列表
   userList: path + '/userList',
@@ -22,6 +25,9 @@ module.exports = {
   userNameAuthenticationList: path + '/userNameAuthenticationList',
   userNameAuthenticationListCount: path + '/userNameAuthenticationList/count',
 
+  //RMAB
+  //借款通过率
+  loanThroughRate: path + '/loanThroughRate',
   /*借款管理*/
   // 借款申请列表
   loanApplicationsList: path + '/loanApplicationsList',
@@ -111,5 +117,5 @@ module.exports = {
   //渠道统计汇总
   channelStatisticsSummary: path + '/channelStatisticsSummary',
   channelStatisticsSummaryCount: path + '/channelStatisticsSummary/count',
-  channelStatisticsSummaryGetOptions: path + '/channelStatisticsSummary/getSelectOptions',
+  channelStatisticsSummaryGetOptions: path + '/channelStatisticsSummary/getSelectOptions'
 }

@@ -23,6 +23,7 @@ module.exports = {
     let params = req.body
     let queries = analysis(params)
     let query = sql.userInformationManagement.bankcardsList.selectAllFront + queries.slice(0, 5).join(' and ') + sql.userInformationManagement.bankcardsList.selectAllBack
+    console.log(query)
     func.connPool2(query, [tableName.bankcardsList, params.startTime, params.endTime, params.offset, params.limit], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
@@ -45,8 +46,9 @@ module.exports = {
   getCount (req, res) {
     let params = req.body
     let queries = analysis(params)
-    let query = sql.userInformationManagement.userAddressBook.getCount + queries.slice(0, 5).join(' and ')
-    func.connPool2(query, [tableName.bankcardsList, params.startTime], function (err, rs) {
+    let query = sql.userInformationManagement.bankcardsList.getCount + queries.slice(0, 5).join(' and ')
+    console.log(query)
+    func.connPool2(query, [tableName.bankcardsList, params.startTime, params.endTime], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
         if (err.message === 'Query inactivity timeout') {

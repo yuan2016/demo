@@ -35,7 +35,7 @@
       <el-table-column property="overdue_rate_nuser" label="新用户逾期率" width="130px"></el-table-column>
       <el-table-column property="repayment_rate_nuser" label="新用户还款率" width="130px"></el-table-column>
     </el-table>
-    <div style="text-align: center;margin-top: 10px;">
+    <div style="text-align: center;margin-top: 10px;" v-show="fundData.length!=0">
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"

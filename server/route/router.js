@@ -4,12 +4,16 @@ let express = require('express')
 let login = require('../controller/login/login')
 //首页
 let main = require('../controller/main/main')
+//修改密码
+let passwordModify = require('../controller/passwordModify/passwordModify')
 //用户信息管理
 let userList = require('../controller/userInformationManagement/userList/userList')
 let userAddressBook = require('../controller/userInformationManagement/userAddressBook/userAddressBook')
 let bankcardsList = require('../controller/userInformationManagement/bankcardsList/bankcardsList')
 let userNameAuthenticationList = require('../controller/userInformationManagement/userNameAuthenticationList/userNameAuthenticationList')
 let userAuthenticationList = require('../controller/userInformationManagement/userAuthenticationList/userAuthenticationList')
+//RMAB
+let loanThroughRate = require('../controller/RMAB/loanThroughRate/loanThroughRate')
 //借款管理
 let loanApplicationsList = require('../controller/loanManagement/loanApplicationsList/loanApplicationsList')
 let loanAuditList = require('../controller/loanManagement/loanAuditList/loanAuditList')
@@ -50,6 +54,9 @@ let router = express.Router()
 router.post(api.login, login.fetchAll)
 /*首页*/
 router.post(api.main, main.fetchAll)
+/*修改密码*/
+router.post(api.passwordConfirm, passwordModify.confirm)
+router.post(api.passwordModify, passwordModify.modify)
 /*用户信息管理*/
 // 用户列表
 router.post(api.userListCount, userList.getCount)
@@ -67,6 +74,9 @@ router.post(api.userAuthenticationList, userAuthenticationList.fetchAll)
 router.post(api.userNameAuthenticationListCount, userNameAuthenticationList.getCount)
 router.post(api.userNameAuthenticationList, userNameAuthenticationList.fetchAll)
 
+/*RMAB*/
+// 借款通过率
+router.post(api.loanThroughRate, loanThroughRate.fetchAll)
 /*借款管理*/
 // 借款申请列表
 router.post(api.loanApplicationsListCount, loanApplicationsList.getCount)

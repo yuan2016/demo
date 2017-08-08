@@ -42,7 +42,7 @@
       <el-table-column property="card_status" label="状态"></el-table-column>
       <el-table-column property="create_time" sortable label="添加时间"width="140px"></el-table-column>
     </el-table>
-    <div style="text-align: center;margin-top: 10px;">
+    <div style="text-align: center;margin-top: 10px;" v-show="fundData.length!=0">
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"

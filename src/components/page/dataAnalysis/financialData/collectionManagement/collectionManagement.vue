@@ -40,13 +40,16 @@
         <el-table-column property="overdue_index_m3" label="M3-K/D"></el-table-column>
         <el-table-column property="late_fee_m3" label="M3滞纳金收入(元)" width="100px"></el-table-column>
       </el-table-column>
-      <el-table-column property="bad_debt_m3" label="当日M3+(坏账)(元)" width="120px"></el-table-column>
-      <el-table-column property="comp_late_fee" label="综合滞纳金(元)"width="100px"></el-table-column>
-      <el-table-column property="overdue_index_m4" label="M3+-K/D"></el-table-column>
+      <el-table-column label="M3+">
+        <el-table-column property="bad_debt_m3" label="M3+逾期回款(元)" width="100px"></el-table-column>
+        <el-table-column property="overdue_index_m4" label="M3+-K/D"></el-table-column>
+        <el-table-column property="comp_late_fee" label="M3+滞纳金收入(元)" width="110px"></el-table-column>
+      </el-table-column>
+      <el-table-column property="due_debt_m3" label="当日M3+逾期金额(元)" width="130px"></el-table-column>
       <el-table-column property="accu_late_fee" label="累计滞纳金收入(元)" width="110px"></el-table-column>
       <el-table-column property="create_time" sortable label="更新时间" width="130"></el-table-column>
     </el-table>
-    <div style="text-align: center;margin-top: 10px;">
+    <div style="text-align: center;margin-top: 10px;" v-show="fundData.length!=0">
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"

@@ -35,7 +35,7 @@
       <el-table-column property="capital_surplus" label="当日资金盈余(元)"width="110px"></el-table-column>
       <el-table-column property="create_time" sortable label="更新时间" width="130"></el-table-column>
     </el-table>
-    <div class="pagination" style="text-align: center;margin-top: 10px;">
+    <div style="text-align: center;margin-top: 10px;" v-show="fundData.length!=0">
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"

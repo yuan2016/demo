@@ -13,6 +13,7 @@ let expires = moment().add(7, 'days').calendar().valueOf()
 
 function judgment (rs, password) {
   let result
+  console.log(password)
   console.log(rs.length)
   if (rs.length !== 0) {
     let realPwd = rs[0].user_password
@@ -36,16 +37,11 @@ module.exports = {
   fetchAll (req, res) {
     let params = req.body
     console.log(params)
-    let query = sql.login
-    console.log(query)
-    console.log(params.email)
-    console.log(tableName.login)
-    func.connPool1(sql.login.select, [tableName.login, params.email], function (err, rs) {
+    let query = sql.login.select
+    func.connPool1(query, [tableName.login, params.email], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
-        throw new Error(err)
       }
-      console.log(rs)
       let result = judgment(rs, params.password)
       res.json(result)
     })

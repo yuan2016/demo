@@ -26,7 +26,7 @@
       <el-table-column property="repayment_rate_f1" label="F1还款率" width="130px"></el-table-column>
       <el-table-column property="overdue_rate_f1" label="F1逾期率" width="130px"></el-table-column>
       <el-table-column property="overdue_rate_ouser_f1" label="F1老用户逾期率" width="130px"></el-table-column>
-      <el-table-column property="overdue_rate_nuser_f1" label="F1老用户逾期率" width="130px"></el-table-column>
+      <el-table-column property="overdue_rate_nuser_f1" label="F1新用户逾期率" width="130px"></el-table-column>
       <el-table-column property="loan_date_f2" sortable label="F2放款日" width="130px"></el-table-column>
       <el-table-column property="due_amount_f2" label="F2到期金额(元)" width="130px"></el-table-column>
       <el-table-column property="repayment_amount_f2" label="F2还款金额(元)" width="130px"></el-table-column>
@@ -42,7 +42,7 @@
       <el-table-column property="overdue_rate_ouser_f3" label="F3老用户逾期率" width="130px"></el-table-column>
       <el-table-column property="overdue_rate_nuser_f3" label="F3新用户逾期率" width="130px"></el-table-column>
     </el-table>
-    <div style="text-align: center;margin-top: 10px;">
+    <div style="text-align: center;margin-top: 10px;" v-show="fundData.length!=0">
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"

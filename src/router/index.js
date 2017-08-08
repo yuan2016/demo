@@ -2,9 +2,10 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import App from '../App'
 
-const login = r => require.ensure([], () => r(require('../components/login/login')), 'login')
+const login = r => require.ensure([], () => r(require('../components/page/login/login')), 'login')
 const home = r => require.ensure([], () => r(require('../components/home/home')), 'home')
 const main = r => require.ensure([], () => r(require('../components/page/main/main')), 'main')
+const passwordModify = r => require.ensure([], () => r(require('../components/others/passwordModify/passwordModify')), 'passwordModify')
 const error = r => require.ensure([], () => r(require('../components/page/404/404')), '404')
 //用户信息管理
 const userList = r => require.ensure([], () => r(require('../components/page/userInformationManagement/userList/userList')), 'userList')
@@ -12,6 +13,8 @@ const userAddressBook = r => require.ensure([], () => r(require('../components/p
 const bankCardsList = r => require.ensure([], () => r(require('../components/page/userInformationManagement/bankCardsList/bankCardsList')), 'bankCardsList')
 const userNameAuthenticationList = r => require.ensure([], () => r(require('../components/page/userInformationManagement/userNameAuthenticationList/userNameAuthenticationList')), 'userNameAuthenticationList')
 const userAuthenticationList = r => require.ensure([], () => r(require('../components/page/userInformationManagement/userAuthenticationList/userAuthenticationList')), 'userAuthenticationList')
+//RMAB
+const loanThroughRate = r => require.ensure([], () => r(require('../components/page/RMAB/loanThroughRate/loanThroughRate')), 'loanThroughRate')
 //借款管理
 const assetInformation = r => require.ensure([], () => r(require('../components/page/loanManagement/assetInformation/assetInformation')), 'assetInformation')
 const loanApplicationsList = r => require.ensure([], () => r(require('../components/page/loanManagement/loanApplicationsList/loanApplicationsList')), 'loanApplicationsList')
@@ -68,6 +71,10 @@ export default [{
         component: error,
         meta: []
       }, {
+        path: '/passwordModify',
+        component: passwordModify,
+        meta: ['修改密码']
+      }, {
         path: '/userList',
         component: userList,
         meta: ['用户信息管理', '用户列表']
@@ -87,6 +94,10 @@ export default [{
         path: '/userAuthenticationList',
         component: userAuthenticationList,
         meta: ['用户信息管理', '用户认证列表']
+      }, {
+        path: '/loanThroughRate',
+        component: loanThroughRate,
+        meta: ['RMAB', '借款通过率']
       }, {
         path: '/loanApplicationsList',
         component: loanApplicationsList,

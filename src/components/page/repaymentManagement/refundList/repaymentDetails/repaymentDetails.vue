@@ -33,12 +33,12 @@
       <el-table-column property="repaymented_amount" label="已还款金额(元)" width="120px"></el-table-column>
       <el-table-column property="true_repayment_money" label="实还金额(元)"></el-table-column>
       <el-table-column property="credit_repayment_time" sortable label="放款时间" width="130px"></el-table-column>
-      <el-table-column property="repayment_time" sortable label="到期时间"width="130px"></el-table-column>
+      <el-table-column property="repayment_time" sortable label="到期时间" width="130px"></el-table-column>
       <el-table-column property="repayment_type" label="还款方式"></el-table-column>
-      <el-table-column property="repayment_real_time" sortable label="还款时间"width="130px"></el-table-column>
+      <el-table-column property="repayment_real_time" sortable label="还款时间" width="130px"></el-table-column>
       <el-table-column property="order_time" sortable label="订单还款时间" width="130px"></el-table-column>
     </el-table>
-    <div style="text-align: center;margin-top: 10px;">
+    <div style="text-align: center;margin-top: 10px;" v-show="fundData.length!=0">
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
@@ -79,15 +79,29 @@
           label: '支付宝'
         }, {
           value: '2',
-          label: '银行卡主动还款'
+          label: '富友'
         }, {
           value: '3',
-          label: '银行卡自动扣款'
+          label: '连连'
         }, {
           value: '4',
+          label: '连连代扣服务费'
+        }, {
+          value: '5',
           label: '对公银行卡转账'
-        }
-        ]
+        }, {
+          value: '6',
+          label: '减免'
+        }, {
+          value: '7',
+          label: '线下还款'
+        }, {
+          value: '8',
+          label: '益码通支付宝'
+        }, {
+          value: '9',
+          label: '借款优惠服务费'
+        }]
       }
     },
     components: {
@@ -203,31 +217,30 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-.repaymentDetails
-  height: 100%
-  .date-filter
-    padding: 15px 0 15px 1px
-    box-sizing border-box
-    height 60px
-    .managerFront
-      padding-left :5px
-      font-size: 14px
-      color: #666
-    .managerText
-      width: 180px
-    .loanAuditButton
-      margin-left: 5px
-    .repaySelect
-      width: 140px
+  .repaymentDetails
+    height: 100%
+    .date-filter
+      padding: 15px 0 15px 1px
+      box-sizing border-box
+      height 60px
+      .managerFront
+        padding-left: 5px
+        font-size: 14px
+        color: #666
+      .managerText
+        width: 180px
+      .loanAuditButton
+        margin-left: 5px
+      .repaySelect
+        width: 140px
 
+    .el-table .cell, .el-table th > div
+      padding-left: 0
+      padding-right: 0
+      text-align: center
+      font-size: 12px
 
-  .el-table .cell, .el-table th > div
-    padding-left: 0
-    padding-right: 0
-    text-align: center
-    font-size: 12px
-
-  .el-table th > .cell
-    text-align: center
-    font-weight: bold
+    .el-table th > .cell
+      text-align: center
+      font-weight: bold
 </style>

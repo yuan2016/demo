@@ -38,7 +38,7 @@
       <el-table-column property="status" label="状态"></el-table-column>
       <el-table-column property="is_fenqi" label="是否分期"></el-table-column>
     </el-table>
-    <div style="text-align: center;margin-top: 10px;">
+    <div style="text-align: center;margin-top: 10px;" v-show="fundData.length!=0">
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"

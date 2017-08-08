@@ -33,7 +33,7 @@
       <el-table-column property="remark" label="推广链接" width="400"></el-table-column>
 
     </el-table>
-    <div style="text-align: center;margin-top: 10px;">
+    <div style="text-align: center;margin-top: 10px;" v-show="fundData.length!=0">
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"

@@ -46,7 +46,7 @@
       <el-table-column property="order_time" sortable label="续期时间" width="130"></el-table-column>
       <el-table-column property="lending_account" label="还款账户"></el-table-column>
     </el-table>
-    <div class="pagination" style="text-align: center;margin-top: 10px;">
+    <div class="pagination" style="text-align: center;margin-top: 10px;" v-show="fundData.length!=0">
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"

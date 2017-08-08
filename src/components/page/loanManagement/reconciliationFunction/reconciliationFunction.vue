@@ -48,7 +48,7 @@
       <el-table-column property="child_type" label="子类型"></el-table-column>
       <el-table-column property="pay_remark" label="状态" width="120px"></el-table-column>
     </el-table>
-    <div style="text-align: center;margin-top: 10px;">
+    <div style="text-align: center;margin-top: 10px;" v-show="fundData.length!=0">
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"

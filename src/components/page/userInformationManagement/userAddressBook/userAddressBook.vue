@@ -20,7 +20,7 @@
       <el-table-column property="contact_phone" label="联系人手机"></el-table-column>
       <el-table-column property="create_time" sortable label="上传时间"></el-table-column>
     </el-table>
-    <div style="text-align: center;margin-top: 10px;">
+    <div style="text-align: center;margin-top: 10px;" v-show="fundData.length!=0">
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"

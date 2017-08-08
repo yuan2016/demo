@@ -47,7 +47,7 @@
       <el-table-column property="status" label="是否黑名单"></el-table-column>
       <el-table-column property="create_time" sortable label="创建时间"></el-table-column>
     </el-table>
-    <div style="text-align: center;margin-top: 10px;">
+    <div style="text-align: center;margin-top: 10px;" v-show="fundData.length!=0">
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"

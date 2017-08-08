@@ -18,7 +18,7 @@
       <el-button type="primary" size="small" @click.prevent.stop="search">搜索</el-button>
     </div>
     <el-table v-loading.body="loading" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border stripe
-              style="width: 100%;overflow: auto" height="500">
+              style="width: 100%;overflow: auto" :height="height">
       <el-table-column property="d_date" fixed sortable label="日期"></el-table-column>
       <el-table-column property="register_num" label="注册人数" width="100px"></el-table-column>
       <el-table-column property="realname_auth_num" label="实名认证人数" width="100px"></el-table-column>
@@ -44,7 +44,7 @@
       <el-table-column property="passuser_rate" label="用户通过率" width="100px"></el-table-column>
       <el-table-column property="counter_fraud_num" label="反欺诈人数" width="100px"></el-table-column>
     </el-table>
-    <div style="text-align: center;margin-top: 10px;">
+    <div style="text-align: center;margin-top: 10px;" v-show="fundData.length!=0">
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
@@ -73,7 +73,8 @@
         currentPage: 1,
         startTime: '',
         endTime: '',
-        pageContent: 'sizes'
+        pageContent: 'sizes',
+        height: 700
       }
     },
     components: {

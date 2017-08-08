@@ -32,7 +32,7 @@
       <el-table-column property="loan_amount" label="放款金额(元)"></el-table-column>
       <el-table-column property="overdue_num" label="逾期人数"></el-table-column>
     </el-table>
-    <div style="text-align: center;margin-top: 10px;">
+    <div style="text-align: center;margin-top: 10px;" v-show="fundData.length!=0">
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"

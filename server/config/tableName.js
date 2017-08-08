@@ -3,6 +3,8 @@ module.exports = {
   login: 'PR_BS_USER',
   /*首页*/
   main: 'PR_UI_USER_STATISTIC_INFO',
+  /*修改密码*/
+  passwordModify: 'PR_BS_USER',
   /*用户信息管理*/
   // 用户列表
   userList: 'YH_INFO',
@@ -17,7 +19,9 @@ module.exports = {
   },
   // 用户实名认证列表
   userNameAuthenticationList: 'yh_info',
-
+  /*RMAB*/
+  // 借款通过率
+  loanThroughRate: 'pr_ds_order_analysis',
   /*借款管理*/
   //借款申请列表
   loanApplicationsList: 'bw_order_info',

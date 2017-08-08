@@ -34,7 +34,7 @@
       <el-table-column property="n_overdue_rate_s3" label="S3级逾期率(按单数)"width="120px"></el-table-column>
       <el-table-column property="n_overdue_rate_m3" label="M3级逾期率(按单数)"width="120px"></el-table-column>
     </el-table>
-    <div style="text-align: center;margin-top: 10px;">
+    <div style="text-align: center;margin-top: 10px;" v-show="fundData.length!=0">
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"

@@ -12,8 +12,8 @@
                   v-model.trim="out_trade_no"></el-input>
       </li>
       <li>
-        <span class="managerFront">状态：</span>
-        <el-select v-model.trim="status" size="small" placeholder="放款中" class="loanAuditSelectLong">
+        <span class="managerFront">放款状态：</span>
+        <el-select v-model.trim="status" size="small" placeholder="不限" class="loanAuditSelectLong">
           <el-option
             v-for="item in options2"
             :key="item.value"
@@ -56,12 +56,11 @@
       <el-table-column property="loan_end_time" sortable label="预计还款时间" width="130px"></el-table-column>
       <el-table-column property="updated_at" sortable label="更新时间" width="130px"></el-table-column>
       <el-table-column property="child_type" label="子类型"></el-table-column>
-      <el-table-column property="state" label="状态"width="100px"></el-table-column>
-      <el-table-column property="status" label="放款状态"></el-table-column>
-      <el-table-column property="pay_remark" label="放款备注"width="140"></el-table-column>
+      <el-table-column property="states" label="放款状态"width="100px"></el-table-column>
+      <el-table-column property="pay_remark" label="放款备注"width="180"></el-table-column>
 
     </el-table>
-    <div style="text-align: center;margin-top: 10px;">
+    <div style="text-align: center;margin-top: 10px;" v-show="fundData.length!=0">
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"

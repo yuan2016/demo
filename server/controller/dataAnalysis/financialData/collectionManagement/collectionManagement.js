@@ -64,6 +64,9 @@ function formatData (rows) {
     if (row.accu_late_fee) {
       row.accu_late_fee = formatCurrency(row.accu_late_fee)
     }
+    if (row.due_debt_m3) {
+      row.due_debt_m3 = formatCurrency(row.due_debt_m3)
+    }
     return row
   })
 }

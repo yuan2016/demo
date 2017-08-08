@@ -4,19 +4,26 @@
       <el-breadcrumb-item :to="{ path: '/main' }">首页</el-breadcrumb-item>
       <el-breadcrumb-item v-for="(item, index) in $route.meta" key="index">{{item}}</el-breadcrumb-item>
     </el-breadcrumb>
-    <el-button type="primary" @click.stop.prevent="jumpToLogin({path:'/login'})">
-      注销<i class="el-icon--right"></i>
-    </el-button>
+    <el-dropdown split-button type="primary">
+      更多
+      <el-dropdown-menu slot="dropdown">
+        <el-dropdown-item @click.native="jumpTopwd({path:'/passwordModify'})">修改密码</el-dropdown-item>
+        <el-dropdown-item @click.native="jumpToLogin({path:'/login'})">注销</el-dropdown-item>
+      </el-dropdown-menu>
+    </el-dropdown>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-  import { clearToken } from '../../../utils/storage'
+  import { clearToken } from '../../../common/js/storage'
 
   export default {
     methods: {
       jumpToLogin (path) {
         clearToken()
+        this.$router.push(path)
+      },
+      jumpTopwd (path) {
         this.$router.push(path)
       }
     }

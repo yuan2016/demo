@@ -1,5 +1,5 @@
 <template>
-  <div class="dailyLendingData">
+  <div class="dailyLendingData" v-loading.body="loading" element-loading-text="拼命加载中">
     <banner></banner>
     <div class="date-filter">
       <span class="managerFront">日期：</span>
@@ -17,7 +17,7 @@
       </el-date-picker>
       <el-button type="primary" size="small" @click.prevent.stop="search">搜索</el-button>
     </div>
-    <el-table v-loading.body="loading" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto;" height="500">
+    <el-table :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto;" height="500">
       <el-table-column property="d_date" fixed sortable label="日期" width="130px" sortable></el-table-column>
       <el-table-column property="register_num" label="注册人数" width="130px"></el-table-column>
       <el-table-column property="loan_num" label="借款人数" width="130px"></el-table-column>
@@ -38,7 +38,7 @@
       <el-table-column property="loans_total_nuser" label="新用户放款总额(元)" width="130px"></el-table-column>
       <el-table-column property="create_time" label="更新时间" width="130px"></el-table-column>
     </el-table>
-    <div style="text-align: center;margin-top: 10px;">
+    <div style="text-align: center;margin-top: 10px;" v-show="fundData.length!=0">
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"

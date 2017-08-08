@@ -53,7 +53,7 @@
       <el-table-column property="child_type" label="子类型"></el-table-column>
       <el-table-column property="status" label="状态"></el-table-column>
     </el-table>
-    <div class="pagination" style="text-align: center;margin-top: 10px;">
+    <div class="pagination" style="text-align: center;margin-top: 10px;" v-show="fundData.length!=0">
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"

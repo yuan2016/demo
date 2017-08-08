@@ -26,7 +26,7 @@
       <el-table-column property="auth_zfb" label="支付宝"></el-table-column>
       <el-table-column property="auth_taobao" label="淘宝"></el-table-column>
     </el-table>
-    <div style="text-align: center;margin-top: 10px;">
+    <div style="text-align: center;margin-top: 10px;" v-show="fundData.length!=0">
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"

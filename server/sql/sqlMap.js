@@ -4,6 +4,11 @@ var sqlMap = {
   login: {
     select: 'select user_password from ?? where user_email = ?'
   },
+  //修改密码
+  passwordModify: {
+    getPass: 'select user_password from ?? where user_email = ?',
+    modifyPass: 'UPDATE ?? SET user_password = ? WHERE user_email = ? '
+  },
   //首页
   main: {
     selectAll: 'select * from ??'
@@ -36,6 +41,13 @@ var sqlMap = {
       selectAllBack: ' limit ?,?'
     }
   },
+  //RMAB
+  //借款通过率
+  RMAB: {
+    loanThroughRate: {
+      selectAll: 'select * from ??'
+    }
+  },
   //借款管理
   loanManagement: {
     loanApplicationsList: {
@@ -45,7 +57,7 @@ var sqlMap = {
     },
     loanAuditList: {
       getCount: 'select count(*) as count from ?? where (loan_time between ? and ?) and status in ( 20, -5, 22, -10, 21 ) and ',
-      selectAllFront: 'select id, out_trade_no, yurref, realname, user_phone, case when customer_type = 0 then "新用户" when customer_type = 1 then "老用户" end as customer_type, money_amount, loan_term, apr, loan_interests, into_money, order_time, loan_time, loan_end_time, updated_at, case when status=20 then "复审通过,待放款" when status=-5 then "放款驳回" when status=22 then "放款中" when status=-10 then "放款失败" when status=21 then "已放款，还款中" end as state, status, pay_remark from ?? where (loan_time between ? and ?) and status in ( 20, -5, 22, -10, 21 ) and ',
+      selectAllFront: 'select id, out_trade_no, yurref, realname, user_phone, case when customer_type = 0 then "新用户" when customer_type = 1 then "老用户" end as customer_type, money_amount, loan_term, apr, loan_interests, into_money, order_time, loan_time, loan_end_time, updated_at, case when status=20 then "复审通过,待放款" when status=-5 then "放款驳回" when status=22 then "放款中" when status=-10 then "放款失败" when status=21 then "已放款，还款中" end as states, pay_remark from ?? where (loan_time between ? and ?) and status in ( 20, -5, 22, -10, 21 ) and ',
       selectAllBack: ' limit ?,?'
     },
     raiseQuotaRecord: {
@@ -93,7 +105,7 @@ var sqlMap = {
     //退款列表  还款详情
     repaymentDetails: {
       getCount: 'select count(*) as count from ?? t inner join ?? t1 on t.user_id=t1.user_id inner join ?? t2 on t2.id=t.user_id where (t.repayment_real_time between ? and ?)',
-      selectAllFront: 'select t1.id, t1.order_id, t2.realname, t2.user_phone, case when t2.customer_type=0 then "新用户" else "老用户" end as customer_type, t.repayment_principal/100 as repayment_principal, t.repayment_interest/100 as repayment_interest, t.repayment_amount/100 as repayment_amount, t.repaymented_amount/100 as repaymented_amount, t1.true_repayment_money/100 as true_repayment_money, t.credit_repayment_time, t.repayment_time, case when t1.repayment_type= 1 then "支付宝" when t1.repayment_type= 2 then "银行卡主动还款" when t1.repayment_type= 3 then "银行卡自动扣款" when t1.repayment_type= 4 then "对公银行卡转账" else "" end as repayment_type, t.repayment_real_time, t1.order_time from ?? t inner join ?? t1 on t.user_id=t1.user_id inner join ?? t2 on t2.id=t.user_id where (t.repayment_real_time between ? and ?)',
+      selectAllFront: 'select t1.id, t1.order_id, t2.realname, t2.user_phone, case when t2.customer_type=0 then "新用户" else "老用户" end as customer_type, t.repayment_principal/100 as repayment_principal, t.repayment_interest/100 as repayment_interest, t.repayment_amount/100 as repayment_amount, t.repaymented_amount/100 as repaymented_amount, t1.true_repayment_money/100 as true_repayment_money, t.credit_repayment_time, t.repayment_time, case when t1.repayment_type=1 then "支付宝" when t1.repayment_type=2 then "富友" when t1.repayment_type=3 then "连连" when t1.repayment_type=4 then "连连代扣服务费" when t1.repayment_type=5 then "对公银行卡转账" when t1.repayment_type=6 then "减免" when t1.repayment_type=7 then "线下还款" when t1.repayment_type=8 then "益码通支付宝" when t1.repayment_type=9 then "借款优惠服务费" else "" end as repayment_type, t.repayment_real_time, t1.order_time from ?? t inner join ?? t1 on t.user_id=t1.user_id inner join ?? t2 on t2.id=t.user_id where (t.repayment_real_time between ? and ?)',
       selectAllBack: ' limit ?,?'
     },
     //退款列表  续期详情
