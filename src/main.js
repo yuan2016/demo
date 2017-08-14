@@ -10,6 +10,7 @@ import Axios from 'axios'
 import VueAxios from 'vue-axios'
 import routes from './router/index'
 import { getToken } from './common/js/storage'
+import './config/height'
 //import VueResource from 'vue-resource'
 
 Vue.config.productionTip = false

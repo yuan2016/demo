@@ -16,6 +16,7 @@
         placeholder="到">
       </el-date-picker>
       <el-button type="primary" size="small" @click.prevent.stop="search">搜索</el-button>
+      <el-button type="primary" size="small" :loading="buttonLoading" @click.prevent.stop="refreshData">一键刷新</el-button>
     </div>
     <el-table v-loading.body="loading" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border stripe
               style="width: 100%;overflow: auto" :height="height">
@@ -60,6 +61,7 @@
 <script type="text/ecmascript-6">
   import banner from '../../../../common/banner/banner'
   import { getNowFormatDate, formatDate } from '../../../../../common/js/utils'
+  import { getHeight } from '../../../../../common/js/storage'
 
   export default {
     data () {
@@ -74,7 +76,8 @@
         startTime: '',
         endTime: '',
         pageContent: 'sizes',
-        height: 700
+        height: 500,
+        buttonLoading: false
       }
     },
     components: {
@@ -83,6 +86,7 @@
     created () {
       this.loading = true
       this.getDataInit()
+      this.height = getHeight()
     },
     methods: {
       //每页显示数据量变更
@@ -119,7 +123,10 @@
           })).catch(() => {
           this.fundData = []
           this.loading = false
-          this.$message.error('搜索出现错误，请重试')
+          this.$message({
+            message: '数据正在更新，请稍候',
+            type: 'warning'
+          })
         })
       },
       getData () {
@@ -145,6 +152,33 @@
           this.endTime = formatDate(new Date(this.endTime), 'yyyy-MM-dd')
         }
         this.getDataInit()
+      },
+      refreshData () {
+        this.buttonLoading = true
+        this.axios.post('/api/platformData/refresh').then((response) => {
+          if (response.data.code === '200') {
+            this.getDataInit()
+            this.buttonLoading = false
+            this.$message({
+              message: '平台数据刷新完毕，请查看',
+              type: 'success'
+            })
+          } else if (response.data.code === '400') {
+            this.buttonLoading = false
+            this.$message({
+              message: '已经有用户在尝试刷新，请稍后刷新页面即可',
+              type: 'warning'
+            })
+          } else {
+            setTimeout(() => {
+              this.buttonLoading = false
+              this.$message.error('平台数据一键刷新出现错误，请检查网络或联系管理员')
+            }, 1000)
+          }
+        }).catch(() => {
+          this.buttonLoading = false
+          this.$message.error('平台数据一键刷新出现错误，请检查网络或联系管理员')
+        })
       }
     }
   }

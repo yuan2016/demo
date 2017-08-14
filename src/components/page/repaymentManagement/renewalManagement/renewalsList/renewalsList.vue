@@ -27,7 +27,7 @@
       </li>
     </ul>
     <el-table :data="fundData"
-              highlight-current-row border stripe style="width: 100%;overflow: auto" height="500">
+              highlight-current-row border stripe style="width: 100%;overflow: auto" :height="height">
       <el-table-column property="order_id" label="订单号" width="150px"></el-table-column>
       <el-table-column property="realname" label="姓名"></el-table-column>
       <el-table-column property="user_phone" label="手机号"></el-table-column>
@@ -55,6 +55,7 @@
 <script type="text/ecmascript-6">
   import banner from '../../../../common/banner/banner'
   import { getNowFormatDate, formatDate } from '../../../../../common/js/utils'
+  import { getHeight } from '../../../../../common/js/storage'
 
   export default {
     data () {
@@ -85,7 +86,8 @@
         }, {
           value: '2',
           label: '付款失败'
-        }]
+        }],
+        height: 500
       }
     },
     components: {
@@ -94,6 +96,7 @@
     created () {
       this.loading = true
       this.getDataInit()
+      this.height = getHeight()
     },
     methods: {
       //每页显示数据量变更
@@ -135,7 +138,10 @@
         }).catch(() => {
           this.fundData = []
           this.loading = false
-          this.$message.error('搜索出现错误，请重试')
+          this.$message({
+            message: '数据正在更新，请稍候',
+            type: 'warning'
+          })
         })
       },
       getData () {
@@ -197,7 +203,10 @@
             })).catch(() => {
             this.fundData = []
             this.loading = false
-            this.$message.error('搜索出现错误，请重试')
+            this.$message({
+            message: '数据正在更新，请稍候',
+            type: 'warning'
+          })
           })
         }
       }

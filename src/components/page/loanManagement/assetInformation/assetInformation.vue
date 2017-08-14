@@ -38,7 +38,7 @@
         <el-button type="primary" size="small" class="loanAuditButton" @click.prevent.stop="search">搜索</el-button>
       </li>
     </ul>
-    <el-table stripe :data="fundData" highlight-current-row border style="width: 100%;overflow:auto;" height="500">
+    <el-table stripe :data="fundData" highlight-current-row border style="width: 100%;overflow:auto;" :height="height">
       <el-table-column property="asset_order_id" label="订单号" width="150px"></el-table-column>
       <el-table-column property="realname" label="姓名"></el-table-column>
       <el-table-column property="user_phone" label="手机号"></el-table-column>
@@ -72,6 +72,7 @@
 <script type="text/ecmascript-6">
   import banner from '../../../common/banner/banner'
   import { getNowFormatDate, formatDate } from '../../../../common/js/utils'
+  import { getHeight } from '../../../../common/js/storage'
 
   export default {
     data () {
@@ -123,7 +124,8 @@
         }, {
           value: '3',
           label: 'C类'
-        }]
+        }],
+        height: 500
       }
     },
     components: {
@@ -132,6 +134,7 @@
     created () {
       this.loading = true
       this.getDataInit()
+      this.height = getHeight()
     },
     methods: {
       //每页显示数据量变更
@@ -174,7 +177,10 @@
         }).catch(() => {
           this.fundData = []
           this.loading = false
-          this.$message.error('搜索出现错误，请重试')
+          this.$message({
+            message: '数据正在更新，请稍候',
+            type: 'warning'
+          })
         })
       },
       getData () {
@@ -236,7 +242,10 @@
             })).catch(() => {
             this.fundData = []
             this.loading = false
-            this.$message.error('搜索出现错误，请重试')
+            this.$message({
+            message: '数据正在更新，请稍候',
+            type: 'warning'
+          })
           })
         }
       }

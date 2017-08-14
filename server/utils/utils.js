@@ -90,7 +90,7 @@ exports.formatCurrency = function (num) {
     if (cents < 10) {
       cents = '0' + cents
     }
-    for (var i = 0; i < Math.floor((num.length - (1 + i)) / 3); i++) {
+    for (let i = 0; i < Math.floor((num.length - (1 + i)) / 3); i++) {
       num = num.substring(0, num.length - (4 * i + 3)) + ',' +
         num.substring(num.length - (4 * i + 3))
     }

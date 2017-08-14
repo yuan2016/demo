@@ -1,10 +1,12 @@
 {
   "dependencies": {
     "body-parser": "^1.17.2",
+    "child_process": "^1.0.2",
     "express": "^4.15.3",
     "jwt-simple": "^0.5.1",
     "moment": "^2.18.1",
     "mysql": "^2.13.0",
-    "node-mysql": "^0.4.2"
+    "node-mysql": "^0.4.2",
+    "shelljs": "^0.7.8"
   }
 }

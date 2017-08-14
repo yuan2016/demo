@@ -86,7 +86,6 @@ module.exports = {
         }
         return
       }
-      console.log(rs)
       res.json(rs)
     })
   }

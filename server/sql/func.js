@@ -5,13 +5,13 @@ let pool2 = mysql.createPool(db.xianjinkd)
 const timeout = 20000
 
 module.exports = {
-  connPool1 (sql, val, cb) {
+  connPool1 (sql, val, cb, to = timeout) {
     pool1.getConnection((err, conn) => {
       if (err) {
         console.log('DB-获取数据库连接异常！')
         console.log(err.message)
       }
-      let q = conn.query({sql: sql, timeout: timeout, values: val}, (err, rows) => {
+      let q = conn.query({sql: sql, timeout: to, values: val}, (err, rows) => {
         if (err) {
           console.log('DB-执行查询语句异常！')
           console.log(err.message)
@@ -27,13 +27,13 @@ module.exports = {
       })
     })
   },
-  connPool2 (sql, val, cb) {
+  connPool2 (sql, val, cb, to = timeout) {
     pool2.getConnection((err, conn) => {
       if (err) {
         console.log('DB-获取数据库连接异常！')
         console.log(err.message)
       }
-      let q = conn.query({sql: sql, timeout: timeout, values: val}, (err, rows) => {
+      let q = conn.query({sql: sql, timeout: to, values: val}, (err, rows) => {
         if (err) {
           console.log('DB-执行查询语句异常！')
           console.log(err.message)
@@ -51,12 +51,12 @@ module.exports = {
   },
 
   // json格式
-  writeJson (res, code = 200, msg = 'ok', data = null) {
-    let obj = {code, msg, data}
-
-    if (!data) {
-      delete obj.data
-    }
-    res.send(obj)
-  }
+  // writeJson (res, code = 200, msg = 'ok', data = null) {
+  //   let obj = {code, msg, data}
+  //
+  //   if (!data) {
+  //     delete obj.data
+  //   }
+  //   res.send(obj)
+  // }
 }

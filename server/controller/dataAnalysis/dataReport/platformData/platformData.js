@@ -3,6 +3,10 @@ let func = require('../../../../sql/func')
 let moment = require('moment')
 let tableName = require('../../../../config/tableName')
 let {formatCurrency} = require('../../../../utils/utils')
+let process = require('child_process')
+let shell = require('../../../../config/shell')
+
+global.platformCount = 0
 
 function formatData (rows) {
   return rows.map(row => {
@@ -124,5 +128,25 @@ module.exports = {
       }
       res.json(rs)
     })
+  },
+  refreshData (req, res) {
+    if (global.platformCount === 0) {
+      global.platformCount++
+      process.exec(shell.platformData, function (error, stdout, stderr) {
+        if (error !== null) {
+          console.log('exec error: ' + error)
+          console.log(moment(new Date()).format('YYYY-MM-DD HH:mm:ss') + ' 平台数据shell脚本执行失败')
+          res.json({code: '500'})
+          global.platformCount = 0
+        } else {
+          console.log(moment(new Date()).format('YYYY-MM-DD HH:mm:ss') + ' 平台数据shell脚本执行成功')
+          res.json({code: '200'})
+          global.platformCount = 0
+        }
+      })
+      console.log(moment(new Date()).format('YYYY-MM-DD HH:mm:ss') + ' 平台数据开始执行shell脚本')
+    } else {
+      res.json({code: '400'})
+    }
   }
 }

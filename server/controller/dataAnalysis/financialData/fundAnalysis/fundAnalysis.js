@@ -3,6 +3,10 @@ let func = require('../../../../sql/func')
 let moment = require('moment')
 let tableName = require('../../../../config/tableName')
 let {formatCurrency} = require('../../../../utils/utils')
+let shell = require('../../../../config/shell')
+let process = require('child_process')
+
+global.fundCount = 0
 
 function formatData (rows) {
   return rows.map(row => {
@@ -100,5 +104,25 @@ module.exports = {
       }
       res.json(rs)
     })
+  },
+  refreshData (req, res) {
+    if (global.fundCount === 0) {
+      global.fundCount++
+      process.exec(shell.fundAnalysis, function (error, stdout, stderr) {
+        if (error !== null) {
+          console.log('exec error: ' + error)
+          console.log(moment(new Date()).format('YYYY-MM-DD HH:mm:ss') + ' 资金分析shell脚本执行失败')
+          res.json({code: '500'})
+          global.fundCount = 0
+        } else {
+          console.log(moment(new Date()).format('YYYY-MM-DD HH:mm:ss') + ' 资金分析shell脚本执行成功')
+          res.json({code: '200'})
+          global.fundCount = 0
+        }
+      })
+      console.log(moment(new Date()).format('YYYY-MM-DD HH:mm:ss') + ' 资金分析开始执行shell脚本')
+    } else {
+      res.json({code: '400'})
+    }
   }
 }

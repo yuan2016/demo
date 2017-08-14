@@ -7,6 +7,7 @@
         <el-submenu index="1">
           <template slot="title"><i class="elextra-icon-analysis"></i>RMAB</template>
           <el-menu-item index="loanThroughRate"><i class="el-icon-star-on"></i>新用户借款通过率</el-menu-item>
+          <el-menu-item index="loanOverdueRecallRate14"><i class="el-icon-star-on"></i>14天借款逾期催回率</el-menu-item>
         </el-submenu>
         <el-submenu index="2">
           <template slot="title"><i class="elextra-icon-user"></i>用户信息管理</template>
@@ -65,6 +66,11 @@
           </el-submenu>
         </el-submenu>
         <el-submenu index="6">
+          <template slot="title"><i class="elextra-icon-loan"></i>财务分析</template>
+          <el-menu-item index="repaymentMinutia"><i class="el-icon-star-on"></i>还款明细表</el-menu-item>
+          <el-menu-item index="reconciliationAnalysis"><i class="el-icon-star-on"></i>对账分析表</el-menu-item>
+        </el-submenu>
+        <el-submenu index="7">
           <template slot="title"><i class="elextra-icon-promotion"></i>推广管理</template>
           <el-menu-item index="promotionChannel"><i class="el-icon-star-on"></i>推广渠道</el-menu-item>
           <el-menu-item index="promoterManagement"><i class="el-icon-star-on"></i>推广员管理</el-menu-item>
@@ -144,8 +150,9 @@
           position: relative
           .toggle
             position: absolute
-            top: 20px
-            right: 8px
+            top: 5px
+            right: -7px
+            padding: 15px 15px 15px 30px
             font-size: 15px
     .mainContainer
       min-height: 100%

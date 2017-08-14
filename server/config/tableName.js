@@ -22,6 +22,7 @@ module.exports = {
   /*RMAB*/
   // 借款通过率
   loanThroughRate: 'pr_ds_order_analysis',
+  loanOverdueRecallRate14: 'pr_ds_odu_coll_analysis',
   /*借款管理*/
   //借款申请列表
   loanApplicationsList: 'bw_order_info',
@@ -102,6 +103,11 @@ module.exports = {
   collectionManagement: 'PR_DS_COLLECTION_MANAGEMENT',
   //平台数据
   platformData: 'PR_DS_PLATFORM_DATA',
+  /*财务分析*/
+  // 还款明细表
+  repaymentMinutia: 'PR_DS_REPAYMENT_DETAIL',
+  //对账分析表
+  reconciliationAnalysis: 'PR_DS_RECONCILIATION_ANALYSIS',
   /*推广管理*/
   // 推广渠道
   promotionChannel: {

@@ -14,6 +14,7 @@ let userNameAuthenticationList = require('../controller/userInformationManagemen
 let userAuthenticationList = require('../controller/userInformationManagement/userAuthenticationList/userAuthenticationList')
 //RMAB
 let loanThroughRate = require('../controller/RMAB/loanThroughRate/loanThroughRate')
+let loanOverdueRecallRate14 = require('../controller/RMAB/loanOverdueRecallRate14/loanOverdueRecallRate14')
 //借款管理
 let loanApplicationsList = require('../controller/loanManagement/loanApplicationsList/loanApplicationsList')
 let loanAuditList = require('../controller/loanManagement/loanAuditList/loanAuditList')
@@ -39,6 +40,9 @@ let overdueRepaymentStatistics = require('../controller/dataAnalysis/financialDa
 let fundAnalysis = require('../controller/dataAnalysis/financialData/fundAnalysis/fundAnalysis')
 let collectionManagement = require('../controller/dataAnalysis/financialData/collectionManagement/collectionManagement')
 let platformData = require('../controller/dataAnalysis/dataReport/platformData/platformData')
+//财务分析
+let repaymentMinutia = require('../controller/financeAnalysis/repaymentMinutia/repaymentMinutia')
+let reconciliationAnalysis = require('../controller/financeAnalysis/reconciliationAnalysis/reconciliationAnalysis')
 // 推广管理
 let promotionChannel = require('../controller/promotionManagement/promotionChannel/promotionChannel')
 let promoterManagement = require('../controller/promotionManagement/promoterManagement/promoterManagement')
@@ -77,6 +81,7 @@ router.post(api.userNameAuthenticationList, userNameAuthenticationList.fetchAll)
 /*RMAB*/
 // 借款通过率
 router.post(api.loanThroughRate, loanThroughRate.fetchAll)
+router.post(api.loanOverdueRecallRate14, loanOverdueRecallRate14.fetchAll)
 /*借款管理*/
 // 借款申请列表
 router.post(api.loanApplicationsListCount, loanApplicationsList.getCount)
@@ -134,35 +139,46 @@ router.post(api.renewalsList, renewalsList.fetchAll)
 // 每日还款金额数据
 router.post(api.dailyRepaymentAmountDataCount, dailyRepaymentAmountData.getCount)
 router.post(api.dailyRepaymentAmountData, dailyRepaymentAmountData.fetchAll)
-
+router.post(api.dailyRepaymentAmountDataRefresh, dailyRepaymentAmountData.refreshData)
 // 每日还款单位数据
 router.post(api.dailyRepaymentUnitDataCount, dailyRepaymentUnitData.getCount)
 router.post(api.dailyRepaymentUnitData, dailyRepaymentUnitData.fetchAll)
-
+router.post(api.dailyRepaymentUnitDataRefresh, dailyRepaymentUnitData.refreshData)
 // 21天分期统计
 router.post(api.daysStageStatistics21Count, daysStageStatistics21.getCount)
 router.post(api.daysStageStatistics21, daysStageStatistics21.fetchAll)
+router.post(api.daysStageStatistics21Refresh, daysStageStatistics21.refreshData)
 
 // 还款逾期统计
 router.post(api.overdueRepaymentStatisticsCount, overdueRepaymentStatistics.getCount)
 router.post(api.overdueRepaymentStatistics, overdueRepaymentStatistics.fetchAll)
-
+router.post(api.overdueRepaymentStatisticsRefresh, overdueRepaymentStatistics.refreshData)
 // 每日放款数据
 router.post(api.dailyLendingDataCount, dailyLendingData.getCount)
 router.post(api.dailyLendingData, dailyLendingData.fetchAll)
+router.post(api.dailyLendingDataRefresh, dailyLendingData.refreshData)
 
 // 资金分析
 router.post(api.fundAnalysisCount, fundAnalysis.getCount)
 router.post(api.fundAnalysis, fundAnalysis.fetchAll)
-
+router.post(api.fundAnalysisRefresh, fundAnalysis.refreshData)
 // 催收管理
 router.post(api.collectionManagementCount, collectionManagement.getCount)
 router.post(api.collectionManagement, collectionManagement.fetchAll)
-
+router.post(api.collectionManagementRefresh, collectionManagement.refreshData)
 // 平台管理
 router.post(api.platformDataCount, platformData.getCount)
 router.post(api.platformData, platformData.fetchAll)
-
+router.post(api.platformDataRefresh, platformData.refreshData)
+/*财务分析*/
+//还款明细表
+router.post(api.repaymentMinutiaCount, repaymentMinutia.getCount)
+router.post(api.repaymentMinutia, repaymentMinutia.fetchAll)
+router.post(api.repaymentMinutiaExcel, repaymentMinutia.getExcelData)
+//对账分析表
+router.post(api.reconciliationAnalysisCount, reconciliationAnalysis.getCount)
+router.post(api.reconciliationAnalysis, reconciliationAnalysis.fetchAll)
+router.post(api.reconciliationAnalysisExcel, reconciliationAnalysis.getExcelData)
 /*推广管理*/
 // 推广渠道
 router.post(api.promotionChannelCount, promotionChannel.getCount)
@@ -176,10 +192,11 @@ router.post(api.promoterManagementGetOptions, promoterManagement.getSelectOption
 //推广统计(渠道)
 router.post(api.promotionChannelStatisticsCount, promotionChannelStatistics.getCount)
 router.post(api.promotionChannelStatistics, promotionChannelStatistics.fetchAll)
-
+router.post(api.promotionChannelStatisticsRefresh, promotionChannelStatistics.refreshData)
 //推广统计(地区)
 router.post(api.promotionRegionStatisticsCount, promotionRegionStatistics.getCount)
 router.post(api.promotionRegionStatistics, promotionRegionStatistics.fetchAll)
+router.post(api.promotionRegionStatisticsRefresh, promotionRegionStatistics.refreshData)
 //渠道统计汇总
 router.post(api.channelStatisticsSummaryCount, channelStatisticsSummary.getCount)
 router.post(api.channelStatisticsSummary, channelStatisticsSummary.fetchAll)

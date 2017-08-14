@@ -38,6 +38,9 @@ module.exports = {
     let params = req.body
     console.log(params)
     let query = sql.login.select
+    console.log(query)
+    console.log(tableName.login)
+    console.log(params.email)
     func.connPool1(query, [tableName.login, params.email], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)

@@ -21,7 +21,7 @@
       <el-button type="primary" size="small" class="loanAuditButton" @click.prevent.stop="search">搜索</el-button>
     </div>
     <el-table :data="fundData"
-              highlight-current-row border stripe style="width: 100%;overflow: auto;" height="500">
+              highlight-current-row border stripe style="width: 100%;overflow: auto;" :height="height">
       <el-table-column property="id" label="详情ID"></el-table-column>
       <el-table-column property="order_id" label="订单号" width="150px"></el-table-column>
       <el-table-column property="realname" label="姓名"></el-table-column>
@@ -35,8 +35,8 @@
       <el-table-column property="credit_repayment_time" sortable label="放款时间" width="130px"></el-table-column>
       <el-table-column property="repayment_time" sortable label="到期时间" width="130px"></el-table-column>
       <el-table-column property="repayment_type" label="还款方式"></el-table-column>
-      <el-table-column property="repayment_real_time" sortable label="还款时间" width="130px"></el-table-column>
-      <el-table-column property="order_time" sortable label="订单还款时间" width="130px"></el-table-column>
+      <el-table-column property="order_time" sortable label="还款时间" width="130px"></el-table-column>
+      <el-table-column property="repayment_real_time" sortable label="订单还款时间" width="130px"></el-table-column>
     </el-table>
     <div style="text-align: center;margin-top: 10px;" v-show="fundData.length!=0">
       <el-pagination
@@ -54,6 +54,7 @@
 <script type="text/ecmascript-6">
   import banner from '../../../../common/banner/banner'
   import { getNowFormatDate, formatDate } from '../../../../../common/js/utils'
+  import { getHeight } from '../../../../../common/js/storage'
 
   export default {
     data () {
@@ -101,7 +102,8 @@
         }, {
           value: '9',
           label: '借款优惠服务费'
-        }]
+        }],
+        height: 500
       }
     },
     components: {
@@ -110,6 +112,7 @@
     created () {
       this.loading = true
       this.getDataInit()
+      this.height = getHeight()
     },
     methods: {
       //每页显示数据量变更
@@ -150,7 +153,10 @@
         }).catch(() => {
           this.fundData = []
           this.loading = false
-          this.$message.error('搜索出现错误，请重试')
+          this.$message({
+            message: '数据正在更新，请稍候',
+            type: 'warning'
+          })
         })
       },
       getData () {
@@ -208,7 +214,10 @@
             })).catch(() => {
             this.fundData = []
             this.loading = false
-            this.$message.error('搜索出现错误，请重试')
+            this.$message({
+            message: '数据正在更新，请稍候',
+            type: 'warning'
+          })
           })
         }
       }

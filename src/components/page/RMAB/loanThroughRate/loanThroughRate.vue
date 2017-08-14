@@ -1,8 +1,8 @@
 <template>
-  <div class="loanThroughRate" v-loading.body="loading" element-loading-text="拼命加载中">
+  <div class="loanThroughRate" v-loading="loading" element-loading-text="拼命加载中">
     <banner></banner>
     <el-table :data="fundData" highlight-current-row border stripe
-              style="width: 100%;overflow: auto;" height="500" class="loanThroughTable">
+              style="width: 100%;overflow: auto;" :height="height" class="loanThroughTable">
       <el-table-column property="AA" :label="labels[0]" width="160px"></el-table-column>
       <el-table-column property="D1" :label="labels[1]"></el-table-column>
       <el-table-column property="D2" :label="labels[2]"></el-table-column>
@@ -22,20 +22,24 @@
       <el-table-column property="M3" :label="labels[16]"></el-table-column>
       <el-table-column property="MOM" :label="labels[17]"></el-table-column>
     </el-table>
+    <p class="loanThroughRateInfo">说明:</p>
+    <p class="loanThroughRateInfo">数据同环比计算公式: (本期数据-对照数据)/对照数据</p>
+    <p class="loanThroughRateInfo">百分比同环比计算公式: 本期百分比-对照百分比</p>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
   import banner from '../../../common/banner/banner'
   import { getProperty } from '../../../../common/js/utils'
-  import $ from 'jquery'
+  import { getHeight } from '../../../../common/js/storage'
 
   export default {
     data () {
       return {
         labels: [],
         fundData: [],
-        loading: false
+        loading: false,
+        height: 500
       }
     },
     components: {
@@ -43,6 +47,7 @@
     },
     created () {
       this.loading = true
+      this.height = parseInt(getHeight()) + 60
       this.getData()
     },
     methods: {
@@ -67,7 +72,10 @@
           this.fundData = []
           this.labels = ['指标名称', 'D1', 'D2', 'D3', 'D4', 'D5', 'D6', 'D7', 'DOD', 'W1', 'W2', 'W3', 'W4', 'WOW', 'M1', 'M2', 'M3', 'MOM']
           this.loading = false
-          this.$message.error('搜索出现错误，请重试')
+          this.$message({
+            message: '数据正在更新，请稍候',
+            type: 'warning'
+          })
         })
       }
     }
@@ -92,4 +100,9 @@
       td:nth-of-type(1)
         div
           background-color: #ADD8E6
+
+  .loanThroughRateInfo
+    padding-top: 5px
+    font-size: 12px
+    color: red
 </style>

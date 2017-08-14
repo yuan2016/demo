@@ -22,15 +22,17 @@
                       class="userListTimeSelect"></el-date-picker>
       <el-button type="primary" size="small" class="userButton" @click.prevent.stop="search">搜索</el-button>
     </div>
-    <el-table :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto" height="500">
-      <el-table-column property="realname" label="推广员姓名" width="80"></el-table-column>
-      <el-table-column property="user_phone" label="推广员电话"></el-table-column>
-      <el-table-column property="channel_name" label="渠道商名称"></el-table-column>
-      <el-table-column property="operator_name" label="负责人"></el-table-column>
-      <el-table-column property="channel_tel" label="联系方式"></el-table-column>
-      <el-table-column property="created_at" sortable label="创建时间"></el-table-column>
-      <el-table-column property="rel_path" label="推广二维码"></el-table-column>
-      <el-table-column property="remark" label="推广链接" width="400"></el-table-column>
+    <el-table :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto" :height="height">
+      <el-table-column prop="realname" label="推广员姓名" width="80"></el-table-column>
+      <el-table-column prop="user_phone" label="推广员电话"></el-table-column>
+      <el-table-column prop="channel_name" label="渠道商名称"></el-table-column>
+      <el-table-column prop="operator_name" label="负责人"></el-table-column>
+      <el-table-column prop="channel_tel" label="联系方式"></el-table-column>
+      <el-table-column prop="created_at" sortable label="创建时间"></el-table-column>
+      <el-table-column prop="rel_path" label="推广二维码"></el-table-column>
+      <el-table-column prop="remark" label="推广链接" width="100">
+        <template scope="scope"><a :href="scope.row.remark">点击查看</a></template>
+      </el-table-column>
 
     </el-table>
     <div style="text-align: center;margin-top: 10px;" v-show="fundData.length!=0">
@@ -49,6 +51,7 @@
 <script type="text/ecmascript-6">
   import banner from '../../../common/banner/banner'
   import { getNowFormatDate, formatDate } from '../../../../common/js/utils'
+  import { getHeight } from '../../../../common/js/storage'
 
   export default {
     data () {
@@ -67,7 +70,8 @@
         startTime: '',
         endTime: '',
         options: [],
-        status: ''
+        status: '',
+        height: 500
       }
     },
     components: {
@@ -77,6 +81,7 @@
       this.loading = true
       this.getSelectOptions()
       this.getDataInit()
+      this.height = getHeight()
     },
     methods: {
       //每页显示数据量变更
@@ -113,7 +118,10 @@
           })).catch(() => {
           this.fundData = []
           this.loading = false
-          this.$message.error('搜索出现错误，请重试')
+          this.$message({
+            message: '数据正在更新，请稍候',
+            type: 'warning'
+          })
         })
       },
       getData () {
@@ -158,33 +166,32 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-.promoterManagement
-  height: 100%
-  .date-filter
-    padding: 15px 0 15px 1px
-    box-sizing border-box
-    height 60px
-    .managerFront
-      padding-left :5px
-      font-size: 14px
-      color: #666
-    .managerText
-      width: 150px
-    .userButton
-      margin-left: 5px
-    .userListTimeSelect
-      width: 120px
-    .promoterSelect
-      width: 120px
+  .promoterManagement
+    height: 100%
+    .date-filter
+      padding: 15px 0 15px 1px
+      box-sizing border-box
+      height 60px
+      .managerFront
+        padding-left: 5px
+        font-size: 14px
+        color: #666
+      .managerText
+        width: 150px
+      .userButton
+        margin-left: 5px
+      .userListTimeSelect
+        width: 120px
+      .promoterSelect
+        width: 120px
 
+    .el-table .cell, .el-table th > div
+      padding-left: 0
+      padding-right: 0
+      text-align: center
+      font-size: 12px
 
-  .el-table .cell, .el-table th > div
-    padding-left: 0
-    padding-right: 0
-    text-align: center
-    font-size: 12px
-
-  .el-table th > .cell
-    text-align: center
-    font-weight: bold
+    .el-table th > .cell
+      text-align: center
+      font-weight: bold
 </style>

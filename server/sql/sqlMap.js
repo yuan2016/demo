@@ -1,5 +1,5 @@
 // sql语句
-var sqlMap = {
+let sqlMap = {
   // 登陆
   login: {
     select: 'select user_password from ?? where user_email = ?'
@@ -46,6 +46,9 @@ var sqlMap = {
   RMAB: {
     loanThroughRate: {
       selectAll: 'select * from ??'
+    },
+    loanOverdueRecallRate14: {
+      selectAll: 'SELECT @rownum:=@rownum+1 AS rownum, AA,D1,D2,D3,D4,D5,D6,D7,DOD,W1,W2,W3,W4,WOW,M1,M2,M3,MOM FROM (SELECT @rownum:=0) r, ?? where loan_term=14 '
     }
   },
   //借款管理
@@ -105,7 +108,7 @@ var sqlMap = {
     //退款列表  还款详情
     repaymentDetails: {
       getCount: 'select count(*) as count from ?? t inner join ?? t1 on t.user_id=t1.user_id inner join ?? t2 on t2.id=t.user_id where (t.repayment_real_time between ? and ?)',
-      selectAllFront: 'select t1.id, t1.order_id, t2.realname, t2.user_phone, case when t2.customer_type=0 then "新用户" else "老用户" end as customer_type, t.repayment_principal/100 as repayment_principal, t.repayment_interest/100 as repayment_interest, t.repayment_amount/100 as repayment_amount, t.repaymented_amount/100 as repaymented_amount, t1.true_repayment_money/100 as true_repayment_money, t.credit_repayment_time, t.repayment_time, case when t1.repayment_type=1 then "支付宝" when t1.repayment_type=2 then "富友" when t1.repayment_type=3 then "连连" when t1.repayment_type=4 then "连连代扣服务费" when t1.repayment_type=5 then "对公银行卡转账" when t1.repayment_type=6 then "减免" when t1.repayment_type=7 then "线下还款" when t1.repayment_type=8 then "益码通支付宝" when t1.repayment_type=9 then "借款优惠服务费" else "" end as repayment_type, t.repayment_real_time, t1.order_time from ?? t inner join ?? t1 on t.user_id=t1.user_id inner join ?? t2 on t2.id=t.user_id where (t.repayment_real_time between ? and ?)',
+      selectAllFront: 'select t1.id, t1.order_id, t2.realname, t2.user_phone, case when t2.customer_type=0 then "新用户" else "老用户" end as customer_type, t.repayment_principal/100 as repayment_principal, t.repayment_interest/100 as repayment_interest, t.repayment_amount/100 as repayment_amount, t.repaymented_amount/100 as repaymented_amount, t1.true_repayment_money/100 as true_repayment_money, t.credit_repayment_time, t.repayment_time, case when t1.repayment_type=1 then "支付宝" when t1.repayment_type=2 then "富友" when t1.repayment_type=3 then "连连" when t1.repayment_type=4 then "连连代扣服务费" when t1.repayment_type=5 then "对公银行卡转账" when t1.repayment_type=6 then "减免" when t1.repayment_type=7 then "线下还款" when t1.repayment_type=8 then "益码通支付宝" when t1.repayment_type=9 then "借款优惠服务费" else "" end as repayment_type, t.repayment_real_time, t1.order_time from ?? t inner join ?? t1 on t.user_id=t1.user_id inner join ?? t2 on t2.id=t.user_id where (t1.status =2) and (t1.order_time between ? and ?)',
       selectAllBack: ' limit ?,?'
     },
     //退款列表  续期详情
@@ -131,6 +134,18 @@ var sqlMap = {
   dataAnalysis: {
     selectAll: 'select * from ?? where d_date between ? and ? order by d_date desc limit ?,?',
     getCount: 'select count(*) as count from ?? where d_date between ? and ?'
+  },
+//财务分析
+  financeAnalysis: {
+    repaymentMinutia: {
+      selectAllFront: 'select * from ?? where (repayment_real_time between ? and ?) and ',
+      selectAllBack: ' limit ?,?',
+      getCount: 'select count(*) as count from ?? where (repayment_real_time between ? and ?) and '
+    },
+    reconciliationAnalysis: {
+      selectAll: 'select * from ?? where (d_date between ? and ?) limit ?,?',
+      getCount: 'select count(*) as count from ?? where (d_date between ? and ?)'
+    }
   },
   //推广管理 推广渠道
   promotionManagement: {

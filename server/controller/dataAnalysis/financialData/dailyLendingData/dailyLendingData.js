@@ -3,6 +3,10 @@ let func = require('../../../../sql/func')
 let moment = require('moment')
 let tableName = require('../../../../config/tableName')
 let {formatCurrency} = require('../../../../utils/utils')
+let process = require('child_process')
+let shell = require('../../../../config/shell')
+
+global.dailyLendingCount = 0
 
 function formatData (rows) {
   return rows.map(row => {
@@ -109,5 +113,28 @@ module.exports = {
       }
       res.json(rs)
     })
+  },
+  refreshData (req, res) {
+    if (global.dailyLendingCount === 0) {
+      global.dailyLendingCount++
+      process.exec(shell.dailyLendingData, function (error, stdout, stderr) {
+        if (error !== null) {
+          console.log('exec error: ' + error)
+          console.log('exec error: ' + error.message)
+          console.log('exec error: ' + error.stack)
+          console.log('exec error: ' + error.code)
+          console.log(moment(new Date()).format('YYYY-MM-DD HH:mm:ss') + ' 每日放款数据shell脚本执行失败')
+          res.json({code: '500'})
+          global.dailyLendingCount = 0
+        } else {
+          console.log(moment(new Date()).format('YYYY-MM-DD HH:mm:ss') + ' 每日放款数据shell脚本执行成功')
+          res.json({code: '200'})
+          global.dailyLendingCount = 0
+        }
+      })
+      console.log(moment(new Date()).format('YYYY-MM-DD HH:mm:ss') + ' 每日放款数据开始执行shell脚本')
+    } else {
+      res.json({code: '400'})
+    }
   }
 }

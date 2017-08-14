@@ -16,8 +16,9 @@
         placeholder="到">
       </el-date-picker>
       <el-button type="primary" size="small" @click.prevent.stop="search">搜索</el-button>
+      <el-button type="primary" size="small" :loading="buttonLoading" @click.prevent.stop="refreshData">一键刷新</el-button>
     </div>
-    <el-table v-loading.body="loading" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto;" height="500">
+    <el-table v-loading.body="loading" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto;" :height="height">
       <el-table-column property="d_date" fixed sortable label="日期" width="130px"></el-table-column>
       <el-table-column property="mature_money" label="到期金额(元)" width="130px"></el-table-column>
       <el-table-column property="overdue_money" label="逾期金额(元)" width="130px"></el-table-column>
@@ -51,6 +52,8 @@
 <script type="text/ecmascript-6">
   import banner from '../../../../common/banner/banner'
   import { getNowFormatDate, formatDate } from '../../../../../common/js/utils'
+  import { getHeight } from '../../../../../common/js/storage'
+
   export default {
     data () {
       return {
@@ -63,7 +66,9 @@
         count: 0,
         currentPage: 1,
         startTime: '',
-        endTime: ''
+        endTime: '',
+        height: 500,
+        buttonLoading: false
       }
     },
     components: {
@@ -72,6 +77,7 @@
     created () {
       this.loading = true
       this.getDataInit()
+      this.height = getHeight()
     },
     methods: {
       //每页显示数据量变更
@@ -108,7 +114,10 @@
           })).catch(() => {
           this.fundData = []
           this.loading = false
-          this.$message.error('搜索出现错误，请重试')
+          this.$message({
+            message: '数据正在更新，请稍候',
+            type: 'warning'
+          })
         })
       },
       getData () {
@@ -134,6 +143,33 @@
           this.endTime = formatDate(new Date(this.endTime), 'yyyy-MM-dd')
         }
         this.getDataInit()
+      },
+      refreshData () {
+        this.buttonLoading = true
+        this.axios.post('/api/dailyRepaymentAmountData/refresh').then((response) => {
+          if (response.data.code === '200') {
+            this.getDataInit()
+            this.buttonLoading = false
+            this.$message({
+              message: '每日还款金额数据刷新完毕，请查看',
+              type: 'success'
+            })
+          } else if (response.data.code === '400') {
+            this.buttonLoading = false
+            this.$message({
+              message: '已经有用户在尝试刷新，请稍后刷新页面即可',
+              type: 'warning'
+            })
+          } else {
+            setTimeout(() => {
+              this.buttonLoading = false
+              this.$message.error('每日还款金额数据一键刷新出现错误，请检查网络或联系管理员')
+            }, 1000)
+          }
+        }).catch(() => {
+          this.buttonLoading = false
+          this.$message.error('每日还款金额数据一键刷新出现错误，请检查网络或联系管理员')
+        })
       }
     }
   }

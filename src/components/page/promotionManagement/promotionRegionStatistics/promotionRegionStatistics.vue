@@ -1,5 +1,5 @@
 <template>
-  <div class="promotionRegionStatistics"  v-loading.body="loading" element-loading-text="拼命加载中">
+  <div class="promotionRegionStatistics" v-loading.body="loading" element-loading-text="拼命加载中">
     <banner></banner>
     <div class="date-filter">
       <div class="selectContent">
@@ -11,8 +11,9 @@
       <el-date-picker v-model.trim="endTime" type="date" size="small" placeholder="到"
                       class="userListTimeSelect"></el-date-picker>
       <el-button type="primary" size="small" class="userButton" @click.prevent.stop="search">搜索</el-button>
+      <el-button type="primary" size="small" :loading="buttonLoading" @click.prevent.stop="refreshData">一键刷新</el-button>
     </div>
-    <el-table :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto;" height="500">
+    <el-table :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto;" :height="height">
       <el-table-column property="d_date" sortable label="日期"></el-table-column>
       <el-table-column property="Province" label="省份"></el-table-column>
       <el-table-column property="city" label="城市"></el-table-column>
@@ -48,6 +49,7 @@
   import banner from '../../../common/banner/banner'
   import selectCity from '../../../common/provincesAndCitiesSelect/provincesAndCitiesSelect.vue'
   import { getNowFormatDate, formatDate } from '../../../../common/js/utils'
+  import { getHeight } from '../../../../common/js/storage'
 
   export default {
     data () {
@@ -74,7 +76,9 @@
         }, {
           value: '否',
           label: '否'
-        }]
+        }],
+        height: 500,
+        buttonLoading: false
       }
     },
     components: {
@@ -84,6 +88,7 @@
     created () {
       this.loading = true
       this.getDataInit()
+      this.height = getHeight()
     },
     methods: {
       //每页显示数据量变更
@@ -120,7 +125,10 @@
           })).catch(() => {
           this.fundData = []
           this.loading = false
-          this.$message.error('搜索出现错误，请重试')
+          this.$message({
+            message: '数据正在更新，请稍候',
+            type: 'warning'
+          })
         })
       },
       getData () {
@@ -156,45 +164,70 @@
       },
       getSelectProvince (msg) {
         this.province = msg
+      },
+      refreshData () {
+        this.buttonLoading = true
+        this.axios.post('/api/promotionRegionStatistics/refresh').then((response) => {
+          if (response.data.code === '200') {
+            this.getDataInit()
+            this.buttonLoading = false
+            this.$message({
+              message: '推广统计(地区)刷新完毕，请查看',
+              type: 'success'
+            })
+          } else if (response.data.code === '400') {
+            this.buttonLoading = false
+            this.$message({
+              message: '已经有用户在尝试刷新，请稍后刷新页面即可',
+              type: 'warning'
+            })
+          } else {
+            setTimeout(() => {
+              this.buttonLoading = false
+              this.$message.error('推广统计(地区)一键刷新出现错误，请检查网络或联系管理员')
+            }, 1000)
+          }
+        }).catch(() => {
+          this.buttonLoading = false
+          this.$message.error('推广统计(地区)一键刷新出现错误，请检查网络或联系管理员')
+        })
       }
     }
-
   }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-.promotionRegionStatistics
-  height: 100%
-  .date-filter
-    padding: 15px 0 15px 1px
-    box-sizing border-box
-    height 60px
-    .selectContent
-      display: inline-block
-      vertical-align: middle
-      .el-col-5
-        width: 200px
-    .managerFront
-      padding-left: 5px
-      font-size: 14px
-      color: #666
-    .managerText
-      width: 180px
-    .userButton
-      margin-left: 5px
-    .userListTimeSelect
-      width: 120px
-    .userListSelect
-      width: 80px
+  .promotionRegionStatistics
+    height: 100%
+    .date-filter
+      padding: 15px 0 15px 1px
+      box-sizing border-box
+      height 60px
+      .selectContent
+        display: inline-block
+        vertical-align: middle
+        .el-col-5
+          width: 200px
+      .managerFront
+        padding-left: 5px
+        font-size: 14px
+        color: #666
+      .managerText
+        width: 180px
+      .userButton
+        margin-left: 5px
+      .userListTimeSelect
+        width: 120px
+      .userListSelect
+        width: 80px
 
+    .el-table .cell, .el-table th > div
+      padding-left: 0
+      padding-right: 0
+      text-align: center
+      font-size: 12px
 
-  .el-table .cell, .el-table th > div
-    padding-left: 0
-    padding-right: 0
-    text-align: center
-    font-size: 12px
-
-  .el-table th > .cell
-    text-align: center
-    font-weight: bold
+    .el-table th > .cell
+      text-align: center
+      font-weight: bold
 </style>

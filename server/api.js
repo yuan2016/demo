@@ -28,6 +28,7 @@ module.exports = {
   //RMAB
   //借款通过率
   loanThroughRate: path + '/loanThroughRate',
+  loanOverdueRecallRate14: path + '/loanOverdueRecallRate14',
   /*借款管理*/
   // 借款申请列表
   loanApplicationsList: path + '/loanApplicationsList',
@@ -79,27 +80,44 @@ module.exports = {
   // 每日还款单位数据
   dailyRepaymentUnitData: path + '/dailyRepaymentUnitData',
   dailyRepaymentUnitDataCount: path + '/dailyRepaymentUnitData/count',
+  dailyRepaymentUnitDataRefresh: path + '/dailyRepaymentUnitData/refresh',
   // 每日还款金额数据
   dailyRepaymentAmountData: path + '/dailyRepaymentAmountData',
   dailyRepaymentAmountDataCount: path + '/dailyRepaymentAmountData/count',
+  dailyRepaymentAmountDataRefresh: path + '/dailyRepaymentAmountData/refresh',
   // 还款逾期统计
   overdueRepaymentStatistics: path + '/overdueRepaymentStatistics',
   overdueRepaymentStatisticsCount: path + '/overdueRepaymentStatistics/count',
+  overdueRepaymentStatisticsRefresh: path + '/overdueRepaymentStatistics/refresh',
   // 21天分期统计
   daysStageStatistics21: path + '/daysStageStatistics21',
   daysStageStatistics21Count: path + '/daysStageStatistics21/count',
+  daysStageStatistics21Refresh: path + '/daysStageStatistics21/refresh',
   // 每日放款数据
   dailyLendingData: path + '/dailyLendingData',
   dailyLendingDataCount: path + '/dailyLendingData/count',
+  dailyLendingDataRefresh: path + '/dailyLendingData/refresh',
   // 资金分析
   fundAnalysis: path + '/fundAnalysis',
   fundAnalysisCount: path + '/fundAnalysis/count',
+  fundAnalysisRefresh: path + '/fundAnalysis/refresh',
   //催收管理
   collectionManagement: path + '/collectionManagement',
   collectionManagementCount: path + '/collectionManagement/count',
+  collectionManagementRefresh: path + '/collectionManagement/refresh',
   //平台数据
   platformData: path + '/platformData',
   platformDataCount: path + '/platformData/count',
+  platformDataRefresh: path + '/platformData/refresh',
+  /*财务分析*/
+  // 还款明细表
+  repaymentMinutia: path + '/repaymentMinutia',
+  repaymentMinutiaCount: path + '/repaymentMinutia/count',
+  repaymentMinutiaExcel: path + '/repaymentMinutia/excel',
+  // 对账分析表
+  reconciliationAnalysis: path + '/reconciliationAnalysis',
+  reconciliationAnalysisCount: path + '/reconciliationAnalysis/count',
+  reconciliationAnalysisExcel: path + '/reconciliationAnalysis/excel',
   /*推广管理*/
   // 推广渠道
   promotionChannel: path + '/promotionChannel',
@@ -111,9 +129,11 @@ module.exports = {
   // 推广统计(渠道)
   promotionChannelStatistics: path + '/promotionChannelStatistics',
   promotionChannelStatisticsCount: path + '/promotionChannelStatistics/count',
+  promotionChannelStatisticsRefresh: path + '/promotionChannelStatistics/refresh',
   // 推广统计(地区)
   promotionRegionStatistics: path + '/promotionRegionStatistics',
   promotionRegionStatisticsCount: path + '/promotionRegionStatistics/count',
+  promotionRegionStatisticsRefresh: path + '/promotionRegionStatistics/refresh',
   //渠道统计汇总
   channelStatisticsSummary: path + '/channelStatisticsSummary',
   channelStatisticsSummaryCount: path + '/channelStatisticsSummary/count',

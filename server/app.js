@@ -12,7 +12,8 @@ app.use(bodyParser.json())
 
 app.use(router)
 
-app.listen(port, () => {
+let server = app.listen(port, () => {
   console.log(`devServer start on port:${port}`)
 })
 
+server.setTimeout(1000 * 60 * 30)

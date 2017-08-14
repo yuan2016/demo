@@ -72,7 +72,6 @@
       jumpTo (path) {
         this.$refs['loginForm'].validate((valid) => {
           if (valid) {
-            console.log(md5(this.loginForm.password))
             this.axios.post('/api/login', {
               email: this.loginForm.email + '@xianjinkd.com',
               password: md5(this.loginForm.password)

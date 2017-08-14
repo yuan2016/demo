@@ -17,7 +17,7 @@
       <el-button type="primary" size="small" class="userButton" @click.prevent.stop="search">搜索</el-button>
     </div>
     <el-table :data="fundData" highlight-current-row border stripe
-              style="width: 100%;overflow: auto" height="500">
+              style="width: 100%;overflow: auto" :height="height">
       <el-table-column property="channel_name" label="渠道商名称"></el-table-column>
       <el-table-column property="channel_code" label="渠道商编码"></el-table-column>
       <el-table-column property="operator_name" label="负责人"></el-table-column>
@@ -45,6 +45,7 @@
 <script type="text/ecmascript-6">
   import banner from '../../../common/banner/banner'
   import { getNowFormatDate, formatDate } from '../../../../common/js/utils'
+  import { getHeight } from '../../../../common/js/storage'
 
   export default {
     data () {
@@ -62,7 +63,8 @@
         currentPage: 1,
         startTime: '',
         endTime: '',
-        status: ''
+        status: '',
+        height: 500
       }
     },
     components: {
@@ -71,6 +73,7 @@
     created () {
       this.loading = true
       this.getDataInit()
+      this.height = getHeight()
     },
     methods: {
       //每页显示数据量变更
@@ -107,7 +110,10 @@
           })).catch(() => {
           this.fundData = []
           this.loading = false
-          this.$message.error('搜索出现错误，请重试')
+          this.$message({
+            message: '数据正在更新，请稍候',
+            type: 'warning'
+          })
         })
       },
       getData () {

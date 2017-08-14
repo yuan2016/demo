@@ -25,6 +25,17 @@ export function getEmail () {
   return getCookie(email)
 }
 
+export function saveHeight (value) {
+  let tableHeight = 'tableHeight'
+  let Days = 1000
+  setCookie(tableHeight, value, Days)
+}
+
+export function getHeight () {
+  let tableHeight = 'tableHeight'
+  return getCookie(tableHeight)
+}
+
 function getCookie (name) {
   let reg = new RegExp('(^| )' + name + '=([^;]*)(;|$)')
   let arr = document.cookie.match(reg)

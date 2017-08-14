@@ -212,7 +212,10 @@
           }
         }).catch(() => {
           this.fundData = []
-          this.$message.error('搜索出现错误，请重试')
+          this.$message({
+            message: '数据正在更新，请稍候',
+            type: 'warning'
+          })
         })
       }
     },

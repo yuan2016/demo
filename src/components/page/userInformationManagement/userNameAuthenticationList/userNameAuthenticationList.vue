@@ -7,7 +7,7 @@
       <span class="managerFront">身份证号：</span><el-input type="text" size="small" placeholder="请输入内容" class="managerText" v-model.trim="id_number"></el-input>
       <el-button type="primary" size="small" class="userButton" @click.prevent.stop="search">搜索</el-button>
     </div>
-    <el-table :data="fundData" stripe highlight-current-row border style="width: 100%;overflow: auto" height="500">
+    <el-table :data="fundData" stripe highlight-current-row border style="width: 100%;overflow: auto" :height="height">
       <el-table-column property="id" label="用户ID"></el-table-column>
       <el-table-column property="realname" label="真实姓名"></el-table-column>
       <el-table-column property="id_number" label="身份证号"></el-table-column>
@@ -29,6 +29,7 @@
 
 <script type="text/ecmascript-6">
   import banner from '../../../common/banner/banner'
+  import { getHeight } from '../../../../common/js/storage'
   export default {
     data () {
       return {
@@ -43,7 +44,8 @@
         offset: 0,
         limit: 20,
         count: 0,
-        currentPage: 1
+        currentPage: 1,
+        height: 500
       }
     },
     components: {
@@ -52,6 +54,7 @@
     created () {
       this.loading = true
       this.getDataInit()
+      this.height = getHeight()
     },
     methods: {
       //每页显示数据量变更
@@ -91,7 +94,10 @@
         }).catch(() => {
           this.fundData = []
           this.loading = false
-          this.$message.error('搜索出现错误，请重试')
+          this.$message({
+            message: '数据正在更新，请稍候',
+            type: 'warning'
+          })
         })
       },
       getData () {
@@ -139,7 +145,10 @@
             })).catch(() => {
             this.fundData = []
             this.loading = false
-            this.$message.error('搜索出现错误，请重试')
+            this.$message({
+            message: '数据正在更新，请稍候',
+            type: 'warning'
+          })
           })
         }
       }
