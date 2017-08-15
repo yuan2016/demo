@@ -33,8 +33,7 @@ module.exports = {
   //每日还款金额数据
   fetchAll (req, res) {
     let params = req.body
-    console.log(params)
-    let query = sql.financeAnalysis.reconciliationAnalysis.selectAll
+    let query = sql.financeAnalysis.reconciliationAnalysis.selectAllFront + sql.financeAnalysis.reconciliationAnalysis.selectAllBack
     func.connPool1(query, [tableName.reconciliationAnalysis, params.startTime, params.endTime, params.offset, params.limit], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
@@ -76,9 +75,9 @@ module.exports = {
   },
   getExcelData (req, res) {
     let params = req.body
-    let queries = analysis(params)
-    let query = sql.financeAnalysis.repaymentMinutia.selectAllFront + queries.slice(0, 3).join(' and ')
-    func.connPool1(query, [tableName.repaymentMinutia, params.startTime, params.endTime], function (err, rs) {
+    let query = sql.financeAnalysis.reconciliationAnalysis.selectAllFront
+    console.log(query)
+    func.connPool1(query, [tableName.reconciliationAnalysis, params.startTime, params.endTime], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
         if (err.message === 'Query inactivity timeout') {

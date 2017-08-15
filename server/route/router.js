@@ -14,7 +14,7 @@ let userNameAuthenticationList = require('../controller/userInformationManagemen
 let userAuthenticationList = require('../controller/userInformationManagement/userAuthenticationList/userAuthenticationList')
 //RMAB
 let loanThroughRate = require('../controller/RMAB/loanThroughRate/loanThroughRate')
-let loanOverdueRecallRate14 = require('../controller/RMAB/loanOverdueRecallRate14/loanOverdueRecallRate14')
+let loanOverdueRecallRate = require('../controller/RMAB/loanOverdueRecallRate/loanOverdueRecallRate')
 //借款管理
 let loanApplicationsList = require('../controller/loanManagement/loanApplicationsList/loanApplicationsList')
 let loanAuditList = require('../controller/loanManagement/loanAuditList/loanAuditList')
@@ -43,6 +43,7 @@ let platformData = require('../controller/dataAnalysis/dataReport/platformData/p
 //财务分析
 let repaymentMinutia = require('../controller/financeAnalysis/repaymentMinutia/repaymentMinutia')
 let reconciliationAnalysis = require('../controller/financeAnalysis/reconciliationAnalysis/reconciliationAnalysis')
+let reportStatistics = require('../controller/financeAnalysis/reportStatistics/reportStatistics')
 // 推广管理
 let promotionChannel = require('../controller/promotionManagement/promotionChannel/promotionChannel')
 let promoterManagement = require('../controller/promotionManagement/promoterManagement/promoterManagement')
@@ -81,7 +82,7 @@ router.post(api.userNameAuthenticationList, userNameAuthenticationList.fetchAll)
 /*RMAB*/
 // 借款通过率
 router.post(api.loanThroughRate, loanThroughRate.fetchAll)
-router.post(api.loanOverdueRecallRate14, loanOverdueRecallRate14.fetchAll)
+router.post(api.loanOverdueRecallRate, loanOverdueRecallRate.fetchAll)
 /*借款管理*/
 // 借款申请列表
 router.post(api.loanApplicationsListCount, loanApplicationsList.getCount)
@@ -179,6 +180,10 @@ router.post(api.repaymentMinutiaExcel, repaymentMinutia.getExcelData)
 router.post(api.reconciliationAnalysisCount, reconciliationAnalysis.getCount)
 router.post(api.reconciliationAnalysis, reconciliationAnalysis.fetchAll)
 router.post(api.reconciliationAnalysisExcel, reconciliationAnalysis.getExcelData)
+//还款日报表统计
+router.post(api.reportStatisticsCount, reportStatistics.getCount)
+router.post(api.reportStatistics, reportStatistics.fetchAll)
+router.post(api.reportStatisticsExcel, reportStatistics.getExcelData)
 /*推广管理*/
 // 推广渠道
 router.post(api.promotionChannelCount, promotionChannel.getCount)

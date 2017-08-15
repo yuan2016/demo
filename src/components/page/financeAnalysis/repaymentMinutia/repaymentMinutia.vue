@@ -214,7 +214,6 @@
             })
           } else {
             this.buttonLoading = false
-            console.log(resp.data)
             if (resp.data.length === 0) {
               this.$message({
                 message: '无数据，请更换搜索条件',
@@ -226,6 +225,7 @@
                 const filterVal = ['d_date', 'user_id', 'user_name', 'user_phone', 'order_id', 'loan_id', 'loan_money', 'repayment_amount', 'repaymented_amount', 'repayment_Service', 'loan_urgent_fee', 'Principal_amount', 'loan_accrual', 'stages_fee', 'renewal_service_fee', 'renewal_fee', 'Overdue_fine', 'repayment_real_money', 'return_money', 'Reduction_money', 'loan_status', 'repayment_type', 'repayment_channel', 'repayment_detail', 'repayment_status', 'credit_repayment_time', 'repayment_time', 'repayment_real_time', 'repayment_term', 'renewal_term', 'late_day', 'service_rate', 'Urgent_rate', 'Loan_interest_rate', 'Installment_rate', 'Renewal_rate', 'Overdue_rate']
                 const list = resp.data
                 const data = this.formatJson(filterVal, list)
+                console.log(data)
                 exportJsonToExcel(tHeader, data, '还款明细表')
               })
             }

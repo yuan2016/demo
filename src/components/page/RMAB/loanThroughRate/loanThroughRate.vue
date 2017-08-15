@@ -84,22 +84,11 @@
 
 <style lang="stylus" rel="stylesheet/stylus">
   .loanThroughTable
-    .el-table__row:nth-child(1)
+    .el-table__row:nth-child(1), .el-table__row:nth-child(26), .el-table__row:nth-child(51)
       td:nth-of-type(1)
         div
           background-color: #ADD8E6
-
-  .loanThroughTable
-    .el-table__row:nth-child(26)
-      td:nth-of-type(1)
-        div
-          background-color: #ADD8E6
-
-  .loanThroughTable
-    .el-table__row:nth-child(51)
-      td:nth-of-type(1)
-        div
-          background-color: #ADD8E6
+          font-weight: bold
 
   .loanThroughRateInfo
     padding-top: 5px

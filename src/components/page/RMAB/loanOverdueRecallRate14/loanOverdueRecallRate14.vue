@@ -23,9 +23,6 @@
       <el-table-column property="M3" :label="labels[17]"></el-table-column>
       <el-table-column property="MOM" :label="labels[18]"></el-table-column>
     </el-table>
-    <p class="loanOverdueRecallRate14Info">说明:</p>
-    <p class="loanOverdueRecallRate14Info">数据同环比计算公式: (本期数据-对照数据)/对照数据</p>
-    <p class="loanOverdueRecallRate14Info">百分比同环比计算公式: 本期百分比-对照百分比</p>
   </div>
 </template>
 
@@ -49,7 +46,7 @@
     },
     created () {
       this.loading = true
-      this.height = parseInt(getHeight()) + 60
+      this.height = parseInt(getHeight()) + 100
       this.getData()
       console.log(111)
     },
@@ -95,9 +92,4 @@
   .loanOverdueRecallRate14
     .el-table__row:nth-child(1), .el-table__row:nth-child(2), .el-table__row:nth-child(5), .el-table__row:nth-child(8), .el-table__row:nth-child(11), .el-table__row:nth-child(14), .el-table__row:nth-child(17), .el-table__row:nth-child(20), .el-table__row:nth-child(23), .el-table__row:nth-child(26), .el-table__row:nth-child(29), .el-table__row:nth-child(32), .el-table__row:nth-child(35), .el-table__row:nth-child(38), .el-table__row:nth-child(39), .el-table__row:nth-child(40), .el-table__row:nth-child(41), .el-table__row:nth-child(42)
       background-color: #ced9e6
-
-  .loanOverdueRecallRate14Info
-    padding-top: 5px
-    font-size: 12px
-    color: red
 </style>

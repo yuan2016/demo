@@ -148,7 +148,7 @@
       return '[object BlobBuilder]'
     }
     FB_proto.slice = function (start, end, type) {
-      var args = arguments.length
+      let args = arguments.length
       if (args < 3) {
         type = null
       }

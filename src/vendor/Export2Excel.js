@@ -59,7 +59,7 @@ function sheet_from_array_of_arrays (data, opts) {
       if (range.e.r < R) range.e.r = R
       if (range.e.c < C) range.e.c = C
       let cell = {v: data[R][C]}
-      if (cell.v == null) continue
+      if (cell.v === null) continue
       let cell_ref = XLSX.utils.encode_cell({c: C, r: R})
 
       if (typeof cell.v === 'number') cell.t = 'n'
@@ -121,15 +121,33 @@ function formatJson (jsonData) {
   console.log(jsonData)
 }
 
-export function exportJsonToExcel (th, jsonData, defaultTitle) {
+export function exportJsonToExcel (th, jsonData, defaultTitle, config) {
 
   /* original data */
 
   let data = jsonData
-  data.unshift(th)
+  for (let i of th) {
+    if (Array.isArray(i)) {
+      data.unshift(i)
+    } else {
+      data.unshift(th)
+      break
+    }
+  }
+
   let ws_name = 'SheetJS'
 
   let wb = new Workbook(), ws = sheet_from_array_of_arrays(data)
+  if (config) {
+    let configs = []
+    // 获取合并过的单元格
+    for (let i of config) {
+      configs.push({
+        s: {c: i[0], r: i[1]}, e: {c: i[2], r: i[3]}
+      })
+    }
+    ws['!merges'] = configs
+  }
 
   /* add worksheet to workbook */
   wb.SheetNames.push(ws_name)

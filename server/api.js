@@ -28,7 +28,7 @@ module.exports = {
   //RMAB
   //借款通过率
   loanThroughRate: path + '/loanThroughRate',
-  loanOverdueRecallRate14: path + '/loanOverdueRecallRate14',
+  loanOverdueRecallRate: path + '/loanOverdueRecallRate',
   /*借款管理*/
   // 借款申请列表
   loanApplicationsList: path + '/loanApplicationsList',
@@ -118,6 +118,10 @@ module.exports = {
   reconciliationAnalysis: path + '/reconciliationAnalysis',
   reconciliationAnalysisCount: path + '/reconciliationAnalysis/count',
   reconciliationAnalysisExcel: path + '/reconciliationAnalysis/excel',
+  //还款日报表统计
+  reportStatistics: path + '/reportStatistics',
+  reportStatisticsCount: path + '/reportStatistics/count',
+  reportStatisticsExcel: path + '/reportStatistics/excel',
   /*推广管理*/
   // 推广渠道
   promotionChannel: path + '/promotionChannel',

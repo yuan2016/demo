@@ -15,7 +15,7 @@ const userNameAuthenticationList = r => require.ensure([], () => r(require('../c
 const userAuthenticationList = r => require.ensure([], () => r(require('../components/page/userInformationManagement/userAuthenticationList/userAuthenticationList')), 'userAuthenticationList')
 //RMAB
 const loanThroughRate = r => require.ensure([], () => r(require('../components/page/RMAB/loanThroughRate/loanThroughRate')), 'loanThroughRate')
-const loanOverdueRecallRate14 = r => require.ensure([], () => r(require('../components/page/RMAB/loanOverdueRecallRate14/loanOverdueRecallRate14')), 'loanThroughRate')
+const loanOverdueRecallRate = r => require.ensure([], () => r(require('../components/page/RMAB/loanOverdueRecallRate/loanOverdueRecallRate')), 'loanOverdueRecallRate')
 //借款管理
 const assetInformation = r => require.ensure([], () => r(require('../components/page/loanManagement/assetInformation/assetInformation')), 'assetInformation')
 const loanApplicationsList = r => require.ensure([], () => r(require('../components/page/loanManagement/loanApplicationsList/loanApplicationsList')), 'loanApplicationsList')
@@ -49,6 +49,7 @@ const platformData = r => require.ensure([], () => r(require('../components/page
 //财务分析
 const repaymentMinutia = r => require.ensure([], () => r(require('../components/page/financeAnalysis/repaymentMinutia/repaymentMinutia')), 'repaymentMinutia')
 const reconciliationAnalysis = r => require.ensure([], () => r(require('../components/page/financeAnalysis/reconciliationAnalysis/reconciliationAnalysis')), 'reconciliationAnalysis')
+const reportStatistics = r => require.ensure([], () => r(require('../components/page/financeAnalysis/reportStatistics/reportStatistics')), 'reportStatistics')
 //推广管理
 const promotionChannel = r => require.ensure([], () => r(require('../components/page/promotionManagement/promotionChannel/promotionChannel')), 'promotionChannel')
 const promoterManagement = r => require.ensure([], () => r(require('../components/page/promotionManagement/promoterManagement/promoterManagement')), 'promoterManagement')
@@ -103,9 +104,9 @@ export default [{
         component: loanThroughRate,
         meta: ['RMAB', '借款通过率']
       }, {
-        path: '/loanOverdueRecallRate14',
-        component: loanOverdueRecallRate14,
-        meta: ['RMAB', '14天借款逾期催回率']
+        path: '/loanOverdueRecallRate',
+        component: loanOverdueRecallRate,
+        meta: ['RMAB', '借款逾期催回率']
       }, {
         path: '/loanApplicationsList',
         component: loanApplicationsList,
@@ -198,6 +199,10 @@ export default [{
         path: '/repaymentMinutia',
         component: repaymentMinutia,
         meta: ['财务分析', '还款明细']
+      }, {
+        path: '/reportStatistics',
+        component: reportStatistics,
+        meta: ['财务分析', '对账分析']
       }, {
         path: '/promotionChannel',
         component: promotionChannel,
