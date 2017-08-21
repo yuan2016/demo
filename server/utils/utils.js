@@ -97,3 +97,19 @@ exports.formatCurrency = function (num) {
     return (((sign) ? '' : '-') + num + '.' + cents)
   }
 }
+
+exports.mosaicName = function () {
+  let time = new Date()
+  let y = time.getFullYear()
+  let m = time.getMonth() + 1
+  let d = time.getDate()
+  let h = time.getHours()
+  let mm = time.getMinutes()
+  let s = time.getSeconds()
+
+  return y + add(m) + add(d) + add(h) + add(mm) + add(s) + '.xlsx'
+}
+
+function add (m) {
+  return m < 10 ? '0' + m : m
+}

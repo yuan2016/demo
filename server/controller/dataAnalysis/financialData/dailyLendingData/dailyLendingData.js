@@ -68,6 +68,10 @@ function formatData (rows) {
     if (row.loan_singular_nuser) {
       row.loan_singular_nuser = formatCurrency(row.loan_singular_nuser)
     }
+
+    if (row.CHARGEBACK_FAILRATE) {
+      row.CHARGEBACK_FAILRATE = (row.CHARGEBACK_FAILRATE * 100).toFixed(2) + '%'
+    }
     return row
   })
 }

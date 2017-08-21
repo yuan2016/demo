@@ -28,6 +28,8 @@ module.exports = {
   //RMAB
   //借款通过率
   loanThroughRate: path + '/loanThroughRate',
+  loanThroughRateAll: path + '/loanThroughRateAll',
+  loanThroughRateExcel: path + '/loanThroughRate/excel',
   loanOverdueRecallRate: path + '/loanOverdueRecallRate',
   /*借款管理*/
   // 借款申请列表

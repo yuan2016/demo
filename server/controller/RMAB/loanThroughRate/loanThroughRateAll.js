@@ -7,9 +7,7 @@ let {formatCurrency} = require('../../../utils/utils')
 module.exports = {
   //借款通过率数据
   fetchAll (req, res) {
-    let params = req.body
-    console.log(111111)
-    func.connPool1(sql.RMAB.loanOverdueRecallRate14.selectAll, tableName.loanOverdueRecallRate14, function (err, rs) {
+    func.connPool1(sql.RMAB.loanThroughRate.selectAll, tableName.loanThroughRateAll, function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
         if (err.message === 'Query inactivity timeout') {
@@ -45,6 +43,24 @@ module.exports = {
   //     }
   //     res.json(rs)
   //   })
+  // }
+  // getExcelData (req, res) {
+  //   func.connPool1(sql.RMAB.loanThroughRate.selectAll, tableName.loanThroughRateAll, function (err, rs) {
+  //     if (err) {
+  //       console.log('[query] - :' + err)
+  //       if (err.message === 'Query inactivity timeout') {
+  //         res.json({
+  //           code: '1024'
+  //         })
+  //       } else {
+  //         res.json({
+  //           code: '404'
+  //         })
+  //       }
+  //       return
+  //     }
+  //     res.json(rs)
+  //   }, 70000)
   // }
 }
 /**

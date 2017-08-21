@@ -3,7 +3,8 @@
     <banner></banner>
     <div class="date-filter">
       <span class="managerFront">姓名：</span>
-      <el-input size="small" type="text" placeholder="请输入内容" class="shortManagerText" v-model.trim="user_name"></el-input>
+      <el-input size="small" type="text" placeholder="请输入内容" class="shortManagerText"
+                v-model.trim="user_name"></el-input>
       <span class="managerFront">手机号：</span>
       <el-input size="small" type="text" placeholder="请输入内容" class="managerText" v-model.trim="user_phone"></el-input>
       <span class="managerFront">实际还款时间：</span>
@@ -21,8 +22,8 @@
         </el-option>
       </el-select>
       <el-button type="primary" size="small" class="loanAuditButton" @click.prevent.stop="search">搜索</el-button>
-      <el-button type="primary" size="small" class="userButton" :loading="buttonLoading" @click="handleDownload">
-        导出excel
+      <el-button type="primary" size="small" class="userButton" :loading="buttonLoading">
+        <a :href="mosaicLink" class="repaymentMinutiaExcel">导出excel</a>
       </el-button>
     </div>
     <el-table v-loading.body="loading" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border stripe
@@ -33,17 +34,16 @@
       <el-table-column property="order_id" label="债权ID" width="160"></el-table-column>
       <el-table-column property="loan_id" label="还款ID" width="150"></el-table-column>
       <el-table-column property="loan_money" label="借款金额(元)"></el-table-column>
-      <el-table-column property="repayment_amount" label="总应还款金额(元)" width="130"></el-table-column>
+      <el-table-column property="repayment_amount" label="总应还款金额(元)" width="115"></el-table-column>
       <el-table-column property="repaymented_amount" label="已还金额(元)"></el-table-column>
       <el-table-column property="repayment_real_money" label="实还金额(元)"></el-table-column>
       <el-table-column property="return_money" label="退款金额(元)"></el-table-column>
-      <el-table-column property="Reduction_money" label="线下协商免还款金额(元)" width="150"></el-table-column>
       <el-table-column property="repayment_channel" label="还款方式" width="110"></el-table-column>
       <el-table-column property="repayment_detail" label="还款详情" width="110"></el-table-column>
       <el-table-column property="credit_repayment_time" sortable label="放款时间" width="130"></el-table-column>
       <el-table-column property="repayment_time" sortable label="应还款时间" width="130"></el-table-column>
       <el-table-column property="repayment_real_time" sortable label="实际还款时间" width="130"></el-table-column>
-      <el-table-column property="late_day" label="逾期天数"></el-table-column>
+      <el-table-column property="late_day" label="逾期天数" width="60"></el-table-column>
     </el-table>
     <div style="text-align: center;margin-top: 10px;" v-show="fundData.length!=0">
       <el-pagination
@@ -104,6 +104,12 @@
         }, {
           value: '对公银行卡转账',
           label: '对公银行卡转账'
+        }, {
+          value: '连连主动还款',
+          label: '连连主动还款'
+        }, {
+          value: '拉卡拉主动还款',
+          label: '拉卡拉主动还款'
         }],
         offset: 0,
         limit: 20,
@@ -113,6 +119,16 @@
         endTime: '',
         pageContent: 'sizes',
         height: 500
+      }
+    },
+    computed: {
+      mosaicLink () {
+        let userName = this.user_name
+        let userPhone = this.user_phone
+        let repaymentChannel = this.repayment_channel
+        let startTime = this.startTime || '1991-07-22'
+        let endTime = this.endTime || getNowFormatDate()
+        return 'api/repaymentMinutia/excel?user_name=' + userName + '&user_phone=' + userPhone + '&repayment_channel=' + repaymentChannel + '&startTime=' + startTime + '&endTime=' + endTime
       }
     },
     components: {
@@ -193,53 +209,6 @@
           this.endTime = formatDate(new Date(this.endTime), 'yyyy-MM-dd')
         }
         this.getDataInit()
-      },
-      handleDownload () {
-        this.buttonLoading = true
-        this.axios.post('/api/repaymentMinutia/excel', {
-          user_name: this.user_name,
-          user_phone: this.user_phone,
-          repayment_channel: this.repayment_channel,
-          startTime: this.startTime || '1991-07-22',
-          endTime: this.endTime || getNowFormatDate()
-        }).then((resp) => {
-          if (resp.data.code === '404') {
-            this.buttonLoading = false
-            this.$router.push('./404')
-          } else if (resp.data.code === '1024') {
-            this.buttonLoading = false
-            this.$message({
-              message: '请求超时，请增加搜索条件以便搜索',
-              type: 'warning'
-            })
-          } else {
-            this.buttonLoading = false
-            if (resp.data.length === 0) {
-              this.$message({
-                message: '无数据，请更换搜索条件',
-                type: 'warning'
-              })
-            } else {
-              require.ensure([], () => {
-                const tHeader = ['日期', '用户ID', '借款人姓名', '手机号', '债权ID', '还款ID', '借款金额', '总应还款金额', '已还金额', '服务费', '加急费', '本金', '利息', '分期费', '续期服务费', '续期手续费', '逾期滞纳金', '实还金额', '退款金额', '线下协商免还款金额', '借款状态', '还款方式', '还款通道', '还款详情', '还款状态', '放款时间', '预期还款时间', '实际还款时间', '还款期限', '续期期限', '滞纳天数', '基础服务费率', '加急费率', '借款利率', '分期费率', '续期利率', '逾期费率']
-                const filterVal = ['d_date', 'user_id', 'user_name', 'user_phone', 'order_id', 'loan_id', 'loan_money', 'repayment_amount', 'repaymented_amount', 'repayment_Service', 'loan_urgent_fee', 'Principal_amount', 'loan_accrual', 'stages_fee', 'renewal_service_fee', 'renewal_fee', 'Overdue_fine', 'repayment_real_money', 'return_money', 'Reduction_money', 'loan_status', 'repayment_type', 'repayment_channel', 'repayment_detail', 'repayment_status', 'credit_repayment_time', 'repayment_time', 'repayment_real_time', 'repayment_term', 'renewal_term', 'late_day', 'service_rate', 'Urgent_rate', 'Loan_interest_rate', 'Installment_rate', 'Renewal_rate', 'Overdue_rate']
-                const list = resp.data
-                const data = this.formatJson(filterVal, list)
-                console.log(data)
-                exportJsonToExcel(tHeader, data, '还款明细表')
-              })
-            }
-          }
-        }).catch(() => {
-          this.buttonLoading = false
-          this.$message({
-            message: '数据正在更新，请稍候',
-            type: 'warning'
-          })
-        })
-      },
-      formatJson (filterVal, jsonData) {
-        return jsonData.map(v => filterVal.map(j => v[j]))
       }
     }
   }
@@ -266,6 +235,8 @@
         width: 120px
       .minutiaTimeSelect
         width: 140px
+      .repaymentMinutiaExcel
+        color: #fff
 
   .el-table .cell, .el-table th > div
     padding-left: 0

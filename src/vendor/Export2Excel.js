@@ -121,7 +121,7 @@ function formatJson (jsonData) {
   console.log(jsonData)
 }
 
-export function exportJsonToExcel (th, jsonData, defaultTitle, config) {
+export function exportJsonToExcel (th, jsonData, defaultTitle, merge, change) {
 
   /* original data */
 
@@ -138,15 +138,21 @@ export function exportJsonToExcel (th, jsonData, defaultTitle, config) {
   let ws_name = 'SheetJS'
 
   let wb = new Workbook(), ws = sheet_from_array_of_arrays(data)
-  if (config) {
+  if (merge) {
     let configs = []
     // 获取合并过的单元格
-    for (let i of config) {
+    for (let i of merge) {
       configs.push({
         s: {c: i[0], r: i[1]}, e: {c: i[2], r: i[3]}
       })
     }
     ws['!merges'] = configs
+  }
+
+  if (change) {
+    for (let i of change) {
+      ws[i[0]] = {v: i[1]}
+    }
   }
 
   /* add worksheet to workbook */

@@ -23,17 +23,6 @@ const router = new VueRouter({
   routes
 })
 const whiteList = ['/login']// 不重定向白名单
-// router.beforeEach((to, from, next) => {
-//   if (whiteList.indexOf(to.path) !== -1) { // 在免登录白名单，直接进入
-//     next()
-//   } else {
-//     if (getToken()) {
-//       next()
-//     } else {
-//       next('/login') // 否则全部重定向到登录页
-//     }
-//   }
-// })
 
 router.beforeEach((to, from, next) => {
   if (getToken()) {

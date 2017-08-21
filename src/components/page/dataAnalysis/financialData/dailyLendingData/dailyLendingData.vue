@@ -37,6 +37,7 @@
       <el-table-column property="loans_total_ouser" label="老用户放款总额(元)" width="130px"></el-table-column>
       <el-table-column property="loan_singular_nuser" label="新用户放款单数" width="130px"></el-table-column>
       <el-table-column property="loans_total_nuser" label="新用户放款总额(元)" width="130px"></el-table-column>
+      <el-table-column property="CHARGEBACK_FAILRATE" label="扣款失败率" width="130px"></el-table-column>
       <el-table-column property="create_time" label="更新时间" width="130px"></el-table-column>
     </el-table>
     <div style="text-align: center;margin-top: 10px;" v-show="fundData.length!=0">

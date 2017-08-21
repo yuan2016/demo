@@ -21,7 +21,8 @@ module.exports = {
   userNameAuthenticationList: 'yh_info',
   /*RMAB*/
   // 借款通过率
-  loanThroughRate: 'pr_ds_order_analysis',
+  loanThroughRate: 'pr_ds_order_analysis_def',
+  loanThroughRateAll: 'pr_ds_order_analysis_all',
   loanOverdueRecallRate: 'pr_ds_odu_coll_analysis',
   /*借款管理*/
   //借款申请列表

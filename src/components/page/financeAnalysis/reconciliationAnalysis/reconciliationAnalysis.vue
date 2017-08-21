@@ -16,8 +16,8 @@
         placeholder="到">
       </el-date-picker>
       <el-button type="primary" size="small" @click.prevent.stop="search">搜索</el-button>
-      <el-button type="primary" size="small" class="userButton" :loading="buttonLoading" @click="handleDownload">
-        导出excel
+      <el-button type="primary" size="small" class="userButton" :loading="buttonLoading">
+        <a :href="mosaicLink" class="reconciliationAnalysisExcel">导出excel</a>
       </el-button>
     </div>
     <el-table v-loading.body="loading" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border stripe
@@ -82,6 +82,13 @@
         endTime: '',
         height: 500,
         buttonLoading: false
+      }
+    },
+    computed: {
+      mosaicLink () {
+        let startTime = this.startTime || '1991-07-22'
+        let endTime = this.endTime || getNowFormatDate()
+        return 'api/reconciliationAnalysis/excel?startTime=' + startTime + '&endTime=' + endTime
       }
     },
     components: {
@@ -156,50 +163,6 @@
           this.endTime = formatDate(new Date(this.endTime), 'yyyy-MM-dd')
         }
         this.getDataInit()
-      },
-      handleDownload () {
-        this.buttonLoading = true
-        this.axios.post('/api/reconciliationAnalysis/excel', {
-          startTime: this.startTime || '1991-07-22',
-          endTime: this.endTime || getNowFormatDate()
-        }).then((resp) => {
-          if (resp.data.code === '404') {
-            this.buttonLoading = false
-            this.$router.push('./404')
-          } else if (resp.data.code === '1024') {
-            this.buttonLoading = false
-            this.$message({
-              message: '请求超时，请增加搜索条件以便搜索',
-              type: 'warning'
-            })
-          } else {
-            this.buttonLoading = false
-            if (resp.data.length === 0) {
-              this.$message({
-                message: '无数据，请更换搜索条件',
-                type: 'warning'
-              })
-            } else {
-              require.ensure([], () => {
-                const tHeader = [['', '后台数据', '第三方数据', '差异(后台-第三方)', '后台数据', '第三方数据', '差异(后台-第三方)', '后台数据', '第三方数据', '差异(后台-第三方)', '后台数据', '第三方数据', '差异(后台-第三方)', '线下免还款金额', '备注'], ['日期', '富友账户', '', '', '连连账户', '', '', '支付宝账户', '', '', '益码通支付宝账户', '', '', '批注', '']]
-                const filterVal = ['d_date', 'AMT_FY', '', '', 'AMT_LL', '', '', 'AMT_ZFB', '', '', 'AMT_YMT', '', '', 'AMT_JM', '']
-                const list = resp.data
-                const config = [[0, 0, 0, 1], [1, 0, 3, 0], [4, 0, 6, 0], [7, 0, 9, 0], [10, 0, 12, 0], [13, 0, 14, 0]]
-                const data = this.formatJson(filterVal, list)
-                exportJsonToExcel(tHeader, data, '对账分析表', config)
-              })
-            }
-          }
-        }).catch(() => {
-          this.buttonLoading = false
-          this.$message({
-            message: '数据正在更新，请稍候',
-            type: 'warning'
-          })
-        })
-      },
-      formatJson (filterVal, jsonData) {
-        return jsonData.map(v => filterVal.map(j => v[j]))
       }
     }
   }
@@ -216,6 +179,8 @@
         padding-left: 5px
         font-size: 14px
         color: #666
+      .reconciliationAnalysisExcel
+        color: #fff
 
     .el-table .cell, .el-table th > div
       padding-left: 0

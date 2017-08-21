@@ -14,6 +14,7 @@ let userNameAuthenticationList = require('../controller/userInformationManagemen
 let userAuthenticationList = require('../controller/userInformationManagement/userAuthenticationList/userAuthenticationList')
 //RMAB
 let loanThroughRate = require('../controller/RMAB/loanThroughRate/loanThroughRate')
+let loanThroughRateAll = require('../controller/RMAB/loanThroughRate/loanThroughRateAll')
 let loanOverdueRecallRate = require('../controller/RMAB/loanOverdueRecallRate/loanOverdueRecallRate')
 //借款管理
 let loanApplicationsList = require('../controller/loanManagement/loanApplicationsList/loanApplicationsList')
@@ -82,6 +83,8 @@ router.post(api.userNameAuthenticationList, userNameAuthenticationList.fetchAll)
 /*RMAB*/
 // 借款通过率
 router.post(api.loanThroughRate, loanThroughRate.fetchAll)
+router.post(api.loanThroughRateAll, loanThroughRateAll.fetchAll)
+router.get(api.loanThroughRateExcel, loanThroughRate.getExcelData)
 router.post(api.loanOverdueRecallRate, loanOverdueRecallRate.fetchAll)
 /*借款管理*/
 // 借款申请列表
@@ -175,15 +178,15 @@ router.post(api.platformDataRefresh, platformData.refreshData)
 //还款明细表
 router.post(api.repaymentMinutiaCount, repaymentMinutia.getCount)
 router.post(api.repaymentMinutia, repaymentMinutia.fetchAll)
-router.post(api.repaymentMinutiaExcel, repaymentMinutia.getExcelData)
+router.get(api.repaymentMinutiaExcel, repaymentMinutia.getExcelData)
 //对账分析表
 router.post(api.reconciliationAnalysisCount, reconciliationAnalysis.getCount)
 router.post(api.reconciliationAnalysis, reconciliationAnalysis.fetchAll)
-router.post(api.reconciliationAnalysisExcel, reconciliationAnalysis.getExcelData)
+router.get(api.reconciliationAnalysisExcel, reconciliationAnalysis.getExcelData)
 //还款日报表统计
 router.post(api.reportStatisticsCount, reportStatistics.getCount)
 router.post(api.reportStatistics, reportStatistics.fetchAll)
-router.post(api.reportStatisticsExcel, reportStatistics.getExcelData)
+router.get(api.reportStatisticsExcel, reportStatistics.getExcelData)
 /*推广管理*/
 // 推广渠道
 router.post(api.promotionChannelCount, promotionChannel.getCount)

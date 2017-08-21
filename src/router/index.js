@@ -15,6 +15,7 @@ const userNameAuthenticationList = r => require.ensure([], () => r(require('../c
 const userAuthenticationList = r => require.ensure([], () => r(require('../components/page/userInformationManagement/userAuthenticationList/userAuthenticationList')), 'userAuthenticationList')
 //RMAB
 const loanThroughRate = r => require.ensure([], () => r(require('../components/page/RMAB/loanThroughRate/loanThroughRate')), 'loanThroughRate')
+const loanThroughRateAll = r => require.ensure([], () => r(require('../components/page/RMAB/loanThroughRate/loanThroughRateAll')), 'loanThroughRateAll')
 const loanOverdueRecallRate = r => require.ensure([], () => r(require('../components/page/RMAB/loanOverdueRecallRate/loanOverdueRecallRate')), 'loanOverdueRecallRate')
 //借款管理
 const assetInformation = r => require.ensure([], () => r(require('../components/page/loanManagement/assetInformation/assetInformation')), 'assetInformation')
@@ -102,6 +103,10 @@ export default [{
       }, {
         path: '/loanThroughRate',
         component: loanThroughRate,
+        meta: ['RMAB', '借款通过率']
+      }, {
+        path: '/loanThroughRateAll',
+        component: loanThroughRateAll,
         meta: ['RMAB', '借款通过率']
       }, {
         path: '/loanOverdueRecallRate',
