@@ -95,6 +95,14 @@ module.exports = {
   daysStageStatistics21: path + '/daysStageStatistics21',
   daysStageStatistics21Count: path + '/daysStageStatistics21/count',
   daysStageStatistics21Refresh: path + '/daysStageStatistics21/refresh',
+  // 90天分期统计
+  daysStageStatistics90: path + '/daysStageStatistics90',
+  daysStageStatistics90Count: path + '/daysStageStatistics90/count',
+  daysStageStatistics90Refresh: path + '/daysStageStatistics90/refresh',
+  // 21天分期提额统计
+  installmentPromotionStatistics21: path + '/installmentPromotionStatistics21',
+  installmentPromotionStatistics21Count: path + '/installmentPromotionStatistics21/count',
+  installmentPromotionStatistics21Refresh: path + '/installmentPromotionStatistics21/refresh',
   // 每日放款数据
   dailyLendingData: path + '/dailyLendingData',
   dailyLendingDataCount: path + '/dailyLendingData/count',

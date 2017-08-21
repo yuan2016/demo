@@ -104,12 +104,9 @@
     },
     methods: {
       submitForm (rf) {
-        console.log(this.oldPassChecked)
-        console.log(this.passChecked)
-        console.log(this.checkPassChecked)
         if (this.oldPassChecked && this.passChecked && this.checkPassChecked) {
           this.axios.post('/api/passwordModify', {
-            email: getEmail(),
+            email: getEmail() + '@xianjinkd.com',
             password: md5(this.ruleForm.checkPass)
           }).then((response) => {
             if (response.data.code === '404') {

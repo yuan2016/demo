@@ -39,6 +39,8 @@ const renewalsList = r => require.ensure([], () => r(require('../components/page
 
 //数据分析
 const daysStageStatistics = r => require.ensure([], () => r(require('../components/page/dataAnalysis/financialData/21daysStageStatistics/21daysStageStatistics')), '21daysStageStatistics')
+const daysStageStatistics90 = r => require.ensure([], () => r(require('../components/page/dataAnalysis/financialData/90daysStageStatistics/90daysStageStatistics')), '90daysStageStatistics')
+const installmentPromotionStatistics = r => require.ensure([], () => r(require('../components/page/dataAnalysis/financialData/21installmentPromotionStatistics/21installmentPromotionStatistics')), '21installmentPromotionStatistics')
 const collectionManagement = r => require.ensure([], () => r(require('../components/page/dataAnalysis/financialData/collectionManagement/collectionManagement')), 'collectionManagement')
 const dailyLendingData = r => require.ensure([], () => r(require('../components/page/dataAnalysis/financialData/dailyLendingData/dailyLendingData')), 'dailyLendingData')
 const dailyRepaymentAmountData = r => require.ensure([], () => r(require('../components/page/dataAnalysis/financialData/dailyRepaymentAmountData/dailyRepaymentAmountData')), 'dailyRepaymentAmountData')
@@ -176,6 +178,14 @@ export default [{
         path: '/daysStageStatistics',
         component: daysStageStatistics,
         meta: ['数据分析', '财务数据', '21天分期统计']
+      }, {
+        path: '/daysStageStatistics90',
+        component: daysStageStatistics90,
+        meta: ['数据分析', '财务数据', '90天分期统计']
+      }, {
+        path: '/installmentPromotionStatistics',
+        component: installmentPromotionStatistics,
+        meta: ['数据分析', '财务数据', '21天分期提额统计']
       }, {
         path: '/dailyRepaymentAmountData',
         component: dailyRepaymentAmountData,

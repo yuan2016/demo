@@ -94,6 +94,10 @@ module.exports = {
   dailyRepaymentUnitData: 'PR_DS_REPAYMENT_NUM_DAY',
   // 21天分期统计
   daysStageStatistics21: 'PR_DS_PERIOD_STATISTICS_DAY_21',
+  // 21天分期提额统计
+  installmentPromotionStatistics21: 'pr_ds_period_statistics_day_quota_21',
+  // 90天分期提额统计
+  daysStageStatistics90: 'pr_ds_period_statistics_day_90',
   // 每日放款数据
   dailyLendingData: 'PR_DS_LOAN_DAY',
   // 还款逾期统计

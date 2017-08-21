@@ -102,8 +102,6 @@ function formatData (rows) {
 module.exports = {
   //首页
   fetchAll (req, res) {
-    console.log(sql.main.selectAll)
-    console.log(tableName.main)
     func.connPool1(sql.main.selectAll, tableName.main, function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
@@ -118,7 +116,6 @@ module.exports = {
         }
         return
       }
-      console.log(rs)
       formatData(rs)
       res.json(rs)
     })

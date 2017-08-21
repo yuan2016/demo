@@ -36,6 +36,8 @@ let renewalsList = require('../controller/repaymentManagement/renewalManagement/
 let dailyRepaymentAmountData = require('../controller/dataAnalysis/financialData/dailyRepaymentAmountData/dailyRepaymentAmountData')
 let dailyRepaymentUnitData = require('../controller/dataAnalysis/financialData/dailyRepaymentUnitData/dailyRepaymentUnitData')
 let daysStageStatistics21 = require('../controller/dataAnalysis/financialData/21daysStageStatistics/21daysStageStatistics')
+let daysStageStatistics90 = require('../controller/dataAnalysis/financialData/90daysStageStatistics/90daysStageStatistics')
+let installmentPromotionStatistics21 = require('../controller/dataAnalysis/financialData/21installmentPromotionStatistics/21installmentPromotionStatistics')
 let dailyLendingData = require('../controller/dataAnalysis/financialData/dailyLendingData/dailyLendingData')
 let overdueRepaymentStatistics = require('../controller/dataAnalysis/financialData/overdueRepaymentStatistics/overdueRepaymentStatistics')
 let fundAnalysis = require('../controller/dataAnalysis/financialData/fundAnalysis/fundAnalysis')
@@ -152,6 +154,14 @@ router.post(api.dailyRepaymentUnitDataRefresh, dailyRepaymentUnitData.refreshDat
 router.post(api.daysStageStatistics21Count, daysStageStatistics21.getCount)
 router.post(api.daysStageStatistics21, daysStageStatistics21.fetchAll)
 router.post(api.daysStageStatistics21Refresh, daysStageStatistics21.refreshData)
+// 90天分期统计
+router.post(api.daysStageStatistics90Count, daysStageStatistics90.getCount)
+router.post(api.daysStageStatistics90, daysStageStatistics90.fetchAll)
+router.post(api.daysStageStatistics90Refresh, daysStageStatistics90.refreshData)
+// 21天分期提额统计
+router.post(api.installmentPromotionStatistics21Count, installmentPromotionStatistics21.getCount)
+router.post(api.installmentPromotionStatistics21, installmentPromotionStatistics21.fetchAll)
+router.post(api.installmentPromotionStatistics21Refresh, installmentPromotionStatistics21.refreshData)
 
 // 还款逾期统计
 router.post(api.overdueRepaymentStatisticsCount, overdueRepaymentStatistics.getCount)

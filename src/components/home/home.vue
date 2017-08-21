@@ -55,6 +55,8 @@
             <el-menu-item index="dailyLendingData"><i class="el-icon-star-on"></i>每日放款数据</el-menu-item>
             <el-menu-item index="dailyRepaymentUnitData"><i class="el-icon-star-on"></i>每日还款单位数据</el-menu-item>
             <el-menu-item index="daysStageStatistics"><i class="el-icon-star-on"></i>21天分期统计</el-menu-item>
+            <el-menu-item index="installmentPromotionStatistics"><i class="el-icon-star-on"></i>21天分期提额统计</el-menu-item>
+            <el-menu-item index="daysStageStatistics90"><i class="el-icon-star-on"></i>90天分期统计</el-menu-item>
             <el-menu-item index="dailyRepaymentAmountData"><i class="el-icon-star-on"></i>每日还款金额数据</el-menu-item>
             <el-menu-item index="overdueRepaymentStatistics"><i class="el-icon-star-on"></i>还款逾期统计</el-menu-item>
             <el-menu-item index="fundAnalysis"><i class="el-icon-star-on"></i>资金分析</el-menu-item>

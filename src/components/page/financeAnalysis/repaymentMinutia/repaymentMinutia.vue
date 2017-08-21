@@ -62,7 +62,6 @@
   import banner from '../../../common/banner/banner'
   import { getNowFormatDate, formatDate } from '../../../../common/js/utils'
   import { getHeight } from '../../../../common/js/storage'
-  import { exportJsonToExcel } from '../../../../vendor/Export2Excel'
 
   export default {
     data () {

@@ -1,32 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="181d2e6f-b045-479f-8e94-e4e94e6e67e8" name="Default" comment="20170815修改">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/error.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/utils/excel.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/page/RMAB/loanThroughRate/loanThroughRateAll.vue" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/components/page/RMAB/loanOverdueRecallRate14/loanOverdueRecallRate14.vue" afterPath="" />
+    <list default="true" id="181d2e6f-b045-479f-8e94-e4e94e6e67e8" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/controller/dataAnalysis/financialData/21installmentPromotionStatistics/21installmentPromotionStatistics.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/page/dataAnalysis/financialData/21installmentPromotionStatistics/21installmentPromotionStatistics.vue" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/page/dataAnalysis/financialData/90daysStageStatistics/90daysStageStatistics.vue" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/api.js" afterPath="$PROJECT_DIR$/server/api.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/config/shell.js" afterPath="$PROJECT_DIR$/server/config/shell.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/config/tableName.js" afterPath="$PROJECT_DIR$/server/config/tableName.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controller/RMAB/loanOverdueRecallRate/loanOverdueRecallRate.js" afterPath="$PROJECT_DIR$/server/controller/RMAB/loanOverdueRecallRate/loanOverdueRecallRate.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controller/RMAB/loanThroughRate/loanThroughRate.js" afterPath="$PROJECT_DIR$/server/controller/RMAB/loanThroughRate/loanThroughRate.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controller/dataAnalysis/financialData/dailyLendingData/dailyLendingData.js" afterPath="$PROJECT_DIR$/server/controller/dataAnalysis/financialData/dailyLendingData/dailyLendingData.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controller/financeAnalysis/reconciliationAnalysis/reconciliationAnalysis.js" afterPath="$PROJECT_DIR$/server/controller/financeAnalysis/reconciliationAnalysis/reconciliationAnalysis.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controller/financeAnalysis/repaymentMinutia/repaymentMinutia.js" afterPath="$PROJECT_DIR$/server/controller/financeAnalysis/repaymentMinutia/repaymentMinutia.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/package.json" afterPath="$PROJECT_DIR$/server/package.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controller/main/main.js" afterPath="$PROJECT_DIR$/server/controller/main/main.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/route/router.js" afterPath="$PROJECT_DIR$/server/route/router.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/sql/sqlMap.js" afterPath="$PROJECT_DIR$/server/sql/sqlMap.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/utils/utils.js" afterPath="$PROJECT_DIR$/server/utils/utils.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/RMAB/loanOverdueRecallRate/loanOverdueRecallRate.vue" afterPath="$PROJECT_DIR$/src/components/page/RMAB/loanOverdueRecallRate/loanOverdueRecallRate.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/RMAB/loanThroughRate/loanThroughRate.vue" afterPath="$PROJECT_DIR$/src/components/page/RMAB/loanThroughRate/loanThroughRate.vue" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/home/home.vue" afterPath="$PROJECT_DIR$/src/components/home/home.vue" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/others/passwordModify/passwordModify.vue" afterPath="$PROJECT_DIR$/src/components/others/passwordModify/passwordModify.vue" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/dataAnalysis/financialData/dailyLendingData/dailyLendingData.vue" afterPath="$PROJECT_DIR$/src/components/page/dataAnalysis/financialData/dailyLendingData/dailyLendingData.vue" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/financeAnalysis/reconciliationAnalysis/reconciliationAnalysis.vue" afterPath="$PROJECT_DIR$/src/components/page/financeAnalysis/reconciliationAnalysis/reconciliationAnalysis.vue" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/financeAnalysis/repaymentMinutia/repaymentMinutia.vue" afterPath="$PROJECT_DIR$/src/components/page/financeAnalysis/repaymentMinutia/repaymentMinutia.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main.js" afterPath="$PROJECT_DIR$/src/main.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/router/index.js" afterPath="$PROJECT_DIR$/src/router/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/vendor/Export2Excel.js" afterPath="$PROJECT_DIR$/src/vendor/Export2Excel.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/server/controller/RMAB/loanOverdueRecallRate14/loanOverdueRecallRate14.js" afterPath="$PROJECT_DIR$/server/controller/RMAB/loanThroughRate/loanThroughRateAll.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -40,15 +31,32 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="loanThroughRate.vue" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/components/page/RMAB/loanThroughRate/loanThroughRate.vue">
+      <file leaf-file-name="shell.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/server/config/shell.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="184">
-              <caret line="111" column="8" lean-forward="true" selection-start-line="111" selection-start-column="8" selection-end-line="114" selection-end-column="59" />
-              <folding>
-                <element signature="n#style#0;n#el-table#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-                <element signature="e#2295#2345#0" expanded="true" />
-              </folding>
+              <caret line="4" column="121" lean-forward="false" selection-start-line="4" selection-start-column="121" selection-end-line="4" selection-end-column="121" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="tableName.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/config/tableName.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="253">
+              <caret line="11" column="28" lean-forward="true" selection-start-line="11" selection-start-column="28" selection-end-line="11" selection-end-column="28" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/controller/main/main.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2392">
+              <caret line="104" column="35" lean-forward="false" selection-start-line="104" selection-start-column="35" selection-end-line="104" selection-end-column="35" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -57,12 +65,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>consol</find>
-      <find>this.$message.error('搜索出现错误，请重试')</find>
-      <find>global.RegionCount</find>
-      <find>global.dailyRepaymentCount</find>
-      <find>global.count</find>
-      <find>blob</find>
       <find>repaymentDetails</find>
       <find>script-loader</find>
       <find>width=&quot;100px&quot;</find>
@@ -73,7 +75,6 @@
       <find>dailyLendingData</find>
       <find>reduction_amount</find>
       <find>Reduction_money</find>
-      <find>console</find>
       <find>saveas</find>
       <find>generateArray</find>
       <find>Workbook</find>
@@ -87,11 +88,15 @@
       <find>getCount</find>
       <find>removeClass</find>
       <find>if ($</find>
+      <find>21</find>
+      <find>daysStageStatistics</find>
+      <find>21天分期统计</find>
+      <find>daysCount</find>
+      <find>repayment_amount_f1</find>
+      <find>console</find>
+      <find>PR_UI_USER_STATISTIC_INFO</find>
     </findStrings>
     <replaceStrings>
-      <replace>userRight</replace>
-      <replace>class=&quot;userMiddle&quot; v-model=&quot;funData.&quot;</replace>
-      <replace>fundData</replace>
       <replace>* 100).toFixed(2) + '%'</replace>
       <replace>HH:mm:ss</replace>
       <replace>getDataInit</replace>
@@ -119,6 +124,9 @@
       <replace>wsName</replace>
       <replace>addClass</replace>
       <replace>if (!$</replace>
+      <replace>installmentPromotionCount</replace>
+      <replace>daysCount90</replace>
+      <replace>21天分期提额统计</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -127,14 +135,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/server/vendor/Export2Excel.js" />
-        <option value="$PROJECT_DIR$/server/vendor/Blob.js" />
-        <option value="$PROJECT_DIR$/src/components/page/repaymentManagement/refundList/repaymentDetails/repaymentDetails.vue" />
-        <option value="$PROJECT_DIR$/server/controller/repaymentManagement/refundList/repaymentDetails/repaymentDetails.js" />
-        <option value="$PROJECT_DIR$/src/components/page/userInformationManagement/userList/userList.vue" />
-        <option value="$PROJECT_DIR$/server/sql/func.js" />
-        <option value="$PROJECT_DIR$/server/config/shell.js" />
-        <option value="$PROJECT_DIR$/server/controller/dataAnalysis/dataReport/platformData/platformData.js" />
         <option value="$PROJECT_DIR$/server/controller/dataAnalysis/financialData/21daysStageStatistics/21daysStageStatistics.js" />
         <option value="$PROJECT_DIR$/server/controller/dataAnalysis/financialData/collectionManagement/collectionManagement.js" />
         <option value="$PROJECT_DIR$/server/controller/dataAnalysis/financialData/dailyRepaymentAmountData/dailyRepaymentAmountData.js" />
@@ -149,14 +149,10 @@
         <option value="$PROJECT_DIR$/src/vendor/Blob.js" />
         <option value="$PROJECT_DIR$/src/components/page/RMAB/loanOverdueRecallRate14/loanOverdueRecallRate14.vue" />
         <option value="$PROJECT_DIR$/package.json" />
-        <option value="$PROJECT_DIR$/src/components/home/home.vue" />
         <option value="$PROJECT_DIR$/src/components/page/promotionManagement/promoterManagement/promoterManagement.vue" />
-        <option value="$PROJECT_DIR$/server/controller/dataAnalysis/financialData/dailyLendingData/dailyLendingData.js" />
-        <option value="$PROJECT_DIR$/src/components/page/dataAnalysis/financialData/dailyLendingData/dailyLendingData.vue" />
         <option value="$PROJECT_DIR$/src/vendor/Export2Excel.js" />
         <option value="$PROJECT_DIR$/config/index.js" />
         <option value="$PROJECT_DIR$/server/package.json" />
-        <option value="$PROJECT_DIR$/server/config/tableName.js" />
         <option value="$PROJECT_DIR$/server/controller/RMAB/loanThroughRate/loanThroughRate.js" />
         <option value="$PROJECT_DIR$/server/utils/utils.js" />
         <option value="$PROJECT_DIR$/src/main.js" />
@@ -164,20 +160,32 @@
         <option value="$PROJECT_DIR$/server/controller/financeAnalysis/repaymentMinutia/repaymentMinutia.js" />
         <option value="$PROJECT_DIR$/server/controller/financeAnalysis/reconciliationAnalysis/reconciliationAnalysis.js" />
         <option value="$PROJECT_DIR$/server/utils/excel.js" />
-        <option value="$PROJECT_DIR$/src/components/page/financeAnalysis/repaymentMinutia/repaymentMinutia.vue" />
-        <option value="$PROJECT_DIR$/src/components/page/financeAnalysis/reconciliationAnalysis/reconciliationAnalysis.vue" />
-        <option value="$PROJECT_DIR$/src/components/page/financeAnalysis/reportStatistics/reportStatistics.vue" />
         <option value="$PROJECT_DIR$/server/controller/RMAB/loanOverdueRecallRate/loanOverdueRecallRate.js" />
         <option value="$PROJECT_DIR$/server/sql/sqlMap.js" />
         <option value="$PROJECT_DIR$/server/controller/RMAB/loanThroughRate/loanThroughRateAll.js" />
-        <option value="$PROJECT_DIR$/server/api.js" />
         <option value="$PROJECT_DIR$/src/components/page/RMAB/loanOverdueRecallRate/loanOverdueRecallRate.vue" />
-        <option value="$PROJECT_DIR$/src/router/index.js" />
-        <option value="$PROJECT_DIR$/server/route/router.js" />
         <option value="$PROJECT_DIR$/src/components/page/RMAB/loanThroughRate/loanThroughRateAll.vue" />
         <option value="$PROJECT_DIR$/server/app.js" />
         <option value="$PROJECT_DIR$/server/error.html" />
         <option value="$PROJECT_DIR$/src/components/page/RMAB/loanThroughRate/loanThroughRate.vue" />
+        <option value="$PROJECT_DIR$/src/components/page/financeAnalysis/reconciliationAnalysis/reconciliationAnalysis.vue" />
+        <option value="$PROJECT_DIR$/src/components/page/financeAnalysis/repaymentMinutia/repaymentMinutia.vue" />
+        <option value="$PROJECT_DIR$/src/components/page/financeAnalysis/reportStatistics/reportStatistics.vue" />
+        <option value="$PROJECT_DIR$/server/controller/dataAnalysis/financialData/dailyLendingData/dailyLendingData.js" />
+        <option value="$PROJECT_DIR$/src/components/page/dataAnalysis/financialData/21InstallmentPromotionStatistics/21InstallmentPromotionStatistics.vue" />
+        <option value="$PROJECT_DIR$/server/controller/dataAnalysis/financialData/21installmentPromotionStatistics/21installmentPromotionStatistics.js" />
+        <option value="$PROJECT_DIR$/src/components/page/dataAnalysis/financialData/dailyLendingData/dailyLendingData.vue" />
+        <option value="$PROJECT_DIR$/src/router/index.js" />
+        <option value="$PROJECT_DIR$/src/components/home/home.vue" />
+        <option value="$PROJECT_DIR$/src/components/page/dataAnalysis/financialData/21installmentPromotionStatistics/21installmentPromotionStatistics.vue" />
+        <option value="$PROJECT_DIR$/server/config/tableName.js" />
+        <option value="$PROJECT_DIR$/server/api.js" />
+        <option value="$PROJECT_DIR$/server/route/router.js" />
+        <option value="$PROJECT_DIR$/server/controller/dataAnalysis/financialData/90daysStageStatistics/90daysStageStatistics.js" />
+        <option value="$PROJECT_DIR$/src/components/page/dataAnalysis/financialData/90daysStageStatistics/90daysStageStatistics.vue" />
+        <option value="$PROJECT_DIR$/src/components/others/passwordModify/passwordModify.vue" />
+        <option value="$PROJECT_DIR$/server/config/shell.js" />
+        <option value="$PROJECT_DIR$/server/controller/main/main.js" />
       </list>
     </option>
   </component>
@@ -254,37 +262,26 @@
             <path>
               <item name="demo" type="b2602c69:ProjectViewProjectNode" />
               <item name="demo" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="demo" type="b2602c69:ProjectViewProjectNode" />
               <item name="demo" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="demo" type="b2602c69:ProjectViewProjectNode" />
               <item name="demo" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="page" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="demo" type="b2602c69:ProjectViewProjectNode" />
               <item name="demo" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="page" type="462c0819:PsiDirectoryNode" />
-              <item name="RMAB" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="demo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="demo" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="page" type="462c0819:PsiDirectoryNode" />
-              <item name="RMAB" type="462c0819:PsiDirectoryNode" />
-              <item name="loanThroughRate" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -303,19 +300,19 @@
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\demo\server\controller\dataAnalysis\financialData" />
+      <recent name="E:\demo\src\components\page\dataAnalysis\financialData" />
+      <recent name="E:\demo\server\controller\RMAB\loanThroughRate" />
+      <recent name="E:\demo\src\components\page\RMAB\loanThroughRate" />
+      <recent name="E:\demo\server" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\demo\server\controller\RMAB" />
       <recent name="E:\demo\src\components\page\RMAB" />
       <recent name="E:\demo\src" />
       <recent name="E:\demo\src\common\js" />
       <recent name="E:\demo\src\components\page" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\demo\server\controller\RMAB\loanThroughRate" />
-      <recent name="E:\demo\src\components\page\RMAB\loanThroughRate" />
-      <recent name="E:\demo\server" />
-      <recent name="E:\demo\server\utils" />
-      <recent name="E:\demo\src\components\page\financeAnalysis" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -446,7 +443,7 @@
       <workItem from="1501652153738" duration="186131000" />
       <workItem from="1502433879905" duration="20437000" />
       <workItem from="1502674876453" duration="125617000" />
-      <workItem from="1503280610193" duration="780000" />
+      <workItem from="1503280610193" duration="13931000" />
     </task>
     <task id="LOCAL-00001" summary="删除">
       <created>1500891212654</created>
@@ -532,16 +529,23 @@
       <option name="project" value="LOCAL" />
       <updated>1502763695212</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="20170821修改">
+      <created>1503283280914</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1503283280914</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="729485000" />
+    <option name="totallyTimeSpent" value="742636000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="0" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19915701" sideWeight="0.49565217" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19915701" sideWeight="0.49565217" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934782" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
@@ -578,7 +582,8 @@
     <MESSAGE value="20170808修改" />
     <MESSAGE value="20170814修改" />
     <MESSAGE value="20170815修改" />
-    <option name="LAST_COMMIT_MESSAGE" value="20170815修改" />
+    <MESSAGE value="20170821修改" />
+    <option name="LAST_COMMIT_MESSAGE" value="20170821修改" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -587,76 +592,15 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/.eslintrc.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="19" column="24" lean-forward="false" selection-start-line="19" selection-start-column="24" selection-end-line="19" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/page/dataAnalysis/financialData/collectionManagement/collectionManagement.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-690">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="214" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build/webpack.base.conf.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="20" lean-forward="false" selection-start-line="0" selection-start-column="20" selection-end-line="0" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/page/repaymentManagement/renewalManagement/renewalsList/renewalsList.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-736">
-          <caret line="1" column="28" lean-forward="false" selection-start-line="1" selection-start-column="28" selection-end-line="1" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/page/loanManagement/assetInformation/assetInformation.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
-          <caret line="16" column="8" lean-forward="false" selection-start-line="16" selection-start-column="8" selection-end-line="24" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/page/dataAnalysis/financialData/fundAnalysis/fundAnalysis.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="249">
-          <caret line="180" column="2" lean-forward="false" selection-start-line="180" selection-start-column="2" selection-end-line="187" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/page/loanManagement/loanApplicationsList/loanApplicationsList.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="326">
-          <caret line="34" column="8" lean-forward="false" selection-start-line="34" selection-start-column="8" selection-end-line="34" selection-end-column="112" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/home/home.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="529">
-          <caret line="71" column="84" lean-forward="false" selection-start-line="71" selection-start-column="84" selection-end-line="71" selection-end-column="84" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/page/RMAB/loanOverdueRecallRate14/loanOverdueRecallRate.vue" />
-    <entry file="file://$PROJECT_DIR$/.project">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/page/promotionManagement/promoterManagement/promoterManagement.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
           <caret line="15" column="20" lean-forward="true" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="20" />
+          <folding>
+            <element signature="n#style#0;n#el-table#0;n#div#0;n#template#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#1;n#div#0;n#template#0;n#!!top" expanded="false" />
+            <element signature="e#2539#2589#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -664,20 +608,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="342">
           <caret line="32" column="4" lean-forward="false" selection-start-line="32" selection-start-column="4" selection-end-line="34" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/controller/dataAnalysis/financialData/dailyLendingData/dailyLendingData.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1426">
-          <caret line="62" column="75" lean-forward="true" selection-start-line="62" selection-start-column="75" selection-end-line="62" selection-end-column="75" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/page/dataAnalysis/financialData/dailyLendingData/dailyLendingData.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="48" column="24" lean-forward="false" selection-start-line="48" selection-start-column="24" selection-end-line="48" selection-end-column="24" />
         </state>
       </provider>
     </entry>
@@ -717,6 +647,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -724,6 +655,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="359">
           <caret line="31" column="24" lean-forward="false" selection-start-line="31" selection-start-column="24" selection-end-line="31" selection-end-column="33" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -731,13 +663,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/controller/main/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="105" column="31" lean-forward="true" selection-start-line="105" selection-start-column="31" selection-end-line="105" selection-end-column="31" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -745,6 +671,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
           <caret line="24" column="38" lean-forward="false" selection-start-line="24" selection-start-column="38" selection-end-line="24" selection-end-column="38" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -759,6 +688,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -773,6 +703,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="405">
           <caret line="69" column="0" lean-forward="false" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="22" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -780,6 +711,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3450">
           <caret line="150" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="165" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -787,6 +719,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="46">
           <caret line="2" column="16" lean-forward="false" selection-start-line="2" selection-start-column="9" selection-end-line="2" selection-end-column="16" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -794,6 +727,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="888">
           <caret line="127" column="8" lean-forward="false" selection-start-line="127" selection-start-column="8" selection-end-line="127" selection-end-column="8" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -801,6 +735,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1095">
           <caret line="137" column="8" lean-forward="false" selection-start-line="137" selection-start-column="8" selection-end-line="137" selection-end-column="8" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -808,27 +743,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="612">
           <caret line="136" column="8" lean-forward="true" selection-start-line="119" selection-start-column="6" selection-end-line="136" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/page/financeAnalysis/repaymentMinutia/repaymentMinutia.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="355">
-          <caret line="25" column="59" lean-forward="false" selection-start-line="25" selection-start-column="30" selection-end-line="25" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/page/financeAnalysis/reconciliationAnalysis/reconciliationAnalysis.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="502">
-          <caret line="182" column="19" lean-forward="false" selection-start-line="182" selection-start-column="19" selection-end-line="182" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/page/financeAnalysis/reportStatistics/reportStatistics.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="410">
-          <caret line="160" column="23" lean-forward="false" selection-start-line="160" selection-start-column="23" selection-end-line="160" selection-end-column="23" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -836,21 +751,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="299">
           <caret line="13" column="111" lean-forward="false" selection-start-line="13" selection-start-column="102" selection-end-line="13" selection-end-column="111" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/config/tableName.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="552">
-          <caret line="24" column="47" lean-forward="false" selection-start-line="24" selection-start-column="23" selection-end-line="24" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/sql/sqlMap.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="92">
-          <caret line="46" column="19" lean-forward="false" selection-start-line="46" selection-start-column="4" selection-end-line="46" selection-end-column="19" />
           <folding />
         </state>
       </provider>
@@ -859,6 +759,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -866,29 +767,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
           <caret line="177" column="19" lean-forward="true" selection-start-line="177" selection-start-column="19" selection-end-line="177" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/router/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-607">
-          <caret line="108" column="37" lean-forward="false" selection-start-line="108" selection-start-column="37" selection-end-line="108" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/api.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="30" column="49" lean-forward="false" selection-start-line="30" selection-start-column="49" selection-end-line="30" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/route/router.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
-          <caret line="16" column="68" lean-forward="false" selection-start-line="16" selection-start-column="68" selection-end-line="16" selection-end-column="68" />
           <folding />
         </state>
       </provider>
@@ -897,14 +775,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="207">
           <caret line="9" column="42" lean-forward="false" selection-start-line="9" selection-start-column="42" selection-end-line="9" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/page/RMAB/loanThroughRate/loanThroughRateAll.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="341">
-          <caret line="282" column="459" lean-forward="false" selection-start-line="282" selection-start-column="459" selection-end-line="282" selection-end-column="459" />
           <folding />
         </state>
       </provider>
@@ -920,6 +790,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="115">
           <caret line="5" column="35" lean-forward="false" selection-start-line="5" selection-start-column="35" selection-end-line="5" selection-end-column="35" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -927,24 +798,217 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="138">
           <caret line="6" column="45" lean-forward="false" selection-start-line="6" selection-start-column="45" selection-end-line="6" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/page/financeAnalysis/reconciliationAnalysis/reconciliationAnalysis.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="437">
+          <caret line="67" column="0" lean-forward="true" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
+          <folding>
+            <element signature="e#2825#2875#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/page/financeAnalysis/repaymentMinutia/repaymentMinutia.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="217">
+          <caret line="64" column="0" lean-forward="true" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
+          <folding>
+            <element signature="e#3471#3521#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/page/financeAnalysis/reportStatistics/reportStatistics.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="869">
+          <caret line="47" column="0" lean-forward="true" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+          <folding>
+            <element signature="e#2359#2409#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/page/RMAB/loanOverdueRecallRate/loanOverdueRecallRate.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="603">
+        <state relative-caret-position="2710">
           <caret line="144" column="17" lean-forward="false" selection-start-line="144" selection-start-column="17" selection-end-line="144" selection-end-column="17" />
+          <folding>
+            <element signature="n#style#0;n#el-table#0;n#div#0;n#template#0;n#!!top" expanded="false" />
+            <element signature="e#2646#2696#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/page/RMAB/loanThroughRate/loanThroughRate.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
+        <state relative-caret-position="2185">
           <caret line="111" column="8" lean-forward="true" selection-start-line="111" selection-start-column="8" selection-end-line="114" selection-end-column="59" />
           <folding>
-            <element signature="n#style#0;n#el-table#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="e#2295#2345#0" expanded="true" />
+            <element signature="n#style#0;n#el-table#0;n#div#0;n#template#0;n#!!top" expanded="false" />
+            <element signature="e#2295#2345#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/page/RMAB/loanThroughRate/loanThroughRateAll.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="43" column="0" lean-forward="false" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
+          <folding>
+            <element signature="e#2318#2368#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/controller/dataAnalysis/financialData/dailyLendingData/dailyLendingData.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="641">
+          <caret line="80" column="70" lean-forward="false" selection-start-line="80" selection-start-column="70" selection-end-line="80" selection-end-column="70" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/page/dataAnalysis/financialData/21daysStageStatistics/21daysStageStatistics.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="206" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/sql/sqlMap.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3565">
+          <caret line="46" column="19" lean-forward="false" selection-start-line="46" selection-start-column="4" selection-end-line="46" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/controller/login/login.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-414">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/controller/passwordModify/passwordModify.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="497">
+          <caret line="42" column="22" lean-forward="false" selection-start-line="42" selection-start-column="16" selection-end-line="42" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/page/dataAnalysis/financialData/dailyLendingData/dailyLendingData.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="836">
+          <caret line="55" column="10" lean-forward="true" selection-start-line="55" selection-start-column="10" selection-end-line="55" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/home/home.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="575">
+          <caret line="58" column="54" lean-forward="false" selection-start-line="58" selection-start-column="54" selection-end-line="58" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/page/dataAnalysis/financialData/21installmentPromotionStatistics/21installmentPromotionStatistics.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2998">
+          <caret line="177" column="38" lean-forward="false" selection-start-line="177" selection-start-column="38" selection-end-line="177" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/router/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="503">
+          <caret line="183" column="34" lean-forward="false" selection-start-line="183" selection-start-column="34" selection-end-line="183" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/api.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="506">
+          <caret line="100" column="62" lean-forward="false" selection-start-line="100" selection-start-column="62" selection-end-line="100" selection-end-column="62" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/controller/dataAnalysis/financialData/21installmentPromotionStatistics/21installmentPromotionStatistics.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="704">
+          <caret line="142" column="12" lean-forward="false" selection-start-line="142" selection-start-column="12" selection-end-line="142" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/route/router.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="38" column="121" lean-forward="false" selection-start-line="38" selection-start-column="121" selection-end-line="38" selection-end-column="121" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/controller/dataAnalysis/financialData/90daysStageStatistics/90daysStageStatistics.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2889">
+          <caret line="190" column="20" lean-forward="false" selection-start-line="190" selection-start-column="20" selection-end-line="190" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/page/dataAnalysis/financialData/90daysStageStatistics/90daysStageStatistics.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="269">
+          <caret line="72" column="24" lean-forward="false" selection-start-line="72" selection-start-column="21" selection-end-line="72" selection-end-column="24" />
+          <folding>
+            <element signature="n#style#0;n#el-table#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="e#5559#5612#0" expanded="true" />
+            <marker date="1503306259881" expanded="false" signature="5179:5215" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/others/passwordModify/passwordModify.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="460">
+          <caret line="20" column="8" lean-forward="false" selection-start-line="20" selection-start-column="8" selection-end-line="20" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/controller/main/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2392">
+          <caret line="104" column="35" lean-forward="false" selection-start-line="104" selection-start-column="35" selection-end-line="104" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/config/tableName.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="253">
+          <caret line="11" column="28" lean-forward="true" selection-start-line="11" selection-start-column="28" selection-end-line="11" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/config/shell.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="4" column="121" lean-forward="false" selection-start-line="4" selection-start-column="121" selection-end-line="4" selection-end-column="121" />
+          <folding />
         </state>
       </provider>
     </entry>

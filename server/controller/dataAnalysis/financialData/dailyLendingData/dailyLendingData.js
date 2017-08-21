@@ -68,6 +68,18 @@ function formatData (rows) {
     if (row.loan_singular_nuser) {
       row.loan_singular_nuser = formatCurrency(row.loan_singular_nuser)
     }
+    if (row.loans_total_t_21day) {
+      row.loans_total_t_21day = formatCurrency(row.loans_total_t_21day)
+    }
+    if (row.loans_total_90day) {
+      row.loans_total_90day = formatCurrency(row.loans_total_90day)
+    }
+    if (row.loan_singular_t_21day) {
+      row.loan_singular_t_21day = formatCurrency(row.loan_singular_t_21day)
+    }
+    if (row.loan_singular_90day) {
+      row.loan_singular_90day = formatCurrency(row.loan_singular_90day)
+    }
 
     if (row.CHARGEBACK_FAILRATE) {
       row.CHARGEBACK_FAILRATE = (row.CHARGEBACK_FAILRATE * 100).toFixed(2) + '%'

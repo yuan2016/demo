@@ -1,8 +1,8 @@
 <template>
-  <div class="dailyLendingData" v-loading.body="loading" element-loading-text="拼命加载中">
+  <div class="installmentPromotionStatistics">
     <banner></banner>
     <div class="date-filter">
-      <span class="managerFront">日期：</span>
+      <span class="managerFront">到期日：</span>
       <el-date-picker
         size="small"
         v-model.trim="startTime"
@@ -18,31 +18,30 @@
       <el-button type="primary" size="small" @click.prevent.stop="search">搜索</el-button>
       <el-button type="primary" size="small" :loading="buttonLoading" @click.prevent.stop="refreshData">一键刷新</el-button>
     </div>
-    <el-table :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto;" :height="height">
-      <el-table-column property="d_date" fixed sortable label="日期" width="130px" sortable></el-table-column>
-      <el-table-column property="register_num" label="注册人数" width="130px"></el-table-column>
-      <el-table-column property="loan_num" label="借款人数" width="130px"></el-table-column>
-      <el-table-column property="success_loan_num" label="成功借款人数" width="130px"></el-table-column>
-      <el-table-column property="loan_singular" label="放款单数" width="130px"></el-table-column>
-      <el-table-column property="loan_singular_7day" label="7天期限放款单数" width="130px"></el-table-column>
-      <el-table-column property="loan_singular_14day" label="14天期限放款单数" width="130px"></el-table-column>
-      <el-table-column property="loan_singular_21day" label="21天期限放款单数" width="130px"></el-table-column>
-      <el-table-column property="loan_singular_f_21day" label="21天分期放款单数" width="130px"></el-table-column>
-      <el-table-column property="loan_singular_90day" label="90天分期放款单数" width="130px"></el-table-column>
-      <el-table-column property="loan_singular_t_21day" label="21天分期提额放款单数" width="130px"></el-table-column>
-      <el-table-column property="loans_total" label="放款总额(元)" width="130px"></el-table-column>
-      <el-table-column property="loans_total_7day" label="7天期限放款总额(元)" width="130px"></el-table-column>
-      <el-table-column property="loans_total_14day" label="14天期限放款总额(元)" width="130px"></el-table-column>
-      <el-table-column property="loans_total_21day" label="21天期限放款总额(元)" width="130px"></el-table-column>
-      <el-table-column property="loans_total_f_21day" label="21天分期放款总额(元)" width="130px"></el-table-column>
-      <el-table-column property="loans_total_90day" label="90天分期放款金额(元)" width="130px"></el-table-column>
-      <el-table-column property="loans_total_t_21day" label="21天分期提额放款金额(元)" width="130px"></el-table-column>
-      <el-table-column property="loan_singular_ouser" label="老用户放款单数" width="130px"></el-table-column>
-      <el-table-column property="loans_total_ouser" label="老用户放款总额(元)" width="130px"></el-table-column>
-      <el-table-column property="loan_singular_nuser" label="新用户放款单数" width="130px"></el-table-column>
-      <el-table-column property="loans_total_nuser" label="新用户放款总额(元)" width="130px"></el-table-column>
-      <el-table-column property="CHARGEBACK_FAILRATE" label="扣款失败率" width="130px"></el-table-column>
-      <el-table-column property="create_time" label="更新时间" width="130px"></el-table-column>
+    <el-table v-loading.body="loading" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border stripe
+              style="width: 100%;overflow: auto;" :height="height">
+      <el-table-column property="d_date" label="到期日" fixed sortable width="130px"></el-table-column>
+      <el-table-column property="loan_date_f1" label="F1放款日" sortable width="130px"></el-table-column>
+      <el-table-column property="due_amount_f1" label="F1到期金额(元)" width="130px"></el-table-column>
+      <el-table-column property="repayment_amount_f1" label="F1还款金额(元)" width="130px"></el-table-column>
+      <el-table-column property="repayment_rate_f1" label="F1还款率" width="130px"></el-table-column>
+      <el-table-column property="overdue_rate_f1" label="F1逾期率" width="130px"></el-table-column>
+      <el-table-column property="overdue_rate_ouser_f1" label="F1老用户逾期率" width="130px"></el-table-column>
+      <el-table-column property="overdue_rate_nuser_f1" label="F1新用户逾期率" width="130px"></el-table-column>
+      <el-table-column property="loan_date_f2" sortable label="F2放款日" width="130px"></el-table-column>
+      <el-table-column property="due_amount_f2" label="F2到期金额(元)" width="130px"></el-table-column>
+      <el-table-column property="repayment_amount_f2" label="F2还款金额(元)" width="130px"></el-table-column>
+      <el-table-column property="repayment_rate_f2" label="F2还款率" width="130px"></el-table-column>
+      <el-table-column property="overdue_rate_f2" label="F2逾期率" width="130px"></el-table-column>
+      <el-table-column property="overdue_rate_ouser_f2" label="F2老用户逾期率" width="130px"></el-table-column>
+      <el-table-column property="overdue_rate_nuser_f2" label="F2新用户逾期率" width="130px"></el-table-column>
+      <el-table-column property="loan_date_f3" sortable label="F3放款日" width="130px"></el-table-column>
+      <el-table-column property="due_amount_f3" label="F3到期金额(元)" width="130px"></el-table-column>
+      <el-table-column property="repayment_amount_f3" label="F3还款金额(元)" width="130px"></el-table-column>
+      <el-table-column property="repayment_rate_f3" label="F3还款率" width="130px"></el-table-column>
+      <el-table-column property="overdue_rate_f3" label="F3逾期率" width="130px"></el-table-column>
+      <el-table-column property="overdue_rate_ouser_f3" label="F3老用户逾期率" width="130px"></el-table-column>
+      <el-table-column property="overdue_rate_nuser_f3" label="F3新用户逾期率" width="130px"></el-table-column>
     </el-table>
     <div style="text-align: center;margin-top: 10px;" v-show="fundData.length!=0">
       <el-pagination
@@ -129,7 +128,7 @@
         })
       },
       getData () {
-        return this.axios.post('/api/dailyLendingData', {
+        return this.axios.post('/api/installmentPromotionStatistics21', {
           limit: this.limit,
           offset: this.offset,
           startTime: this.startTime || '1991-07-22',
@@ -137,7 +136,7 @@
         })
       },
       getCount () {
-        return this.axios.post('/api/dailyLendingData/count', {
+        return this.axios.post('/api/installmentPromotionStatistics21/count', {
           startTime: this.startTime || '1991-07-22',
           endTime: this.endTime || getNowFormatDate()
         })
@@ -154,12 +153,12 @@
       },
       refreshData () {
         this.buttonLoading = true
-        this.axios.post('/api/dailyLendingData/refresh').then((response) => {
+        this.axios.post('/api/installmentPromotionStatistics21/refresh').then((response) => {
           if (response.data.code === '200') {
             this.getDataInit()
             this.buttonLoading = false
             this.$message({
-              message: '每日放款数据刷新完毕，请查看',
+              message: '21天分期提额统计刷新完毕，请查看',
               type: 'success'
             })
           } else if (response.data.code === '400') {
@@ -171,12 +170,12 @@
           } else {
             setTimeout(() => {
               this.buttonLoading = false
-              this.$message.error('每日放款数据一键刷新出现错误，请检查网络或联系管理员')
+              this.$message.error('21天分期提额一键刷新出现错误，请检查网络或联系管理员')
             }, 1000)
           }
         }).catch(() => {
           this.buttonLoading = false
-          this.$message.error('每日放款数据一键刷新出现错误，请检查网络或联系管理员')
+          this.$message.error('21天分期提额一键刷新出现错误，请检查网络或联系管理员')
         })
       }
     }
@@ -184,7 +183,7 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  .dailyLendingData
+  .installmentPromotionStatistics
     height: 100%
     .date-filter
       padding: 15px 0 15px 1px
@@ -205,4 +204,3 @@
       text-align: center
       font-weight: bold
 </style>
-
