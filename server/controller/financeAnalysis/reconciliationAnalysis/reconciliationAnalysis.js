@@ -45,7 +45,7 @@ module.exports = {
   //每日还款金额数据
   fetchAll (req, res) {
     let params = req.body
-    let query = sql.financeAnalysis.reconciliationAnalysis.selectAllFront + sql.financeAnalysis.reconciliationAnalysis.selectAllBack
+    let query = sql.financeAnalysis.reconciliationAnalysis.selectAllFront + sql.financeAnalysis.reconciliationAnalysis.orderBy + sql.financeAnalysis.reconciliationAnalysis.selectAllBack
     func.connPool1(query, [tableName.reconciliationAnalysis, params.startTime, params.endTime, params.offset, params.limit], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
@@ -88,7 +88,7 @@ module.exports = {
   getExcelData (req, res) {
     let params = req.query
 
-    let query = sql.financeAnalysis.reconciliationAnalysis.selectAllFront
+    let query = sql.financeAnalysis.reconciliationAnalysis.selectAllFront + sql.financeAnalysis.reconciliationAnalysis.orderBy
     func.connPool1(query, [tableName.reconciliationAnalysis, params.startTime, params.endTime], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)

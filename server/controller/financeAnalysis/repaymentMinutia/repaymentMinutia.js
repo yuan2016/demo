@@ -53,7 +53,7 @@ module.exports = {
   fetchAll (req, res) {
     let params = req.body
     let queries = analysis(params)
-    let query = sql.financeAnalysis.repaymentMinutia.selectAllFront + queries.slice(0, 3).join(' and ') + sql.financeAnalysis.repaymentMinutia.selectAllBack
+    let query = sql.financeAnalysis.repaymentMinutia.selectAllFront + queries.slice(0, 3).join(' and ') + sql.financeAnalysis.repaymentMinutia.orderBy + sql.financeAnalysis.repaymentMinutia.selectAllBack
     func.connPool1(query, [tableName.repaymentMinutia, params.startTime, params.endTime, params.offset, params.limit], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
@@ -97,7 +97,7 @@ module.exports = {
   getExcelData (req, res) {
     let params = req.query
     let queries = analysis(params)
-    let query = sql.financeAnalysis.repaymentMinutia.selectAllFront + queries.slice(0, 3).join(' and ')
+    let query = sql.financeAnalysis.repaymentMinutia.selectAllFront + queries.slice(0, 3).join(' and ') + sql.financeAnalysis.repaymentMinutia.orderBy
     func.connPool1(query, [tableName.repaymentMinutia, params.startTime, params.endTime], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)

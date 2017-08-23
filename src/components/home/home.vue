@@ -3,7 +3,8 @@
     <div class="sidebarWrapper">
       <el-menu class="sidebarContainer" unique-opened style="min-height: 100%;" theme="dark" router>
         <el-menu-item class="homePage" index="main"><i class="elextra-icon-home"></i>首页
-          <i class="toggle" :class="isToggle" @click.prevent.stop="toggleBar"></i></el-menu-item>
+          <i class="toggle" :class="isToggle" @click.prevent.stop="toggleBar"></i>
+        </el-menu-item>
         <el-submenu index="1">
           <template slot="title"><i class="elextra-icon-analysis"></i>RMAB</template>
           <el-menu-item index="loanThroughRate"><i class="el-icon-star-on"></i>新用户借款通过率</el-menu-item>
@@ -11,11 +12,11 @@
         </el-submenu>
         <el-submenu index="2">
           <template slot="title"><i class="elextra-icon-user"></i>用户信息管理</template>
-            <el-menu-item index="userList"><i class="el-icon-star-on"></i>用户列表</el-menu-item>
-            <el-menu-item index="userAddressBook"><i class="el-icon-star-on"></i>用户通讯录</el-menu-item>
-            <el-menu-item index="bankCardsList"><i class="el-icon-star-on"></i>银行卡列表</el-menu-item>
-            <el-menu-item index="userNameAuthenticationList"><i class="el-icon-star-on"></i>用户实名认证列表</el-menu-item>
-            <el-menu-item index="userAuthenticationList"><i class="el-icon-star-on"></i>用户认证列表</el-menu-item>
+          <el-menu-item index="userList"><i class="el-icon-star-on"></i>用户列表</el-menu-item>
+          <el-menu-item index="userAddressBook"><i class="el-icon-star-on"></i>用户通讯录</el-menu-item>
+          <el-menu-item index="bankCardsList"><i class="el-icon-star-on"></i>银行卡列表</el-menu-item>
+          <el-menu-item index="userNameAuthenticationList"><i class="el-icon-star-on"></i>用户实名认证列表</el-menu-item>
+          <el-menu-item index="userAuthenticationList"><i class="el-icon-star-on"></i>用户认证列表</el-menu-item>
         </el-submenu>
         <el-submenu index="3">
           <template slot="title"><i class="elextra-icon-loan"></i>借款管理</template>

@@ -23,6 +23,8 @@
       <el-table-column property="register_num" label="注册人数" width="130px"></el-table-column>
       <el-table-column property="loan_num" label="借款人数" width="130px"></el-table-column>
       <el-table-column property="success_loan_num" label="成功借款人数" width="130px"></el-table-column>
+      <el-table-column property="newuser_loan_rate" label="新用户借款率" width="130px"></el-table-column>
+      <el-table-column property="olduser_loan_rate" label="老用户借款率" width="130px"></el-table-column>
       <el-table-column property="loan_singular" label="放款单数" width="130px"></el-table-column>
       <el-table-column property="loan_singular_7day" label="7天期限放款单数" width="130px"></el-table-column>
       <el-table-column property="loan_singular_14day" label="14天期限放款单数" width="130px"></el-table-column>

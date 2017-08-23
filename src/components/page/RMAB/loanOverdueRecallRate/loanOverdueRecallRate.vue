@@ -3,7 +3,8 @@
     <banner></banner>
     <div class="date-filter">
       <span class="managerFront">借款类型：</span>
-      <el-select v-model.trim="loan_term" size="small" placeholder="14天" class="loanOverdueRecallRateSelect" @change="search">
+      <el-select v-model.trim="loan_term" size="small" placeholder="14天" class="loanOverdueRecallRateSelect"
+                 @change="search">
         <el-option
           v-for="item in options"
           :key="item.value"
@@ -14,7 +15,6 @@
     </div>
     <el-table :data="fundData" highlight-current-row border
               style="width: 100%;overflow: auto;" :height="height" class="loanOverdueRecallRateTable">
-      <el-table-column property="rownum" :label="labels[0]+''" width="1"></el-table-column>
       <el-table-column property="AA" :label="labels[1]" width="160px"></el-table-column>
       <el-table-column property="D1" :label="labels[2]"></el-table-column>
       <el-table-column property="D2" :label="labels[3]"></el-table-column>
@@ -37,9 +37,18 @@
       <el-table-column property="M3" :label="labels[20]"></el-table-column>
       <el-table-column property="MOM" :label="labels[21]"></el-table-column>
     </el-table>
-    <p class="loanOverdueRecallRateInfo">说明:</p>
-    <p class="loanOverdueRecallRateInfo">数据同环比计算公式: (本期数据-对照数据)/对照数据</p>
-    <p class="loanOverdueRecallRateInfo">百分比同环比计算公式: 本期百分比-对照百分比</p>
+    <div class="pop1">
+      <p class="popTop">(本期数据-对照数据)/对照数据</p>
+      <p>本期百分比-对照百分比</p>
+    </div>
+    <div class="pop2">
+      <p class="popTop">(本期数据-对照数据)/对照数据</p>
+      <p>本期百分比-对照百分比</p>
+    </div>
+    <div class="pop3">
+      <p class="popTop">(本期数据-对照数据)/对照数据</p>
+      <p>本期百分比-对照百分比</p>
+    </div>
   </div>
 </template>
 
@@ -48,6 +57,7 @@
   import { getProperty } from '../../../../common/js/utils'
   import { getHeight } from '../../../../common/js/storage'
   import $ from 'jquery'
+
   const defaultBlank = ['', '指标名称', 'D1', 'D2', 'D3', 'D4', 'D5', 'D6', 'D7', 'D8', 'D9', 'D10', 'DOD', 'W1', 'W2', 'W3', 'W4', 'WOW', 'M1', 'M2', 'M3', 'MOM']
 
   export default {
@@ -120,13 +130,37 @@
         this.loading = true
         this.getData()
       }
+    },
+    updated () {
+      let backcolor = [0, 1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34, 37]
+      if ($('.el-table__row').length > 0) {
+        let clientWidth = document.documentElement.clientWidth
+        $('.el-table__header>thead>tr>th:eq(11)>div.cell').on('mouseover', function (event) {
+          let x = clientWidth - event.clientX
+          let y = event.clientY - 50
+          $('.pop1').css('display', 'block').css('top', y).css('right', x)
+        }).on('mouseout', function () {
+          $('.pop1').css('display', 'none')
+        })
+        $('.el-table__header>thead>tr>th:eq(16)>div.cell').on('mouseover', function () {
+          let x = clientWidth - event.clientX
+          let y = event.clientY - 50
+          $('.pop2').css('display', 'block').css('top', y).css('right', x)
+        }).on('mouseout', function () {
+          $('.pop2').css('display', 'none')
+        })
+        $('.el-table__header>thead>tr>th:eq(20)>div.cell').on('mouseover', function () {
+          let x = clientWidth - event.clientX
+          let y = event.clientY - 50
+          $('.pop3').css('display', 'block').css('top', y).css('right', x)
+        }).on('mouseout', function () {
+          $('.pop3').css('display', 'none')
+        })
+        for (let i of backcolor) {
+          $('.el-table__row:eq(' + i + ')>td:eq(0)').css('background-color', '#93c2d2')
+        }
+      }
     }
-//    updated () {
-//      $('.el-table__row:eq(1)').click(function () {
-//        $('.el-table__row:eq(2)').css('display', 'none')
-//        $('.el-table__row:eq(3)').css('display', 'none')
-//      })
-//    }
   }
 </script>
 
@@ -143,12 +177,42 @@
         color: #666
       .loanOverdueRecallRateSelect
         width: 100px
-    .loanOverdueRecallRateTable
-      .el-table__row:nth-child(1), .el-table__row:nth-child(2), .el-table__row:nth-child(5), .el-table__row:nth-child(8), .el-table__row:nth-child(11), .el-table__row:nth-child(14), .el-table__row:nth-child(17), .el-table__row:nth-child(20), .el-table__row:nth-child(23), .el-table__row:nth-child(26), .el-table__row:nth-child(29), .el-table__row:nth-child(32), .el-table__row:nth-child(35), .el-table__row:nth-child(38)
-        td:nth-of-type(2)
-          div
-            background-color: #ADD8E6
-            font-weight :bold
+    .pop1
+      display: none
+      position: absolute
+      padding: 5px
+      border: 1px solid #cccccc
+      border-radius: 5px
+      font-size: 12px
+      background-color: #fff
+      box-shadow : 5px 5px 5px #999
+    .pop2
+      display: none
+      position: absolute
+      padding: 5px
+      border: 1px solid #cccccc
+      border-radius: 5px
+      font-size: 12px
+      background-color: #fff
+      box-shadow : 5px 5px 5px #999
+    .pop3
+      display: none
+      position: absolute
+      padding: 5px
+      border: 1px solid #cccccc
+      border-radius: 5px
+      font-size: 12px
+      background-color: #fff
+      box-shadow : 5px 5px 5px #999
+
+    .popTop
+      padding-bottom: 5px
+    /*.loanOverdueRecallRateTable*/
+    /*.el-table__row:nth-child(1), .el-table__row:nth-child(2), .el-table__row:nth-child(5), .el-table__row:nth-child(8), .el-table__row:nth-child(11), .el-table__row:nth-child(14), .el-table__row:nth-child(17), .el-table__row:nth-child(20), .el-table__row:nth-child(23), .el-table__row:nth-child(26), .el-table__row:nth-child(29), .el-table__row:nth-child(32), .el-table__row:nth-child(35), .el-table__row:nth-child(38)*/
+    /*td:nth-of-type(2)*/
+    /*div*/
+    /*background-color: #ADD8E6*/
+    /*font-weight: bold*/
 
     .loanOverdueRecallRateInfo
       padding-top: 5px

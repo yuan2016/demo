@@ -84,6 +84,12 @@ function formatData (rows) {
     if (row.CHARGEBACK_FAILRATE) {
       row.CHARGEBACK_FAILRATE = (row.CHARGEBACK_FAILRATE * 100).toFixed(2) + '%'
     }
+    if (row.newuser_loan_rate) {
+      row.newuser_loan_rate = (row.newuser_loan_rate * 100).toFixed(2) + '%'
+    }
+    if (row.olduser_loan_rate) {
+      row.olduser_loan_rate = (row.olduser_loan_rate * 100).toFixed(2) + '%'
+    }
     return row
   })
 }

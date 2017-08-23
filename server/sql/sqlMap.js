@@ -45,7 +45,7 @@ let sqlMap = {
   //借款通过率
   RMAB: {
     loanThroughRate: {
-      selectAll: 'select * from ??'
+      selectAll: 'select AA,D1,D2,D3,D4,D5,D6,D7,DOD,W1,W2,W3,W4,WOW,M1,M2,M3,MOM from ??'
     },
     loanOverdueRecallRate: {
       selectAll: 'SELECT @rownum:=@rownum+1 AS rownum, AA,D1,D2,D3,D4,D5,D6,D7,D8,D9,D10,DOD,W1,W2,W3,W4,WOW,M1,M2,M3,MOM \n' +
@@ -141,17 +141,20 @@ let sqlMap = {
     repaymentMinutia: {
       selectAllFront: 'select * from ?? where (repayment_real_time between ? and ?) and ',
       selectAllBack: ' limit ?,?',
+      orderBy: ' order by repayment_real_time',
       getCount: 'select count(*) as count from ?? where (repayment_real_time between ? and ?) and '
     },
     reconciliationAnalysis: {
       selectAllFront: 'select * from ?? where (d_date between ? and ?)',
       selectAllBack: ' limit ?,?',
+      orderBy: ' order by d_date',
       getCount: 'select count(*) as count from ?? where (d_date between ? and ?)'
     },
     //  还款日报表统计
     reportStatistics: {
       selectAllFront: 'select * from ?? where (d_date between ? and ?)',
       selectAllBack: ' limit ?,?',
+      orderBy: ' order by d_date',
       getCount: 'select count(*) as count from ?? where (d_date between ? and ?)'
     }
   },

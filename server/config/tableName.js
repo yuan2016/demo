@@ -97,7 +97,7 @@ module.exports = {
   // 21天分期提额统计
   installmentPromotionStatistics21: 'pr_ds_period_statistics_day_quota_21',
   // 90天分期提额统计
-  daysStageStatistics90: 'pr_ds_period_statistics_day_90',
+  daysStageStatistics: 'pr_ds_period_statistics_day_90',
   // 每日放款数据
   dailyLendingData: 'PR_DS_LOAN_DAY',
   // 还款逾期统计

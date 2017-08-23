@@ -11,13 +11,12 @@ import VueAxios from 'vue-axios'
 import routes from './router/index'
 import { getToken } from './common/js/storage'
 import './config/height'
-//import VueResource from 'vue-resource'
+import store from './store/'
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 Vue.use(VueAxios, Axios)
 Vue.use(VueRouter)
-//Vue.use(VueResource)
 
 const router = new VueRouter({
   routes
@@ -45,5 +44,6 @@ new Vue({
   el: '#app',
   router,
   template: '<App/>',
+  store: store,
   components: {App}
 })

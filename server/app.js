@@ -3,7 +3,7 @@ let bodyParser = require('body-parser')
 let path = require('path')
 let router = require('./route/router.js')
 
-let port = process.env.PORT || 3000
+let port = process.env.PORT || 80
 let app = express()
 
 app.use(express.static(path.resolve(__dirname, '../dist')))
