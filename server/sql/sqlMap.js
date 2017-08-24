@@ -48,8 +48,7 @@ let sqlMap = {
       selectAll: 'select AA,D1,D2,D3,D4,D5,D6,D7,DOD,W1,W2,W3,W4,WOW,M1,M2,M3,MOM from ??'
     },
     loanOverdueRecallRate: {
-      selectAll: 'SELECT @rownum:=@rownum+1 AS rownum, AA,D1,D2,D3,D4,D5,D6,D7,D8,D9,D10,DOD,W1,W2,W3,W4,WOW,M1,M2,M3,MOM \n' +
-      'FROM (SELECT @rownum:=0) r, ?? where loan_term = ?'
+      selectAll: 'SELECT AA,D1,D2,D3,D4,D5,D6,D7,D8,D9,D10,DOD,W1,W2,W3,W4,WOW,M1,M2,M3,MOM FROM ?? where loan_term = ?'
     }
   },
   //借款管理

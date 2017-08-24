@@ -46,6 +46,7 @@ const dailyLendingData = r => require.ensure([], () => r(require('../components/
 const dailyRepaymentAmountData = r => require.ensure([], () => r(require('../components/page/dataAnalysis/financialData/dailyRepaymentAmountData/dailyRepaymentAmountData')), 'dailyRepaymentAmountData')
 const dailyRepaymentUnitData = r => require.ensure([], () => r(require('../components/page/dataAnalysis/financialData/dailyRepaymentUnitData/dailyRepaymentUnitData')), 'dailyRepaymentUnitData')
 const fundAnalysis = r => require.ensure([], () => r(require('../components/page/dataAnalysis/financialData/fundAnalysis/fundAnalysis')), 'fundAnalysis')
+const fundAnalysisProduct = r => require.ensure([], () => r(require('../components/page/dataAnalysis/financialData/fundAnalysisProduct/fundAnalysisProduct')), 'fundAnalysisProduct')
 const overdueRepaymentStatistics = r => require.ensure([], () => r(require('../components/page/dataAnalysis/financialData/overdueRepaymentStatistics/overdueRepaymentStatistics')), 'overdueRepaymentStatistics')
 const platformData = r => require.ensure([], () => r(require('../components/page/dataAnalysis/dataReport/platformData/platformData.vue')), 'platformData')
 
@@ -59,6 +60,7 @@ const promoterManagement = r => require.ensure([], () => r(require('../component
 const promotionChannelStatistics = r => require.ensure([], () => r(require('../components/page/promotionManagement/promotionChannelStatistics/promotionChannelStatistics')), 'promotionChannelStatistics')
 const promotionRegionStatistics = r => require.ensure([], () => r(require('../components/page/promotionManagement/promotionRegionStatistics/promotionRegionStatistics')), 'promotionRegionStatistics')
 const channelStatisticsSummary = r => require.ensure([], () => r(require('../components/page/promotionManagement/channelStatisticsSummary/channelStatisticsSummary')), 'channelStatisticsSummary')
+const registrationStatisticsReport = r => require.ensure([], () => r(require('../components/page/promotionManagement/registrationStatisticsReport/registrationStatisticsReport')), 'registrationStatisticsReport')
 
 Vue.use(Router)
 
@@ -199,6 +201,10 @@ export default [{
         component: fundAnalysis,
         meta: ['数据分析', '财务数据', '资金分析']
       }, {
+        path: '/fundAnalysisProduct',
+        component: fundAnalysisProduct,
+        meta: ['数据分析', '财务数据', '资金分析(分产品)']
+      }, {
         path: '/collectionManagement',
         component: collectionManagement,
         meta: ['数据分析', '财务数据', '催收管理']
@@ -238,6 +244,10 @@ export default [{
         path: '/channelStatisticsSummary',
         component: channelStatisticsSummary,
         meta: ['推广管理', '渠道统计汇总']
+      }, {
+        path: '/registrationStatisticsReport',
+        component: registrationStatisticsReport,
+        meta: ['推广管理', '注册量统计报表']
       }]
     }]
 }, {

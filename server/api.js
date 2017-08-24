@@ -111,6 +111,10 @@ module.exports = {
   fundAnalysis: path + '/fundAnalysis',
   fundAnalysisCount: path + '/fundAnalysis/count',
   fundAnalysisRefresh: path + '/fundAnalysis/refresh',
+  // 资金分析(产品)
+  fundAnalysisProduct: path + '/fundAnalysisProduct',
+  fundAnalysisProductCount: path + '/fundAnalysisProduct/count',
+  fundAnalysisProductRefresh: path + '/fundAnalysisProduct/refresh',
   //催收管理
   collectionManagement: path + '/collectionManagement',
   collectionManagementCount: path + '/collectionManagement/count',

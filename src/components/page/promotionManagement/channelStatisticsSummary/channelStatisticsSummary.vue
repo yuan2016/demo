@@ -130,7 +130,6 @@
       getSelectOptions () {
         this.axios.post('/api/channelStatisticsSummary/getSelectOptions').then((response) => {
           this.options = response.data
-          console.log(response)
         })
       },
       search () {

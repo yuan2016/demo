@@ -8,9 +8,6 @@ module.exports = {
   //借款通过率数据
   fetchAll (req, res) {
     let params = req.body
-    console.log(sql.RMAB.loanOverdueRecallRate.selectAll)
-    console.log(tableName.loanOverdueRecallRate)
-    console.log(params.loan_term)
     func.connPool1(sql.RMAB.loanOverdueRecallRate.selectAll, [tableName.loanOverdueRecallRate, params.loan_term], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)

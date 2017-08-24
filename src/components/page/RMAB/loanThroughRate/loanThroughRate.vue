@@ -82,7 +82,7 @@
     },
     created () {
       this.loading = true
-      this.height = parseInt(getHeight()) + 10
+      this.height = parseInt(getHeight()) + 60
       this.getData()
     },
     methods: {
@@ -127,28 +127,25 @@
     },
     updated () {
       if ($('.el-table__row').length > 0) {
+        let pops = [8, 13, 17]
+        let info0 = $('<i class="elextra-icon-info"></i>')
+        let info1 = $('<i class="elextra-icon-info"></i>')
+        let info2 = $('<i class="elextra-icon-info"></i>')
+        let infos = [info0, info1, info2]
+        for (let i = 0; i < pops.length; i++) {
+          $('.el-table__header>thead>tr>th:eq(' + pops[i] + ')').css('position', 'relative').append(infos[i])
+        }
+        let popName = [$('.pop1'), $('.pop2'), $('.pop3')]
         let clientWidth = document.documentElement.clientWidth
-        $('.el-table__header>thead>tr>th:eq(8)>div.cell').on('mouseover', function (event) {
-          let x = clientWidth - event.clientX
-          let y = event.clientY - 50
-          $('.pop1').css('display', 'block').css('top', y).css('right', x)
-        }).on('mouseout', function () {
-          $('.pop1').css('display', 'none')
-        })
-        $('.el-table__header>thead>tr>th:eq(13)>div.cell').on('mouseover', function () {
-          let x = clientWidth - event.clientX
-          let y = event.clientY - 50
-          $('.pop2').css('display', 'block').css('top', y).css('right', x)
-        }).on('mouseout', function () {
-          $('.pop2').css('display', 'none')
-        })
-        $('.el-table__header>thead>tr>th:eq(17)>div.cell').on('mouseover', function () {
-          let x = clientWidth - event.clientX
-          let y = event.clientY - 50
-          $('.pop3').css('display', 'block').css('top', y).css('right', x)
-        }).on('mouseout', function () {
-          $('.pop3').css('display', 'none')
-        })
+        for (let i = 0; i < pops.length; i++) {
+          $('.el-table__header>thead>tr>th:eq(' + pops[i] + ')>i ').on('mouseover', function (event) {
+            let x = clientWidth - event.clientX
+            let y = event.clientY - 50
+            popName[i].css('display', 'block').css('top', y).css('right', x)
+          }).on('mouseout', function () {
+            popName[i].css('display', 'none')
+          })
+        }
         let iconIndex = this.iconIndex
         let backcolor1 = this.backcolor1
         let backcolor2 = this.backcolor2
@@ -262,6 +259,13 @@
 
     .popTop
       padding-bottom: 5px
+
+    .elextra-icon-info
+      position: absolute
+      top: 9px
+      right: -7px
+      font-size: 20px
+      color: rgb(102, 102, 102)
 
   /*.loanThroughTable*/
   /*.el-table__row:nth-child(1), .el-table__row:nth-child(26), .el-table__row:nth-child(73), .el-table__row:nth-child(96), .el-table__row:nth-child(119), .el-table__row:nth-child(143), .el-table__row:nth-child(167), .el-table__row:nth-child(191), .el-table__row:nth-child(215), .el-table__row:nth-child(239), .el-table__row:nth-child(263), .el-table__row:nth-child(287), .el-table__row:nth-child(311), .el-table__row:nth-child(335)*/

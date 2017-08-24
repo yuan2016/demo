@@ -161,7 +161,7 @@
             this.getDataInit()
             this.buttonLoading = false
             this.$message({
-              message: '每日放款数据刷新完毕，请查看',
+              message: '数据刷新完毕，请查看',
               type: 'success'
             })
           } else if (response.data.code === '400') {
@@ -173,12 +173,12 @@
           } else {
             setTimeout(() => {
               this.buttonLoading = false
-              this.$message.error('每日放款数据一键刷新出现错误，请检查网络或联系管理员')
+              this.$message.error('一键刷新出现错误，请检查网络或联系管理员')
             }, 1000)
           }
         }).catch(() => {
           this.buttonLoading = false
-          this.$message.error('每日放款数据一键刷新出现错误，请检查网络或联系管理员')
+          this.$message.error('一键刷新出现错误，请检查网络或联系管理员')
         })
       }
     }

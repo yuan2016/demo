@@ -61,6 +61,7 @@
             <el-menu-item index="dailyRepaymentAmountData"><i class="el-icon-star-on"></i>每日还款金额数据</el-menu-item>
             <el-menu-item index="overdueRepaymentStatistics"><i class="el-icon-star-on"></i>还款逾期统计</el-menu-item>
             <el-menu-item index="fundAnalysis"><i class="el-icon-star-on"></i>资金分析</el-menu-item>
+            <el-menu-item index="fundAnalysisProduct"><i class="el-icon-star-on"></i>资金分析(分产品)</el-menu-item>
             <el-menu-item index="collectionManagement"><i class="el-icon-star-on"></i>催收管理</el-menu-item>
           </el-submenu>
           <el-submenu index="5-2">
@@ -69,7 +70,7 @@
           </el-submenu>
         </el-submenu>
         <el-submenu index="6">
-          <template slot="title"><i class="elextra-icon-loan"></i>财务分析</template>
+          <template slot="title"><i class="elextra-icon-finance"></i>财务分析</template>
           <el-menu-item index="repaymentMinutia"><i class="el-icon-star-on"></i>还款明细表</el-menu-item>
           <el-menu-item index="reconciliationAnalysis"><i class="el-icon-star-on"></i>对账分析表</el-menu-item>
           <el-menu-item index="reportStatistics"><i class="el-icon-star-on"></i>还款日报表</el-menu-item>
@@ -81,6 +82,7 @@
           <el-menu-item index="promotionChannelStatistics"><i class="el-icon-star-on"></i>推广统计(渠道)</el-menu-item>
           <el-menu-item index="promotionRegionStatistics"><i class="el-icon-star-on"></i>推广统计(地区)</el-menu-item>
           <el-menu-item index="channelStatisticsSummary"><i class="el-icon-star-on"></i>渠道统计汇总</el-menu-item>
+          <el-menu-item index="registrationStatisticsReport"><i class="el-icon-star-on"></i>注册量统计报表</el-menu-item>
         </el-submenu>
       </el-menu>
     </div>
@@ -155,9 +157,9 @@
           .toggle
             position: absolute
             top: 5px
-            right: -7px
+            right: -10px
             padding: 15px 15px 15px 30px
-            font-size: 15px
+            font-size: 20px
     .mainContainer
       min-height: 100%
       margin-left: 230px
@@ -193,4 +195,11 @@
     right: 1px
     font-size: 16px
     margin-right: 8px
+
+  .elextra-icon-finance
+    position: relative
+    top: 2px
+    right: 3px
+    font-size: 19px
+    margin-right: 5px
 </style>

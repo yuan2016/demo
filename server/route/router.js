@@ -41,6 +41,7 @@ let installmentPromotionStatistics21 = require('../controller/dataAnalysis/finan
 let dailyLendingData = require('../controller/dataAnalysis/financialData/dailyLendingData/dailyLendingData')
 let overdueRepaymentStatistics = require('../controller/dataAnalysis/financialData/overdueRepaymentStatistics/overdueRepaymentStatistics')
 let fundAnalysis = require('../controller/dataAnalysis/financialData/fundAnalysis/fundAnalysis')
+let fundAnalysisProduct = require('../controller/dataAnalysis/financialData/fundAnalysisProduct/fundAnalysisProduct')
 let collectionManagement = require('../controller/dataAnalysis/financialData/collectionManagement/collectionManagement')
 let platformData = require('../controller/dataAnalysis/dataReport/platformData/platformData')
 //财务分析
@@ -176,6 +177,12 @@ router.post(api.dailyLendingDataRefresh, dailyLendingData.refreshData)
 router.post(api.fundAnalysisCount, fundAnalysis.getCount)
 router.post(api.fundAnalysis, fundAnalysis.fetchAll)
 router.post(api.fundAnalysisRefresh, fundAnalysis.refreshData)
+
+// 资金分析（产品）
+router.post(api.fundAnalysisProductCount, fundAnalysisProduct.getCount)
+router.post(api.fundAnalysisProduct, fundAnalysisProduct.fetchAll)
+router.post(api.fundAnalysisProductRefresh, fundAnalysisProduct.refreshData)
+
 // 催收管理
 router.post(api.collectionManagementCount, collectionManagement.getCount)
 router.post(api.collectionManagement, collectionManagement.fetchAll)

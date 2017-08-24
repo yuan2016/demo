@@ -82,7 +82,7 @@
     },
     created () {
       this.loading = true
-      this.height = parseInt(getHeight()) + 10
+      this.height = parseInt(getHeight()) + 60
       this.getData()
     },
     methods: {
@@ -128,27 +128,24 @@
     updated () {
       if ($('.el-table__row').length > 0) {
         let clientWidth = document.documentElement.clientWidth
-        $('.el-table__header>thead>tr>th:eq(8)>div.cell').on('mouseover', function (event) {
-          let x = clientWidth - event.clientX
-          let y = event.clientY - 50
-          $('.pop1').css('display', 'block').css('top', y).css('right', x)
-        }).on('mouseout', function () {
-          $('.pop1').css('display', 'none')
-        })
-        $('.el-table__header>thead>tr>th:eq(13)>div.cell').on('mouseover', function () {
-          let x = clientWidth - event.clientX
-          let y = event.clientY - 50
-          $('.pop2').css('display', 'block').css('top', y).css('right', x)
-        }).on('mouseout', function () {
-          $('.pop2').css('display', 'none')
-        })
-        $('.el-table__header>thead>tr>th:eq(17)>div.cell').on('mouseover', function () {
-          let x = clientWidth - event.clientX
-          let y = event.clientY - 50
-          $('.pop3').css('display', 'block').css('top', y).css('right', x)
-        }).on('mouseout', function () {
-          $('.pop3').css('display', 'none')
-        })
+        let pops = [8, 13, 17]
+        let info0 = $('<i class="elextra-icon-info"></i>')
+        let info1 = $('<i class="elextra-icon-info"></i>')
+        let info2 = $('<i class="elextra-icon-info"></i>')
+        let infos = [info0, info1, info2]
+        for (let i = 0; i < pops.length; i++) {
+          $('.el-table__header>thead>tr>th:eq(' + pops[i] + ')').css('position', 'relative').append(infos[i])
+        }
+        let popName = [$('.pop1'), $('.pop2'), $('.pop3')]
+        for (let i = 0; i < pops.length; i++) {
+          $('.el-table__header>thead>tr>th:eq(' + pops[i] + ')>i').on('mouseover', function (event) {
+            let x = clientWidth - event.clientX
+            let y = event.clientY - 50
+            popName[i].css('display', 'block').css('top', y).css('right', x)
+          }).on('mouseout', function () {
+            popName[i].css('display', 'none')
+          })
+        }
         let iconIndex = this.iconIndex
         let backcolor1 = this.backcolor1
         let backcolor2 = this.backcolor2
@@ -236,7 +233,7 @@
       border-radius: 5px
       font-size: 12px
       background-color: #fff
-      box-shadow : 5px 5px 5px #999
+      box-shadow: 5px 5px 5px #999
     .pop2
       display: none
       position: absolute
@@ -245,7 +242,7 @@
       border-radius: 5px
       font-size: 12px
       background-color: #fff
-      box-shadow : 5px 5px 5px #999
+      box-shadow: 5px 5px 5px #999
     .pop3
       display: none
       position: absolute
@@ -254,17 +251,17 @@
       border-radius: 5px
       font-size: 12px
       background-color: #fff
-      box-shadow : 5px 5px 5px #999
+      box-shadow: 5px 5px 5px #999
 
     .popTop
       padding-bottom: 5px
 
-  /*.loanThroughRateAllTable*/
-    /*.el-table__row:nth-child(1), .el-table__row:nth-child(26), .el-table__row:nth-child(51), .el-table__row:nth-child(52), .el-table__row:nth-child(73), .el-table__row:nth-child(74), .el-table__row:nth-child(75), .el-table__row:nth-child(98), .el-table__row:nth-child(97), .el-table__row:nth-child(96), .el-table__row:nth-child(120), .el-table__row:nth-child(121), .el-table__row:nth-child(119), .el-table__row:nth-child(143), .el-table__row:nth-child(144), .el-table__row:nth-child(166), .el-table__row:nth-child(167), .el-table__row:nth-child(189), .el-table__row:nth-child(188), .el-table__row:nth-child(190), .el-table__row:nth-child(212), .el-table__row:nth-child(211), .el-table__row:nth-child(213), .el-table__row:nth-child(234), .el-table__row:nth-child(235), .el-table__row:nth-child(236), .el-table__row:nth-child(257), .el-table__row:nth-child(258), .el-table__row:nth-child(259), .el-table__row:nth-child(280), .el-table__row:nth-child(281), .el-table__row:nth-child(282), .el-table__row:nth-child(303), .el-table__row:nth-child(304), .el-table__row:nth-child(305), .el-table__row:nth-child(327), .el-table__row:nth-child(328), .el-table__row:nth-child(326), .el-table__row:nth-child(666), .el-table__row:nth-child(666), .el-table__row:nth-child(666)*/
-      /*td:nth-of-type(1)*/
-        /*div*/
-          /*background-color: #ADD8E6*/
-          /*font-weight: bold*/
+    .elextra-icon-info
+      position: absolute
+      top: 9px
+      right: -7px
+      font-size: 20px
+      color: rgb(102, 102, 102)
 
   .loanThroughRateAllInfo
     padding-top: 5px
