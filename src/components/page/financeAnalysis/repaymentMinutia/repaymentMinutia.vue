@@ -1,5 +1,5 @@
 <template>
-  <div class="repaymentMinutia">
+  <div class="repaymentMinutia" v-loading.body="loading" element-loading-text="拼命加载中">
     <banner></banner>
     <div class="date-filter">
       <span class="managerFront">姓名：</span>
@@ -26,7 +26,7 @@
         <a :href="mosaicLink" class="repaymentMinutiaExcel">导出excel</a>
       </el-button>
     </div>
-    <el-table v-loading.body="loading" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border stripe
+    <el-table :data="fundData" highlight-current-row border stripe
               style="width: 100%;overflow: auto" :height="height">
       <el-table-column property="user_id" label="用户ID"></el-table-column>
       <el-table-column property="user_name" label="借款人姓名"></el-table-column>
@@ -109,6 +109,15 @@
         }, {
           value: '拉卡拉主动还款',
           label: '拉卡拉主动还款'
+        }, {
+          value: '拉卡拉主动付款',
+          label: '拉卡拉主动付款'
+        }, {
+          value: '拉卡拉主动还款',
+          label: '拉卡拉主动还款'
+        }, {
+          value: '拉卡拉代扣服务费',
+          label: '拉卡拉代扣服务费'
         }],
         offset: 0,
         limit: 20,

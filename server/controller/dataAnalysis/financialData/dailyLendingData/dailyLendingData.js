@@ -90,6 +90,12 @@ function formatData (rows) {
     if (row.olduser_loan_rate) {
       row.olduser_loan_rate = (row.olduser_loan_rate * 100).toFixed(2) + '%'
     }
+    if (row.accunewuser_loan_rate) {
+      row.accunewuser_loan_rate = (row.accunewuser_loan_rate * 100).toFixed(2) + '%'
+    }
+    if (row.accuolduser_loan_rate) {
+      row.accuolduser_loan_rate = (row.accuolduser_loan_rate * 100).toFixed(2) + '%'
+    }
     return row
   })
 }

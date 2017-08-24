@@ -64,194 +64,191 @@ const registrationStatisticsReport = r => require.ensure([], () => r(require('..
 
 Vue.use(Router)
 
-export default [{
-  path: '/',
-  component: App,
-  children: [{path: '', redirect: '/login'},
-    {path: '/login', component: login},
-    {
-      path: '/home',
-      component: home,
-      children: [{path: '', redirect: '/main'}, {
-        path: '/main',
-        component: main,
-        meta: []
-      }, {
-        path: '/404',
-        component: error,
-        meta: []
-      }, {
-        path: '/passwordModify',
-        component: passwordModify,
-        meta: ['修改密码']
-      }, {
-        path: '/userList',
-        component: userList,
-        meta: ['用户信息管理', '用户列表']
-      }, {
-        path: '/userAddressBook',
-        component: userAddressBook,
-        meta: ['用户信息管理', '用户通讯录']
-      }, {
-        path: '/bankCardsList',
-        component: bankCardsList,
-        meta: ['用户信息管理', '银行卡列表']
-      }, {
-        path: '/userNameAuthenticationList',
-        component: userNameAuthenticationList,
-        meta: ['用户信息管理', '用户实名认证列表']
-      }, {
-        path: '/userAuthenticationList',
-        component: userAuthenticationList,
-        meta: ['用户信息管理', '用户认证列表']
-      }, {
-        path: '/loanThroughRate',
-        component: loanThroughRate,
-        meta: ['RMAB', '借款通过率']
-      }, {
-        path: '/loanThroughRateAll',
-        component: loanThroughRateAll,
-        meta: ['RMAB', '借款通过率']
-      }, {
-        path: '/loanOverdueRecallRate',
-        component: loanOverdueRecallRate,
-        meta: ['RMAB', '借款逾期催回率']
-      }, {
-        path: '/loanApplicationsList',
-        component: loanApplicationsList,
-        meta: ['借款管理', '借款申请列表']
-      }, {
-        path: '/loanAuditList',
-        component: loanAuditList,
-        meta: ['借款管理', '放款审核列表']
-      }, {
-        path: '/raiseQuotaRecord',
-        component: raiseQuotaRecord,
-        meta: ['借款管理', '提额记录表']
-      }, {
-        path: '/reconciliationFunction',
-        component: reconciliationFunction,
-        meta: ['借款管理', '对账功能']
-      }, {
-        path: '/assetInformation',
-        component: assetInformation,
-        meta: ['借款管理', '资产信息-招财猫']
-      }, {
-        path: '/waitingForReturnList',
-        component: waitingForReturnList,
-        meta: ['还款管理', '还款列表', '待还列表']
-      }, {
-        path: '/returnedList',
-        component: returnedList,
-        meta: ['还款管理', '还款列表', '已还列表']
-      }, {
-        path: '/repaymentReconciliation',
-        component: repaymentReconciliation,
-        meta: ['还款管理', '对账列表', '还款对账']
-      }, {
-        path: '/renewalReconciliation',
-        component: renewalReconciliation,
-        meta: ['还款管理', '对账列表', '续期对账']
-      }, {
-        path: '/repaymentDetails',
-        component: repaymentDetails,
-        meta: ['还款管理', '退款列表', '还款详情']
-      }, {
-        path: '/renewalParticulars',
-        component: renewalParticulars,
-        meta: ['还款管理', '退款列表', '续期详情']
-      }, {
-        path: '/rebackedList',
-        component: rebackedList,
-        meta: ['还款管理', '退款列表', '已退列表']
-      }, {
-        path: '/renewalsList',
-        component: renewalsList,
-        meta: ['还款管理', '续期管理', '续期列表']
-      }, {
-        path: '/dailyLendingData',
-        component: dailyLendingData,
-        meta: ['数据分析', '每日放款数据']
-      }, {
-        path: '/dailyRepaymentUnitData',
-        component: dailyRepaymentUnitData,
-        meta: ['数据分析', '财务数据', '每日还款单位数据']
-      }, {
-        path: '/daysStageStatistics',
-        component: daysStageStatistics,
-        meta: ['数据分析', '财务数据', '21天分期统计']
-      }, {
-        path: '/daysStageStatistics90',
-        component: daysStageStatistics90,
-        meta: ['数据分析', '财务数据', '90天分期统计']
-      }, {
-        path: '/installmentPromotionStatistics',
-        component: installmentPromotionStatistics,
-        meta: ['数据分析', '财务数据', '21天分期提额统计']
-      }, {
-        path: '/dailyRepaymentAmountData',
-        component: dailyRepaymentAmountData,
-        meta: ['数据分析', '财务数据', '每日还款金额数据']
-      }, {
-        path: '/overdueRepaymentStatistics',
-        component: overdueRepaymentStatistics,
-        meta: ['数据分析', '财务数据', '还款逾期统计']
-      }, {
-        path: '/fundAnalysis',
-        component: fundAnalysis,
-        meta: ['数据分析', '财务数据', '资金分析']
-      }, {
-        path: '/fundAnalysisProduct',
-        component: fundAnalysisProduct,
-        meta: ['数据分析', '财务数据', '资金分析(分产品)']
-      }, {
-        path: '/collectionManagement',
-        component: collectionManagement,
-        meta: ['数据分析', '财务数据', '催收管理']
-      }, {
-        path: '/platformData',
-        component: platformData,
-        meta: ['数据分析', '数据报表', '平台数据']
-      }, {
-        path: '/reconciliationAnalysis',
-        component: reconciliationAnalysis,
-        meta: ['财务分析', '对账分析']
-      }, {
-        path: '/repaymentMinutia',
-        component: repaymentMinutia,
-        meta: ['财务分析', '还款明细']
-      }, {
-        path: '/reportStatistics',
-        component: reportStatistics,
-        meta: ['财务分析', '对账分析']
-      }, {
-        path: '/promotionChannel',
-        component: promotionChannel,
-        meta: ['推广管理', '推广渠道']
-      }, {
-        path: '/promoterManagement',
-        component: promoterManagement,
-        meta: ['推广管理', '推广员管理']
-      }, {
-        path: '/promotionChannelStatistics',
-        component: promotionChannelStatistics,
-        meta: ['推广管理', '推广统计(渠道)']
-      }, {
-        path: '/promotionRegionStatistics',
-        component: promotionRegionStatistics,
-        meta: ['推广管理', '推广统计(地区)']
-      }, {
-        path: '/channelStatisticsSummary',
-        component: channelStatisticsSummary,
-        meta: ['推广管理', '渠道统计汇总']
-      }, {
-        path: '/registrationStatisticsReport',
-        component: registrationStatisticsReport,
-        meta: ['推广管理', '注册量统计报表']
-      }]
+export default [
+  {path: '/', redirect: '/login'},
+  {path: '/login', component: login},
+  {
+    path: '/home',
+    component: home,
+    children: [{path: '', redirect: '/main'}, {
+      path: '/main',
+      component: main,
+      meta: []
+    }, {
+      path: '/404',
+      component: error,
+      meta: []
+    }, {
+      path: '/passwordModify',
+      component: passwordModify,
+      meta: ['修改密码']
+    }, {
+      path: '/userList',
+      component: userList,
+      meta: ['用户信息管理', '用户列表']
+    }, {
+      path: '/userAddressBook',
+      component: userAddressBook,
+      meta: ['用户信息管理', '用户通讯录']
+    }, {
+      path: '/bankCardsList',
+      component: bankCardsList,
+      meta: ['用户信息管理', '银行卡列表']
+    }, {
+      path: '/userNameAuthenticationList',
+      component: userNameAuthenticationList,
+      meta: ['用户信息管理', '用户实名认证列表']
+    }, {
+      path: '/userAuthenticationList',
+      component: userAuthenticationList,
+      meta: ['用户信息管理', '用户认证列表']
+    }, {
+      path: '/loanThroughRate',
+      component: loanThroughRate,
+      meta: ['RMAB', '借款通过率']
+    }, {
+      path: '/loanThroughRateAll',
+      component: loanThroughRateAll,
+      meta: ['RMAB', '借款通过率']
+    }, {
+      path: '/loanOverdueRecallRate',
+      component: loanOverdueRecallRate,
+      meta: ['RMAB', '借款逾期催回率']
+    }, {
+      path: '/loanApplicationsList',
+      component: loanApplicationsList,
+      meta: ['借款管理', '借款申请列表']
+    }, {
+      path: '/loanAuditList',
+      component: loanAuditList,
+      meta: ['借款管理', '放款审核列表']
+    }, {
+      path: '/raiseQuotaRecord',
+      component: raiseQuotaRecord,
+      meta: ['借款管理', '提额记录表']
+    }, {
+      path: '/reconciliationFunction',
+      component: reconciliationFunction,
+      meta: ['借款管理', '对账功能']
+    }, {
+      path: '/assetInformation',
+      component: assetInformation,
+      meta: ['借款管理', '资产信息-招财猫']
+    }, {
+      path: '/waitingForReturnList',
+      component: waitingForReturnList,
+      meta: ['还款管理', '还款列表', '待还列表']
+    }, {
+      path: '/returnedList',
+      component: returnedList,
+      meta: ['还款管理', '还款列表', '已还列表']
+    }, {
+      path: '/repaymentReconciliation',
+      component: repaymentReconciliation,
+      meta: ['还款管理', '对账列表', '还款对账']
+    }, {
+      path: '/renewalReconciliation',
+      component: renewalReconciliation,
+      meta: ['还款管理', '对账列表', '续期对账']
+    }, {
+      path: '/repaymentDetails',
+      component: repaymentDetails,
+      meta: ['还款管理', '退款列表', '还款详情']
+    }, {
+      path: '/renewalParticulars',
+      component: renewalParticulars,
+      meta: ['还款管理', '退款列表', '续期详情']
+    }, {
+      path: '/rebackedList',
+      component: rebackedList,
+      meta: ['还款管理', '退款列表', '已退列表']
+    }, {
+      path: '/renewalsList',
+      component: renewalsList,
+      meta: ['还款管理', '续期管理', '续期列表']
+    }, {
+      path: '/dailyLendingData',
+      component: dailyLendingData,
+      meta: ['数据分析', '每日放款数据']
+    }, {
+      path: '/dailyRepaymentUnitData',
+      component: dailyRepaymentUnitData,
+      meta: ['数据分析', '财务数据', '每日还款单位数据']
+    }, {
+      path: '/daysStageStatistics',
+      component: daysStageStatistics,
+      meta: ['数据分析', '财务数据', '21天分期统计']
+    }, {
+      path: '/daysStageStatistics90',
+      component: daysStageStatistics90,
+      meta: ['数据分析', '财务数据', '90天分期统计']
+    }, {
+      path: '/installmentPromotionStatistics',
+      component: installmentPromotionStatistics,
+      meta: ['数据分析', '财务数据', '21天分期提额统计']
+    }, {
+      path: '/dailyRepaymentAmountData',
+      component: dailyRepaymentAmountData,
+      meta: ['数据分析', '财务数据', '每日还款金额数据']
+    }, {
+      path: '/overdueRepaymentStatistics',
+      component: overdueRepaymentStatistics,
+      meta: ['数据分析', '财务数据', '还款逾期统计']
+    }, {
+      path: '/fundAnalysis',
+      component: fundAnalysis,
+      meta: ['数据分析', '财务数据', '资金分析']
+    }, {
+      path: '/fundAnalysisProduct',
+      component: fundAnalysisProduct,
+      meta: ['数据分析', '财务数据', '资金分析(分产品)']
+    }, {
+      path: '/collectionManagement',
+      component: collectionManagement,
+      meta: ['数据分析', '财务数据', '催收管理']
+    }, {
+      path: '/platformData',
+      component: platformData,
+      meta: ['数据分析', '数据报表', '平台数据']
+    }, {
+      path: '/reconciliationAnalysis',
+      component: reconciliationAnalysis,
+      meta: ['财务分析', '对账分析']
+    }, {
+      path: '/repaymentMinutia',
+      component: repaymentMinutia,
+      meta: ['财务分析', '还款明细']
+    }, {
+      path: '/reportStatistics',
+      component: reportStatistics,
+      meta: ['财务分析', '对账分析']
+    }, {
+      path: '/promotionChannel',
+      component: promotionChannel,
+      meta: ['推广管理', '推广渠道']
+    }, {
+      path: '/promoterManagement',
+      component: promoterManagement,
+      meta: ['推广管理', '推广员管理']
+    }, {
+      path: '/promotionChannelStatistics',
+      component: promotionChannelStatistics,
+      meta: ['推广管理', '推广统计(渠道)']
+    }, {
+      path: '/promotionRegionStatistics',
+      component: promotionRegionStatistics,
+      meta: ['推广管理', '推广统计(地区)']
+    }, {
+      path: '/channelStatisticsSummary',
+      component: channelStatisticsSummary,
+      meta: ['推广管理', '渠道统计汇总']
+    }, {
+      path: '/registrationStatisticsReport',
+      component: registrationStatisticsReport,
+      meta: ['推广管理', '注册量统计报表']
     }]
-}, {
-  path: '*',
-  component: error
-}]
+  }, {
+    path: '*',
+    component: error
+  }]
 

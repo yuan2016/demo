@@ -1,5 +1,5 @@
 <template>
-  <div class="reconciliationAnalysis">
+  <div class="reconciliationAnalysis" v-loading.body="loading" element-loading-text="拼命加载中">
     <banner></banner>
     <div class="date-filter">
       <span class="managerFront">日期：</span>
@@ -20,7 +20,7 @@
         <a :href="mosaicLink" class="reconciliationAnalysisExcel">导出excel</a>
       </el-button>
     </div>
-    <el-table v-loading.body="loading" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border stripe
+    <el-table :data="fundData" highlight-current-row border stripe
               style="width: 100%;overflow: auto" :height="height">
       <el-table-column property="d_date" sortable label="日期" width="80px"></el-table-column>
       <el-table-column label="富友账户">
@@ -40,6 +40,11 @@
       </el-table-column>
       <el-table-column label="益码通支付宝账户">
         <el-table-column property="AMT_YMT" label="后台数据(元)"></el-table-column>
+        <el-table-column property="" label="第三方数据"></el-table-column>
+        <el-table-column property="" label="差异（后台-第三方）" width="120px"></el-table-column>
+      </el-table-column>
+      <el-table-column label="拉卡拉">
+        <el-table-column property="AMT_LKL" label="后台数据(元)"></el-table-column>
         <el-table-column property="" label="第三方数据"></el-table-column>
         <el-table-column property="" label="差异（后台-第三方）" width="120px"></el-table-column>
       </el-table-column>
