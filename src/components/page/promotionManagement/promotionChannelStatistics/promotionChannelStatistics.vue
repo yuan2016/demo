@@ -3,16 +3,27 @@
     <banner></banner>
     <div class="date-filter">
       <span class="managerFront">渠道商名称：</span>
-      <el-input size="small" type="text" placeholder="请输入内容" class="managerText" v-model.trim="channel_trader_name"></el-input>
+      <el-select v-model.trim="channel_trader_name" filterable clearable size="small" placeholder="不限"
+                 class="promotionChannelSelect">
+        <el-option
+          v-for="item in options"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value">
+        </el-option>
+      </el-select>
       <span class="managerFront">日期：</span>
       <el-date-picker v-model.trim="startTime" type="date" size="small" placeholder="从" class="userListTimeSelect"></el-date-picker>
       <el-date-picker v-model.trim="endTime" type="date" size="small" placeholder="到" class="userListTimeSelect"></el-date-picker>
       <el-button type="primary" size="small" class="userButton" @click.prevent.stop="search">搜索</el-button>
       <el-button type="primary" size="small" :loading="buttonLoading" @click.prevent.stop="refreshData">一键刷新</el-button>
+      <el-button type="primary" size="small" class="userButton">
+        <a :href="mosaicLink" class="promotionChannelStatisticsExcel">导出excel</a>
+      </el-button>
     </div>
     <el-table :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto" :height="height">
-      <el-table-column property="channel_trader_name" fixed label="渠道商名称"></el-table-column>
-      <el-table-column property="d_date" sortable label="日期"></el-table-column>
+      <el-table-column property="d_date" sortable fixed label="日期"></el-table-column>
+      <el-table-column property="channel_trader_name" label="渠道商名称"></el-table-column>
       <el-table-column property="settle_method" label="结算方式" width="170px"></el-table-column>
       <el-table-column property="effe_cust_acqu_cost" label="有效获客成本(元)" width="100px"></el-table-column>
       <el-table-column property="day_consumption" label="当日消耗(元)"></el-table-column>
@@ -28,7 +39,9 @@
       <el-table-column property="nuser_loan_amount" label="新用户放款金额(元)" width="120px"></el-table-column>
       <el-table-column property="ouser_adoption_rate" label="老用户通过率"></el-table-column>
       <el-table-column property="ouser_loan_amount" label="老用户放款金额(元)" width="120px"></el-table-column>
+      <el-table-column property="DUE_AMOUNT" label="到期金额(元)" width="100"></el-table-column>
       <el-table-column property="overdue_num" label="逾期人数"></el-table-column>
+      <el-table-column property="OVERDUE_AMOUNT" label="逾期金额(元)" width="100"></el-table-column>
       <el-table-column property="create_time" sortable label="更新时间" width="130px"></el-table-column>
     </el-table>
     <div style="text-align: center;margin-top: 10px;" v-show="fundData.length!=0">
@@ -56,6 +69,7 @@
         channel_trader_name: '',
         fundData: [],
         loading: false,
+        options: [],
         pageContent: 'sizes',
         currentRow: null,
         offset: 0,
@@ -73,8 +87,17 @@
     },
     created () {
       this.loading = true
+      this.getSelectOptions()
       this.getDataInit()
       this.height = getHeight()
+    },
+    computed: {
+      mosaicLink () {
+        let channelTraderName = this.channel_trader_name
+        let startTime = this.startTime || '1991-07-22'
+        let endTime = this.endTime || getNowFormatDate()
+        return 'api/promotionChannelStatistics/excel?channel_trader_name=' + channelTraderName + '&startTime=' + startTime + '&endTime=' + endTime
+      }
     },
     methods: {
       //每页显示数据量变更
@@ -135,6 +158,11 @@
           endTime: this.endTime || getNowFormatDate()
         })
       },
+      getSelectOptions () {
+        this.axios.post('/api/promotionChannelStatistics/getSelectOptions').then((response) => {
+          this.options = response.data
+        })
+      },
       search () {
         this.loading = true
         if (this.startTime !== '') {
@@ -191,10 +219,10 @@
       width: 180px
     .userButton
       margin-left: 5px
-    .userListTimeSelect
-      width: 120px
-    .userListSelect
-      width: 80px
+    .promotionChannelSelect
+      width: 150px
+    .promotionChannelStatisticsExcel
+      color :#fff
 
 
   .el-table .cell, .el-table th > div

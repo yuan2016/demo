@@ -58,7 +58,7 @@
   import { getHeight } from '../../../../common/js/storage'
   import $ from 'jquery'
 
-  const defaultBlank = ['', '指标名称', 'D1', 'D2', 'D3', 'D4', 'D5', 'D6', 'D7', 'D8', 'D9', 'D10', 'DOD', 'W1', 'W2', 'W3', 'W4', 'WOW', 'M1', 'M2', 'M3', 'MOM']
+  const defaultBlank = ['指标名称', 'D1', 'D2', 'D3', 'D4', 'D5', 'D6', 'D7', 'D8', 'D9', 'D10', 'DOD', 'W1', 'W2', 'W3', 'W4', 'WOW', 'M1', 'M2', 'M3', 'MOM']
 
   export default {
     data () {
@@ -130,29 +130,31 @@
       }
     },
     updated () {
-      let backcolor = [0, 1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34, 37]
-      let pops = [11, 16, 20]
-      let info0 = $('<i class="elextra-icon-info"></i>')
-      let info1 = $('<i class="elextra-icon-info"></i>')
-      let info2 = $('<i class="elextra-icon-info"></i>')
-      let infos = [info0, info1, info2]
-      for (let i = 0; i < pops.length; i++) {
-        $('.el-table__header>thead>tr>th:eq(' + pops[i] + ')').css('position', 'relative').append(infos[i])
-      }
-      let popName = [$('.pop1'), $('.pop2'), $('.pop3')]
       if ($('.el-table__row').length > 0) {
-        let clientWidth = document.documentElement.clientWidth
+        let backcolor = [0, 1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34, 37]
+        let pops = [11, 16, 20]
+        let info0 = $('<i class="elextra-icon-info"></i>')
+        let info1 = $('<i class="elextra-icon-info"></i>')
+        let info2 = $('<i class="elextra-icon-info"></i>')
+        let infos = [info0, info1, info2]
         for (let i = 0; i < pops.length; i++) {
-          $('.el-table__header>thead>tr>th:eq(' + pops[i] + ')>i').on('mouseover', function (event) {
-            let x = clientWidth - event.clientX
-            let y = event.clientY - 50
-            popName[i].css('display', 'block').css('top', y).css('right', x)
-          }).on('mouseout', function () {
-            popName[i].css('display', 'none')
-          })
+          $('.el-table__header>thead>tr>th:eq(' + pops[i] + ')').css('position', 'relative').append(infos[i])
         }
-        for (let i of backcolor) {
-          $('.el-table__row:eq(' + i + ')>td:eq(0)').css('background-color', '#93c2d2')
+        let popName = [$('.pop1'), $('.pop2'), $('.pop3')]
+        if ($('.el-table__row').length > 0) {
+          let clientWidth = document.documentElement.clientWidth
+          for (let i = 0; i < pops.length; i++) {
+            $('.el-table__header>thead>tr>th:eq(' + pops[i] + ')>i').on('mouseover', function (event) {
+              let x = clientWidth - event.clientX
+              let y = event.clientY - 50
+              popName[i].css('display', 'block').css('top', y).css('right', x)
+            }).on('mouseout', function () {
+              popName[i].css('display', 'none')
+            })
+          }
+          for (let i of backcolor) {
+            $('.el-table__row:eq(' + i + ')>td:eq(0)').css('background-color', '#93c2d2')
+          }
         }
       }
     }
@@ -210,8 +212,14 @@
       font-size: 20px
       color: rgb(102, 102, 102)
 
-    .loanOverdueRecallRateInfo
-      padding-top: 5px
-      font-size: 12px
-      color: red
+  .el-table .cell, .el-table th > div
+    padding-left: 0
+    padding-right: 0
+    text-align: center
+    font-size: 12px
+
+  .el-table th > .cell
+    text-align: center
+    font-weight: bold
+
 </style>

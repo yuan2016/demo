@@ -19,11 +19,17 @@ function formatData (rows) {
 module.exports = {
   //用户列表数据
   fetchAll (req, res) {
+    let order
     let params = req.body
     let queries = analysis(params)
     let add = complexMosaic(params, 'status', '2')
-    let query = sql.userInformationManagement.userList.selectAllFront + queries.slice(0, 4).join(' and ') + add + sql.userInformationManagement.userList.selectAllBack
-    console.log(query)
+    console.log(params)
+    if (params.order) {
+      order = params.order
+    } else {
+      order = sql.userInformationManagement.userList.order
+    }
+    let query = sql.userInformationManagement.userList.selectAllFront + queries.slice(0, 4).join(' and ') + add + order + sql.userInformationManagement.userList.limit
     func.connPool2(query, [tableName.userList, params.startTime, params.endTime, params.offset, params.limit], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
@@ -48,7 +54,6 @@ module.exports = {
     let queries = analysis(params)
     let add = complexMosaic(params, 'status', '2')
     let query = sql.userInformationManagement.userList.getCount + queries.slice(0, 5).join(' and ') + add
-    console.log(query)
     func.connPool2(query, [tableName.userList, params.startTime, params.endTime], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)

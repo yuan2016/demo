@@ -5,7 +5,7 @@ let sql = require('../../../../sql/sqlMap')
 let func = require('../../../../sql/func')
 let moment = require('moment')
 let tableName = require('../../../../config/tableName')
-let {analysis, mosaic, formatCurrency} = require('../../../../utils/utils')
+let {analysis, mosaic, formatCurrency, formatInt} = require('../../../../utils/utils')
 
 function formatData (rows) {
   return rows.map(row => {
@@ -20,6 +20,9 @@ function formatData (rows) {
     }
     if (row.renewal_fee) {
       row.renewal_fee = formatCurrency(row.renewal_fee)
+    }
+    if (row.renewal_day) {
+      row.renewal_day = formatInt(row.renewal_day)
     }
     return row
   })

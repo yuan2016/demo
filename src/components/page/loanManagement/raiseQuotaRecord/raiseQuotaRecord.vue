@@ -12,18 +12,18 @@
     </div>
     <el-table :data="fundData" highlight-current-row border stripe
               style="width: 100%;overflow: auto;" :height="height">
-      <el-table-column property="user_id" label="用户ID" width="70px"></el-table-column>
-      <el-table-column property="realname" label="姓名" width="70px"></el-table-column>
-      <el-table-column property="user_phone" label="手机号"></el-table-column>
-      <el-table-column property="new_amount_max" label="提额后总额度(元)" width="130px"></el-table-column>
-      <el-table-column property="add_amount" label="本次提升额度(元)" width="130px"></el-table-column>
+      <el-table-column property="user_id" label="用户ID" width="70"></el-table-column>
+      <el-table-column property="realname" label="姓名" width="70"></el-table-column>
+      <el-table-column property="user_phone" label="手机号" width="100"></el-table-column>
+      <el-table-column property="new_amount_max" label="提额后总额度(元)" width="130"></el-table-column>
+      <el-table-column property="add_amount" label="本次提升额度(元)" width="120"></el-table-column>
       <el-table-column property="repayment_succ_count" label="成功还款次数"></el-table-column>
       <el-table-column property="repayment_norm_count" label="正常还款次数"></el-table-column>
-      <el-table-column property="repayment_succ_amount" label="成功还款金额(元)" width="130px"></el-table-column>
-      <el-table-column property="repayment_norm_amount" label="正常还款金额(元)" width="130px"></el-table-column>
-      <el-table-column property="last_apply_at" sortable label="上次提额时间" width="130px"></el-table-column>
-      <el-table-column property="create_at" sortable label="创建时间" width="130px"></el-table-column>
-      <el-table-column property="updated_at" sortable label="更新时间" width="130px"></el-table-column>
+      <el-table-column property="repayment_succ_amount" label="成功还款金额(元)" width="110"></el-table-column>
+      <el-table-column property="repayment_norm_amount" label="正常还款金额(元)" width="110"></el-table-column>
+      <el-table-column property="last_apply_at" sortable label="上次提额时间" width="120"></el-table-column>
+      <el-table-column property="create_at" sortable label="创建时间" width="130"></el-table-column>
+      <el-table-column property="updated_at" sortable label="更新时间" width="130"></el-table-column>
       <el-table-column property="status" label="状态"></el-table-column>
       <el-table-column property="audit_user" label="操作人"></el-table-column>
       <el-table-column property="remark" label="备注" width="230px"></el-table-column>
@@ -69,7 +69,7 @@
     created () {
       this.loading = true
       this.getDataInit()
-      this.height = getHeight()
+      this.height = parseInt(getHeight()) + 30
     },
     methods: {
       //每页显示数据量变更
@@ -163,9 +163,9 @@
             this.fundData = []
             this.loading = false
             this.$message({
-            message: '数据正在更新，请稍候',
-            type: 'warning'
-          })
+              message: '数据正在更新，请稍候',
+              type: 'warning'
+            })
           })
         }
       }

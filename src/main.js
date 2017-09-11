@@ -8,8 +8,8 @@ import './common/stylus/include.styl'
 import 'element-ui/lib/theme-default/index.css'
 import Axios from 'axios'
 import VueAxios from 'vue-axios'
-import routes from './router/index'
-import { getToken } from './common/js/storage'
+import router from './router'
+import { getToken, getAvailableTable } from './common/js/storage'
 import './config/height'
 import store from './store/'
 
@@ -18,17 +18,30 @@ Vue.use(ElementUI)
 Vue.use(VueAxios, Axios)
 Vue.use(VueRouter)
 
-const router = new VueRouter({
-  routes
-})
-const whiteList = ['/login']// 不重定向白名单
+// permissiom judge
+function hasPermission (roles, permissionRoles) {
+  if (roles.indexOf('admin') >= 0) return true // admin权限 直接通过
+  if (!permissionRoles) return true
+  return roles.some(role => permissionRoles.indexOf(role) >= 0)
+}
 
+const whiteList = ['/login']// 不重定向白名单
 router.beforeEach((to, from, next) => {
-  if (getToken()) {
+  if (getToken()) { // 判断是否有token
     if (to.path === '/login') {
       next({path: '/main'})
     } else {
-      next()
+      if (!store.getters.mark) {
+        const roles = getAvailableTable().split('|')
+        store.dispatch('GenerateRoutes', {roles}).then(() => { // 生成可访问的路由表
+          router.addRoutes(store.getters.addRouters) // 动态添加可访问路由表
+          next(to.path) // hack方法 确保addRoutes已完成
+        }).catch(err => {
+          console.log(err)
+        })
+      } else {
+        next()
+      }
     }
   } else {
     if (whiteList.indexOf(to.path) !== -1) { // 在免登录白名单，直接进入

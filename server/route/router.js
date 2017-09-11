@@ -13,9 +13,12 @@ let bankcardsList = require('../controller/userInformationManagement/bankcardsLi
 let userNameAuthenticationList = require('../controller/userInformationManagement/userNameAuthenticationList/userNameAuthenticationList')
 let userAuthenticationList = require('../controller/userInformationManagement/userAuthenticationList/userAuthenticationList')
 //RMAB
-let loanThroughRate = require('../controller/RMAB/loanThroughRate/loanThroughRate')
-let loanThroughRateAll = require('../controller/RMAB/loanThroughRate/loanThroughRateAll')
-let loanOverdueRecallRate = require('../controller/RMAB/loanOverdueRecallRate/loanOverdueRecallRate')
+let loanThroughRate = require('../controller/RMAB/market/loanThroughRate/loanThroughRate')
+let loanThroughRateAll = require('../controller/RMAB/market/loanThroughRate/loanThroughRateAll')
+let loanOverdueRecallRate = require('../controller/RMAB/collection/loanOverdueRecallRate/loanOverdueRecallRate')
+let userBasePortrait = require('../controller/RMAB/userPortrait/userBasePortrait/userBasePortrait')
+let invitationEvent = require('../controller/RMAB/operate/invitationEvent/invitationEvent')
+let PVUV = require('../controller/promotionManagement/PVUV/PVUV')
 //借款管理
 let loanApplicationsList = require('../controller/loanManagement/loanApplicationsList/loanApplicationsList')
 let loanAuditList = require('../controller/loanManagement/loanAuditList/loanAuditList')
@@ -43,7 +46,9 @@ let overdueRepaymentStatistics = require('../controller/dataAnalysis/financialDa
 let fundAnalysis = require('../controller/dataAnalysis/financialData/fundAnalysis/fundAnalysis')
 let fundAnalysisProduct = require('../controller/dataAnalysis/financialData/fundAnalysisProduct/fundAnalysisProduct')
 let collectionManagement = require('../controller/dataAnalysis/financialData/collectionManagement/collectionManagement')
+let promptAmount = require('../controller/dataAnalysis/financialData/promptAmount/promptAmount')
 let platformData = require('../controller/dataAnalysis/dataReport/platformData/platformData')
+
 //财务分析
 let repaymentMinutia = require('../controller/financeAnalysis/repaymentMinutia/repaymentMinutia')
 let reconciliationAnalysis = require('../controller/financeAnalysis/reconciliationAnalysis/reconciliationAnalysis')
@@ -54,13 +59,16 @@ let promoterManagement = require('../controller/promotionManagement/promoterMana
 let promotionChannelStatistics = require('../controller/promotionManagement/promotionChannelStatistics/promotionChannelStatistics')
 let promotionRegionStatistics = require('../controller/promotionManagement/promotionRegionStatistics/promotionRegionStatistics')
 let channelStatisticsSummary = require('../controller/promotionManagement/channelStatisticsSummary/channelStatisticsSummary')
-
+//权限管理
+//员工信息
+let employeeList = require('../controller/privilegeManage/employeeList/employeeList')
 let api = require('../api')
 
 let router = express.Router()
 
 /*登录验证*/
-router.post(api.login, login.fetchAll)
+router.post(api.login, login.login)
+router.post(api.login, login.getRoles)
 /*首页*/
 router.post(api.main, main.fetchAll)
 /*修改密码*/
@@ -89,6 +97,10 @@ router.post(api.loanThroughRate, loanThroughRate.fetchAll)
 router.post(api.loanThroughRateAll, loanThroughRateAll.fetchAll)
 router.get(api.loanThroughRateExcel, loanThroughRate.getExcelData)
 router.post(api.loanOverdueRecallRate, loanOverdueRecallRate.fetchAll)
+router.post(api.invitationEvent, invitationEvent.fetchAll)
+//用户基础画像
+router.post(api.userBasePortraitCount, userBasePortrait.getCount)
+router.post(api.userBasePortrait, userBasePortrait.fetchAll)
 /*借款管理*/
 // 借款申请列表
 router.post(api.loanApplicationsListCount, loanApplicationsList.getCount)
@@ -168,15 +180,18 @@ router.post(api.installmentPromotionStatistics21Refresh, installmentPromotionSta
 router.post(api.overdueRepaymentStatisticsCount, overdueRepaymentStatistics.getCount)
 router.post(api.overdueRepaymentStatistics, overdueRepaymentStatistics.fetchAll)
 router.post(api.overdueRepaymentStatisticsRefresh, overdueRepaymentStatistics.refreshData)
+router.get(api.overdueRepaymentStatisticsExcel, overdueRepaymentStatistics.getExcelData)
 // 每日放款数据
 router.post(api.dailyLendingDataCount, dailyLendingData.getCount)
 router.post(api.dailyLendingData, dailyLendingData.fetchAll)
 router.post(api.dailyLendingDataRefresh, dailyLendingData.refreshData)
+router.get(api.dailyLendingDataExcel, dailyLendingData.getExcelData)
 
 // 资金分析
 router.post(api.fundAnalysisCount, fundAnalysis.getCount)
 router.post(api.fundAnalysis, fundAnalysis.fetchAll)
 router.post(api.fundAnalysisRefresh, fundAnalysis.refreshData)
+router.get(api.fundAnalysisExcel, fundAnalysis.getExcelData)
 
 // 资金分析（产品）
 router.post(api.fundAnalysisProductCount, fundAnalysisProduct.getCount)
@@ -187,6 +202,10 @@ router.post(api.fundAnalysisProductRefresh, fundAnalysisProduct.refreshData)
 router.post(api.collectionManagementCount, collectionManagement.getCount)
 router.post(api.collectionManagement, collectionManagement.fetchAll)
 router.post(api.collectionManagementRefresh, collectionManagement.refreshData)
+// 在催金额
+router.post(api.promptAmountCount, promptAmount.getCount)
+router.post(api.promptAmount, promptAmount.fetchAll)
+router.post(api.promptAmountRefresh, promptAmount.refreshData)
 // 平台管理
 router.post(api.platformDataCount, platformData.getCount)
 router.post(api.platformData, platformData.fetchAll)
@@ -218,6 +237,8 @@ router.post(api.promoterManagementGetOptions, promoterManagement.getSelectOption
 router.post(api.promotionChannelStatisticsCount, promotionChannelStatistics.getCount)
 router.post(api.promotionChannelStatistics, promotionChannelStatistics.fetchAll)
 router.post(api.promotionChannelStatisticsRefresh, promotionChannelStatistics.refreshData)
+router.post(api.promotionChannelStatisticsGetOptions, promotionChannelStatistics.getSelectOptions)
+router.get(api.promotionChannelStatisticsExcel, promotionChannelStatistics.getExcelData)
 //推广统计(地区)
 router.post(api.promotionRegionStatisticsCount, promotionRegionStatistics.getCount)
 router.post(api.promotionRegionStatistics, promotionRegionStatistics.fetchAll)
@@ -226,4 +247,13 @@ router.post(api.promotionRegionStatisticsRefresh, promotionRegionStatistics.refr
 router.post(api.channelStatisticsSummaryCount, channelStatisticsSummary.getCount)
 router.post(api.channelStatisticsSummary, channelStatisticsSummary.fetchAll)
 router.post(api.channelStatisticsSummaryGetOptions, channelStatisticsSummary.getSelectOptions)
+//PVUV
+router.post(api.PVUVCount, PVUV.getCount)
+router.post(api.PVUV, PVUV.fetchAll)
+router.post(api.PVUVGetOptions, PVUV.getSelectOptions)
+/*权限管理*/
+//员工信息
+router.post(api.employeeList, employeeList.fetchAll)
+router.post(api.employeeListCount, employeeList.getCount)
+router.post(api.employeeListPrivilegeModify, employeeList.privilegeModify)
 module.exports = router

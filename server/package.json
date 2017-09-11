@@ -1,13 +1,17 @@
 {
   "dependencies": {
+    "better-xlsx": "^0.3.8",
     "body-parser": "^1.17.2",
     "child_process": "^1.0.2",
     "express": "^4.15.3",
+    "file-saver": "^1.3.3",
+    "file-stream-rotator": "^0.2.0",
     "jwt-simple": "^0.5.1",
     "moment": "^2.18.1",
+    "morgan": "^1.8.2",
     "mysql": "^2.13.0",
     "node-mysql": "^0.4.2",
     "xlsx": "^0.11.2",
-    "file-saver": "^1.3.3"
+    "xlsx-writestream": "^0.4.0"
   }
 }

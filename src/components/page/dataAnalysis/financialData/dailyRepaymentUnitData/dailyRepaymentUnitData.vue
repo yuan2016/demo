@@ -1,5 +1,5 @@
 <template>
-  <div class="dailyRepaymentUnitData">
+  <div class="dailyRepaymentUnitData" v-loading.body="loading" element-loading-text="拼命加载中">
     <banner></banner>
     <div class="date-filter">
       <span class="managerFront">日期：</span>
@@ -18,7 +18,7 @@
       <el-button type="primary" size="small" @click.prevent.stop="search">搜索</el-button>
       <el-button type="primary" size="small" :loading="buttonLoading" @click.prevent.stop="refreshData">一键刷新</el-button>
     </div>
-    <el-table v-loading.body="loading" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto" :height="height">
+    <el-table :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto" :height="height">
       <el-table-column property="d_date" sortable label="日期"></el-table-column>
       <el-table-column property="overdue_num" label="逾期单数"></el-table-column>
       <el-table-column property="overdue_rate" label="逾期率"></el-table-column>

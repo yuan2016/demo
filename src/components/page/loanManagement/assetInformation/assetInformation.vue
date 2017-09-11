@@ -44,12 +44,12 @@
       <el-table-column property="user_phone" label="手机号"></el-table-column>
       <el-table-column property="customer_type" label="用户类型"></el-table-column>
       <el-table-column property="money_amount" label="借款金额(元)"></el-table-column>
-      <el-table-column property="loan_term" label="借款期限" width="170px"></el-table-column>
-      <el-table-column property="apr" label="服务费利率(万分之一)" width="150px"></el-table-column>
+      <el-table-column property="loan_term" label="借款期限" width="100"></el-table-column>
+      <el-table-column property="apr" label="服务费利率(万分之一)" width="150"></el-table-column>
       <el-table-column property="loan_interests" label="服务费(元)"></el-table-column>
-      <el-table-column property="order_time" sortable label="下单时间"width="130px"></el-table-column>
-      <el-table-column property="loan_time" sortable label="放款时间"width="130px"></el-table-column>
-      <el-table-column property="updated_at" sortable label="更新时间"width="130px"></el-table-column>
+      <el-table-column property="order_time" sortable label="下单时间"width="130"></el-table-column>
+      <el-table-column property="loan_time" sortable label="放款时间"width="130"></el-table-column>
+      <el-table-column property="updated_at" sortable label="更新时间"width="130"></el-table-column>
       <el-table-column property="assets_owned" label="资产所属"></el-table-column>
       <el-table-column property="credit_lv" label="资产类别"></el-table-column>
       <el-table-column property="status" label="状态"></el-table-column>

@@ -5,7 +5,7 @@ let sql = require('../../../sql/sqlMap')
 let func = require('../../../sql/func')
 let moment = require('moment')
 let tableName = require('../../../config/tableName')
-let {analysis, formatCurrency} = require('../../../utils/utils')
+let {analysis, formatCurrency, formatInt} = require('../../../utils/utils')
 
 function formatData (rows) {
   return rows.map(row => {
@@ -32,6 +32,9 @@ function formatData (rows) {
     }
     if (row.apr) {
       row.apr = formatCurrency(row.apr)
+    }
+    if (row.loan_term) {
+      row.loan_term = formatInt(row.loan_term)
     }
     row.child_type = '现金快贷'
     return row

@@ -3,6 +3,7 @@ let path = '/api'
 module.exports = {
   /*登陆验证*/
   login: path + '/login',
+  getRoles: path + 'getRoles',
   /*首页*/
   main: path + '/main',
   /*修改密码*/
@@ -31,6 +32,10 @@ module.exports = {
   loanThroughRateAll: path + '/loanThroughRateAll',
   loanThroughRateExcel: path + '/loanThroughRate/excel',
   loanOverdueRecallRate: path + '/loanOverdueRecallRate',
+  invitationEvent: path + '/invitationEvent',
+  // 用户基础画像
+  userBasePortrait: path + '/userBasePortrait',
+  userBasePortraitCount: path + '/userBasePortrait/count',
   /*借款管理*/
   // 借款申请列表
   loanApplicationsList: path + '/loanApplicationsList',
@@ -91,6 +96,7 @@ module.exports = {
   overdueRepaymentStatistics: path + '/overdueRepaymentStatistics',
   overdueRepaymentStatisticsCount: path + '/overdueRepaymentStatistics/count',
   overdueRepaymentStatisticsRefresh: path + '/overdueRepaymentStatistics/refresh',
+  overdueRepaymentStatisticsExcel: path + '/overdueRepaymentStatistics/excel',
   // 21天分期统计
   daysStageStatistics21: path + '/daysStageStatistics21',
   daysStageStatistics21Count: path + '/daysStageStatistics21/count',
@@ -107,10 +113,12 @@ module.exports = {
   dailyLendingData: path + '/dailyLendingData',
   dailyLendingDataCount: path + '/dailyLendingData/count',
   dailyLendingDataRefresh: path + '/dailyLendingData/refresh',
+  dailyLendingDataExcel: path + '/dailyLendingData/excel',
   // 资金分析
   fundAnalysis: path + '/fundAnalysis',
   fundAnalysisCount: path + '/fundAnalysis/count',
   fundAnalysisRefresh: path + '/fundAnalysis/refresh',
+  fundAnalysisExcel: path + '/fundAnalysis/excel',
   // 资金分析(产品)
   fundAnalysisProduct: path + '/fundAnalysisProduct',
   fundAnalysisProductCount: path + '/fundAnalysisProduct/count',
@@ -123,6 +131,10 @@ module.exports = {
   platformData: path + '/platformData',
   platformDataCount: path + '/platformData/count',
   platformDataRefresh: path + '/platformData/refresh',
+  //在催金额
+  promptAmount: path + '/promptAmount',
+  promptAmountCount: path + '/promptAmount/count',
+  promptAmountRefresh: path + '/promptAmount/refresh',
   /*财务分析*/
   // 还款明细表
   repaymentMinutia: path + '/repaymentMinutia',
@@ -148,6 +160,8 @@ module.exports = {
   promotionChannelStatistics: path + '/promotionChannelStatistics',
   promotionChannelStatisticsCount: path + '/promotionChannelStatistics/count',
   promotionChannelStatisticsRefresh: path + '/promotionChannelStatistics/refresh',
+  promotionChannelStatisticsGetOptions: path + '/promotionChannelStatistics/getSelectOptions',
+  promotionChannelStatisticsExcel: path + '/promotionChannelStatistics/excel',
   // 推广统计(地区)
   promotionRegionStatistics: path + '/promotionRegionStatistics',
   promotionRegionStatisticsCount: path + '/promotionRegionStatistics/count',
@@ -155,5 +169,14 @@ module.exports = {
   //渠道统计汇总
   channelStatisticsSummary: path + '/channelStatisticsSummary',
   channelStatisticsSummaryCount: path + '/channelStatisticsSummary/count',
-  channelStatisticsSummaryGetOptions: path + '/channelStatisticsSummary/getSelectOptions'
+  channelStatisticsSummaryGetOptions: path + '/channelStatisticsSummary/getSelectOptions',
+  //PVUV
+  PVUV: path + '/PVUV',
+  PVUVCount: path + '/PVUV/count',
+  PVUVGetOptions: path + '/PVUV/getSelectOptions',
+  /*权限管理*/
+  // 员工信息
+  employeeList: path + '/employeeList',
+  employeeListCount: path + '/employeeList/count',
+  employeeListPrivilegeModify: path + '/employeeList/privilegeModify'
 }

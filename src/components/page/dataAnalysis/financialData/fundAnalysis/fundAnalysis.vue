@@ -1,5 +1,5 @@
 <template>
-  <div class="fundAnalysis">
+  <div class="fundAnalysis" v-loading.body="loading" element-loading-text="拼命加载中">
     <banner></banner>
     <div class="date-filter">
       <span class="managerFront">日期：</span>
@@ -17,23 +17,26 @@
       </el-date-picker>
       <el-button type="primary" size="small" @click.prevent.stop="search">搜索</el-button>
       <el-button type="primary" size="small" :loading="buttonLoading" @click.prevent.stop="refreshData">一键刷新</el-button>
+      <el-button type="primary" size="small" class="userButton">
+        <a :href="mosaicLink" class="fundAnalysisExcel">导出excel</a>
+      </el-button>
     </div>
-    <el-table v-loading.body="loading" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto" :height="height">
+    <el-table :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto" :height="height">
       <el-table-column property="d_date" sortable label="日期"></el-table-column>
-      <el-table-column property="total_amount" label="当日应还总额(元)"width="110px"></el-table-column>
-      <el-table-column property="actual_repayment_amount" label="实际还款金额(元)"width="110px"></el-table-column>
+      <el-table-column property="total_amount" label="当日应还总额(元)"width="110"></el-table-column>
+      <el-table-column property="actual_repayment_amount" label="实际还款金额(元)"width="110"></el-table-column>
       <el-table-column property="repayment_ratio" label="还款比例"></el-table-column>
       <el-table-column property="renewal_amount" label="续期金额(元)"></el-table-column>
-      <el-table-column property="renewal_commission" label="续期手续费收入(元)"width="120px"></el-table-column>
+      <el-table-column property="renewal_commission" label="续期手续费收入(元)"width="120"></el-table-column>
       <el-table-column property="renewal_ratio" label="续期比例"></el-table-column>
       <el-table-column property="overdue_amount" label="逾期金额(元)"></el-table-column>
       <el-table-column property="overdue_proportion" label="逾期比例"></el-table-column>
-      <el-table-column property="overdue_payment_amount" label="逾期还款金额(元)"width="110px"></el-table-column>
-      <el-table-column property="late_fees_income" label="滞纳金收入(元)"width="110px"></el-table-column>
-      <el-table-column property="comp_service_income" label="综合服务费收入(元)"width="110px"></el-table-column>
-      <el-table-column property="service_charge" label="实收服务费(元)"width="110px"></el-table-column>
-      <el-table-column property="equal_amount_income" label="同等金额收益(元)"width="110px"></el-table-column>
-      <el-table-column property="capital_surplus" label="当日资金盈余(元)"width="110px"></el-table-column>
+      <el-table-column property="overdue_payment_amount" label="逾期还款金额(元)"width="110"></el-table-column>
+      <el-table-column property="late_fees_income" label="滞纳金收入(元)"width="110"></el-table-column>
+      <el-table-column property="comp_service_income" label="综合服务费收入(元)"width="110"></el-table-column>
+      <el-table-column property="service_charge" label="实收服务费(元)"width="110"></el-table-column>
+      <el-table-column property="equal_amount_income" label="同等金额收益(元)"width="110"></el-table-column>
+      <el-table-column property="capital_surplus" label="当日资金盈余(元)"width="110"></el-table-column>
       <el-table-column property="create_time" sortable label="更新时间" width="130"></el-table-column>
     </el-table>
     <div style="text-align: center;margin-top: 10px;" v-show="fundData.length!=0">
@@ -78,6 +81,13 @@
       this.loading = true
       this.getDataInit()
       this.height = getHeight()
+    },
+    computed: {
+      mosaicLink () {
+        let startTime = this.startTime || '1991-07-22'
+        let endTime = this.endTime || getNowFormatDate()
+        return 'api/fundAnalysis/excel?startTime=' + startTime + '&endTime=' + endTime
+      }
     },
     methods: {
       //每页显示数据量变更
@@ -186,6 +196,8 @@
       padding-left :5px
       font-size: 14px
       color: #666
+    .fundAnalysisExcel
+      color :#ffffff
 
 
   .el-table .cell, .el-table th > div

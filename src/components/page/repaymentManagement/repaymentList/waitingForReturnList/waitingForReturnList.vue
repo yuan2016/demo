@@ -89,7 +89,7 @@
     created () {
       this.loading = true
       this.getDataInit()
-      this.height = getHeight()
+      this.height = parseInt(getHeight()) + 30
     },
     methods: {
       //每页显示数据量变更

@@ -24,6 +24,10 @@ module.exports = {
   loanThroughRate: 'pr_ds_order_analysis_def',
   loanThroughRateAll: 'pr_ds_order_analysis_all',
   loanOverdueRecallRate: 'pr_ds_odu_coll_analysis',
+  userBasePortrait: 'up_yh_info_analysis',
+  invitationEvent: 'PR_DS_INVITATION_EVENT_RMAB_EXHIBITION',
+  //PVUV
+  PVUV: 'pr_ds_dkcspvuv_analysis',
   /*借款管理*/
   //借款申请列表
   loanApplicationsList: 'bw_order_info',
@@ -117,6 +121,8 @@ module.exports = {
   reconciliationAnalysis: 'PR_DS_RECONCILIATION_ANALYSIS',
   //还款日报表统计
   reportStatistics: 'PR_DS_REPAYMENT_SUM',
+  //在催金额
+  promptAmount: 'PR_DS_COLLECTION_DOING',
   /*推广管理*/
   // 推广渠道
   promotionChannel: {
@@ -134,5 +140,10 @@ module.exports = {
   // 推广统计(地区)
   promotionRegionStatistics: 'PR_PM_PROMOTION_STATISTIC_REGION',
   // 渠道统计汇总
-  channelStatisticsSummary: 'pr_pm_channel_statistic_sum'
+  channelStatisticsSummary: 'pr_pm_channel_statistic_sum',
+  /*权限管理*/
+  // 员工信息
+  privilegeManage: {
+    employeeList: 'pr_bs_user'
+  }
 }

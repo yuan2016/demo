@@ -1,5 +1,5 @@
 <template>
-  <div class="platformData">
+  <div class="platformData" v-loading.body="loading" element-loading-text="拼命加载中">
     <banner></banner>
     <div class="date-filter">
       <span class="managerFront">日期：</span>
@@ -18,7 +18,7 @@
       <el-button type="primary" size="small" @click.prevent.stop="search">搜索</el-button>
       <el-button type="primary" size="small" :loading="buttonLoading" @click.prevent.stop="refreshData">一键刷新</el-button>
     </div>
-    <el-table v-loading.body="loading" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border stripe
+    <el-table :data="fundData" highlight-current-row border stripe
               style="width: 100%;overflow: auto" :height="height">
       <el-table-column property="d_date" fixed sortable label="日期"></el-table-column>
       <el-table-column property="register_num" label="注册人数" width="100px"></el-table-column>

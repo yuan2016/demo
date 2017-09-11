@@ -2,7 +2,7 @@ let sql = require('../../../sql/sqlMap')
 let func = require('../../../sql/func')
 let moment = require('moment')
 let tableName = require('../../../config/tableName')
-let {analysis, formatCurrency} = require('../../../utils/utils')
+let {analysis, formatCurrency,formatInt} = require('../../../utils/utils')
 
 function formatData (rows) {
   return rows.map(row => {
@@ -26,6 +26,12 @@ function formatData (rows) {
     }
     if (row.repayment_succ_amount) {
       row.repayment_succ_amount = formatCurrency(row.repayment_succ_amount)
+    }
+    if (row.repayment_succ_count) {
+      row.repayment_succ_count = formatInt(row.repayment_succ_count)
+    }
+    if (row.repayment_norm_count) {
+      row.repayment_norm_count = formatInt(row.repayment_norm_count)
     }
     return row
   })

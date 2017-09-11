@@ -1,9 +1,9 @@
 <template>
-  <div class="loanThroughRate" v-loading="loading" element-loading-text="拼命加载中">
+  <div class="loanThroughRateAll" v-loading="loading" element-loading-text="拼命加载中">
     <banner></banner>
     <div class="date-filter">
       <span class="managerFront">状态：</span>
-      <el-select v-model="value" size="small" placeholder="TopN" @change="changeValue" class="loanThroughRateSelect">
+      <el-select v-model="value" size="small" placeholder="全部" @change="changeValue" class="loanThroughRateAllSelect">
         <el-option
           v-for="item in options"
           :key="item.value"
@@ -14,7 +14,7 @@
       </el-select>
     </div>
     <el-table :data="fundData" highlight-current-row border stripe
-              style="width: 100%;overflow: auto;" :height="height" class="loanThroughTable">
+              style="width: 100%;overflow: auto;" :height="height" class="loanThroughRateAllTable">
       <el-table-column property="AA" :label="labels[0]" width="160px"></el-table-column>
       <el-table-column property="D1" :label="labels[1]"></el-table-column>
       <el-table-column property="D2" :label="labels[2]"></el-table-column>
@@ -50,9 +50,9 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import banner from '../../../common/banner/banner'
-  import { getProperty } from '../../../../common/js/utils'
-  import { getHeight } from '../../../../common/js/storage'
+  import banner from '../../../../common/banner/banner'
+  import { getProperty } from '../../../../../common/js/utils'
+  import { getHeight } from '../../../../../common/js/storage'
   import $ from 'jquery'
 
   export default {
@@ -94,7 +94,7 @@
         }
       },
       getData () {
-        this.axios.post('/api/loanThroughRate').then((response) => {
+        this.axios.post('/api/loanThroughRateAll').then((response) => {
           if (response.data.code === '404') {
             this.$router.push('./404')
           } else if (response.data.code === '1024') {
@@ -127,6 +127,7 @@
     },
     updated () {
       if ($('.el-table__row').length > 0) {
+        let clientWidth = document.documentElement.clientWidth
         let pops = [8, 13, 17]
         let info0 = $('<i class="elextra-icon-info"></i>')
         let info1 = $('<i class="elextra-icon-info"></i>')
@@ -136,9 +137,8 @@
           $('.el-table__header>thead>tr>th:eq(' + pops[i] + ')').css('position', 'relative').append(infos[i])
         }
         let popName = [$('.pop1'), $('.pop2'), $('.pop3')]
-        let clientWidth = document.documentElement.clientWidth
         for (let i = 0; i < pops.length; i++) {
-          $('.el-table__header>thead>tr>th:eq(' + pops[i] + ')>i ').on('mouseover', function (event) {
+          $('.el-table__header>thead>tr>th:eq(' + pops[i] + ')>i').on('mouseover', function (event) {
             let x = clientWidth - event.clientX
             let y = event.clientY - 50
             popName[i].css('display', 'block').css('top', y).css('right', x)
@@ -195,7 +195,8 @@
         }
         for (let i = 0; i < iconIndex.length; i++) {
           $('.el-table__row:gt(' + iconIndex[i] + '):lt(' + diff[i] + ')').css('display', 'none')
-          $('.el-table__row:eq(' + iconIndex[i] + ')').on('click', () => {
+          $('.el-table__row:eq(' + iconIndex[i] + ')').on('click', (event) => {
+            console.log(event)
             if (!$('.el-table__row:eq(' + iconIndex[i] + ')').hasClass('isOpen')) {
               $('.el-table__row:gt(' + iconIndex[i] + '):lt(' + diff[i] + ')').css('display', 'table-row')
               $('.el-table__row:eq(' + iconIndex[i] + ')').addClass('isOpen')
@@ -213,8 +214,7 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  .loanThroughRate
-    position: relative
+  .loanThroughRateAll
     .date-filter
       padding: 15px 0 15px 1px
       box-sizing border-box
@@ -223,12 +223,9 @@
         padding-left: 5px
         font-size: 14px
         color: #666
-      .loanThroughRateSelect
+      .loanThroughRateAllSelect
         width: 100px
-    .loanThroughRateInfo
-      padding-top: 5px
-      font-size: 12px
-      color: red
+
     .pop1
       display: none
       position: absolute
@@ -267,19 +264,15 @@
       font-size: 20px
       color: rgb(102, 102, 102)
 
-  /*.loanThroughTable*/
-  /*.el-table__row:nth-child(1), .el-table__row:nth-child(26), .el-table__row:nth-child(73), .el-table__row:nth-child(96), .el-table__row:nth-child(119), .el-table__row:nth-child(143), .el-table__row:nth-child(167), .el-table__row:nth-child(191), .el-table__row:nth-child(215), .el-table__row:nth-child(239), .el-table__row:nth-child(263), .el-table__row:nth-child(287), .el-table__row:nth-child(311), .el-table__row:nth-child(335)*/
-  /*td:nth-of-type(1)*/
-  /*div*/
-  /*background-color: #93c2d2*/
-  /*font-weight: bold*/
-
-  /*.loanThroughTable*/
-  /*.el-table__row:nth-child(51), .el-table__row:nth-child(52), .el-table__row:nth-child(74), .el-table__row:nth-child(75), .el-table__row:nth-child(97), .el-table__row:nth-child(98), .el-table__row:nth-child(120), .el-table__row:nth-child(121), .el-table__row:nth-child(144), .el-table__row:nth-child(145), .el-table__row:nth-child(168), .el-table__row:nth-child(169), .el-table__row:nth-child(192), .el-table__row:nth-child(193), .el-table__row:nth-child(216), .el-table__row:nth-child(217), .el-table__row:nth-child(240), .el-table__row:nth-child(241), .el-table__row:nth-child(264), .el-table__row:nth-child(265), .el-table__row:nth-child(288), .el-table__row:nth-child(289), .el-table__row:nth-child(312), .el-table__row:nth-child(313), .el-table__row:nth-child(336), .el-table__row:nth-child(337)*/
-  /*td:nth-of-type(1)*/
-  /*div*/
-  /*background-color: #d0ecf5*/
-  /*font-weight: bold*/
 
 
+  .el-table .cell, .el-table th > div
+    padding-left: 0
+    padding-right: 0
+    text-align: center
+    font-size: 12px
+
+  .el-table th > .cell
+    text-align: center
+    font-weight: bold
 </style>

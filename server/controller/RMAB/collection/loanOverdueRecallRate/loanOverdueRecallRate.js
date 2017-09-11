@@ -1,8 +1,6 @@
-let sql = require('../../../sql/sqlMap')
-let func = require('../../../sql/func')
-let moment = require('moment')
-let tableName = require('../../../config/tableName')
-let {formatCurrency} = require('../../../utils/utils')
+let sql = require('../../../../sql/sqlMap')
+let func = require('../../../../sql/func')
+let tableName = require('../../../../config/tableName')
 
 module.exports = {
   //借款通过率数据
@@ -26,6 +24,3 @@ module.exports = {
     })
   }
 }
-/**
- * Created by Administrator on 2017/7/10.
- */

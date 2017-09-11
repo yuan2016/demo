@@ -1,11 +1,8 @@
-/**
- * Created by Administrator on 2017/7/12.
- */
 let sql = require('../../../../sql/sqlMap')
 let func = require('../../../../sql/func')
 let moment = require('moment')
 let tableName = require('../../../../config/tableName')
-let {analysis, mosaic, formatCurrency} = require('../../../../utils/utils')
+let {analysis, mosaic, formatCurrency, formatInt} = require('../../../../utils/utils')
 
 function formatData (rows) {
   return rows.map(row => {
@@ -26,6 +23,9 @@ function formatData (rows) {
     }
     if (row.repaymented_amount) {
       row.repaymented_amount = formatCurrency(row.repaymented_amount)
+    }
+    if (row.late_day) {
+      row.late_day = formatInt(row.late_day)
     }
     return row
   })
@@ -77,7 +77,6 @@ module.exports = {
         }
         return
       }
-      console.log(rs)
       res.json(rs)
     })
   }

@@ -35,8 +35,8 @@
     </ul>
     <el-table :data="fundData"
               highlight-current-row border stripe style="width: 100%;overflow: auto" :height="height">
-      <el-table-column property="id" label="退款ID"></el-table-column>
-      <el-table-column property="return_order_id" label="订单号" width="150px"></el-table-column>
+      <el-table-column property="id" label="退款ID" width="80"></el-table-column>
+      <el-table-column property="return_order_id" label="订单号" width="200px"></el-table-column>
       <el-table-column property="realname" label="姓名"></el-table-column>
       <el-table-column property="user_phone" label="手机号"></el-table-column>
       <el-table-column property="user_id" label="用户ID"></el-table-column>
@@ -44,7 +44,7 @@
       <el-table-column property="repayment_return_money" label="退款金额(元)"></el-table-column>
       <el-table-column property="return_type" label="退款方式"></el-table-column>
       <el-table-column property="return_source" label="退款来源"></el-table-column>
-      <el-table-column property="return_time" sortable label="退款时间" width="130"></el-table-column>
+      <el-table-column property="return_time" sortable label="退款时间" width="150"></el-table-column>
     </el-table>
     <div style="text-align: center;margin-top: 10px;" v-show="fundData.length!=0">
       <el-pagination

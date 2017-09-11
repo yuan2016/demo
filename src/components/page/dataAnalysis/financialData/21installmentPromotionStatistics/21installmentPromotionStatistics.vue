@@ -1,5 +1,5 @@
 <template>
-  <div class="installmentPromotionStatistics">
+  <div class="installmentPromotionStatistics" v-loading.body="loading" element-loading-text="拼命加载中">
     <banner></banner>
     <div class="date-filter">
       <span class="managerFront">到期日：</span>
@@ -18,30 +18,30 @@
       <el-button type="primary" size="small" @click.prevent.stop="search">搜索</el-button>
       <el-button type="primary" size="small" :loading="buttonLoading" @click.prevent.stop="refreshData">一键刷新</el-button>
     </div>
-    <el-table v-loading.body="loading" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border stripe
+    <el-table :data="fundData" highlight-current-row border stripe
               style="width: 100%;overflow: auto;" :height="height">
-      <el-table-column property="d_date" label="到期日" fixed sortable width="130px"></el-table-column>
-      <el-table-column property="loan_date_f1" label="F1放款日" sortable width="130px"></el-table-column>
-      <el-table-column property="due_amount_f1" label="F1到期金额(元)" width="130px"></el-table-column>
-      <el-table-column property="repayment_amount_f1" label="F1还款金额(元)" width="130px"></el-table-column>
-      <el-table-column property="repayment_rate_f1" label="F1还款率" width="130px"></el-table-column>
-      <el-table-column property="overdue_rate_f1" label="F1逾期率" width="130px"></el-table-column>
-      <el-table-column property="overdue_rate_ouser_f1" label="F1老用户逾期率" width="130px"></el-table-column>
-      <el-table-column property="overdue_rate_nuser_f1" label="F1新用户逾期率" width="130px"></el-table-column>
-      <el-table-column property="loan_date_f2" sortable label="F2放款日" width="130px"></el-table-column>
-      <el-table-column property="due_amount_f2" label="F2到期金额(元)" width="130px"></el-table-column>
-      <el-table-column property="repayment_amount_f2" label="F2还款金额(元)" width="130px"></el-table-column>
-      <el-table-column property="repayment_rate_f2" label="F2还款率" width="130px"></el-table-column>
-      <el-table-column property="overdue_rate_f2" label="F2逾期率" width="130px"></el-table-column>
-      <el-table-column property="overdue_rate_ouser_f2" label="F2老用户逾期率" width="130px"></el-table-column>
-      <el-table-column property="overdue_rate_nuser_f2" label="F2新用户逾期率" width="130px"></el-table-column>
-      <el-table-column property="loan_date_f3" sortable label="F3放款日" width="130px"></el-table-column>
-      <el-table-column property="due_amount_f3" label="F3到期金额(元)" width="130px"></el-table-column>
-      <el-table-column property="repayment_amount_f3" label="F3还款金额(元)" width="130px"></el-table-column>
-      <el-table-column property="repayment_rate_f3" label="F3还款率" width="130px"></el-table-column>
-      <el-table-column property="overdue_rate_f3" label="F3逾期率" width="130px"></el-table-column>
-      <el-table-column property="overdue_rate_ouser_f3" label="F3老用户逾期率" width="130px"></el-table-column>
-      <el-table-column property="overdue_rate_nuser_f3" label="F3新用户逾期率" width="130px"></el-table-column>
+      <el-table-column property="d_date" label="到期日" fixed sortable width="100"></el-table-column>
+      <el-table-column property="loan_date_f1" label="F1放款日" sortable width="100"></el-table-column>
+      <el-table-column property="due_amount_f1" label="F1到期金额(元)" width="100"></el-table-column>
+      <el-table-column property="repayment_amount_f1" label="F1还款金额(元)" width="100"></el-table-column>
+      <el-table-column property="repayment_rate_f1" label="F1还款率" width="80"></el-table-column>
+      <el-table-column property="overdue_rate_f1" label="F1逾期率" width="80"></el-table-column>
+      <el-table-column property="overdue_rate_ouser_f1" label="F1老用户逾期率" width="100"></el-table-column>
+      <el-table-column property="overdue_rate_nuser_f1" label="F1新用户逾期率" width="100"></el-table-column>
+      <el-table-column property="loan_date_f2" sortable label="F2放款日" width="100"></el-table-column>
+      <el-table-column property="due_amount_f2" label="F2到期金额(元)" width="100"></el-table-column>
+      <el-table-column property="repayment_amount_f2" label="F2还款金额(元)" width="100"></el-table-column>
+      <el-table-column property="repayment_rate_f2" label="F2还款率" width="80"></el-table-column>
+      <el-table-column property="overdue_rate_f2" label="F2逾期率" width="80"></el-table-column>
+      <el-table-column property="overdue_rate_ouser_f2" label="F2老用户逾期率" width="100"></el-table-column>
+      <el-table-column property="overdue_rate_nuser_f2" label="F2新用户逾期率" width="100"></el-table-column>
+      <el-table-column property="loan_date_f3" sortable label="F3放款日" width="100"></el-table-column>
+      <el-table-column property="due_amount_f3" label="F3到期金额(元)" width="100"></el-table-column>
+      <el-table-column property="repayment_amount_f3" label="F3还款金额(元)" width="100"></el-table-column>
+      <el-table-column property="repayment_rate_f3" label="F3还款率" width="80"></el-table-column>
+      <el-table-column property="overdue_rate_f3" label="F3逾期率" width="80"></el-table-column>
+      <el-table-column property="overdue_rate_ouser_f3" label="F3老用户逾期率" width="100"></el-table-column>
+      <el-table-column property="overdue_rate_nuser_f3" label="F3新用户逾期率" width="100"></el-table-column>
     </el-table>
     <div style="text-align: center;margin-top: 10px;" v-show="fundData.length!=0">
       <el-pagination

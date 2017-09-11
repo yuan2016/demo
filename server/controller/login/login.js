@@ -13,8 +13,6 @@ let expires = moment().add(7, 'days').calendar().valueOf()
 
 function judgment (rs, password) {
   let result
-  console.log(password)
-  console.log(rs.length)
   if (rs.length !== 0) {
     let realPwd = rs[0].user_password
     if (realPwd === password) {
@@ -34,19 +32,26 @@ function judgment (rs, password) {
 
 module.exports = {
   //登录验证
-  fetchAll (req, res) {
+  login (req, res) {
     let params = req.body
-    console.log(params)
     let query = sql.login.select
-    console.log(query)
-    console.log(tableName.login)
-    console.log(params.email)
     func.connPool1(query, [tableName.login, params.email], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
       }
       let result = judgment(rs, params.password)
-      res.json(result)
+      let final = {token: result, role: rs.role, availableTable: rs[0].available_table}
+      res.json(final)
+    })
+  },
+  getRoles (req, res) {
+    let params = req.body
+    let query = sql.login.select
+    func.connPool1(query, [tableName.login, params.email], function (err, rs) {
+      if (err) {
+        console.log('[query] - :' + err)
+      }
+      res.json(rs)
     })
   }
 }

@@ -13,10 +13,10 @@
           </el-form-item>
           <el-form-item prop="password">
             <el-input type="password" placeholder="密码" v-model="loginForm.password"
-                      @keyup.enter.native="jumpTo({path:'/home'})"></el-input>
+                      @keyup.enter.native="jumpTo({path:'/main'})"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" class="submit_btn" @click.stop.prevent="jumpTo({path:'/home'})">登陆
+            <el-button type="primary" class="submit_btn" @click.stop.prevent="jumpTo({path:'/main'})">登陆
             </el-button>
           </el-form-item>
         </el-form>
@@ -26,9 +26,10 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import { saveToken, saveEmail, getEmail } from '../../../common/js/storage'
+  import { saveToken, saveEmail, getEmail, saveAvailableTable } from '../../../common/js/storage'
   import { isCfEmail } from '../../../common/js/validate'
   import md5 from 'js-md5'
+  import { mapGetters } from 'vuex'
 
   export default {
     data () {
@@ -88,8 +89,10 @@
                   message: '欢迎进入报表系统',
                   type: 'success'
                 })
-                saveToken(response.data)
+                saveToken(response.data.token)
+                saveAvailableTable(response.data.availableTable)
                 saveEmail(this.loginForm.email)
+                this.setMark(0)
                 this.$router.push(path)
               }
             })
@@ -100,6 +103,12 @@
             })
           }
         })
+      },
+//      setRole (role) {
+//        this.$store.dispatch('setRoles', role)
+//      },
+      setMark (tables) {
+        this.$store.dispatch('setMark', 0)
       }
     }
   }

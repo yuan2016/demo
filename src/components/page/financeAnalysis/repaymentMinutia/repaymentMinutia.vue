@@ -86,38 +86,17 @@
           value: '减免',
           label: '减免'
         }, {
+          value: '优惠',
+          label: '优惠'
+        }, {
           value: '支付宝',
           label: '支付宝'
         }, {
-          value: '线下还款',
-          label: '线下还款'
+          value: '拉卡拉',
+          label: '拉卡拉'
         }, {
           value: '益码通支付宝',
           label: '益码通支付宝'
-        }, {
-          value: '借款优惠服务费',
-          label: '借款优惠服务费'
-        }, {
-          value: '连连代扣服务费',
-          label: '连连代扣服务费'
-        }, {
-          value: '对公银行卡转账',
-          label: '对公银行卡转账'
-        }, {
-          value: '连连主动还款',
-          label: '连连主动还款'
-        }, {
-          value: '拉卡拉主动还款',
-          label: '拉卡拉主动还款'
-        }, {
-          value: '拉卡拉主动付款',
-          label: '拉卡拉主动付款'
-        }, {
-          value: '拉卡拉主动还款',
-          label: '拉卡拉主动还款'
-        }, {
-          value: '拉卡拉代扣服务费',
-          label: '拉卡拉代扣服务费'
         }],
         offset: 0,
         limit: 20,
@@ -190,22 +169,26 @@
       },
       getData () {
         return this.axios.post('/api/repaymentMinutia', {
-          user_name: this.user_name,
-          user_phone: this.user_phone,
-          repayment_channel: this.repayment_channel,
+          options: {
+            user_name: this.user_name,
+            user_phone: this.user_phone,
+            repayment_channel: this.repayment_channel
+          },
           limit: this.limit,
           offset: this.offset,
-          startTime: this.startTime || '1991-07-22',
-          endTime: this.endTime || getNowFormatDate()
+          startTime: this.startTime,
+          endTime: this.endTime
         })
       },
       getCount () {
         return this.axios.post('/api/repaymentMinutia/count', {
-          user_name: this.user_name,
-          user_phone: this.user_phone,
-          repayment_channel: this.repayment_channel,
-          startTime: this.startTime || '1991-07-22',
-          endTime: this.endTime || getNowFormatDate()
+          options: {
+            user_name: this.user_name,
+            user_phone: this.user_phone,
+            repayment_channel: this.repayment_channel
+          },
+          startTime: this.startTime,
+          endTime: this.endTime
         })
       },
       search () {

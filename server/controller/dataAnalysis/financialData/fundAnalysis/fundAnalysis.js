@@ -2,11 +2,69 @@ let sql = require('../../../../sql/sqlMap')
 let func = require('../../../../sql/func')
 let moment = require('moment')
 let tableName = require('../../../../config/tableName')
-let {formatCurrency} = require('../../../../utils/utils')
+let {formatCurrency, mosaicName} = require('../../../../utils/utils')
 let shell = require('../../../../config/shell')
-let process = require('child_process')
+let pro = require('child_process')
+let path = require('path')
+let fs = require('fs')
+let XLSXWriter = require('xlsx-writestream')
 
 global.fundCount = 0
+
+function formatExcelData (rows) {
+  return rows.map(row => {
+    if (row.更新时间) {
+      row.更新时间 = moment(row.更新时间).format('YYYY-MM-DD HH:mm:ss')
+    }
+    if (row.日期) {
+      row.日期 = moment(row.日期).format('YYYY-MM-DD')
+    }
+    if (row.还款比例) {
+      row.还款比例 = (row.还款比例 * 100).toFixed(2) + '%'
+    }
+    if (row.续期比例) {
+      row.续期比例 = (row.续期比例 * 100).toFixed(2) + '%'
+    }
+    if (row.逾期比例) {
+      row.逾期比例 = (row.逾期比例 * 100).toFixed(2) + '%'
+    }
+
+    if (row.当日应还总额) {
+      row.当日应还总额 = formatCurrency(row.当日应还总额)
+    }
+    if (row.实际还款金额) {
+      row.实际还款金额 = formatCurrency(row.实际还款金额)
+    }
+    if (row.续期金额) {
+      row.续期金额 = formatCurrency(row.续期金额)
+    }
+    if (row.续期手续费收入) {
+      row.续期手续费收入 = formatCurrency(row.续期手续费收入)
+    }
+    if (row.逾期金额) {
+      row.逾期金额 = formatCurrency(row.逾期金额)
+    }
+    if (row.逾期还款金额) {
+      row.逾期还款金额 = formatCurrency(row.逾期还款金额)
+    }
+    if (row.滞纳金收入) {
+      row.滞纳金收入 = formatCurrency(row.滞纳金收入)
+    }
+    if (row.综合服务费收入) {
+      row.综合服务费收入 = formatCurrency(row.综合服务费收入)
+    }
+    if (row.实收服务费) {
+      row.实收服务费 = formatCurrency(row.实收服务费)
+    }
+    if (row.同等金额收益) {
+      row.同等金额收益 = formatCurrency(row.同等金额收益)
+    }
+    if (row.当日资金盈余) {
+      row.当日资金盈余 = formatCurrency(row.当日资金盈余)
+    }
+    return row
+  })
+}
 
 function formatData (rows) {
   return rows.map(row => {
@@ -108,7 +166,7 @@ module.exports = {
   refreshData (req, res) {
     if (global.fundCount === 0) {
       global.fundCount++
-      process.exec(shell.fundAnalysis, function (error, stdout, stderr) {
+      pro.exec(shell.fundAnalysis, function (error, stdout, stderr) {
         if (error !== null) {
           console.log('exec error: ' + error)
           console.log(moment(new Date()).format('YYYY-MM-DD HH:mm:ss') + ' 资金分析shell脚本执行失败')
@@ -124,5 +182,57 @@ module.exports = {
     } else {
       res.json({code: '400'})
     }
+  },
+  getExcelData (req, res) {
+    let params = req.query
+    let query = sql.dataAnalysis.fundAnalysisExcel
+    func.connPool1(query, [tableName.fundAnalysis, params.startTime, params.endTime], function (err, rs) {
+      if (err) {
+        console.log('[query] - :' + err)
+        if (err.message === 'Query inactivity timeout') {
+          res.json({
+            code: '1024'
+          })
+        } else {
+          res.json({
+            code: '404'
+          })
+        }
+        return
+      }
+      rs = formatData(formatExcelData(rs))
+      let fileName = mosaicName()
+      let currFilePath = path.join(process.cwd(), fileName)
+      let options = {
+        headers: {
+          'Content-Disposition': 'attachment; filename=' + fileName
+        }
+      }
+      let writer = new XLSXWriter(fileName, {})
+      let wirteStream = fs.createWriteStream(fileName)
+
+// After instantiation, you can grab the readstream at any time.
+      writer.getReadStream().pipe(wirteStream)
+      for (let i of rs) {
+        writer.addRow(i)
+      }
+      writer.finalize()
+      wirteStream.on('finish', function () {
+        // finish
+        res.sendFile(currFilePath, options, function () {
+          if (err) {
+            console.log(err)
+            res.sendFile(path.join(process.cwd(), 'error.html'))
+            return
+          } else {
+            console.log('Sent:', fileName)
+            fs.unlink(currFilePath, function (err) {
+              if (err) console.log(err)
+              console.log('文件删除成功')
+            })
+          }
+        })
+      })
+    }, 180000)
   }
 }

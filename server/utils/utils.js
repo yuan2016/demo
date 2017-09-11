@@ -67,35 +67,38 @@ exports.mosaic = function (params, key, table) {
   return add
 }
 
-exports.formatCurrency = function (num) {
-  if (parseInt(num) === num) {
-    let result = []
-    let counter = 0
-    num = (num || 0).toString().split('')
-    for (let i = num.length - 1; i >= 0; i--) {
-      counter++
-      result.unshift(num[i])
-      if (!(counter % 3) && i !== 0) { result.unshift(',') }
-    }
-    return result.join('')
-  } else {
-    num = num.toString().replace(/\$|\,/g, '')
-    if (isNaN(num)) {
-      num = '0'
-    }
-    let sign = (num === (num = Math.abs(num) + ''))
-    num = Math.floor(num * 100 + 0.50000000001)
-    let cents = num % 100
-    num = Math.floor(num / 100).toString()
-    if (cents < 10) {
-      cents = '0' + cents
-    }
-    for (let i = 0; i < Math.floor((num.length - (1 + i)) / 3); i++) {
-      num = num.substring(0, num.length - (4 * i + 3)) + ',' +
-        num.substring(num.length - (4 * i + 3))
-    }
-    return (((sign) ? '' : '-') + num + '.' + cents)
+exports.formatCurrency = function (s, n) {
+  n = n > 0 && n <= 20 ? n : 2
+  s = parseFloat((s + '').replace(/[^\d\.-]/g, '')) + ''
+  let l = s.split('.')[0].split('').reverse()
+  let r = s.split('.')[1]
+  let t = ''
+  for (let i = 0; i < l.length; i++) {
+    t += l[i] + ((i + 1) % 3 == 0 && (i + 1) != l.length ? ',' : '')
   }
+  if (!r) {
+    r = '0'
+  }
+  if (r.length < n) {
+    for (var i = r.length; i < n; i++) {
+      r += '0'
+    }
+  } else {
+    r = r.substr(0, n)
+  }
+  return t.split('').reverse().join('') + '.' + r
+}
+
+exports.formatInt = function (s) {
+  let result = []
+  let counter = 0
+  s = (s || 0).toString().split('')
+  for (let i = s.length - 1; i >= 0; i--) {
+    counter++
+    result.unshift(s[i])
+    if (!(counter % 3) && i !== 0) { result.unshift(',') }
+  }
+  return result.join('')
 }
 
 exports.mosaicName = function () {
@@ -112,4 +115,43 @@ exports.mosaicName = function () {
 
 function add (m) {
   return m < 10 ? '0' + m : m
+}
+
+exports.handleProperty = function (params) {
+  let strs = []
+  let arr = Object.entries(params)
+  for (let i of arr) {
+    if (i[1]) {
+      let str = ' (' + i[0] + ' like "%' + i[1] + '%")'
+      strs.push(str)
+    }
+  }
+  let len = strs.length
+  return strs.slice(0, len).join(' and ')
+}
+//startTime endTime
+exports.handleTime = function (p, s, e) {
+  let str
+  if (!s && !e) {
+    return ''
+  } else if (!s && e) {
+    str = '(' + p + '<="' + e + '")'
+  } else if (s && !e) {
+    str = '(' + p + '>="' + s + '")'
+  } else {
+    str = '(' + p + '>="' + s + '" and ' + p + '<="' + e + '")'
+  }
+  return str
+}
+
+exports.combine = function (a, b) {
+  let combined = ''
+  if (a && b) {
+    combined = 'where ' + a + ' and ' + b
+  } else if (a && !b) {
+    combined = 'where ' + a
+  } else if (!a && b) {
+    combined = 'where ' + b
+  }
+  return combined
 }

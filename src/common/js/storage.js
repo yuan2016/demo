@@ -9,6 +9,17 @@ export function getToken () {
   return getCookie(token)
 }
 
+export function saveAvailableTable (value) {
+  let availableTable = 'availableTable'
+  let Days = 1000
+  setCookie(availableTable, value, Days)
+}
+
+export function getAvailableTable () {
+  let availableTable = 'availableTable'
+  return getCookie(availableTable)
+}
+
 export function clearToken () {
   let token = 'token'
   setCookie(token, '', -1)

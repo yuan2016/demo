@@ -7,8 +7,25 @@
         </el-menu-item>
         <el-submenu index="1">
           <template slot="title"><i class="elextra-icon-analysis"></i>RMAB</template>
-          <el-menu-item index="loanThroughRate"><i class="el-icon-star-on"></i>新用户借款通过率</el-menu-item>
-          <el-menu-item index="loanOverdueRecallRate"><i class="el-icon-star-on"></i>借款逾期催回率</el-menu-item>
+          <el-submenu index="1-1">
+            <template slot="title"><i class="elextra-icon-item"></i>市场</template>
+            <el-menu-item index="loanThroughRate"><i class="el-icon-star-on"></i>新用户借款通过率</el-menu-item>
+          </el-submenu>
+          <el-submenu index="1-2">
+            <template slot="title"><i class="elextra-icon-item"></i>运营</template>
+            <el-menu-item index="invitationEvent"><i class="el-icon-star-on"></i>邀请活动</el-menu-item>
+          </el-submenu>
+          <el-submenu index="1-3">
+            <template slot="title"><i class="elextra-icon-item"></i>风控</template>
+          </el-submenu>
+          <el-submenu index="1-4">
+            <template slot="title"><i class="elextra-icon-item"></i>催收</template>
+            <el-menu-item index="loanOverdueRecallRate"><i class="el-icon-star-on"></i>借款逾期催回率</el-menu-item>
+          </el-submenu>
+          <el-submenu index="1-5">
+            <template slot="title"><i class="elextra-icon-item"></i>用户画像</template>
+            <el-menu-item index="userBasePortrait"><i class="el-icon-star-on"></i>基础用户画像</el-menu-item>
+          </el-submenu>
         </el-submenu>
         <el-submenu index="2">
           <template slot="title"><i class="elextra-icon-user"></i>用户信息管理</template>
@@ -63,6 +80,7 @@
             <el-menu-item index="fundAnalysis"><i class="el-icon-star-on"></i>资金分析</el-menu-item>
             <el-menu-item index="fundAnalysisProduct"><i class="el-icon-star-on"></i>资金分析(分产品)</el-menu-item>
             <el-menu-item index="collectionManagement"><i class="el-icon-star-on"></i>催收管理</el-menu-item>
+            <el-menu-item index="promptAmount"><i class="el-icon-star-on"></i>在催金额</el-menu-item>
           </el-submenu>
           <el-submenu index="5-2">
             <template slot="title"><i class="elextra-icon-item"></i>数据报表</template>

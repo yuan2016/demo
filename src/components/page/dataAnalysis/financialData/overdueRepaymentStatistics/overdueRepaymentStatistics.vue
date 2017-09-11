@@ -1,5 +1,5 @@
 <template>
-  <div class="overdueRepaymentStatistics">
+  <div class="overdueRepaymentStatistics" v-loading.body="loading" element-loading-text="拼命加载中">
     <banner></banner>
     <div class="date-filter">
       <span class="managerFront">日期：</span>
@@ -17,16 +17,19 @@
       </el-date-picker>
       <el-button type="primary" size="small" @click.prevent.stop="search">搜索</el-button>
       <el-button type="primary" size="small" :loading="buttonLoading" @click.prevent.stop="refreshData">一键刷新</el-button>
+      <el-button type="primary" size="small" class="userButton">
+        <a :href="mosaicLink" class="overdueRepaymentStatisticsExcel">导出excel</a>
+      </el-button>
     </div>
-    <el-table v-loading.body="loading" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border stripe
+    <el-table :data="fundData" highlight-current-row border stripe
               style="width: 100%;overflow: auto;" :height="height">
-      <el-table-column property="d_date" sortable label="日期" width="80px"></el-table-column>
-      <el-table-column property="loan_amount_total" label="当前借款总数量" width="110px"></el-table-column>
-      <el-table-column property="loan_money_total" label="当前借款总额(元)" width="110px"></el-table-column>
-      <el-table-column property="repayment_amount_total" label="已经还款总数量" width="110px"></el-table-column>
-      <el-table-column property="repayment_money_total" label="已经还款总额(元)" width="110px"></el-table-column>
-      <el-table-column property="quantity_overdue" label="逾期中数量"></el-table-column>
-      <el-table-column property="total_overdue" label="逾期中总额(元)"></el-table-column>
+      <el-table-column property="d_date" sortable label="日期" width="80"></el-table-column>
+      <el-table-column property="loan_amount_total" label="当前借款总数量" width="110"></el-table-column>
+      <el-table-column property="loan_money_total" label="当前借款总额(元)" width="110"></el-table-column>
+      <el-table-column property="repayment_amount_total" label="已经还款总数量" width="110"></el-table-column>
+      <el-table-column property="repayment_money_total" label="已经还款总额(元)" width="110"></el-table-column>
+      <el-table-column property="quantity_overdue" label="逾期中数量"width="90"></el-table-column>
+      <el-table-column property="total_overdue" label="逾期中总额(元)"width="100"></el-table-column>
       <el-table-column property="m_overdue_rate_s1" label="S1级逾期率(按金额)"></el-table-column>
       <el-table-column property="m_overdue_rate_s2" label="S2级逾期率(按金额)"></el-table-column>
       <el-table-column property="m_overdue_rate_s3" label="S3级逾期率(按金额)"></el-table-column>
@@ -78,6 +81,13 @@
       this.loading = true
       this.getDataInit()
       this.height = getHeight()
+    },
+    computed: {
+      mosaicLink () {
+        let startTime = this.startTime || '1991-07-22'
+        let endTime = this.endTime || getNowFormatDate()
+        return 'api/overdueRepaymentStatistics/excel?startTime=' + startTime + '&endTime=' + endTime
+      }
     },
     methods: {
       //每页显示数据量变更
@@ -186,6 +196,8 @@
         padding-left: 5px
         font-size: 14px
         color: #666
+      .overdueRepaymentStatisticsExcel
+        color :#ffffff
 
     .el-table .cell, .el-table th > div
       padding-left: 0

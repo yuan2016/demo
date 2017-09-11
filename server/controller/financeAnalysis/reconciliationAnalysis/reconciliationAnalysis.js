@@ -6,6 +6,7 @@ let {formatCurrency, mosaicName} = require('../../../utils/utils')
 let {exportJsonToExcel} = require('../../../utils/excel')
 let fs = require('fs')
 let path = require('path')
+// let XLSXWriter = require('xlsx-writestream')
 
 const tHeader = [['', '后台数据', '第三方数据', '差异(后台-第三方)', '后台数据', '第三方数据', '差异(后台-第三方)', '后台数据', '第三方数据', '差异(后台-第三方)', '后台数据', '第三方数据', '差异(后台-第三方)', '后台数据', '第三方数据', '差异(后台-第三方)', '线下免还款金额', '备注'], ['日期', '富友账户', '', '', '连连账户', '', '', '支付宝账户', '', '', '益码通支付宝账户', '', '', '拉卡拉', '', '', '批注', '']]
 const filterVal = ['d_date', 'AMT_FY', '', '', 'AMT_LL', '', '', 'AMT_ZFB', '', '', 'AMT_YMT', '', '', 'AMT_JM', '']
@@ -110,7 +111,14 @@ module.exports = {
       const data = formatJson(filterVal, rs)
 
       let fileName = mosaicName()
-      exportJsonToExcel(tHeader, data, fileName, merge, change)
+      try {
+        exportJsonToExcel(tHeader, data, fileName, merge, change)
+      } catch (e) {
+        console.log(e)
+        res.sendFile(path.join(process.cwd(), 'error.html'))
+        return
+      }
+
       let currFilePath = path.join(process.cwd(), fileName)
       let options = {
         headers: {
@@ -121,6 +129,7 @@ module.exports = {
         if (err) {
           console.log(err)
           res.sendFile(path.join(process.cwd(), 'error.html'))
+          return
         } else {
           console.log('Sent:', fileName)
           fs.unlink(currFilePath, function (err) {
@@ -129,6 +138,21 @@ module.exports = {
           })
         }
       })
+//       let writer = new XLSXWriter('mySpreadsheet.xlsx', {})
+//       let wirteStream = fs.createWriteStream('mySpreadsheet.xlsx')
+//
+// // After instantiation, you can grab the readstream at any time.
+//       writer.getReadStream().pipe(wirteStream)
+//       console.log(rs)
+//       for (let i of rs) {
+//         console.log(i)
+//         writer.addRow(i)
+//       }
+//       writer.finalize()
+//       wirteStream.on('finish', function () {
+//         // finish
+//         console.log('finish')
+//       })
     }, 180000)
   }
 }

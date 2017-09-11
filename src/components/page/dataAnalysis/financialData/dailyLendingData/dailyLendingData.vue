@@ -17,35 +17,38 @@
       </el-date-picker>
       <el-button type="primary" size="small" @click.prevent.stop="search">搜索</el-button>
       <el-button type="primary" size="small" :loading="buttonLoading" @click.prevent.stop="refreshData">一键刷新</el-button>
+      <el-button type="primary" size="small" class="userButton">
+        <a :href="mosaicLink" class="dailyLendingDataExcel">导出excel</a>
+      </el-button>
     </div>
     <el-table :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto;" :height="height">
-      <el-table-column property="d_date" fixed sortable label="日期" width="130px" sortable></el-table-column>
-      <el-table-column property="register_num" label="注册人数" width="130px"></el-table-column>
-      <el-table-column property="loan_num" label="借款人数" width="130px"></el-table-column>
-      <el-table-column property="success_loan_num" label="成功借款人数" width="130px"></el-table-column>
-      <el-table-column property="newuser_loan_rate" label="新用户借款率" width="130px"></el-table-column>
-      <el-table-column property="olduser_loan_rate" label="老用户借款率" width="130px"></el-table-column>
-      <el-table-column property="accunewuser_loan_rate" label="累计新用户借款率" width="130px"></el-table-column>
-      <el-table-column property="accuolduser_loan_rate" label="累计老用户借款率" width="130px"></el-table-column>
-      <el-table-column property="loan_singular" label="放款单数" width="130px"></el-table-column>
-      <el-table-column property="loan_singular_7day" label="7天期限放款单数" width="130px"></el-table-column>
-      <el-table-column property="loan_singular_14day" label="14天期限放款单数" width="130px"></el-table-column>
-      <el-table-column property="loan_singular_21day" label="21天期限放款单数" width="130px"></el-table-column>
-      <el-table-column property="loan_singular_f_21day" label="21天分期放款单数" width="130px"></el-table-column>
-      <el-table-column property="loan_singular_90day" label="90天分期放款单数" width="130px"></el-table-column>
-      <el-table-column property="loan_singular_t_21day" label="21天分期提额放款单数" width="130px"></el-table-column>
-      <el-table-column property="loans_total" label="放款总额(元)" width="130px"></el-table-column>
+      <el-table-column property="d_date" fixed sortable label="日期" sortable></el-table-column>
+      <el-table-column property="register_num" label="注册人数"></el-table-column>
+      <el-table-column property="loan_num" label="借款人数"></el-table-column>
+      <el-table-column property="success_loan_num" label="成功借款人数"width="100"></el-table-column>
+      <el-table-column property="newuser_loan_rate" label="新用户借款占比"width="100"></el-table-column>
+      <el-table-column property="olduser_loan_rate" label="老用户借款占比"width="100"></el-table-column>
+      <el-table-column property="accunewuser_loan_rate" label="累计新用户借款占比" width="125"></el-table-column>
+      <el-table-column property="accuolduser_loan_rate" label="累计老用户借款占比" width="125"></el-table-column>
+      <el-table-column property="loan_singular" label="放款单数"width="70"></el-table-column>
+      <el-table-column property="loan_singular_7day" label="7天期限放款单数" width="110"></el-table-column>
+      <el-table-column property="loan_singular_14day" label="14天期限放款单数" width="110"></el-table-column>
+      <el-table-column property="loan_singular_21day" label="21天期限放款单数" width="110"></el-table-column>
+      <el-table-column property="loan_singular_f_21day" label="21天分期放款单数" width="110"></el-table-column>
+      <el-table-column property="loan_singular_90day" label="90天分期放款单数" width="110"></el-table-column>
+      <el-table-column property="loan_singular_t_21day" label="21天分期提额放款单数" width="130"></el-table-column>
+      <el-table-column property="loans_total" label="放款总额(元)"width="110"></el-table-column>
       <el-table-column property="loans_total_7day" label="7天期限放款总额(元)" width="130px"></el-table-column>
       <el-table-column property="loans_total_14day" label="14天期限放款总额(元)" width="130px"></el-table-column>
       <el-table-column property="loans_total_21day" label="21天期限放款总额(元)" width="130px"></el-table-column>
       <el-table-column property="loans_total_f_21day" label="21天分期放款总额(元)" width="130px"></el-table-column>
       <el-table-column property="loans_total_90day" label="90天分期放款金额(元)" width="130px"></el-table-column>
-      <el-table-column property="loans_total_t_21day" label="21天分期提额放款金额(元)" width="130px"></el-table-column>
-      <el-table-column property="loan_singular_ouser" label="老用户放款单数" width="130px"></el-table-column>
-      <el-table-column property="loans_total_ouser" label="老用户放款总额(元)" width="130px"></el-table-column>
-      <el-table-column property="loan_singular_nuser" label="新用户放款单数" width="130px"></el-table-column>
+      <el-table-column property="loans_total_t_21day" label="21天分期提额放款金额(元)" width="150px"></el-table-column>
+      <el-table-column property="loan_singular_ouser" label="老用户放款单数" width="110"></el-table-column>
+      <el-table-column property="loans_total_ouser" label="老用户放款总额(元)" width="120"></el-table-column>
+      <el-table-column property="loan_singular_nuser" label="新用户放款单数" width="110"></el-table-column>
       <el-table-column property="loans_total_nuser" label="新用户放款总额(元)" width="130px"></el-table-column>
-      <el-table-column property="CHARGEBACK_FAILRATE" label="扣款失败率" width="130px"></el-table-column>
+      <el-table-column property="CHARGEBACK_FAILRATE" label="扣款失败率"></el-table-column>
       <el-table-column property="create_time" label="更新时间" width="130px"></el-table-column>
     </el-table>
     <div style="text-align: center;margin-top: 10px;" v-show="fundData.length!=0">
@@ -90,6 +93,13 @@
       this.loading = true
       this.getDataInit()
       this.height = getHeight()
+    },
+    computed: {
+      mosaicLink () {
+        let startTime = this.startTime || '1991-07-22'
+        let endTime = this.endTime || getNowFormatDate()
+        return 'api/dailyLendingData/excel?startTime=' + startTime + '&endTime=' + endTime
+      }
     },
     methods: {
       //每页显示数据量变更
@@ -198,6 +208,8 @@
         padding-left: 5px
         font-size: 14px
         color: #666
+      .dailyLendingDataExcel
+        color: #fff
 
     .el-table .cell, .el-table th > div
       padding-left: 0

@@ -1,5 +1,5 @@
 <template>
-  <div class="fundAnalysisProduct">
+  <div class="fundAnalysisProduct" v-loading.body="loading" element-loading-text="拼命加载中">
     <banner></banner>
     <div class="date-filter">
       <span class="managerFront">日期：</span>
@@ -18,44 +18,66 @@
       <el-button type="primary" size="small" @click.prevent.stop="search">搜索</el-button>
       <el-button type="primary" size="small" :loading="buttonLoading" @click.prevent.stop="refreshData">一键刷新</el-button>
     </div>
-    <el-table v-loading.body="loading" element-loading-text="拼命加载中" :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto" :height="height">
+    <el-table :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto" :height="height">
       <el-table-column property="D_DATE" sortable fixed label="日期"></el-table-column>
-      <el-table-column property="TOTAL_AMOUNT_14" label="当日应还总额-14天(元)"width="130"></el-table-column>
-      <el-table-column property="TOTAL_AMOUNT_21F" label="当日应还总额-21天(元)"width="130"></el-table-column>
-      <el-table-column property="TOTAL_AMOUNT_90F" label="当日应还总额-90天(元)"width="130"></el-table-column>
-      <el-table-column property="ACTUAL_REPAYMENT_AMOUNT_14" label="实际还款金额-14天(元)"width="130"></el-table-column>
-      <el-table-column property="ACTUAL_REPAYMENT_AMOUNT_21F" label="实际还款金额-21天(元)"width="130"></el-table-column>
-      <el-table-column property="ACTUAL_REPAYMENT_AMOUNT_90F" label="实际还款金额-90天(元)"width="130"></el-table-column>v
-      <el-table-column property="REPAYMENT_RATIO_14" label="还款比例-14天"width="110"></el-table-column>
-      <el-table-column property="REPAYMENT_RATIO_21F" label="还款比例-21天"width="110"></el-table-column>
-      <el-table-column property="REPAYMENT_RATIO_90F" label="还款比例-90天"width="110"></el-table-column>
-      <el-table-column property="RENEWAL_AMOUNT_14" label="续期金额-14天(元)"width="130"></el-table-column>
+      <el-table-column label="当日应还总额(元)">
+      <el-table-column property="TOTAL_AMOUNT_14" label="14天"width="100"></el-table-column>
+      <el-table-column property="TOTAL_AMOUNT_21F" label="21天"width="100"></el-table-column>
+      <el-table-column property="TOTAL_AMOUNT_90F" label="90天"width="100"></el-table-column>
+      </el-table-column>
+      <el-table-column label="实际还款金额(元)">
+      <el-table-column property="ACTUAL_REPAYMENT_AMOUNT_14" label="14天"width="100"></el-table-column>
+      <el-table-column property="ACTUAL_REPAYMENT_AMOUNT_21F" label="21天"width="100"></el-table-column>
+      <el-table-column property="ACTUAL_REPAYMENT_AMOUNT_90F" label="90天"width="100"></el-table-column>
+      </el-table-column>
+      <el-table-column label="还款比例">
+      <el-table-column property="REPAYMENT_RATIO_14" label="14天"width="100"></el-table-column>
+      <el-table-column property="REPAYMENT_RATIO_21F" label="21天"width="100"></el-table-column>
+      <el-table-column property="REPAYMENT_RATIO_90F" label="90天"width="100"></el-table-column>
+      </el-table-column>
+      <el-table-column property="RENEWAL_AMOUNT_14" label="续期金额-14天(元)"width="120"></el-table-column>
       <el-table-column property="RENEWAL_COMMISSION_14" label="续期手续费收入-14天(元)"width="150"></el-table-column>
-      <el-table-column property="RENEWAL_RATIO_14" label="续期比例-14天"width="130"></el-table-column>
-      <el-table-column property="OVERDUE_AMOUNT_14" label="逾期金额-14天(元)"width="130"></el-table-column>
-      <el-table-column property="OVERDUE_AMOUNT_21F" label="逾期金额-21天(元)"width="130"></el-table-column>
-      <el-table-column property="OVERDUE_AMOUNT_90F" label="逾期金额-90天(元)"width="130"></el-table-column>
-      <el-table-column property="OVERDUE_PROPORTION_14" label="逾期比例-14天"width="110"></el-table-column>
-      <el-table-column property="OVERDUE_PROPORTION_21F" label="逾期比例-21天"width="110"></el-table-column>
-      <el-table-column property="OVERDUE_PROPORTION_90F" label="逾期比例-90天"width="110"></el-table-column>
-      <el-table-column property="OVERDUE_PAYMENT_AMOUNT_14" label="逾期还款金额-14天(元)"width="130"></el-table-column>
-      <el-table-column property="OVERDUE_PAYMENT_AMOUNT_21F" label="逾期还款金额-21天(元)"width="130"></el-table-column>
-      <el-table-column property="OVERDUE_PAYMENT_AMOUNT_90F" label="逾期还款金额-90天(元)"width="130"></el-table-column>
-      <el-table-column property="LATE_FEES_INCOME_14" label="滞纳金收入-14天(元)"width="130"></el-table-column>
-      <el-table-column property="LATE_FEES_INCOME_21F" label="滞纳金收入-21天(元)"width="130"></el-table-column>
-      <el-table-column property="LATE_FEES_INCOME_90F" label="滞纳金收入-90天(元)"width="130"></el-table-column>
-      <el-table-column property="COMP_SERVICE_INCOME_14" label="综合服务费收入-14天(元)"width="150"></el-table-column>
-      <el-table-column property="COMP_SERVICE_INCOME_21F" label="综合服务费收入-21天(元)"width="150"></el-table-column>
-      <el-table-column property="COMP_SERVICE_INCOME_90F" label="综合服务费收入-90天(元)"width="150"></el-table-column>
-      <el-table-column property="SERVICE_CHARGE_14" label="实收服务费-14天(元)"width="130"></el-table-column>
-      <el-table-column property="SERVICE_CHARGE_21F" label="实收服务费-21天(元)"width="130"></el-table-column>
-      <el-table-column property="SERVICE_CHARGE_90F" label="实收服务费-90天(元)"width="130"></el-table-column>
-      <el-table-column property="EQUAL_AMOUNT_INCOME_14" label="同等金额收益-14天(元)"width="130"></el-table-column>
-      <el-table-column property="EQUAL_AMOUNT_INCOME_21F" label="同等金额收益-21天(元)"width="130"></el-table-column>
-      <el-table-column property="EQUAL_AMOUNT_INCOME_90F" label="同等金额收益-90天(元)"width="130"></el-table-column>
-      <el-table-column property="CAPITAL_SURPLUS_14" label="当日资金盈余-14天(元)"width="130"></el-table-column>
-      <el-table-column property="CAPITAL_SURPLUS_21F" label="当日资金盈余-21天(元)"width="130"></el-table-column>
-      <el-table-column property="CAPITAL_SURPLUS_90F" label="当日资金盈余-90天(元)"width="130"></el-table-column>
+      <el-table-column property="RENEWAL_RATIO_14" label="续期比例-14天"width="110"></el-table-column>
+      <el-table-column label="逾期金额(元)">
+      <el-table-column property="OVERDUE_AMOUNT_14" label="14天"width="100"></el-table-column>
+      <el-table-column property="OVERDUE_AMOUNT_21F" label="21天"width="100"></el-table-column>
+      <el-table-column property="OVERDUE_AMOUNT_90F" label="90天"width="100"></el-table-column>
+      </el-table-column>
+      <el-table-column label="逾期比例">
+      <el-table-column property="OVERDUE_PROPORTION_14" label="14天"width="100"></el-table-column>
+      <el-table-column property="OVERDUE_PROPORTION_21F" label="21天"width="100"></el-table-column>
+      <el-table-column property="OVERDUE_PROPORTION_90F" label="90天"width="100"></el-table-column>
+      </el-table-column>
+      <el-table-column label="逾期还款金额(元)">
+      <el-table-column property="OVERDUE_PAYMENT_AMOUNT_14" label="14天"width="100"></el-table-column>
+      <el-table-column property="OVERDUE_PAYMENT_AMOUNT_21F" label="21天"width="100"></el-table-column>
+      <el-table-column property="OVERDUE_PAYMENT_AMOUNT_90F" label="90天"width="100"></el-table-column>
+      </el-table-column>
+      <el-table-column label="滞纳金收入(元)">
+      <el-table-column property="LATE_FEES_INCOME_14" label="14天"width="100"></el-table-column>
+      <el-table-column property="LATE_FEES_INCOME_21F" label="21天"width="100"></el-table-column>
+      <el-table-column property="LATE_FEES_INCOME_90F" label="90天"width="100"></el-table-column>
+      </el-table-column>
+      <el-table-column label="综合服务费收入(元)">
+      <el-table-column property="COMP_SERVICE_INCOME_14" label="14天"width="100"></el-table-column>
+      <el-table-column property="COMP_SERVICE_INCOME_21F" label="21天"width="100"></el-table-column>
+      <el-table-column property="COMP_SERVICE_INCOME_90F" label="90天"width="100"></el-table-column>
+      </el-table-column>
+      <el-table-column label="实收服务费(元)">
+      <el-table-column property="SERVICE_CHARGE_14" label="14天"width="100"></el-table-column>
+      <el-table-column property="SERVICE_CHARGE_21F" label="21天"width="100"></el-table-column>
+      <el-table-column property="SERVICE_CHARGE_90F" label="90天"width="100"></el-table-column>
+      </el-table-column>
+      <el-table-column label="同等金额收益(元)">
+      <el-table-column property="EQUAL_AMOUNT_INCOME_14" label="14天"width="100"></el-table-column>
+      <el-table-column property="EQUAL_AMOUNT_INCOME_21F" label="21天"width="100"></el-table-column>
+      <el-table-column property="EQUAL_AMOUNT_INCOME_90F" label="90天"width="100"></el-table-column>
+      </el-table-column>
+      <el-table-column label="当日资金盈余(元)">
+      <el-table-column property="CAPITAL_SURPLUS_14" label="14天"width="100"></el-table-column>
+      <el-table-column property="CAPITAL_SURPLUS_21F" label="21天"width="100"></el-table-column>
+      <el-table-column property="CAPITAL_SURPLUS_90F" label="90天"width="100"></el-table-column>
+      </el-table-column>
       <el-table-column property="UPDATE_TIME" sortable label="更新时间" width="130"></el-table-column>
     </el-table>
     <div style="text-align: center;margin-top: 10px;" v-show="fundData.length!=0">

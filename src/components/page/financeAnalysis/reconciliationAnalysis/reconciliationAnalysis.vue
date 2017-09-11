@@ -16,7 +16,7 @@
         placeholder="到">
       </el-date-picker>
       <el-button type="primary" size="small" @click.prevent.stop="search">搜索</el-button>
-      <el-button type="primary" size="small" class="userButton" :loading="buttonLoading">
+      <el-button type="primary" size="small" class="userButton">
         <a :href="mosaicLink" class="reconciliationAnalysisExcel">导出excel</a>
       </el-button>
     </div>

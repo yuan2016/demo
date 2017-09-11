@@ -5,7 +5,7 @@ let sql = require('../../../sql/sqlMap')
 let func = require('../../../sql/func')
 let moment = require('moment')
 let tableName = require('../../../config/tableName')
-let {formatCurrency} = require('../../../utils/utils')
+let {formatCurrency, formatInt} = require('../../../utils/utils')
 
 function formatData (rows) {
   return rows.map(row => {
@@ -32,6 +32,9 @@ function formatData (rows) {
     }
     if (row.apr) {
       row.apr = formatCurrency(row.apr)
+    }
+    if (row.loan_term) {
+      row.loan_term = formatInt(row.loan_term)
     }
     row.child_type = '现金快贷'
     return row
@@ -102,7 +105,6 @@ module.exports = {
     }
     let queries = handleQuery(params)
     let query = sql.loanManagement.reconciliationFunction.getCount + queries.slice(0, 3).join(' and ') + add
-    console.log(query)
     func.connPool2(query, [tableName.reconciliationFunction.t1, tableName.reconciliationFunction.t, params.startTime, params.endTime], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
@@ -117,7 +119,6 @@ module.exports = {
         }
         return
       }
-      console.log(rs)
       res.json(rs)
     })
   }
