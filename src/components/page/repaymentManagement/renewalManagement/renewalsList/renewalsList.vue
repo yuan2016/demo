@@ -26,7 +26,7 @@
         <el-button type="primary" size="small" class="loanAuditButton" @click.prevent.stop="search">搜索</el-button>
       </li>
     </ul>
-    <el-table :data="fundData"
+    <el-table :data="fundData" class="renewalsList-table"
               highlight-current-row border stripe style="width: 100%;overflow: auto" :height="height">
       <el-table-column property="order_id" label="订单号" width="150px"></el-table-column>
       <el-table-column property="realname" label="姓名"></el-table-column>
@@ -96,7 +96,7 @@
     created () {
       this.loading = true
       this.getDataInit()
-      this.height = getHeight()
+      this.height = parseInt(getHeight()) + 10
     },
     methods: {
       //每页显示数据量变更
@@ -217,6 +217,8 @@
 <style lang="stylus" rel="stylesheet/stylus">
   .renewalsList
     height: 100%
+    .renewalsList-table
+      border-radius :10px
     .date-filter
       padding: 15px 0 15px 1px
       box-sizing border-box

@@ -28,7 +28,13 @@ function formatData (rows) {
     if (row.ouser_adoption_rate) {
       row.ouser_adoption_rate = (row.ouser_adoption_rate * 100).toFixed(2) + '%'
     }
+    if (row.BADDEBT_RATE) {
+      row.BADDEBT_RATE = (row.BADDEBT_RATE * 100).toFixed(2) + '%'
+    }
 
+    if (row.UNITGROSS_PROFIT) {
+      row.UNITGROSS_PROFIT = formatCurrency(row.UNITGROSS_PROFIT)
+    }
     if (row.effe_cust_acqu_cost) {
       row.effe_cust_acqu_cost = formatCurrency(row.effe_cust_acqu_cost)
     }
@@ -71,6 +77,12 @@ function formatData (rows) {
     if (row.OVERDUE_AMOUNT) {
       row.OVERDUE_AMOUNT = formatCurrency(row.OVERDUE_AMOUNT)
     }
+    if (row.BADDEBT_amount) {
+      row.BADDEBT_amount = formatCurrency(row.BADDEBT_amount)
+    }
+    if (row.baddebt_amount_unit) {
+      row.baddebt_amount_unit = formatCurrency(row.baddebt_amount_unit)
+    }
     return row
   })
 }
@@ -92,7 +104,13 @@ function formatExcelData (rows) {
     if (row.老用户通过率) {
       row.老用户通过率 = (row.老用户通过率 * 100).toFixed(2) + '%'
     }
+    if (row.坏账率) {
+      row.坏账率 = (row.坏账率 * 100).toFixed(2) + '%'
+    }
 
+    if (row.单位毛利润) {
+      row.单位毛利润 = formatCurrency(row.单位毛利润)
+    }
     if (row.有效获客成本) {
       row.有效获客成本 = formatCurrency(row.有效获客成本)
     }
@@ -134,6 +152,12 @@ function formatExcelData (rows) {
     }
     if (row.逾期金额) {
       row.逾期金额 = formatCurrency(row.逾期金额)
+    }
+    if (row.坏账金额) {
+      row.坏账金额 = formatCurrency(row.坏账金额)
+    }
+    if (row.单位坏账金额) {
+      row.单位坏账金额 = formatCurrency(row.单位坏账金额)
     }
     return row
   })

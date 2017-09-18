@@ -18,7 +18,7 @@
       <el-button type="primary" size="small" @click.prevent.stop="search">搜索</el-button>
       <el-button type="primary" size="small" :loading="buttonLoading" @click.prevent.stop="refreshData">一键刷新</el-button>
     </div>
-    <el-table :data="fundData" highlight-current-row border stripe
+    <el-table :data="fundData" highlight-current-row border stripe class="promptAmount-table"
               style="width: 100%;overflow: auto;" :height="height">
       <el-table-column property="D_DATE" sortable fixed label="日期" ></el-table-column>
       <el-table-column property="OVERDUE_RATE" label="当日催回率"width="100"></el-table-column>
@@ -26,14 +26,24 @@
       <el-table-column property="COLLECTION_PRINCIPAL_DOING" label="在催本金(元)"width="100"></el-table-column>
       <el-table-column property="COLLECTION_PRINCIPAL_DOING_S1" label="S1在催本金(元)" width="100"></el-table-column>
       <el-table-column property="COLLECTION_PRINCIPAL_DOING_RATE_S1" label="S1在催本金比例" width="100"></el-table-column>
+      <el-table-column property="OVERDUE_RATE_S1_F" label="S1总和催回率" width="100"></el-table-column>
+      <el-table-column property="OVERDUE_RATE_S1_P" label="S1当期催回率" width="100"></el-table-column>
       <el-table-column property="COLLECTION_PRINCIPAL_DOING_S2" label="S2在催本金(元)"width="110"></el-table-column>
       <el-table-column property="COLLECTION_PRINCIPAL_DOING_RATE_S2" label="S2在催本金比例"width="110"></el-table-column>
+      <el-table-column property="OVERDUE_RATE_S2_F" label="S2总和催回率"width="110"></el-table-column>
+      <el-table-column property="OVERDUE_RATE_S2_P" label="S2当期催回率"width="110"></el-table-column>
       <el-table-column property="COLLECTION_PRINCIPAL_DOING_M2" label="M2在催本金(元)"width="110"></el-table-column>
       <el-table-column property="COLLECTION_PRINCIPAL_DOING_RATE_M2" label="M2在催本金比例"width="110"></el-table-column>
+      <el-table-column property="OVERDUE_RATE_M2_F" label="M2总和催回率"width="110"></el-table-column>
+      <el-table-column property="OVERDUE_RATE_M2_P" label="M2当期催回率"width="110"></el-table-column>
       <el-table-column property="COLLECTION_PRINCIPAL_DOING_M3" label="M3在催本金(元)"width="110"></el-table-column>
       <el-table-column property="COLLECTION_PRINCIPAL_DOING_RATE_M3" label="M3在催本金比例"width="110"></el-table-column>
+      <el-table-column property="OVERDUE_RATE_M3_F" label="M3总和催回率"width="110"></el-table-column>
+      <el-table-column property="OVERDUE_RATE_M3_P" label="M3当期催回率"width="110"></el-table-column>
       <el-table-column property="COLLECTION_PRINCIPAL_DOING_M3PLUS" label="M3+在催本金(元)"width="110"></el-table-column>
       <el-table-column property="COLLECTION_PRINCIPAL_DOING_RATE_M3PLUS" label="M3+在催本金比例"width="110"></el-table-column>
+      <el-table-column property="OVERDUE_RATE_M3PLUS_F" label="M3+总和催回率"width="110"></el-table-column>
+      <el-table-column property="OVERDUE_RATE_M3PLUS_P" label="M3+当期催回率"width="110"></el-table-column>
       <el-table-column property="COLLECTION_LATE_FEE_DOING" label="在催滞纳金"width="100"></el-table-column>
       <el-table-column property="COLLECTION_LATE_FEE_DOING_S1" label="S1在催滞纳金"width="100"></el-table-column>
       <el-table-column property="COLLECTION_LATE_FEE_DOING_S2" label="S2在催滞纳金"width="100"></el-table-column>
@@ -84,7 +94,7 @@
     created () {
       this.loading = true
       this.getDataInit()
-      this.height = getHeight()
+      this.height = parseInt(getHeight()) + 40
     },
     methods: {
       //每页显示数据量变更
@@ -185,6 +195,8 @@
 <style lang="stylus" rel="stylesheet/stylus">
   .promptAmount
     height: 100%
+    .promptAmount-table
+      border-radius:10px
     .date-filter
       padding: 15px 0 15px 1px
       box-sizing border-box

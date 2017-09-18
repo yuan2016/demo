@@ -4,13 +4,13 @@
       <el-breadcrumb-item :to="{ path: '/main' }">首页</el-breadcrumb-item>
       <el-breadcrumb-item v-for="(item, index) in $route.meta" key="index">{{item}}</el-breadcrumb-item>
     </el-breadcrumb>
-    <el-dropdown split-button type="primary">
-      更多
-      <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item @click.native="jumpTopwd({path:'/passwordModify'})">修改密码</el-dropdown-item>
-        <el-dropdown-item @click.native="jumpToLogin({path:'/login'})">注销</el-dropdown-item>
-      </el-dropdown-menu>
-    </el-dropdown>
+    <!--<el-dropdown split-button type="primary">-->
+      <!--更多-->
+      <!--<el-dropdown-menu slot="dropdown">-->
+        <!--<el-dropdown-item @click.native="jumpTopwd({path:'/passwordModify'})">修改密码</el-dropdown-item>-->
+        <!--<el-dropdown-item @click.native="jumpToLogin({path:'/login'})">注销</el-dropdown-item>-->
+      <!--</el-dropdown-menu>-->
+    <!--</el-dropdown>-->
   </div>
 </template>
 
@@ -34,11 +34,13 @@
   .banner
     display: flex
     height: 60px
-    box-sizing :border-box
+    box-sizing: border-box
     background-color: #EFF2F7
     justify-content: space-between
     align-items: center
     padding-left: 20px
+    border: 1px solid rgb(239, 242, 247)
+    border-radius :10px
     .el-button
       margin-right: 20px
 </style>

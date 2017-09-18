@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-const Layout = r => require.ensure([], () => r(require('../components/page/layot/layout')), 'layout')
+const Layout = r => require.ensure([], () => r(require('../components/page/layout/layout')), 'layout')
 const login = r => require.ensure([], () => r(require('../components/page/login/login')), 'login')
 const home = r => require.ensure([], () => r(require('../components/home/home')), 'home')
 const main = r => require.ensure([], () => r(require('../components/page/main/main')), 'main')
@@ -17,9 +17,9 @@ const userAuthenticationList = r => require.ensure([], () => r(require('../compo
 const rmabLayout = r => require.ensure([], () => r(require('../components/page/RMAB')), 'rmabLayout')
 const loanThroughRate = r => require.ensure([], () => r(require('../components/page/RMAB/market/loanThroughRate/loanThroughRate')), 'loanThroughRate')
 const loanThroughRateAll = r => require.ensure([], () => r(require('../components/page/RMAB/market/loanThroughRate/loanThroughRateAll')), 'loanThroughRateAll')
-const loanOverdueRecallRate = r => require.ensure([], () => r(require('../components/page/RMAB/loanOverdueRecallRate/loanOverdueRecallRate')), 'loanOverdueRecallRate')
-const userBasePortrait = r => require.ensure([], () => r(require('../components/page/RMAB/userBasePortrait/userBasePortrait')), 'userBasePortrait')
-const invitationEvent = r => require.ensure([], () => r(require('../components/page/RMAB/invitationEvent/invitationEvent')), 'invitationEvent')
+const loanOverdueRecallRate = r => require.ensure([], () => r(require('../components/page/RMAB/collection/loanOverdueRecallRate/loanOverdueRecallRate')), 'loanOverdueRecallRate')
+const userBasePortrait = r => require.ensure([], () => r(require('../components/page/RMAB/userPortrait/userBasePortrait/userBasePortrait')), 'userBasePortrait')
+const invitationEvent = r => require.ensure([], () => r(require('../components/page/RMAB/operate/invitationEvent/invitationEvent')), 'invitationEvent')
 const PVUV = r => require.ensure([], () => r(require('../components/page/promotionManagement/PVUV/PVUV')), 'PVUV')
 //借款管理
 const assetInformation = r => require.ensure([], () => r(require('../components/page/loanManagement/assetInformation/assetInformation')), 'assetInformation')
@@ -577,8 +577,8 @@ export const asyncRouterMap = [
         path: 'PVUV',
         icon: 'el-icon-star-on',
         component: PVUV,
-        name: 'PVUV-贷款超市',
-        meta: ['推广管理', 'PVUV-贷款超市'],
+        name: '贷款超市-PVUV',
+        meta: ['推广管理', '贷款超市-PVUV'],
         attr: {role: ['admin']}
       }
     ]

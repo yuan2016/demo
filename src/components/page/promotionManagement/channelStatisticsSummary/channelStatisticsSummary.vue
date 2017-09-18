@@ -15,7 +15,7 @@
       <el-button type="primary" size="small" class="userButton" @click.prevent.stop="search">搜索</el-button>
     </div>
     <el-table :data="fundData"
-              highlight-current-row border stripe style="width: 100%;overflow: auto;" :height="height">
+              highlight-current-row border stripe style="width: 100%;overflow: auto;" :height="height" class="channelStatisticsSummary-table">
       <el-table-column property="channel_trader" label="渠道商"></el-table-column>
       <el-table-column property="register_num" label="注册量"></el-table-column>
       <el-table-column property="realname_auth_num" sortable label="实名认证"></el-table-column>
@@ -72,7 +72,7 @@
       this.loading = true
       this.getSelectOptions()
       this.getDataInit()
-      this.height = getHeight()
+      this.height = parseInt(getHeight()) + 40
     },
     methods: {
       //每页显示数据量变更
@@ -143,6 +143,8 @@
 <style lang="stylus" rel="stylesheet/stylus">
   .channelStatisticsSummary
     height: 100%
+    .channelStatisticsSummary-table
+      border-radius :10px
     .date-filter
       padding: 15px 0 15px 1px
       box-sizing border-box

@@ -36,7 +36,7 @@
       </li>
     </ul>
     <el-table stripe :data="fundData" highlight-current-row border
-              style="width: 100%;overflow: auto" :height="height">
+              style="width: 100%;overflow: auto" :height="height" class="loanApplicationsList-table">
       <el-table-column property="out_trade_no" label="订单号" width="150px"></el-table-column>
       <el-table-column property="realname" label="姓名"></el-table-column>
       <el-table-column property="user_phone" label="手机号"></el-table-column>
@@ -152,7 +152,7 @@
     created () {
       this.loading = true
       this.getDataInit()
-      this.height = getHeight()
+      this.height = parseInt(getHeight()) + 10
     },
     methods: {
       //每页显示数据量变更
@@ -265,6 +265,8 @@
 <style lang="stylus" rel="stylesheet/stylus">
   .loanApplicationsList
     height: 100%
+    .loanApplicationsList-table
+      border-radius :10px
     .date-filter
       padding: 15px 0 15px 1px
       box-sizing border-box

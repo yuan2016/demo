@@ -13,7 +13,7 @@
                 @keyup.enter.native="search"></el-input>
       <el-button type="primary" size="small" class="userButton" @click.prevent.stop="search">搜索</el-button>
     </div>
-    <el-table :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto" :height="height">
+    <el-table :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto" :height="height" class="employeeList-table">
       <el-table-column property="user_name" label="姓名"></el-table-column>
       <el-table-column property="user_sex" label="性别"></el-table-column>
       <el-table-column property="department" label="部门"></el-table-column>
@@ -373,8 +373,8 @@
             mark: ['注册量统计报表', '推广管理']
           }, {
             id: 63,
-            label: 'PVUV-贷款超市',
-            mark: ['PVUV-贷款超市', '推广管理']
+            label: '贷款超市-PVUV',
+            mark: ['贷款超市-PVUV', '推广管理']
           }]
         }, {
           id: 8,
@@ -419,7 +419,7 @@
     created () {
       this.loading = true
       this.getDataInit()
-      this.height = getHeight()
+      this.height = parseInt(getHeight()) + 40
     },
     methods: {
       //每页显示数据量变更
@@ -551,6 +551,8 @@
 <style lang="stylus" rel="stylesheet/stylus">
   .employeeList
     height: 100%
+    .employeeList-table
+      border-radius :10px
     .date-filter
       padding: 15px 0 15px 1px
       box-sizing border-box
@@ -571,7 +573,7 @@
       left: 0
       width: 100%
       height: 100%
-      z-index: 100
+      z-index: 1002
       overflow: auto
       background: rgba(7, 17, 27, 0.8)
       backdrop-filter: blur(10px)
@@ -594,7 +596,7 @@
           left: 50%
           transform: translate(-50%, -50%)
           width: 500px
-          height: 600px
+          height: 550px
           border-radius: 5px
           text-align: center
           background-color: #fff

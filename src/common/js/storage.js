@@ -20,6 +20,11 @@ export function getAvailableTable () {
   return getCookie(availableTable)
 }
 
+export function clearAvailableTable () {
+  let availableTable = 'availableTable'
+  setCookie(availableTable, '', -1)
+}
+
 export function clearToken () {
   let token = 'token'
   setCookie(token, '', -1)
@@ -34,6 +39,17 @@ export function saveEmail (value) {
 export function getEmail () {
   let email = 'email'
   return getCookie(email)
+}
+
+export function saveName (value) {
+  let name = 'name'
+  let Days = 1000
+  setCookie(name, value, Days)
+}
+
+export function getName () {
+  let name = 'name'
+  return getCookie(name)
 }
 
 export function saveHeight (value) {

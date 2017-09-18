@@ -20,7 +20,7 @@
       </el-select>
       <el-button type="primary" size="small" class="loanAuditButton" @click.prevent.stop="search">搜索</el-button>
     </div>
-    <el-table :data="fundData"
+    <el-table :data="fundData" class="repaymentDetails-table"
               highlight-current-row border stripe style="width: 100%;overflow: auto;" :height="height">
       <el-table-column property="id" label="详情ID"></el-table-column>
       <el-table-column property="order_id" label="订单号" width="150px"></el-table-column>
@@ -112,7 +112,7 @@
     created () {
       this.loading = true
       this.getDataInit()
-      this.height = parseInt(getHeight()) + 30
+      this.height = parseInt(getHeight()) + 40
     },
     methods: {
       //每页显示数据量变更
@@ -228,6 +228,8 @@
 <style lang="stylus" rel="stylesheet/stylus">
   .repaymentDetails
     height: 100%
+    .repaymentDetails-table
+      border-radius :10px
     .date-filter
       padding: 15px 0 15px 1px
       box-sizing border-box

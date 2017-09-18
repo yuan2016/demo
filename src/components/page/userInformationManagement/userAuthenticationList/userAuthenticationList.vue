@@ -11,7 +11,7 @@
       <el-button type="primary" size="small" class="userButton" @click.prevent.stop="search">搜索</el-button>
     </div>
     <el-table :data="fundData" highlight-current-row border stripe
-              style="width: 100%;overflow: auto" :height="height">
+              style="width: 100%;overflow: auto" :height="height" class="userAuthenticationList-table">
       <el-table-column property="user_id" label="用户ID"></el-table-column>
       <el-table-column property="realname" label="用户姓名"></el-table-column>
       <el-table-column property="user_phone" label="手机号" width="120px"></el-table-column>
@@ -67,7 +67,7 @@
     created () {
       this.loading = true
       this.getDataInit()
-      this.height = parseInt(getHeight()) + 30
+      this.height = parseInt(getHeight()) + 40
     },
     methods: {
       //每页显示数据量变更
@@ -190,6 +190,8 @@
         width: 180px
       .userButton
         margin-left: 5px
+    .userAuthenticationList-table
+      border-radius :10px
 
     .el-table .cell, .el-table th > div
       padding-left: 0

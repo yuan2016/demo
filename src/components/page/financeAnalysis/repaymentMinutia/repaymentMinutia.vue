@@ -26,7 +26,7 @@
         <a :href="mosaicLink" class="repaymentMinutiaExcel">导出excel</a>
       </el-button>
     </div>
-    <el-table :data="fundData" highlight-current-row border stripe
+    <el-table :data="fundData" highlight-current-row border stripe class="repaymentMinutia-table"
               style="width: 100%;overflow: auto" :height="height">
       <el-table-column property="user_id" label="用户ID"></el-table-column>
       <el-table-column property="user_name" label="借款人姓名"></el-table-column>
@@ -124,7 +124,7 @@
     created () {
       this.loading = true
       this.getDataInit()
-      this.height = getHeight()
+      this.height = parseInt(getHeight()) + 40
     },
     methods: {
       //每页显示数据量变更
@@ -208,6 +208,8 @@
 <style lang="stylus" rel="stylesheet/stylus">
   .repaymentMinutia
     height: 100%
+    .repaymentMinutia-table
+      border-radius :10px
     .date-filter
       padding: 15px 0 15px 1px
       box-sizing border-box

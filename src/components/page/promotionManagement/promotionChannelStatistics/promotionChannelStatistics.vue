@@ -21,7 +21,7 @@
         <a :href="mosaicLink" class="promotionChannelStatisticsExcel">导出excel</a>
       </el-button>
     </div>
-    <el-table :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto" :height="height">
+    <el-table :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto" :height="height" class="promotionChannelStatistics-table">
       <el-table-column property="d_date" sortable fixed label="日期"></el-table-column>
       <el-table-column property="channel_trader_name" label="渠道商名称"></el-table-column>
       <el-table-column property="settle_method" label="结算方式" width="170px"></el-table-column>
@@ -32,17 +32,21 @@
       <el-table-column property="apply_loan_num" label="申请借款人数" width="100px"></el-table-column>
       <el-table-column property="blacklist_num" label="黑名单人数"></el-table-column>
       <el-table-column property="entries_num" label="进件数"></el-table-column>
-      <el-table-column property="nuser_apply_succ_num" label="新用户申请成功人数" width="130px"></el-table-column>
-      <el-table-column property="ouser_apply_succ_num" label="老用户申请成功人数" width="130px"></el-table-column>
+      <el-table-column property="nuser_apply_succ_num" label="新用户申请成功人数" width="130"></el-table-column>
+      <el-table-column property="ouser_apply_succ_num" label="老用户申请成功人数" width="130"></el-table-column>
       <el-table-column property="nuser_loan_ratio" label="新用户借款率" width="100px"></el-table-column>
       <el-table-column property="nuser_adoption_rate" label="新用户通过率" width="100px"></el-table-column>
-      <el-table-column property="nuser_loan_amount" label="新用户放款金额(元)" width="120px"></el-table-column>
+      <el-table-column property="nuser_loan_amount" label="新用户放款金额(元)" width="120"></el-table-column>
       <el-table-column property="ouser_adoption_rate" label="老用户通过率"></el-table-column>
-      <el-table-column property="ouser_loan_amount" label="老用户放款金额(元)" width="120px"></el-table-column>
+      <el-table-column property="ouser_loan_amount" label="老用户放款金额(元)" width="120"></el-table-column>
       <el-table-column property="DUE_AMOUNT" label="到期金额(元)" width="100"></el-table-column>
       <el-table-column property="overdue_num" label="逾期人数"></el-table-column>
       <el-table-column property="OVERDUE_AMOUNT" label="逾期金额(元)" width="100"></el-table-column>
-      <el-table-column property="create_time" sortable label="更新时间" width="130px"></el-table-column>
+      <el-table-column property="BADDEBT_RATE" label="坏账率"></el-table-column>
+      <el-table-column property="BADDEBT_amount" label="坏账金额(元)"></el-table-column>
+      <el-table-column property="baddebt_amount_unit" label="单位坏账金额(元)" width="100"></el-table-column>
+      <el-table-column property="UNITGROSS_PROFIT" label="单位毛利润(元)" width="100"></el-table-column>
+      <el-table-column property="create_time" sortable label="更新时间" width="130"></el-table-column>
     </el-table>
     <div style="text-align: center;margin-top: 10px;" v-show="fundData.length!=0">
       <el-pagination
@@ -89,7 +93,7 @@
       this.loading = true
       this.getSelectOptions()
       this.getDataInit()
-      this.height = getHeight()
+      this.height = parseInt(getHeight()) + 40
     },
     computed: {
       mosaicLink () {
@@ -207,6 +211,8 @@
 <style lang="stylus" rel="stylesheet/stylus">
 .promotionChannelStatistics
   height: 100%
+  .promotionChannelStatistics-table
+    border-radius :10px
   .date-filter
     padding: 15px 0 15px 1px
     box-sizing border-box

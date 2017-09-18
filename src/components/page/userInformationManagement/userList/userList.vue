@@ -5,7 +5,7 @@
       <li>
         <span class="managerFront">用户ID：</span>
         <el-input size="small" type="text" placeholder="请输入内容" class="managerText" v-model.trim="id"
-                  @keyup.enter.native="search"></el-input>
+                  @keyup.enter.native="search" icon="el-icon-search"></el-input>
         <span class="managerFront">姓名：</span>
         <el-input size="small" type="text" placeholder="请输入内容" class="managerText" v-model.trim="realname"
                   @keyup.enter.native="search"></el-input>
@@ -36,7 +36,7 @@
       </li>
     </ul>
     <el-table stripe :data="fundData" highlight-current-row border
-              :height="height" style="width:100%;overflow: auto" @sort-change="sort">
+              :height="height" style="width:100%;overflow: auto" @sort-change="sort" class="userList-table">
       <el-table-column property="id" label="用户ID"></el-table-column>
       <el-table-column property="realname" label="姓名"></el-table-column>
       <el-table-column property="company_name" label="公司名称"></el-table-column>
@@ -103,7 +103,7 @@
     created () {
       this.loading = true
       this.getDataInit()
-      this.height = getHeight()
+      this.height = parseInt(getHeight()) + 10
     },
     methods: {
       //每页显示数据量变更
@@ -300,7 +300,8 @@
         width: 120px
       .userListSelect
         width: 80px
-
+    .userList-table
+      border-radius :10px
     .el-table .cell, .el-table th > div
       padding-left: 0
       padding-right: 0

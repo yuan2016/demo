@@ -78,6 +78,37 @@ function formatData (rows) {
     if (row.OVERDUE_RATE) {
       row.OVERDUE_RATE = (row.OVERDUE_RATE * 100).toFixed(2) + '%'
     }
+
+    if (row.OVERDUE_RATE_S1_P) {
+      row.OVERDUE_RATE_S1_P = (row.OVERDUE_RATE_S1_P * 100).toFixed(2) + '%'
+    }
+    if (row.OVERDUE_RATE_S1_F) {
+      row.OVERDUE_RATE_S1_F = (row.OVERDUE_RATE_S1_F * 100).toFixed(2) + '%'
+    }
+    if (row.OVERDUE_RATE_S2_P) {
+      row.OVERDUE_RATE_S2_P = (row.OVERDUE_RATE_S2_P * 100).toFixed(2) + '%'
+    }
+    if (row.OVERDUE_RATE_S2_F) {
+      row.OVERDUE_RATE_S2_F = (row.OVERDUE_RATE_S2_F * 100).toFixed(2) + '%'
+    }
+    if (row.OVERDUE_RATE_M2_P) {
+      row.OVERDUE_RATE_M2_P = (row.OVERDUE_RATE_M2_P * 100).toFixed(2) + '%'
+    }
+    if (row.OVERDUE_RATE_M2_F) {
+      row.OVERDUE_RATE_M2_F = (row.OVERDUE_RATE_M2_F * 100).toFixed(2) + '%'
+    }
+    if (row.OVERDUE_RATE_M3_P) {
+      row.OVERDUE_RATE_M3_P = (row.OVERDUE_RATE_M3_P * 100).toFixed(2) + '%'
+    }
+    if (row.OVERDUE_RATE_M3_F) {
+      row.OVERDUE_RATE_M3_F = (row.OVERDUE_RATE_M3_F * 100).toFixed(2) + '%'
+    }
+    if (row.OVERDUE_RATE_M3PLUS_P) {
+      row.OVERDUE_RATE_M3PLUS_P = (row.OVERDUE_RATE_M3PLUS_P * 100).toFixed(2) + '%'
+    }
+    if (row.OVERDUE_RATE_M3PLUS_F) {
+      row.OVERDUE_RATE_M3PLUS_F = (row.OVERDUE_RATE_M3PLUS_F * 100).toFixed(2) + '%'
+    }
     return row
   })
 }

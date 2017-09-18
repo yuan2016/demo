@@ -118,7 +118,10 @@ module.exports = {
   // 还款明细表
   repaymentMinutia: 'PR_DS_REPAYMENT_DETAIL',
   //对账分析表
-  reconciliationAnalysis: 'PR_DS_RECONCILIATION_ANALYSIS',
+  reconciliationAnalysis: {
+    t: 'PR_DS_RECONCILIATION_ANALYSIS',
+    t1: 'PR_DS_RECONCILIATION_ANALYSIS_CWLR'
+  },
   //还款日报表统计
   reportStatistics: 'PR_DS_REPAYMENT_SUM',
   //在催金额

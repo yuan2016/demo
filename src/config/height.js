@@ -5,7 +5,7 @@ import { saveHeight } from '../common/js/storage'
   let resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize'
   let recalc = function () {
     let tableHeight
-    tableHeight = docEl - 210
+    tableHeight = docEl - 280
     saveHeight(tableHeight)
   }
   if (!doc.addEventListener) return

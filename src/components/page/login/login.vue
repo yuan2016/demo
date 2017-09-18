@@ -26,7 +26,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import { saveToken, saveEmail, getEmail, saveAvailableTable } from '../../../common/js/storage'
+  import { saveToken, saveEmail, getEmail, saveAvailableTable, saveName } from '../../../common/js/storage'
   import { isCfEmail } from '../../../common/js/validate'
   import md5 from 'js-md5'
   import { mapGetters } from 'vuex'
@@ -89,11 +89,17 @@
                   message: '欢迎进入报表系统',
                   type: 'success'
                 })
-                saveToken(response.data.token)
-                saveAvailableTable(response.data.availableTable)
+                let resData = response.data
+                saveToken(resData.token)
+                saveAvailableTable(resData.availableTable)
                 saveEmail(this.loginForm.email)
+                saveName(resData.name)
                 this.setMark(0)
                 this.$router.push(path)
+                this.$message({
+                  message: resData.name + '你好，欢迎进入报表系统',
+                  type: 'success'
+                })
               }
             })
           } else {

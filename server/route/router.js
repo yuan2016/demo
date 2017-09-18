@@ -219,6 +219,7 @@ router.get(api.repaymentMinutiaExcel, repaymentMinutia.getExcelData)
 router.post(api.reconciliationAnalysisCount, reconciliationAnalysis.getCount)
 router.post(api.reconciliationAnalysis, reconciliationAnalysis.fetchAll)
 router.get(api.reconciliationAnalysisExcel, reconciliationAnalysis.getExcelData)
+router.post(api.reconciliationAnalysisModify, reconciliationAnalysis.modify)
 //还款日报表统计
 router.post(api.reportStatisticsCount, reportStatistics.getCount)
 router.post(api.reportStatistics, reportStatistics.fetchAll)

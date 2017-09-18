@@ -2,7 +2,7 @@
 let sqlMap = {
   // 登陆
   login: {
-    select: 'select user_password,role,available_table from ?? where user_email = ?'
+    select: 'select user_password,user_name,available_table from ?? where user_email = ?'
   },
   //修改密码
   passwordModify: {
@@ -146,7 +146,7 @@ let sqlMap = {
     getCount: 'select count(*) as count from ?? where d_date between ? and ?',
     dailyLendingDataExcel: 'select d_date as "日期",register_num as "注册人数",loan_num as "借款人数",success_loan_num as "成功借款人数",newuser_loan_rate as "新用户借款占比",olduser_loan_rate as "老用户借款占比",accunewuser_loan_rate as "累计新用户借款占比",accuolduser_loan_rate as "累计老用户借款占比",loan_singular as "放款单数",loan_singular_7day as "7天期限放款单数",loan_singular_14day as "14天期限放款单数",loan_singular_21day as "21天期限放款单数",loan_singular_f_21day as "21天分期放款单数",loan_singular_90day as "90天分期放款单数",loan_singular_t_21day as "21天分期提额放款单数",loans_total as "放款总额(元)",loans_total_7day as "7天期限放款总额(元)",loans_total_14day as "14天期限放款总额(元)",loans_total_21day as "21天期限放款总额(元)",loans_total_f_21day as "21天分期放款总额(元)",loans_total_90day as "90天分期放款金额(元)",loans_total_t_21day as "21天分期提额放款金额(元)",loan_singular_ouser as "老用户放款单数",loans_total_ouser as "老用户放款总额(元)",loan_singular_nuser as "新用户放款单数",loans_total_nuser as "新用户放款总额",CHARGEBACK_FAILRATE as "扣款失败率",create_time as "更新时间" from ?? where d_date between ? and ? order by d_date desc',
     overdueRepaymentStatisticsExcel: 'select d_date as "日期",loan_amount_total as "当前借款总数量",loan_money_total as "当前借款总额",repayment_amount_total as "已经还款总数量",repayment_money_total as "已经还款总额",quantity_overdue as "逾期中数量",total_overdue as "逾期中总额",m_overdue_rate_s1 as "S1级逾期率(按金额)",m_overdue_rate_s2 as "S2级逾期率(按金额)",m_overdue_rate_s3 as "S3级逾期率(按金额)",m_overdue_rate_m3 as "M3级逾期率(按金额)",n_overdue_rate_s1 as "S1级逾期率(按单数)",n_overdue_rate_s2 as "S2级逾期率(按单数)",n_overdue_rate_s3 as "S3级逾期率(按单数)",n_overdue_rate_m3 as "M3级逾期率(按单数)" from ?? where d_date between ? and ? order by d_date desc',
-    fundAnalysisExcel: 'select d_date as "日期",total_amount as "当日应还总额",actual_repayment_amount as "实际还款金额",repayment_ratio as "还款比例",renewal_amount as "续期金额",renewal_commission as "续期手续费收入",renewal_ratio as "续期比例",overdue_amount as "逾期金额",overdue_proportion as "逾期比例",overdue_payment_amount as "逾期还款金额",late_fees_income as "滞纳金收入",comp_service_income as "综合服务费收入",service_charge as "实收服务费",equal_amount_income as "同等金额收益",capital_surplus as "当日资金盈余",create_time as "更新时间" from ?? where d_date between ? and ? order by d_date desc'
+    fundAnalysisExcel: 'select d_date as "日期",loan_amount_total as "当前借款总数量",loan_money_total as "当前借款总额",repayment_amount_total as "已经还款总数量",repayment_money_total as "已经还款总额",quantity_overdue as "逾期中数量",total_overdue as "逾期中总额",m_overdue_rate_s1 as "S1级逾期率(按金额)",m_overdue_rate_s2 as "S2级逾期率(按金额)",m_overdue_rate_s3 as "S3级逾期率(按金额)",m_overdue_rate_m3 as "M3级逾期率(按金额)",n_overdue_rate_s1 as "S1级逾期率(按单数)",n_overdue_rate_s2 as "S2级逾期率(按单数)",n_overdue_rate_s3 as "S3级逾期率(按单数)",n_overdue_rate_m3 as "M3级逾期率(按单数)" from ?? where d_date between ? and ? order by d_date desc'
   },
 //财务分析
   financeAnalysis: {
@@ -158,10 +158,11 @@ let sqlMap = {
       selectAllExcel: 'select d_date as "日期", user_id as "用户ID", user_name as "借款人姓名", user_phone as "手机号", order_id as "债权ID", loan_id as "还款ID", loan_money as "借款金额", repayment_amount as "总应还款金额", repaymented_amount as "已还金额", repayment_Service as "服务费", loan_urgent_fee as "加急费", Principal_amount as "本金", loan_accrual as "利息", stages_fee as "分期费", renewal_service_fee as "续期服务费", renewal_fee as "续期手续费", Overdue_fine as "逾期滞纳金", repayment_real_money as "实还金额", return_money as "退款金额", loan_status as "借款状态", repayment_type as "还款方式", repayment_channel as "还款通道", repayment_detail as "还款详情", repayment_status as "还款状态", credit_repayment_time as "放款时间", repayment_time as "预期还款时间", repayment_real_time as "实际还款时间", repayment_term as "还款期限", renewal_term as "续期期限", late_day as "滞纳天数", service_rate as "基础服务费率", Urgent_rate as "加急费率", Loan_interest_rate as "借款利率", Installment_rate as "分期费率", Renewal_rate as "续期利率", Overdue_rate as "逾期费率"  from ?? where (repayment_real_time between ? and ?) and '
     },
     reconciliationAnalysis: {
-      selectAllFront: 'select * from ?? where (d_date between ? and ?)',
+      selectAllFront: 'SELECT * FROM ?? t LEFT JOIN ?? t1 ON t.d_date = t1.d_date where (t.d_date between ? and ?)',
       selectAllBack: ' limit ?,?',
-      orderBy: ' order by d_date desc',
-      getCount: 'select count(*) as count from ?? where (d_date between ? and ?)'
+      orderBy: ' order by t.d_date desc',
+      getCount: 'select count(*) as count from ?? where (d_date between ? and ?)',
+      upadte: 'update ?? set AMT_FY_THIRD=?,AMT_FY_DIFF=?,AMT_LL_THIRD=?,AMT_LL_DIFF=?,AMT_ZFB_THIRD=?,AMT_ZFB_DIFF=?,AMT_YMT_THIRD=?,AMT_YMT_DIFF=?,AMT_LKL_THIRD=?,AMT_LKL_DIFF=?,REMARK=? where d_date=?'
     },
     //  还款日报表统计
     reportStatistics: {
@@ -191,7 +192,7 @@ let sqlMap = {
       selectAllBack: ' order by d_date desc,day_consumption desc, register_num desc limit ?,?',
       getCount: 'select count(*) as count from ?? where (channel_trader_name is not null and channel_trader_name !="") and (d_date between ? and ?) and ',
       getSelectOptions: 'select channel_trader_name from ?? group by channel_trader_name',
-      selectAllExcel: 'select d_date as "日期", channel_trader_name as "渠道商名称", settle_method as "结算方式", effe_cust_acqu_cost as "有效获客成本",day_consumption as "当日消耗",register_num as "注册量",all_fact_auth_num as "全要素认证人数",apply_loan_num as "申请借款人数",blacklist_num as "黑名单人数",entries_num as "进件数",nuser_apply_succ_num as "新用户申请成功人数", ouser_apply_succ_num as "老用户申请成功人数", nuser_loan_ratio as "新用户借款率",nuser_adoption_rate as "新用户通过率",nuser_loan_amount as "新用户放款金额",ouser_adoption_rate as "老用户通过率",ouser_loan_amount as "老用户放款金额",DUE_AMOUNT as "到期金额",overdue_num as "逾期人数", OVERDUE_AMOUNT as "逾期金额", create_time as "更新时间" from ?? where (channel_trader_name is not null and channel_trader_name !="") and (d_date between ? and ?) and '
+      selectAllExcel: 'select d_date as "日期", channel_trader_name as "渠道商名称", settle_method as "结算方式", effe_cust_acqu_cost as "有效获客成本",day_consumption as "当日消耗",register_num as "注册量",all_fact_auth_num as "全要素认证人数",apply_loan_num as "申请借款人数",blacklist_num as "黑名单人数",entries_num as "进件数",nuser_apply_succ_num as "新用户申请成功人数", ouser_apply_succ_num as "老用户申请成功人数", nuser_loan_ratio as "新用户借款率",nuser_adoption_rate as "新用户通过率",nuser_loan_amount as "新用户放款金额",ouser_adoption_rate as "老用户通过率",ouser_loan_amount as "老用户放款金额",DUE_AMOUNT as "到期金额",overdue_num as "逾期人数", OVERDUE_AMOUNT as "逾期金额", BADDEBT_RATE as "坏账率", BADDEBT_amount as "坏账金额", UNITGROSS_PROFIT as "单位毛利润",baddebt_amount_unit as "单位坏账金额",create_time as "更新时间" from ?? where (channel_trader_name is not null and channel_trader_name !="") and (d_date between ? and ?) and '
     },
     //推广管理 推广统计（地区）
     promotionRegionStatistics: {

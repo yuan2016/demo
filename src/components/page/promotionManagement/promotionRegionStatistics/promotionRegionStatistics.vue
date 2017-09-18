@@ -13,7 +13,7 @@
       <el-button type="primary" size="small" class="userButton" @click.prevent.stop="search">搜索</el-button>
       <el-button type="primary" size="small" :loading="buttonLoading" @click.prevent.stop="refreshData">一键刷新</el-button>
     </div>
-    <el-table :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto;" :height="height">
+    <el-table :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto;" :height="height" class="promotionRegionStatistics-table">
       <el-table-column property="d_date" sortable label="日期"></el-table-column>
       <el-table-column property="Province" label="省份"></el-table-column>
       <el-table-column property="city" label="城市"></el-table-column>
@@ -88,7 +88,7 @@
     created () {
       this.loading = true
       this.getDataInit()
-      this.height = getHeight()
+      this.height = parseInt(getHeight()) + 40
     },
     methods: {
       //每页显示数据量变更
@@ -199,6 +199,8 @@
 <style lang="stylus" rel="stylesheet/stylus">
   .promotionRegionStatistics
     height: 100%
+    .promotionRegionStatistics-table
+      border-radius :10px
     .date-filter
       padding: 15px 0 15px 1px
       box-sizing border-box

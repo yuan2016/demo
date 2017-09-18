@@ -40,7 +40,7 @@ module.exports = {
         console.log('[query] - :' + err)
       }
       let result = judgment(rs, params.password)
-      let final = {token: result, role: rs.role, availableTable: rs[0].available_table}
+      let final = {token: result, name: rs[0].user_name, availableTable: rs[0].available_table}
       res.json(final)
     })
   },

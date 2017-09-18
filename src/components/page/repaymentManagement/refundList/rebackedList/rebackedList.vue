@@ -33,7 +33,7 @@
         <el-button type="primary" size="small" class="loanAuditButton" @click.prevent.stop="search">搜索</el-button>
       </li>
     </ul>
-    <el-table :data="fundData"
+    <el-table :data="fundData" class="rebackedList-table"
               highlight-current-row border stripe style="width: 100%;overflow: auto" :height="height">
       <el-table-column property="id" label="退款ID" width="80"></el-table-column>
       <el-table-column property="return_order_id" label="订单号" width="200px"></el-table-column>
@@ -113,7 +113,7 @@
     created () {
       this.loading = true
       this.getDataInit()
-      this.height = getHeight()
+      this.height = parseInt(getHeight()) + 10
     },
     methods: {
       //每页显示数据量变更
@@ -234,6 +234,8 @@
 <style lang="stylus" rel="stylesheet/stylus">
 .rebackedList
   height: 100%
+  .rebackedList-table
+    border-radius :10px
   .date-filter
     padding: 15px 0 15px 1px
     box-sizing border-box

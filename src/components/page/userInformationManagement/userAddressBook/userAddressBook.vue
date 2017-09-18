@@ -11,7 +11,7 @@
       <el-input size="small" type="text" placeholder="请输入内容" class="managerText" v-model.trim="contact_name"></el-input>
       <el-button type="primary" size="small" class="userButton" @click.prevent.stop="search">搜索</el-button>
     </div>
-    <el-table class="userTable" :data="fundData" stripe
+    <el-table class="userAddressBook-table" :data="fundData" stripe
               highlight-current-row border :height="height" style="width: 100%;overflow: auto">
       <el-table-column property="id" label="ID"></el-table-column>
       <el-table-column property="user_id" label="用户ID"></el-table-column>
@@ -61,7 +61,7 @@
     created () {
       this.loading = true
       this.getDataInit()
-      this.height = parseInt(getHeight()) + 30
+      this.height = parseInt(getHeight()) + 40
     },
     methods: {
       //每页显示数据量变更
@@ -180,6 +180,8 @@
         width: 180px
       .userButton
         margin-left: 5px
+    .userAddressBook-table
+      border-radius :10px
 
     .el-table .cell, .el-table th > div
       padding-left: 0

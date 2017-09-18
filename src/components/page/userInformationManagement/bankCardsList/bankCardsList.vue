@@ -30,7 +30,7 @@
         <el-button type="primary" size="small" class="userButton" @click.prevent.stop="search">搜索</el-button>
       </li>
     </ul>
-    <el-table :data="fundData" highlight-current-row border stripe :height="height" style="width: 100%;overflow: auto">
+    <el-table :data="fundData" highlight-current-row border stripe :height="height" style="width: 100%;overflow: auto" class="bankCardsList-table">
       <el-table-column property="id" label="ID" width="80px"></el-table-column>
       <el-table-column property="user_id" label="借款人ID" width="80px"></el-table-column>
       <el-table-column property="open_name" label="持卡人姓名"></el-table-column>
@@ -98,7 +98,7 @@
     created () {
       this.loading = true
       this.getDataInit()
-      this.height = getHeight()
+      this.height = parseInt(getHeight()) + 10
     },
     methods: {
       //每页显示数据量变更
@@ -244,6 +244,8 @@
       width: 120px
     .userListSelect
       width: 80px
+  .bankCardsList-table
+    border-radius :10px
 
 
   .el-table .cell, .el-table th > div

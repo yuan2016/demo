@@ -1,0 +1,184 @@
+{
+  "table": [
+    {
+      "value": "新用户借款通过率",
+      "address": "/RMAB/market/loanThroughRate"
+    },
+    {
+      "value": "邀请活动",
+      "address": "/RMAB/operate/invitationEvent"
+    },
+    {
+      "value": "借款逾期催回率",
+      "address": "/RMAB/collection/loanOverdueRecallRate"
+    },
+    {
+      "value": "基础用户画像",
+      "address": "/RMAB/userPortrait/userBasePortrait"
+    },
+    {
+      "value": "用户列表",
+      "address": "/user/userList"
+    },
+    {
+      "value": "用户通讯录",
+      "address": "/user/userAddressBook"
+    },
+    {
+      "value": "银行卡列表",
+      "address": "/user/bankCardsList"
+    },
+    {
+      "value": "用户实名认证列表",
+      "address": "/user/userNameAuthenticationList"
+    },
+    {
+      "value": "用户认证列表",
+      "address": "/user/userAuthenticationList"
+    },
+    {
+      "value": "借款申请列表",
+      "address": "/loanManagement/loanApplicationsList"
+    },
+    {
+      "value": "放款审核列表",
+      "address": "/loanManagement/loanAuditList"
+    },
+    {
+      "value": "提额记录表",
+      "address": "/loanManagement/raiseQuotaRecord"
+    },
+    {
+      "value": "对账功能",
+      "address": "/loanManagement/reconciliationFunction"
+    },
+    {
+      "value": "资产信息-招财猫",
+      "address": "/loanManagement/assetInformation"
+    },
+    {
+      "value": "待还列表",
+      "address": "/repaymentManagement/repaymentList/waitingForReturnList"
+    },
+    {
+      "value": "已还列表",
+      "address": "/repaymentManagement/repaymentList/returnedList"
+    },
+    {
+      "value": "还款对账",
+      "address": "/repaymentManagement/reconciliationList/repaymentReconciliation"
+    },
+    {
+      "value": "续期对账",
+      "address": "/repaymentManagement/reconciliationList/renewalReconciliation"
+    },
+    {
+      "value": "还款详情",
+      "address": "/repaymentManagement/refundList/repaymentDetails"
+    },
+    {
+      "value": "续期详情",
+      "address": "/repaymentManagement/refundList/renewalParticulars"
+    },
+    {
+      "value": "已退列表",
+      "address": "/repaymentManagement/refundList/rebackedList"
+    },
+    {
+      "value": "续期管理",
+      "address": "/repaymentManagement/renewalManagement/repaymentDetails"
+    },
+    {
+      "value": "每日放款数据",
+      "address": "/dataAnalysis/financialData/dailyLendingData"
+    },
+    {
+      "value": "每日还款单位数据",
+      "address": "/dataAnalysis/financialData/dailyRepaymentUnitData"
+    },
+    {
+      "value": "21天分期统计",
+      "address": "/dataAnalysis/financialData/daysStageStatistics"
+    },
+    {
+      "value": "21天分期提额统计",
+      "address": "/dataAnalysis/financialData/installmentPromotionStatistics"
+    },
+    {
+      "value": "90天分期统计",
+      "address": "/dataAnalysis/financialData/daysStageStatistics90"
+    },
+    {
+      "value": "每日还款金额数据",
+      "address": "/dataAnalysis/financialData/dailyRepaymentAmountData"
+    },
+    {
+      "value": "还款逾期统计",
+      "address": "/dataAnalysis/financialData/overdueRepaymentStatistics"
+    },
+    {
+      "value": "资金分析",
+      "address": "/dataAnalysis/financialData/fundAnalysis"
+    },
+    {
+      "value": "资金分析(分产品)",
+      "address": "/dataAnalysis/financialData/fundAnalysisProduct"
+    },
+    {
+      "value": "催收管理",
+      "address": "/dataAnalysis/financialData/collectionManagement"
+    },
+    {
+      "value": "在催金额",
+      "address": "/dataAnalysis/financialData/promptAmount"
+    },
+    {
+      "value": "平台数据",
+      "address": "/dataAnalysis/dataReport/platformData"
+    },
+    {
+      "value": "还款明细",
+      "address": "/financeAnalysis/repaymentMinutia"
+    },
+    {
+      "value": "对账分析",
+      "address": "/financeAnalysis/reconciliationAnalysis"
+    },
+    {
+      "value": "还款日报",
+      "address": "/financeAnalysis/reportStatistics"
+    },
+    {
+      "value": "推广渠道",
+      "address": "/promotionManagement/promotionChannel"
+    },
+    {
+      "value": "推广员管理",
+      "address": "/promotionManagement/promoterManagement"
+    },
+    {
+      "value": "推广统计(渠道)",
+      "address": "/promotionManagement/promotionChannelStatistics"
+    },
+    {
+      "value": "推广统计(地区)",
+      "address": "/promotionManagement/promotionRegionStatistics"
+    },
+    {
+      "value": "渠道统计汇总",
+      "address": "/promotionManagement/channelStatisticsSummary"
+    },
+    {
+      "value": "注册量统计报表",
+      "address": "/promotionManagement/registrationStatisticsReport"
+    },
+    {
+      "value": "贷款超市-PVUV",
+      "address": "/promotionManagement/PVUV"
+    },
+    {
+      "value": "权限管理",
+      "address": "/privilegeManage/employeeList"
+    }
+  ]
+}

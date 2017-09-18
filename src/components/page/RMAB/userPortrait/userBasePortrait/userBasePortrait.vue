@@ -2,7 +2,7 @@
   <div class="userBasePortrait" v-loading.body="loading" element-loading-text="拼命加载中">
     <banner></banner>
     <el-table :data="fundData" highlight-current-row border stripe
-              style="width: 100%;overflow: auto" :height="height" @sort-change="sort">
+              style="width: 100%;overflow: auto" :height="height" @sort-change="sort" class="userBasePortrait-table">
       <el-table-column property="user_age" label="年龄" width="50"></el-table-column>
       <el-table-column property="user_sex" label="性别" width="50"></el-table-column>
       <el-table-column property="addr_birth" label="出生地" width="100"></el-table-column>
@@ -49,9 +49,9 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import banner from '../../../common/banner/banner'
-  import { getNowFormatDate, formatDate } from '../../../../common/js/utils'
-  import { getHeight } from '../../../../common/js/storage'
+  import banner from '../../../../common/banner/banner'
+  import { getNowFormatDate, formatDate } from '../../../../../common/js/utils'
+  import { getHeight } from '../../../../../common/js/storage'
   import $ from 'jquery'
 
   export default {
@@ -76,7 +76,7 @@
     created () {
       this.loading = true
       this.getDataInit()
-      this.height = parseInt(getHeight()) + 60
+      this.height = parseInt(getHeight()) + 80
     },
     methods: {
       //每页显示数据量变更
@@ -179,14 +179,9 @@
 <style lang="stylus" rel="stylesheet/stylus">
   .userBasePortrait
     height: 100%
-    .date-filter
-      padding: 15px 0 15px 1px
-      box-sizing border-box
-      height 60px
-      .managerFront
-        padding-left: 5px
-        font-size: 14px
-        color: #666
+    .userBasePortrait-table
+      margin-top :20px
+      border-radius :10px
     .pop1, .pop2, .pop3
       display: none
       position: absolute

@@ -18,7 +18,7 @@
       <el-button type="primary" size="small" @click.prevent.stop="search">搜索</el-button>
       <el-button type="primary" size="small" :loading="buttonLoading" @click.prevent.stop="refreshData">一键刷新</el-button>
     </div>
-    <el-table :data="fundData" highlight-current-row border stripe
+    <el-table :data="fundData" highlight-current-row border stripe class="daysStageStatistics-table"
               style="width: 100%;overflow: auto;" :height="height">
       <el-table-column property="d_date" label="到期日" fixed sortable width="100"></el-table-column>
       <el-table-column property="loan_date_f1" label="F1放款日" sortable width="100"></el-table-column>
@@ -185,6 +185,8 @@
 <style lang="stylus" rel="stylesheet/stylus">
   .daysStageStatistics
     height: 100%
+    .daysStageStatistics-table
+      border-radius :10px
     .date-filter
       padding: 15px 0 15px 1px
       box-sizing border-box

@@ -18,7 +18,7 @@
       <el-button type="primary" size="small" @click.prevent.stop="search">搜索</el-button>
       <el-button type="primary" size="small" :loading="buttonLoading" @click.prevent.stop="refreshData">一键刷新</el-button>
     </div>
-    <el-table :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto" :height="height">
+    <el-table :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto" :height="height" class="collectionManagement-table">
       <el-table-column property="d_date" fixed sortable label="日期" width="80px"></el-table-column>
       <el-table-column property="overdue_total" label="当日逾期总额(元)" width="100px"></el-table-column>
       <el-table-column label="S1">
@@ -91,7 +91,7 @@
     created () {
       this.loading = true
       this.getDataInit()
-      this.height = getHeight()
+      this.height = parseInt(getHeight()) + 40
     },
     methods: {
       //每页显示数据量变更
@@ -192,6 +192,8 @@
 <style lang="stylus" rel="stylesheet/stylus">
 .collectionManagement
   height: 100%
+  .collectionManagement-table
+    border-radius :10px
   .date-filter
     padding: 15px 0 15px 1px
     box-sizing border-box

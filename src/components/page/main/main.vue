@@ -179,6 +179,7 @@
         </ul>
       </div>
     </div>
+    <!--<div class="footer"><span class="copyright">@copyright上海灿福信息科技发展有限公司</span></div>-->
   </div>
 </template>
 
@@ -298,11 +299,6 @@
 
       .riskControlStatistics
         margin-bottom: 0
-      /*.el-col-4*/
-      /*width: 15.66667%*/
-
-      /*.el-col-20*/
-      /*width: 84.33333%*/
 
       .el-table .cell, .el-table th > div
         padding-left: 0

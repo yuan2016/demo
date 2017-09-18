@@ -21,7 +21,7 @@
         <a :href="mosaicLink" class="dailyLendingDataExcel">导出excel</a>
       </el-button>
     </div>
-    <el-table :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto;" :height="height">
+    <el-table :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto;" :height="height" class="dailyLendingData-table">
       <el-table-column property="d_date" fixed sortable label="日期" sortable></el-table-column>
       <el-table-column property="register_num" label="注册人数"></el-table-column>
       <el-table-column property="loan_num" label="借款人数"></el-table-column>
@@ -92,7 +92,7 @@
     created () {
       this.loading = true
       this.getDataInit()
-      this.height = getHeight()
+      this.height = parseInt(getHeight()) + 40
     },
     computed: {
       mosaicLink () {
@@ -200,6 +200,8 @@
 <style lang="stylus" rel="stylesheet/stylus">
   .dailyLendingData
     height: 100%
+    .dailyLendingData-table
+      border-radius :10px
     .date-filter
       padding: 15px 0 15px 1px
       box-sizing border-box

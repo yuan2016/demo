@@ -144,6 +144,7 @@ module.exports = {
   reconciliationAnalysis: path + '/reconciliationAnalysis',
   reconciliationAnalysisCount: path + '/reconciliationAnalysis/count',
   reconciliationAnalysisExcel: path + '/reconciliationAnalysis/excel',
+  reconciliationAnalysisModify: path + '/reconciliationAnalysis/modify',
   //还款日报表统计
   reportStatistics: path + '/reportStatistics',
   reportStatisticsCount: path + '/reportStatistics/count',

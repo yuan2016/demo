@@ -17,7 +17,7 @@
       </el-select>
       <el-button type="primary" size="small" class="watingButton" @click.prevent.stop="search">搜索</el-button>
     </div>
-    <el-table :data="fundData"
+    <el-table :data="fundData" class="waitingForReturnList-table"
               highlight-current-row border stripe style="width: 100%;overflow: auto" :height="height">
       <el-table-column property="realname" label="姓名"></el-table-column>
       <el-table-column property="user_phone" label="手机号"></el-table-column>
@@ -89,7 +89,7 @@
     created () {
       this.loading = true
       this.getDataInit()
-      this.height = parseInt(getHeight()) + 30
+      this.height = parseInt(getHeight()) + 40
     },
     methods: {
       //每页显示数据量变更
@@ -196,6 +196,8 @@
 <style lang="stylus" rel="stylesheet/stylus">
   .waitingForReturnList
     height: 100%
+    .waitingForReturnList-table
+      border-radius :10px
     .date-filter
       padding: 15px 0 15px 1px
       box-sizing border-box

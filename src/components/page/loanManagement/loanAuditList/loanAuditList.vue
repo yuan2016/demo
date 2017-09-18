@@ -39,7 +39,7 @@
       </li>
     </ul>
     <el-table :data="fundData"
-              highlight-current-row border stripe style="width: 100%;overflow: auto" :height="height">
+              highlight-current-row border stripe style="width: 100%;overflow: auto" :height="height" class="loanAuditList-table">
       <el-table-column property="id" fixed label="主键"></el-table-column>
       <el-table-column property="out_trade_no" label="订单号" width="150px"></el-table-column>
       <el-table-column property="yurref" label="打款订单" width="180px"></el-table-column>
@@ -135,7 +135,7 @@
     created () {
       this.loading = true
       this.getDataInit()
-      this.height = getHeight()
+      this.height = parseInt(getHeight()) + 10
     },
     methods: {
       //每页显示数据量变更
@@ -260,6 +260,8 @@
 <style lang="stylus" rel="stylesheet/stylus">
   .loanAuditList
     height: 100%
+    .loanAuditList-table
+      border-radius :10px
     .date-filter
       padding: 15px 0 15px 1px
       box-sizing border-box

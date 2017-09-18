@@ -69,7 +69,11 @@ exports.mosaic = function (params, key, table) {
 
 exports.formatCurrency = function (s, n) {
   n = n > 0 && n <= 20 ? n : 2
-  s = parseFloat((s + '').replace(/[^\d\.-]/g, '')) + ''
+  let k = false
+  if (parseFloat(s) < 0) {
+    k = true
+  }
+  s = parseFloat((Math.abs(s) + '').replace(/[^\d\.-]/g, '')) + ''
   let l = s.split('.')[0].split('').reverse()
   let r = s.split('.')[1]
   let t = ''
@@ -86,7 +90,11 @@ exports.formatCurrency = function (s, n) {
   } else {
     r = r.substr(0, n)
   }
-  return t.split('').reverse().join('') + '.' + r
+  let result = t.split('').reverse().join('') + '.' + r
+  if (k) {
+    result = '-' + result
+  }
+  return result
 }
 
 exports.formatInt = function (s) {

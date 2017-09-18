@@ -7,7 +7,7 @@
       <span class="managerFront">身份证号：</span><el-input type="text" size="small" placeholder="请输入内容" class="managerText" v-model.trim="id_number"></el-input>
       <el-button type="primary" size="small" class="userButton" @click.prevent.stop="search">搜索</el-button>
     </div>
-    <el-table :data="fundData" stripe highlight-current-row border style="width: 100%;overflow: auto" :height="height">
+    <el-table :data="fundData" stripe highlight-current-row border style="width: 100%;overflow: auto" :height="height" class="userNameAuthenticationList-table">
       <el-table-column property="id" label="用户ID"></el-table-column>
       <el-table-column property="realname" label="真实姓名"></el-table-column>
       <el-table-column property="id_number" label="身份证号"></el-table-column>
@@ -54,7 +54,7 @@
     created () {
       this.loading = true
       this.getDataInit()
-      this.height = parseInt(getHeight()) + 30
+      this.height = parseInt(getHeight()) + 40
     },
     methods: {
       //每页显示数据量变更
@@ -171,6 +171,8 @@
       width: 180px
     .userButton
       margin-left: 5px
+  .userNameAuthenticationList-table
+    border-radius :10px
 
 
   .el-table .cell, .el-table th > div

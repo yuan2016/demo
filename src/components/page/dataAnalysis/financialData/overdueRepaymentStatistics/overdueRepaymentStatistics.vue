@@ -21,7 +21,7 @@
         <a :href="mosaicLink" class="overdueRepaymentStatisticsExcel">导出excel</a>
       </el-button>
     </div>
-    <el-table :data="fundData" highlight-current-row border stripe
+    <el-table :data="fundData" highlight-current-row border stripe class="overdueRepaymentStatistics-table"
               style="width: 100%;overflow: auto;" :height="height">
       <el-table-column property="d_date" sortable label="日期" width="80"></el-table-column>
       <el-table-column property="loan_amount_total" label="当前借款总数量" width="110"></el-table-column>
@@ -80,7 +80,7 @@
     created () {
       this.loading = true
       this.getDataInit()
-      this.height = getHeight()
+      this.height = parseInt(getHeight()) + 40
     },
     computed: {
       mosaicLink () {
@@ -188,6 +188,8 @@
 <style lang="stylus" rel="stylesheet/stylus">
   .overdueRepaymentStatistics
     height: 100%
+    .overdueRepaymentStatistics-table
+      border-radius :10px
     .date-filter
       padding: 15px 0 15px 1px
       box-sizing border-box

@@ -19,7 +19,7 @@
                       class="userListTimeSelect"></el-date-picker>
       <el-button type="primary" size="small" class="userButton" @click.prevent.stop="search">搜索</el-button>
     </div>
-    <el-table :data="fundData" highlight-current-row border stripe
+    <el-table :data="fundData" highlight-current-row border stripe class="PVUV-table"
               style="width: 100%;overflow: auto" :height="height">
       <el-table-column property="d_date" label="日期"></el-table-column>
       <el-table-column property="element" label="指标元素"></el-table-column>
@@ -72,7 +72,7 @@
       this.loading = true
       this.getSelectOptions()
       this.getDataInit()
-      this.height = getHeight()
+      this.height = parseInt(getHeight()) + 40
     },
     methods: {
       //每页显示数据量变更
@@ -154,6 +154,8 @@
 <style lang="stylus" rel="stylesheet/stylus">
   .PVUV
     height: 100%
+    .PVUV-table
+      border-radius :10px
     .date-filter
       padding: 15px 0 15px 1px
       box-sizing border-box

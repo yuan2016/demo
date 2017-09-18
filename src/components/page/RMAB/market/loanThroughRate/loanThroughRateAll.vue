@@ -14,7 +14,7 @@
       </el-select>
     </div>
     <el-table :data="fundData" highlight-current-row border stripe
-              style="width: 100%;overflow: auto;" :height="height" class="loanThroughRateAllTable">
+              style="width: 100%;overflow: auto;" :height="height" class="loanThroughRateAll-table">
       <el-table-column property="AA" :label="labels[0]" width="160px"></el-table-column>
       <el-table-column property="D1" :label="labels[1]"></el-table-column>
       <el-table-column property="D2" :label="labels[2]"></el-table-column>
@@ -82,7 +82,7 @@
     },
     created () {
       this.loading = true
-      this.height = parseInt(getHeight()) + 60
+      this.height = parseInt(getHeight()) + 40
       this.getData()
     },
     methods: {
@@ -225,7 +225,8 @@
         color: #666
       .loanThroughRateAllSelect
         width: 100px
-
+    .loanThroughRateAll-table
+      border-radius :10px
     .pop1
       display: none
       position: absolute

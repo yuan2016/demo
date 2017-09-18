@@ -21,7 +21,7 @@
         <a :href="mosaicLink" class="fundAnalysisExcel">导出excel</a>
       </el-button>
     </div>
-    <el-table :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto" :height="height">
+    <el-table :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto" :height="height" class="fundAnalysis-table">
       <el-table-column property="d_date" sortable label="日期"></el-table-column>
       <el-table-column property="total_amount" label="当日应还总额(元)"width="110"></el-table-column>
       <el-table-column property="actual_repayment_amount" label="实际还款金额(元)"width="110"></el-table-column>
@@ -80,7 +80,7 @@
     created () {
       this.loading = true
       this.getDataInit()
-      this.height = getHeight()
+      this.height = parseInt(getHeight()) + 40
     },
     computed: {
       mosaicLink () {
@@ -188,6 +188,8 @@
 <style lang="stylus" rel="stylesheet/stylus">
 .fundAnalysis
   height :100%
+  .fundAnalysis-table
+    border-radius :10px
   .date-filter
     padding: 15px 0 15px 1px
     box-sizing border-box

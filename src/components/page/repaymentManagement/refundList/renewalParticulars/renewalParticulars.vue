@@ -11,7 +11,7 @@
                       class="userListTimeSelect"></el-date-picker>
       <el-button type="primary" size="small" class="loanAuditButton" @click.prevent.stop="search">搜索</el-button>
     </div>
-    <el-table :data="fundData" highlight-current-row border stripe
+    <el-table :data="fundData" highlight-current-row border stripe class="renewalParticulars-table"
               style="width: 100%;overflow: auto;" :height="height">
       <el-table-column property="id" label="续期ID"></el-table-column>
       <el-table-column property="realname" label="姓名"></el-table-column>
@@ -71,7 +71,7 @@
     created () {
       this.loading = true
       this.getDataInit()
-      this.height = parseInt(getHeight()) + 30
+      this.height = parseInt(getHeight()) + 40
     },
     methods: {
       //每页显示数据量变更
@@ -186,6 +186,8 @@
 <style lang="stylus" rel="stylesheet/stylus">
   .renewalParticulars
     height: 100%
+    .renewalParticulars-table
+      border-radius :10px
     .date-filter
       padding: 15px 0 15px 1px
       box-sizing border-box
