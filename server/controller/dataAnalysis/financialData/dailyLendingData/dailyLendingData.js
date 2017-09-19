@@ -260,6 +260,7 @@ module.exports = {
     }
   },
   getExcelData (req, res) {
+    console.log(111)
     let params = req.query
     let query = sql.dataAnalysis.dailyLendingDataExcel
     func.connPool1(query, [tableName.dailyLendingData, params.startTime, params.endTime], function (err, rs) {

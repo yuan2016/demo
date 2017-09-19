@@ -2,6 +2,8 @@ let express = require('express')
 
 //登录验证
 let login = require('../controller/login/login')
+//拉取信息
+let getLoginInfo = require('../controller/getLoginInfo/getLoginInfo')
 //首页
 let main = require('../controller/main/main')
 //修改密码
@@ -69,6 +71,9 @@ let router = express.Router()
 /*登录验证*/
 router.post(api.login, login.login)
 router.post(api.login, login.getRoles)
+/*拉取信息*/
+router.post(api.getLoginInfo, getLoginInfo.getInfo)
+router.post(api.modifyInfo, getLoginInfo.modifyInfo)
 /*首页*/
 router.post(api.main, main.fetchAll)
 /*修改密码*/

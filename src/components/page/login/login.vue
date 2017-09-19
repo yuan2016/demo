@@ -26,10 +26,9 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import { saveToken, saveEmail, getEmail, saveAvailableTable, saveName } from '../../../common/js/storage'
+  import { saveToken, saveEmail, getEmail } from '../../../common/js/storage'
   import { isCfEmail } from '../../../common/js/validate'
   import md5 from 'js-md5'
-  import { mapGetters } from 'vuex'
 
   export default {
     data () {
@@ -66,6 +65,11 @@
         }
       }
     },
+    computed: {
+      sidebar () {
+        return this.$store.state.app.sidebar
+      }
+    },
     mounted () {
       this.showLogin = true
     },
@@ -91,13 +95,10 @@
                 })
                 let resData = response.data
                 saveToken(resData.token)
-                saveAvailableTable(resData.availableTable)
                 saveEmail(this.loginForm.email)
-                saveName(resData.name)
-                this.setMark(0)
                 this.$router.push(path)
                 this.$message({
-                  message: resData.name + '你好，欢迎进入报表系统',
+                  message: resData.name + '你好,欢迎进入报表系统',
                   type: 'success'
                 })
               }
@@ -109,12 +110,6 @@
             })
           }
         })
-      },
-//      setRole (role) {
-//        this.$store.dispatch('setRoles', role)
-//      },
-      setMark (tables) {
-        this.$store.dispatch('setMark', 0)
       }
     }
   }

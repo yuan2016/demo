@@ -3,7 +3,10 @@ let path = '/api'
 module.exports = {
   /*登陆验证*/
   login: path + '/login',
-  getRoles: path + 'getRoles',
+  getRoles: path + '/getRoles',
+  /*拉取信息*/
+  getLoginInfo: path + '/getLoginInfo',
+  modifyInfo: path + '/modifyInfo',
   /*首页*/
   main: path + '/main',
   /*修改密码*/

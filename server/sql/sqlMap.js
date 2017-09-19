@@ -4,6 +4,10 @@ let sqlMap = {
   login: {
     select: 'select user_password,user_name,available_table from ?? where user_email = ?'
   },
+  userData: {
+    select: 'select available_table,department,role,user_name,user_sex,user_mobile from ?? where user_email = ?',
+    update: 'UPDATE ?? SET user_name = ?,user_sex=?,user_mobile=?,department=? WHERE user_email = ?'
+  },
   //修改密码
   passwordModify: {
     getPass: 'select user_password from ?? where user_email = ?',

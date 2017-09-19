@@ -9,7 +9,7 @@ import 'element-ui/lib/theme-default/index.css'
 import Axios from 'axios'
 import VueAxios from 'vue-axios'
 import router from './router'
-import { getToken, getAvailableTable } from './common/js/storage'
+import { getToken, getEmail } from './common/js/storage'
 import './config/height'
 import store from './store/'
 
@@ -31,11 +31,13 @@ router.beforeEach((to, from, next) => {
     if (to.path === '/login') {
       next({path: '/main'})
     } else {
-      if (!store.getters.mark) {
-        const roles = getAvailableTable().split('|')
-        store.dispatch('GenerateRoutes', {roles}).then(() => { // 生成可访问的路由表
-          router.addRoutes(store.getters.addRouters) // 动态添加可访问路由表
-          next(to.path) // hack方法 确保addRoutes已完成
+      if (store.getters.table.length === 0) {
+        store.dispatch('GetInfo', getEmail() + '@xianjinkd.com').then(res => {
+          const roles = store.getters.table.split('|')
+          store.dispatch('GenerateRoutes', {roles}).then(() => { // 生成可访问的路由表
+            router.addRoutes(store.getters.addRouters) // 动态添加可访问路由表
+            next(to.path) // hack方法 确保addRoutes已完成
+          })
         }).catch(err => {
           console.log(err)
         })

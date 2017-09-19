@@ -53,7 +53,7 @@
                 return callback(new Error('密码错误'))
               } else {
                 this.oldPassChecked = true
-                return
+                callback()
               }
             }
           })

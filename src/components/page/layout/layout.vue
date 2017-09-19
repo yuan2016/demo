@@ -7,10 +7,9 @@
       <el-autocomplete size="small" type="text" placeholder="请输入表名..." class="head-text" v-model.trim="tableName"
                        :fetch-suggestions="querySearch" @select="handleSelect" :icon=icon :on-icon-click="handleClick">
       </el-autocomplete>
-      <!--<i @click="clear" class="search-icon elextra-icon-magnifier"></i>-->
       <span class="avatar-container">
-        <span class="avatar-container-item" @click="jumpToLogin({path:'/login'})">[注销]</span>
-        <span class="avatar-container-item">{{name}}</span>
+        <span class="avatar-container-item logout" @click="jumpToLogin({path:'/login'})">[注销]</span>
+        <span class="avatar-container-item layout-name" :title='name'>{{name}}</span>
         <span class="avatar-container-item" @click="handleEdit">
           <i class="elextra-icon-avatar"></i>
         </span>
@@ -33,7 +32,7 @@
               <span class="company-name">上海灿福信息科技发展有限公司</span>
             </div>
             <div class="main-content">
-              <el-form :model="ruleForm" :label-position="labelPosition" ref="ruleForm"
+              <el-form :model="ruleForm" :label-position="labelPosition" ref="ruleForm" :rules="loginRules"
                        label-width="50px" class="ruleForm">
                 <el-form-item label="姓名:">
                   <el-input size="small" class="form-input" v-model="ruleForm.user_name"></el-input>
@@ -60,9 +59,9 @@
                   </el-select>
                 </el-form-item>
                 <el-form-item label="邮箱:">
-                  <el-input size="small" class="form-input" v-model="ruleForm.user_email"></el-input>
+                  <el-input size="small" disabled class="form-input" v-model="ruleForm.user_email"></el-input>
                 </el-form-item>
-                <el-form-item label="电话:">
+                <el-form-item prop="user_mobile" label="电话:">
                   <el-input size="small" class="form-input" v-model="ruleForm.user_mobile"></el-input>
                 </el-form-item>
                 <el-form-item class="long-form">
@@ -76,7 +75,6 @@
                 </el-form-item>
               </el-form>
             </div>
-            <!--<span class="modify-password"><i class="elextra-icon-lock" title="修改密码"></i></span>-->
           </div>
         </div>
         <div class="detail-close">
@@ -90,19 +88,28 @@
 <script>
   import Sidebar from './Sidebar'
   import AppMain from './AppMain'
-  import { clearToken, getAvailableTable, clearAvailableTable, getName } from '../../../common/js/storage'
+  import { clearToken, getEmail } from '../../../common/js/storage'
   import $ from 'jquery'
   import tableData from '../../../common/json/tables.json'
-
-  //  const ct = getAvailableTable().split('|')
+  import { mapState } from 'vuex'
 
   export default {
     data () {
+      const validatePhone = (rule, v, callback) => {
+        if (!v) {
+          callback()
+        } else {
+          if (!(/^1[34578]\d{9}$/).test(v.split('-').join(''))) {
+            callback(new Error('手机格式有误'))
+          } else {
+            callback()
+          }
+        }
+      }
       return {
         tableName: '',
         tables: [],
         icon: 'search',
-        name: '',
         ruleForm: {
           user_name: '',
           user_sex: '',
@@ -111,7 +118,25 @@
           user_mobile: ''
         },
         isShowDetail: false,
-        labelPosition: 'right'
+        labelPosition: 'right',
+        loginRules: {
+          user_mobile: [
+            {required: false, trigger: 'blur', validator: validatePhone}
+          ]
+        }
+      }
+    },
+    computed: {
+      ...mapState({
+        name: state => state.user.name,
+        sex: state => state.user.sex,
+        department: state => state.user.department,
+        email: state => getEmail() + '@xianjinkd.com',
+        phone: state => state.user.phone,
+        table: state => state.user.table
+      }),
+      sidebar () {
+        return this.$store.state.app.sidebar
       }
     },
     name: 'layout',
@@ -120,13 +145,12 @@
       AppMain
     },
     created () {
+      this.ruleForm.user_name = this.name
+      this.ruleForm.user_sex = this.sex
+      this.ruleForm.department = this.department
+      this.ruleForm.user_email = this.email
+      this.ruleForm.user_mobile = this.phone
       this.tables = this.filterTable(tableData.table)
-      this.name = getName()
-    },
-    computed: {
-      sidebar () {
-        return this.$store.state.app.sidebar
-      }
     },
     watch: {
       tableName: function (val) {
@@ -138,6 +162,39 @@
       }
     },
     methods: {
+      submitForm () {
+        this.$refs['ruleForm'].validate((valid) => {
+          if (valid) {
+            this.axios.post('/api/modifyInfo', {
+              formData: this.ruleForm
+            }).then((response) => {
+              if (response.data.code === '404') {
+                this.$router.push('./404')
+              } else if (response.data.code === '1024') {
+                this.$message({
+                  message: '请求超时，请刷新页面重试',
+                  type: 'warning'
+                })
+              } else {
+                if (response.data === 200) {
+                  this.setInfo(this.ruleForm)
+                  this.$message({
+                    message: '修改信息成功',
+                    type: 'success'
+                  })
+                  this.isShowDetail = false
+                } else {
+                  this.$message({
+                    message: '修改信息失败，请重试',
+                    type: 'warning'
+                  })
+                  this.isShowDetail = false
+                }
+              }
+            })
+          }
+        })
+      },
       jumpTo (path) {
         this.$router.push(path)
       },
@@ -165,7 +222,6 @@
       },
       jumpToLogin (path) {
         clearToken()
-        clearAvailableTable()
         this.$router.push(path)
       },
       handleSelect (item) {
@@ -179,8 +235,11 @@
         return a.filter(this.deleteTable)
       },
       deleteTable (i) {
-        let ct = getAvailableTable().split('|')
+        let ct = this.table.split('|')
         return ct.indexOf(i.value) !== -1
+      },
+      setInfo (info) {
+        this.$store.dispatch('setInfo', info)
       }
     }
   }
@@ -223,6 +282,14 @@
         height: 20px
         font-size: 14px
         color: #ffffff
+        .logout
+          position: relative
+          top: -2px
+        .layout-name
+          max-width: 60px
+          overflow: hidden
+          white-space: nowrap
+          text-overflow: ellipsis
         .avatar-container-item
           display: inline-block
           margin-left: 15px
@@ -349,7 +416,7 @@
                   position: relative
                   width: 103px
                   .elextra-icon-toRight
-                    position :absolute
+                    position: absolute
                     right: -6px
                     top: 4px
                     font-size: 17px

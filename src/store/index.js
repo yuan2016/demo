@@ -4,8 +4,24 @@ import app from './modules/app'
 import permission from './modules/permission'
 import user from './modules/user'
 import getters from './getters'
+import VuexPersistence from 'vuex-persist'
 
 Vue.use(Vuex)
+
+const vuexLocal = new VuexPersistence({
+  storage: window.localStorage,
+  reducer: state => ({
+    table: state.user.table,
+    routers: state.permission.routers
+  })
+  // filter: (mutation) => (
+  //   mutation.type === 'setUser' ||
+  //   mutation.type === 'setWechat' ||
+  //   mutation.type === 'setCar' ||
+  //   mutation.type === 'setOrder' ||
+  //   mutation.type === 'resetAllStoreInfo'
+  // )
+})
 
 const store = new Vuex.Store({
   modules: {
@@ -13,7 +29,8 @@ const store = new Vuex.Store({
     user,
     permission
   },
-  getters
+  getters,
+  plugins: [vuexLocal.plugin]
 })
 
 export default store

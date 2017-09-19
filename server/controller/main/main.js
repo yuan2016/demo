@@ -5,6 +5,7 @@ let {formatCurrency, formatInt} = require('../../utils/utils')
 
 function formatData (rows) {
   return rows.map(row => {
+    //整数
     if (row.total_user_num) {
       row.total_user_num = formatInt(row.total_user_num)
     }
@@ -28,18 +29,6 @@ function formatData (rows) {
     }
     if (row.total_emergcontact_num) {
       row.total_emergcontact_num = formatInt(row.total_emergcontact_num)
-    }
-    if (row.accu_loan_amount) {
-      row.accu_loan_amount = formatInt(row.accu_loan_amount)
-    }
-    if (row.today_loan_amount) {
-      row.today_loan_amount = formatInt(row.today_loan_amount)
-    }
-    if (row.total_inloan_amount) {
-      row.total_inloan_amount = formatInt(row.total_inloan_amount)
-    }
-    if (row.Loanfail_amount) {
-      row.Loanfail_amount = formatInt(row.Loanfail_amount)
     }
     if (row.accu_loan_num) {
       row.accu_loan_num = formatInt(row.accu_loan_num)
@@ -78,12 +67,25 @@ function formatData (rows) {
       row.today_ouserpass_num = formatInt(row.today_ouserpass_num)
     }
     if (row.today_nuserpass_num) {
-      row.today_nuserpass_num = formatInt(row.Pendingtrial_order_num)
+      row.today_nuserpass_num = formatInt(row.today_nuserpass_num)
     }
-    if (row.due_amount_f1) {
-      row.due_amount_f1 = formatInt(row.due_amount_f1)
+    if (row.Pendingtrial_order_num) {
+      row.Pendingtrial_order_num = formatInt(row.Pendingtrial_order_num)
     }
-
+//钱
+    if (row.accu_loan_amount) {
+      row.accu_loan_amount = formatCurrency(row.accu_loan_amount)
+    }
+    if (row.today_loan_amount) {
+      row.today_loan_amount = formatCurrency(row.today_loan_amount)
+    }
+    if (row.total_inloan_amount) {
+      row.total_inloan_amount = formatCurrency(row.total_inloan_amount)
+    }
+    if (row.Loanfail_amount) {
+      row.Loanfail_amount = formatCurrency(row.Loanfail_amount)
+    }
+//率
     if (row.passmachtrial_order_rate) {
       row.passmachtrial_order_rate = (row.passmachtrial_order_rate * 100).toFixed(2)
     }

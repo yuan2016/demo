@@ -161,7 +161,7 @@
             <div class="title">第三方数据</div>
             <el-form :label-position="labelPosition" label-width="120px" :rules="loginRules" :model="formLabelAlign"
                      class="reconciliationAnalysis-form" ref="ruleForm">
-              <el-form-item prop="AMT_FY_THIRD" size="small" label="富有:">
+              <el-form-item prop="AMT_FY_THIRD" size="small" label="富友:">
                 <el-input v-model.trim="formLabelAlign.AMT_FY_THIRD"></el-input>
               </el-form-item>
               <el-form-item prop="AMT_LL_THIRD" size="small" label="连连:">
@@ -319,8 +319,8 @@
       saveData () {
         let extra = this.formLabelAlign
         let origin = this.currentRowData
-        this.$refs['ruleForm'].validate((valid) => {
-          if (valid) {
+          this.$refs['ruleForm'].validate((valid) => {
+            if (valid) {
             if (extra.AMT_FY_THIRD === '' || extra.AMT_FY_THIRD === null) {
               extra.AMT_FY_THIRD = null
               extra.AMT_FY_DIFF = null
