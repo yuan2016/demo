@@ -1,24 +1,29 @@
 <template>
-  <div class="reconciliationAnalysis" v-loading.body="loading" element-loading-text="拼命加载中">
+  <div class="reconciliationAnalysis" v-loading.body="loading" element-loading-text="拼命加载中"
+       :style="{ height: dHeight + 'px' }">
     <banner></banner>
     <div class="date-filter">
-      <span class="managerFront">日期：</span>
-      <el-date-picker
-        size="small"
-        v-model.trim="startTime"
-        type="date"
-        placeholder="从">
-      </el-date-picker>
-      <el-date-picker
-        size="small"
-        v-model.trim="endTime"
-        type="date"
-        placeholder="到">
-      </el-date-picker>
-      <el-button type="primary" size="small" @click.prevent.stop="search">搜索</el-button>
-      <el-button type="primary" size="small" class="userButton">
-        <a :href="mosaicLink" class="reconciliationAnalysisExcel">导出excel</a>
-      </el-button>
+      <li>
+        <span class="managerFront">日期：</span>
+        <el-date-picker
+          size="small"
+          v-model.trim="startTime"
+          type="date"
+          placeholder="从">
+        </el-date-picker>
+        <el-date-picker
+          size="small"
+          v-model.trim="endTime"
+          type="date"
+          placeholder="到">
+        </el-date-picker>
+      </li>
+      <li>
+        <el-button type="primary" size="small" @click.prevent.stop="search">搜索</el-button>
+        <el-button type="primary" size="small" class="userButton">
+          <a :href="mosaicLink" class="reconciliationAnalysisExcel">导出excel</a>
+        </el-button>
+      </li>
     </div>
     <!--<el-table :data="fundData" highlight-current-row border stripe class="reconciliationAnalysis-table"-->
     <!--style="width: 100%;overflow: auto" :height="height" @current-change="showChange">-->
@@ -258,7 +263,8 @@
             {required: false, trigger: 'blur', validator: validateMoney}
           ]
         },
-        currentRowData: {}
+        currentRowData: {},
+        dHeight: 500
       }
     },
     computed: {
@@ -274,7 +280,9 @@
     created () {
       this.loading = true
       this.getDataInit()
-      this.height = parseInt(getHeight()) + 40
+    },
+    mounted () {
+      this.resizeHeight()
     },
     methods: {
 //      showChange (a, b) {
@@ -319,8 +327,8 @@
       saveData () {
         let extra = this.formLabelAlign
         let origin = this.currentRowData
-          this.$refs['ruleForm'].validate((valid) => {
-            if (valid) {
+        this.$refs['ruleForm'].validate((valid) => {
+          if (valid) {
             if (extra.AMT_FY_THIRD === '' || extra.AMT_FY_THIRD === null) {
               extra.AMT_FY_THIRD = null
               extra.AMT_FY_DIFF = null
@@ -448,6 +456,37 @@
           this.endTime = formatDate(new Date(this.endTime), 'yyyy-MM-dd')
         }
         this.getDataInit()
+      },
+      resizeHeight () {
+        this.setHeight()
+        window.onresize = this.setHeight
+      },
+      setHeight () {
+        let docH = document.documentElement.clientHeight
+        let banner = document.getElementsByClassName('banner')[0]
+        let bannerH = 0
+        let filter = document.getElementsByClassName('date-filter')[0]
+        let filterH = 0
+        let page = document.getElementsByClassName('el-pagination')[0]
+        let pageH = 0
+        if (banner) {
+          bannerH = banner.offsetHeight
+        }
+        if (filter) {
+          filterH = filter.clientHeight
+        }
+        if (page) {
+          if (page.offsetHeight !== 0) {
+            pageH = page.offsetHeight
+          } else {
+            pageH = 32
+          }
+        } else {
+          pageH = 60
+        }
+        this.height = docH - filterH - bannerH - pageH - 85
+        /*90+20*/
+        this.dHeight = docH - 90
       }
     }
   }
@@ -461,15 +500,19 @@
     .date-filter
       padding: 15px 0 15px 1px
       box-sizing border-box
-      height 60px
-      .managerFront
-        padding-left: 5px
-        font-size: 14px
-        color: #666
-      .reconciliationAnalysisExcel
-        color: #fff
+      display: flex
+      flex-wrap: wrap
+      li
+        margin-bottom: 5px
+        margin-right: 20px
+        .managerFront
+          padding-left: 5px
+          font-size: 14px
+          color: #666
+        .reconciliationAnalysisExcel
+          color: #fff
     .reconciliationAnalysis-table
-      border-radius: 10px
+      border-radius :10px
     .detail
       position: fixed
       top: 0

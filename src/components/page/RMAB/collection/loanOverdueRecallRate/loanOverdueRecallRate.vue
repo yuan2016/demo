@@ -1,5 +1,5 @@
 <template>
-  <div class="loanOverdueRecallRate" v-loading.body="loading" element-loading-text="拼命加载中">
+  <div class="loanOverdueRecallRate" v-loading.body="loading" element-loading-text="拼命加载中" :style="{ height: dHeight + 'px' }">
     <banner></banner>
     <div class="date-filter">
       <span class="managerFront">借款类型：</span>
@@ -55,7 +55,6 @@
 <script type="text/ecmascript-6">
   import banner from '../../../../common/banner/banner'
   import { getProperty } from '../../../../../common/js/utils'
-  import { getHeight } from '../../../../../common/js/storage'
   import $ from 'jquery'
 
   const defaultBlank = ['指标名称', 'D1', 'D2', 'D3', 'D4', 'D5', 'D6', 'D7', 'D8', 'D9', 'D10', 'DOD', 'W1', 'W2', 'W3', 'W4', 'WOW', 'M1', 'M2', 'M3', 'MOM']
@@ -80,7 +79,8 @@
         }, {
           value: '3',
           label: 'F3分期'
-        }]
+        }],
+        dHeight: 500
       }
     },
     components: {
@@ -88,8 +88,10 @@
     },
     created () {
       this.loading = true
-      this.height = parseInt(getHeight()) + 40
       this.getData()
+    },
+    mounted () {
+      this.resizeHeight()
     },
     methods: {
       getData () {
@@ -127,6 +129,36 @@
       search () {
         this.loading = true
         this.getData()
+      },
+      resizeHeight () {
+        this.setHeight()
+        window.onresize = this.setHeight
+      },
+      setHeight () {
+        let docH = document.documentElement.clientHeight
+        let banner = document.getElementsByClassName('banner')[0]
+        let bannerH = 0
+        let filter = document.getElementsByClassName('date-filter')[0]
+        let filterH = 0
+        let page = document.getElementsByClassName('el-pagination')[0]
+        let pageH = 0
+        if (banner) {
+          bannerH = banner.offsetHeight
+        }
+        if (filter) {
+          filterH = filter.clientHeight
+        }
+        if (page) {
+          if (page.offsetHeight !== 0) {
+            pageH = page.offsetHeight
+          } else {
+            pageH = 32
+          }
+        } else {
+          pageH = 60
+        }
+        this.height = docH - filterH - bannerH - pageH - 57 /*90+20*/
+        this.dHeight = docH - 90
       }
     },
     updated () {

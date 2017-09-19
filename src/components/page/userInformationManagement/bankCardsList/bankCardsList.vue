@@ -1,23 +1,31 @@
 <template>
-  <div class="bankCardsList" v-loading.body="loading" element-loading-text="拼命加载中">
+  <div class="bankCardsList" v-loading.body="loading" element-loading-text="拼命加载中" :style="{ height: dHeight + 'px' }">
     <banner></banner>
     <ul class="date-filter">
       <li>
         <span class="managerFront">借款人ID：</span>
         <el-input size="small" type="text" placeholder="请输入内容" class="managerText" v-model.trim="user_id"></el-input>
+      </li>
+      <li>
         <span class="managerFront">持卡人姓名：</span>
         <el-input size="small" type="text" placeholder="请输入内容" class="managerText" v-model.trim="open_name"></el-input>
+      </li>
+      <li>
         <span class="managerFront">手机号：</span>
         <el-input size="small" type="text" placeholder="请输入内容" class="managerText" v-model.trim="phone"></el-input>
       </li>
       <li>
         <span class="managerFront">银行卡号：</span>
         <el-input size="small" type="text" placeholder="请输入内容" class="managerText" v-model.trim="card_no"></el-input>
+      </li>
+      <li>
         <span class="managerFront">添加时间：</span>
         <el-date-picker v-model.trim="startTime" type="date" size="small" placeholder="从"
                         class="userListTimeSelect"></el-date-picker>
         <el-date-picker v-model.trim="endTime" type="date" size="small" placeholder="到"
                         class="userListTimeSelect"></el-date-picker>
+      </li>
+      <li>
         <span class="managerFront">状态：</span>
         <el-select v-model.trim="status" size="small" placeholder="不限" class="userListSelect">
           <el-option
@@ -58,7 +66,6 @@
 <script type="text/ecmascript-6">
   import banner from '../../../common/banner/banner'
   import { getNowFormatDate, formatDate } from '../../../../common/js/utils'
-  import { getHeight } from '../../../../common/js/storage'
 
   export default {
     data () {
@@ -89,7 +96,8 @@
           value: '0',
           label: '无效'
         }],
-        height: 500
+        height: 500,
+        dHeight: 500
       }
     },
     components: {
@@ -98,7 +106,9 @@
     created () {
       this.loading = true
       this.getDataInit()
-      this.height = parseInt(getHeight()) + 10
+    },
+    mounted () {
+      this.resizeHeight()
     },
     methods: {
       //每页显示数据量变更
@@ -210,11 +220,41 @@
             this.fundData = []
             this.loading = false
             this.$message({
-            message: '数据正在更新，请稍候',
-            type: 'warning'
+              message: '数据正在更新，请稍候',
+              type: 'warning'
           })
           })
         }
+      },
+      resizeHeight () {
+        this.setHeight()
+        window.onresize = this.setHeight
+      },
+      setHeight () {
+        let docH = document.documentElement.clientHeight
+        let banner = document.getElementsByClassName('banner')[0]
+        let bannerH = 0
+        let filter = document.getElementsByClassName('date-filter')[0]
+        let filterH = 0
+        let page = document.getElementsByClassName('el-pagination')[0]
+        let pageH = 0
+        if (banner) {
+          bannerH = banner.offsetHeight
+        }
+        if (filter) {
+          filterH = filter.clientHeight
+        }
+        if (page) {
+          if (page.offsetHeight !== 0) {
+            pageH = page.offsetHeight
+          } else {
+            pageH = 32
+          }
+        } else {
+          pageH = 60
+        }
+        this.height = docH - filterH - bannerH - pageH - 85 /*90+20*/
+        this.dHeight = docH - 90
       }
     }
   }
@@ -226,14 +266,14 @@
   .date-filter
     padding: 15px 0 15px 1px
     box-sizing border-box
-    height 90px
+    display: flex
+    flex-wrap: wrap
     li
       margin-bottom :5px
     .managerFront
       display: inline-block
       padding-left: 5px
       font-size: 14px
-      width: 90px
       text-align:right
       color: #666
     .managerText
@@ -257,4 +297,12 @@
   .el-table th > .cell
     text-align: center
     font-weight: bold
+  @media (max-width: 1830px )
+    .date-filter
+      li
+        margin-right: 20px
+        .managerFront
+          width: 90px
+          text-align:left
+
 </style>

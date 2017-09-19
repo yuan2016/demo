@@ -1,14 +1,18 @@
 <template>
-  <div class="loanApplicationsList" v-loading.body="loading" element-loading-text="拼命加载中">
+  <div class="loanApplicationsList" v-loading.body="loading" element-loading-text="拼命加载中" :style="{ height: dHeight + 'px' }">
     <banner></banner>
     <ul class="date-filter">
       <li>
         <span class="managerFront">订单号：</span>
         <el-input size="small" type="text" placeholder="请输入内容" class="managerText"
                   v-model.trim="out_trade_no"></el-input>
+      </li>
+      <li>
         <span class="managerFront">手机号：</span>
         <el-input size="small" type="text" placeholder="请输入内容" class="managerTextMiddle"
                   v-model.trim="user_phone"></el-input>
+      </li>
+      <li>
         <span class="managerFrontSpecial">姓名：</span>
         <el-input size="small" type="text" placeholder="请输入内容" class="managerTextShort"
                   v-model.trim="realname"></el-input>
@@ -23,6 +27,8 @@
             :value="item.value">
           </el-option>
         </el-select>
+      </li>
+      <li>
         <span class="managerFront">状态：</span>
         <el-select v-model.trim="status" size="small" placeholder="不限" class="loanAppSelectLong">
           <el-option
@@ -32,6 +38,8 @@
             :value="item.value">
           </el-option>
         </el-select>
+      </li>
+      <li>
         <el-button type="primary" size="small" class="loanAppButton" @click.prevent.stop="search">搜索</el-button>
       </li>
     </ul>
@@ -68,7 +76,6 @@
 
 <script type="text/ecmascript-6">
   import banner from '../../../common/banner/banner'
-  import { getHeight } from '../../../../common/js/storage'
 
   export default {
     data () {
@@ -143,7 +150,8 @@
           value: '34',
           label: '逾期已还款'
         }],
-        height: 500
+        height: 500,
+        dHeight: 500
       }
     },
     components: {
@@ -152,7 +160,9 @@
     created () {
       this.loading = true
       this.getDataInit()
-      this.height = parseInt(getHeight()) + 10
+    },
+    mounted () {
+      this.resizeHeight()
     },
     methods: {
       //每页显示数据量变更
@@ -257,6 +267,36 @@
           })
           })
         }
+      },
+      resizeHeight () {
+        this.setHeight()
+        window.onresize = this.setHeight
+      },
+      setHeight () {
+        let docH = document.documentElement.clientHeight
+        let banner = document.getElementsByClassName('banner')[0]
+        let bannerH = 0
+        let filter = document.getElementsByClassName('date-filter')[0]
+        let filterH = 0
+        let page = document.getElementsByClassName('el-pagination')[0]
+        let pageH = 0
+        if (banner) {
+          bannerH = banner.offsetHeight
+        }
+        if (filter) {
+          filterH = filter.clientHeight
+        }
+        if (page) {
+          if (page.offsetHeight !== 0) {
+            pageH = page.offsetHeight
+          } else {
+            pageH = 32
+          }
+        } else {
+          pageH = 60
+        }
+        this.height = docH - filterH - bannerH - pageH - 85 /*90+20*/
+        this.dHeight = docH - 90
       }
     }
   }
@@ -270,30 +310,31 @@
     .date-filter
       padding: 15px 0 15px 1px
       box-sizing border-box
-      height 90px
+      display: flex
+      flex-wrap: wrap
       li
         margin-bottom: 5px
-      .managerFront, .managerFrontSpecial
-        display: inline-block
-        padding-left: 5px
-        width: 80px
-        text-align: right
-        font-size: 14px
-        color: #666
-      .managerFrontSpecial
-        width: 50px
-      .managerText
-        width: 180px
-      .managerTextMiddle
-        width: 153px
-      .managerTextShort
-        width: 120px
-      .loanAppButton
-        margin-left: 5px
-      .loanAppSelect
-        width: 180px
-      .loanAppSelectLong
-        width: 283px
+        margin-right: 20px
+        .managerFront, .managerFrontSpecial
+          display: inline-block
+          padding-left: 5px
+          width: 70px
+          font-size: 14px
+          color: #666
+        .managerFrontSpecial
+          /*width: 50px*/
+        .managerText
+          width: 180px
+        .managerTextMiddle
+          width: 153px
+        .managerTextShort
+          width: 120px
+        .loanAppButton
+          margin-left: 5px
+        .loanAppSelect
+          width: 180px
+        .loanAppSelectLong
+          width: 283px
 
     .el-table .cell, .el-table th > div
       padding-left: 0

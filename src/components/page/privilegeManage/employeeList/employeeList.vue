@@ -1,17 +1,25 @@
 <template>
-  <div class="employeeList" v-loading.body="loading" element-loading-text="拼命加载中">
+  <div class="employeeList" v-loading.body="loading" element-loading-text="拼命加载中" :style="{ height: dHeight + 'px' }">
     <banner></banner>
     <div class="date-filter">
-      <span class="managerFront">姓名：</span>
-      <el-input size="small" type="text" placeholder="请输入内容" class="managerText" v-model.trim="user_name"
-                @keyup.enter.native="search"></el-input>
-      <span class="managerFront">手机号：</span>
-      <el-input size="small" type="text" placeholder="请输入内容" class="managerText" v-model.trim="user_mobile"
-                @keyup.enter.native="search"></el-input>
-      <span class="managerFront">邮箱：</span>
-      <el-input size="small" type="text" placeholder="请输入内容" class="managerText" v-model.trim="user_email"
-                @keyup.enter.native="search"></el-input>
-      <el-button type="primary" size="small" class="userButton" @click.prevent.stop="search">搜索</el-button>
+      <li>
+        <span class="managerFront">姓名：</span>
+        <el-input size="small" type="text" placeholder="请输入内容" class="managerText" v-model.trim="user_name"
+                  @keyup.enter.native="search"></el-input>
+      </li>
+      <li>
+        <span class="managerFront">手机号：</span>
+        <el-input size="small" type="text" placeholder="请输入内容" class="managerText" v-model.trim="user_mobile"
+                  @keyup.enter.native="search"></el-input>
+      </li>
+      <li>
+        <span class="managerFront">邮箱：</span>
+        <el-input size="small" type="text" placeholder="请输入内容" class="managerText" v-model.trim="user_email"
+                  @keyup.enter.native="search"></el-input>
+      </li>
+      <li>
+        <el-button type="primary" size="small" class="userButton" @click.prevent.stop="search">搜索</el-button>
+      </li>
     </div>
     <el-table :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto" :height="height" class="employeeList-table">
       <el-table-column property="user_name" label="姓名"></el-table-column>
@@ -116,7 +124,6 @@
 <script type="text/ecmascript-6">
   import banner from '../../../common/banner/banner'
   import { getNowFormatDate, formatDate } from '../../../../common/js/utils'
-  import { getHeight } from '../../../../common/js/storage'
 
   const parentTable = ['RMAB', '市场', '运营', '催收', '用户画像', '用户信息管理', '借款管理', '还款管理', '还款列表', '对账列表', '退款列表', '续期管理', '数据分析', '财务数据', '数据报表', '财务分析', '推广管理', '权限管理']
   let temp
@@ -410,7 +417,8 @@
           user_email: '',
           user_mobile: ''
         },
-        isShowDetail: false
+        isShowDetail: false,
+        dHeight: 500
       }
     },
     components: {
@@ -419,7 +427,9 @@
     created () {
       this.loading = true
       this.getDataInit()
-      this.height = parseInt(getHeight()) + 40
+    },
+    mounted () {
+     this.resizeHeight()
     },
     methods: {
       //每页显示数据量变更
@@ -532,6 +542,36 @@
             }
           }
         })
+      },
+      resizeHeight () {
+        this.setHeight()
+        window.onresize = this.setHeight
+      },
+      setHeight () {
+        let docH = document.documentElement.clientHeight
+        let banner = document.getElementsByClassName('banner')[0]
+        let bannerH = 0
+        let filter = document.getElementsByClassName('date-filter')[0]
+        let filterH = 0
+        let page = document.getElementsByClassName('el-pagination')[0]
+        let pageH = 0
+        if (banner) {
+          bannerH = banner.offsetHeight
+        }
+        if (filter) {
+          filterH = filter.clientHeight
+        }
+        if (page) {
+          if (page.offsetHeight !== 0) {
+            pageH = page.offsetHeight
+          } else {
+            pageH = 32
+          }
+        } else {
+          pageH = 60
+        }
+        this.height = docH - filterH - bannerH - pageH - 85 /*90+20*/
+        this.dHeight = docH - 90
       }
 //      selectBaseTable (arrays) {
 //        let tables = arrays.split('|')
@@ -556,17 +596,23 @@
     .date-filter
       padding: 15px 0 15px 1px
       box-sizing border-box
-      height 60px
-      .managerFront
-        padding-left: 5px
-        font-size: 14px
-        color: #666
-      .managerText
-        width: 180px
-      .userButton
-        margin-left: 5px
-      .promotionChannelSelect
-        width: 150px
+      display: flex
+      flex-wrap: wrap
+      li
+        margin-bottom: 5px
+        margin-right: 20px
+        .managerFront
+          display: inline-block
+          width: 56px
+          padding-left: 5px
+          font-size: 14px
+          color: #666
+        .managerText
+          width: 180px
+        .userButton
+          margin-left: 5px
+        .promotionChannelSelect
+          width: 150px
     .detail
       position: fixed
       top: 0

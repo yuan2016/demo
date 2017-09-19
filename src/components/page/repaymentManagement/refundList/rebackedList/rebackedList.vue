@@ -1,10 +1,12 @@
 <template>
-  <div class="rebackedList" v-loading.body="loading" element-loading-text="拼命加载中">
+  <div class="rebackedList" v-loading.body="loading" element-loading-text="拼命加载中" :style="{ height: dHeight + 'px' }">
     <banner></banner>
     <ul class="date-filter">
       <li>
         <span class="managerFront">手机号：</span>
         <el-input size="small" type="text" placeholder="请输入内容" class="managerText" v-model.trim="user_phone"></el-input>
+      </li>
+      <li>
         <span class="managerFront">退款时间：</span>
         <el-date-picker v-model.trim="startTime" type="date" size="small" placeholder="从"
                         class="rebackedListTimeSelect"></el-date-picker>
@@ -21,6 +23,8 @@
             :value="item.value">
           </el-option>
         </el-select>
+      </li>
+      <li>
         <span class="managerFront">退款方式：</span>
         <el-select v-model.trim="return_type" size="small" placeholder="不限" class="repaySelectLong">
           <el-option
@@ -30,6 +34,8 @@
             :value="item.value">
           </el-option>
         </el-select>
+      </li>
+      <li>
         <el-button type="primary" size="small" class="loanAuditButton" @click.prevent.stop="search">搜索</el-button>
       </li>
     </ul>
@@ -62,7 +68,6 @@
 <script type="text/ecmascript-6">
   import banner from '../../../../common/banner/banner'
   import { getNowFormatDate, formatDate } from '../../../../../common/js/utils'
-  import { getHeight } from '../../../../../common/js/storage'
 
   export default {
     data () {
@@ -104,7 +109,8 @@
           value: '2',
           label: '续期'
         }],
-        height: 500
+        height: 500,
+        dHeight: 500
       }
     },
     components: {
@@ -113,7 +119,9 @@
     created () {
       this.loading = true
       this.getDataInit()
-      this.height = parseInt(getHeight()) + 10
+    },
+    mounted () {
+     this.resizeHeight()
     },
     methods: {
       //每页显示数据量变更
@@ -226,6 +234,36 @@
           })
           })
         }
+      },
+      resizeHeight () {
+        this.setHeight()
+        window.onresize = this.setHeight
+      },
+      setHeight () {
+        let docH = document.documentElement.clientHeight
+        let banner = document.getElementsByClassName('banner')[0]
+        let bannerH = 0
+        let filter = document.getElementsByClassName('date-filter')[0]
+        let filterH = 0
+        let page = document.getElementsByClassName('el-pagination')[0]
+        let pageH = 0
+        if (banner) {
+          bannerH = banner.offsetHeight
+        }
+        if (filter) {
+          filterH = filter.clientHeight
+        }
+        if (page) {
+          if (page.offsetHeight !== 0) {
+            pageH = page.offsetHeight
+          } else {
+            pageH = 32
+          }
+        } else {
+          pageH = 60
+        }
+        this.height = docH - filterH - bannerH - pageH - 85 /*90+20*/
+        this.dHeight = docH - 90
       }
     }
   }
@@ -239,26 +277,27 @@
   .date-filter
     padding: 15px 0 15px 1px
     box-sizing border-box
-    height 90px
+    display: flex
+    flex-wrap: wrap
     li
-      margin-bottom :5px
-    .managerFront
-      display: inline-block
-      padding-left: 5px
-      width: 90px
-      text-align:right
-      font-size: 14px
-      color: #666
-    .managerText
-      width: 150px
-    .loanAuditButton
-      margin-left: 5px
-    .repaySelect
-      width: 150px
-    .repaySelectLong
-      width: 231px
-    .rebackedListTimeSelect
-      width: 140px
+      margin-bottom: 5px
+      margin-right: 20px
+      .managerFront
+        display: inline-block
+        padding-left: 5px
+        width: 70px
+        font-size: 14px
+        color: #666
+      .managerText
+        width: 150px
+      .loanAuditButton
+        margin-left: 5px
+      .repaySelect
+        width: 150px
+      .repaySelectLong
+        width: 231px
+      .rebackedListTimeSelect
+        width: 140px
 
 
   .el-table .cell, .el-table th > div

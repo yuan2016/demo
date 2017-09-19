@@ -1,5 +1,5 @@
 <template>
-  <div class="loanThroughRate" v-loading="loading" element-loading-text="拼命加载中">
+  <div class="loanThroughRate" v-loading="loading" element-loading-text="拼命加载中" :style="{ height: dHeight + 'px' }">
     <banner></banner>
     <div class="date-filter">
       <span class="managerFront">状态：</span>
@@ -52,7 +52,6 @@
 <script type="text/ecmascript-6">
   import banner from '../../../../common/banner/banner'
   import { getProperty } from '../../../../../common/js/utils'
-  import { getHeight } from '../../../../../common/js/storage'
   import $ from 'jquery'
 
   export default {
@@ -74,7 +73,8 @@
         iconIndex: [],
         backcolor1: [],
         backcolor2: [],
-        diff: []
+        diff: [],
+        dHeight: 500
       }
     },
     components: {
@@ -82,8 +82,10 @@
     },
     created () {
       this.loading = true
-      this.height = parseInt(getHeight()) + 40
       this.getData()
+    },
+    mounted () {
+      this.resizeHeight()
     },
     methods: {
       changeValue () {
@@ -123,8 +125,38 @@
             type: 'warning'
           })
         })
+      },
+      resizeHeight () {
+        this.setHeight()
+        window.onresize = this.setHeight
+      },
+      setHeight () {
+        let docH = document.documentElement.clientHeight
+        let banner = document.getElementsByClassName('banner')[0]
+        let bannerH = 0
+        let filter = document.getElementsByClassName('date-filter')[0]
+        let filterH = 0
+        let page = document.getElementsByClassName('el-pagination')[0]
+        let pageH = 0
+        if (banner) {
+          bannerH = banner.offsetHeight
+        }
+        if (filter) {
+          filterH = filter.clientHeight
+        }
+        if (page) {
+          if (page.offsetHeight !== 0) {
+            pageH = page.offsetHeight
+          } else {
+            pageH = 32
+          }
+        } else {
+          pageH = 60
+        }
+        this.height = docH - filterH - bannerH - pageH - 57
+        this.dHeight = docH - 90
       }
-    },
+  },
     updated () {
       if ($('.el-table__row').length > 0) {
         let pops = [8, 13, 17]

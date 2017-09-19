@@ -1,25 +1,29 @@
 <template>
-  <div class="overdueRepaymentStatistics" v-loading.body="loading" element-loading-text="拼命加载中">
+  <div class="overdueRepaymentStatistics" v-loading.body="loading" element-loading-text="拼命加载中" :style="{ height: dHeight + 'px' }">
     <banner></banner>
     <div class="date-filter">
-      <span class="managerFront">日期：</span>
-      <el-date-picker
-        size="small"
-        v-model.trim="startTime"
-        type="date"
-        placeholder="从">
-      </el-date-picker>
-      <el-date-picker
-        size="small"
-        v-model.trim="endTime"
-        type="date"
-        placeholder="到">
-      </el-date-picker>
-      <el-button type="primary" size="small" @click.prevent.stop="search">搜索</el-button>
-      <el-button type="primary" size="small" :loading="buttonLoading" @click.prevent.stop="refreshData">一键刷新</el-button>
-      <el-button type="primary" size="small" class="userButton">
-        <a :href="mosaicLink" class="overdueRepaymentStatisticsExcel">导出excel</a>
-      </el-button>
+      <li>
+        <span class="managerFront">日期：</span>
+        <el-date-picker
+          size="small"
+          v-model.trim="startTime"
+          type="date"
+          placeholder="从">
+        </el-date-picker>
+        <el-date-picker
+          size="small"
+          v-model.trim="endTime"
+          type="date"
+          placeholder="到">
+        </el-date-picker>
+      </li>
+     <li>
+       <el-button type="primary" size="small" @click.prevent.stop="search">搜索</el-button>
+       <el-button type="primary" size="small" :loading="buttonLoading" @click.prevent.stop="refreshData">一键刷新</el-button>
+       <el-button type="primary" size="small" class="userButton">
+         <a :href="mosaicLink" class="overdueRepaymentStatisticsExcel">导出excel</a>
+       </el-button>
+     </li>
     </div>
     <el-table :data="fundData" highlight-current-row border stripe class="overdueRepaymentStatistics-table"
               style="width: 100%;overflow: auto;" :height="height">
@@ -55,7 +59,6 @@
 <script type="text/ecmascript-6">
   import banner from '../../../../common/banner/banner'
   import { getNowFormatDate, formatDate } from '../../../../../common/js/utils'
-  import { getHeight } from '../../../../../common/js/storage'
 
   export default {
     data () {
@@ -71,7 +74,8 @@
         startTime: '',
         endTime: '',
         height: 500,
-        buttonLoading: false
+        buttonLoading: false,
+        dHeight: 500
       }
     },
     components: {
@@ -80,7 +84,9 @@
     created () {
       this.loading = true
       this.getDataInit()
-      this.height = parseInt(getHeight()) + 40
+    },
+    mounted () {
+      this.resizeHeight()
     },
     computed: {
       mosaicLink () {
@@ -180,6 +186,36 @@
           this.buttonLoading = false
           this.$message.error('还款逾期统计一键刷新出现错误，请检查网络或联系管理员')
         })
+      },
+      resizeHeight () {
+        this.setHeight()
+        window.onresize = this.setHeight
+      },
+      setHeight () {
+        let docH = document.documentElement.clientHeight
+        let banner = document.getElementsByClassName('banner')[0]
+        let bannerH = 0
+        let filter = document.getElementsByClassName('date-filter')[0]
+        let filterH = 0
+        let page = document.getElementsByClassName('el-pagination')[0]
+        let pageH = 0
+        if (banner) {
+          bannerH = banner.offsetHeight
+        }
+        if (filter) {
+          filterH = filter.clientHeight
+        }
+        if (page) {
+          if (page.offsetHeight !== 0) {
+            pageH = page.offsetHeight
+          } else {
+            pageH = 32
+          }
+        } else {
+          pageH = 60
+        }
+        this.height = docH - filterH - bannerH - pageH - 85 /*90+20*/
+        this.dHeight = docH - 90
       }
     }
   }
@@ -193,13 +229,17 @@
     .date-filter
       padding: 15px 0 15px 1px
       box-sizing border-box
-      height 60px
-      .managerFront
-        padding-left: 5px
-        font-size: 14px
-        color: #666
-      .overdueRepaymentStatisticsExcel
-        color :#ffffff
+      display: flex
+      flex-wrap: wrap
+      li
+        margin-bottom: 5px
+        margin-right: 20px
+        .managerFront
+          padding-left: 5px
+          font-size: 14px
+          color: #666
+        .overdueRepaymentStatisticsExcel
+          color :#ffffff
 
     .el-table .cell, .el-table th > div
       padding-left: 0

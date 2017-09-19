@@ -1,21 +1,29 @@
 <template>
-  <div class="waitingForReturnList" v-loading.body="loading" element-loading-text="拼命加载中">
+  <div class="waitingForReturnList" v-loading.body="loading" element-loading-text="拼命加载中" :style="{ height: dHeight + 'px' }">
     <banner></banner>
     <div class="date-filter">
-      <span class="managerFront">姓名：</span>
-      <el-input type="text" size="small" placeholder="请输入内容" class="managerText" v-model.trim="realname"></el-input>
-      <span class="managerFront">手机号：</span>
-      <el-input type="text" size="small" placeholder="请输入内容" class="managerText" v-model.trim="user_phone"></el-input>
-      <span class="managerFront">状态：</span>
-      <el-select v-model.trim="status" size="small" placeholder="不限" class="watingSelect">
-        <el-option
-          v-for="item in options"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value">
-        </el-option>
-      </el-select>
-      <el-button type="primary" size="small" class="watingButton" @click.prevent.stop="search">搜索</el-button>
+      <li>
+        <span class="managerFront">姓名：</span>
+        <el-input type="text" size="small" placeholder="请输入内容" class="managerText" v-model.trim="realname"></el-input>
+      </li>
+     <li>
+       <span class="managerFront">手机号：</span>
+       <el-input type="text" size="small" placeholder="请输入内容" class="managerText" v-model.trim="user_phone"></el-input>
+     </li>
+      <li>
+        <span class="managerFront">状态：</span>
+        <el-select v-model.trim="status" size="small" placeholder="不限" class="watingSelect">
+          <el-option
+            v-for="item in options"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+          </el-option>
+        </el-select>
+      </li>
+      <li>
+        <el-button type="primary" size="small" class="watingButton" @click.prevent.stop="search">搜索</el-button>
+      </li>
     </div>
     <el-table :data="fundData" class="waitingForReturnList-table"
               highlight-current-row border stripe style="width: 100%;overflow: auto" :height="height">
@@ -47,7 +55,6 @@
 
 <script type="text/ecmascript-6">
   import banner from '../../../../common/banner/banner'
-  import { getHeight } from '../../../../../common/js/storage'
 
   export default {
     data () {
@@ -80,7 +87,8 @@
           value: '-20',
           label: '已坏账'
         }],
-        height: 500
+        height: 500,
+        dHeight: 500
       }
     },
     components: {
@@ -89,7 +97,9 @@
     created () {
       this.loading = true
       this.getDataInit()
-      this.height = parseInt(getHeight()) + 40
+    },
+    mounted () {
+      this.resizeHeight()
     },
     methods: {
       //每页显示数据量变更
@@ -188,6 +198,36 @@
           })
           })
         }
+      },
+      resizeHeight  () {
+        this.setHeight()
+        window.onresize = this.setHeight
+      },
+      setHeight () {
+        let docH = document.documentElement.clientHeight
+        let banner = document.getElementsByClassName('banner')[0]
+        let bannerH = 0
+        let filter = document.getElementsByClassName('date-filter')[0]
+        let filterH = 0
+        let page = document.getElementsByClassName('el-pagination')[0]
+        let pageH = 0
+        if (banner) {
+          bannerH = banner.offsetHeight
+        }
+        if (filter) {
+          filterH = filter.clientHeight
+        }
+        if (page) {
+          if (page.offsetHeight !== 0) {
+            pageH = page.offsetHeight
+          } else {
+            pageH = 32
+          }
+        } else {
+          pageH = 60
+        }
+        this.height = docH - filterH - bannerH - pageH - 85 /*90+20*/
+        this.dHeight = docH - 90
       }
     }
   }
@@ -201,25 +241,37 @@
     .date-filter
       padding: 15px 0 15px 1px
       box-sizing border-box
-      height 60px
-      .managerFront
-        padding-left: 5px
-        font-size: 14px
-        color: #666
-      .managerText
-        width: 180px
-      .watingButton
-        margin-left: 5px
-      .watingSelect
-        width: 130px
+      display: flex
+      flex-wrap: wrap
+      li
+        margin-bottom: 5px
+        margin-right: 20px
+        .managerFront
+          padding-left: 5px
+          font-size: 14px
+          color: #666
+        .managerText
+          width: 180px
+        .watingButton
+          margin-left: 5px
+        .watingSelect
+          width: 130px
 
     .el-table .cell, .el-table th > div
       padding-left: 0
       padding-right: 0
       text-align: center
       font-size: 12px
-
+a
     .el-table th > .cell
       text-align: center
       font-weight: bold
+
+  @media (max-width: 768px)
+    .date-filter
+      li
+        .managerFront
+          display:inline-block
+          width: 66px
+
 </style>

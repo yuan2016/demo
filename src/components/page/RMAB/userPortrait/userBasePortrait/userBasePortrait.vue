@@ -1,5 +1,5 @@
 <template>
-  <div class="userBasePortrait" v-loading.body="loading" element-loading-text="拼命加载中">
+  <div class="userBasePortrait" v-loading.body="loading" element-loading-text="拼命加载中" :style="{ height: dHeight + 'px' }">
     <banner></banner>
     <el-table :data="fundData" highlight-current-row border stripe
               style="width: 100%;overflow: auto" :height="height" @sort-change="sort" class="userBasePortrait-table">
@@ -51,7 +51,6 @@
 <script type="text/ecmascript-6">
   import banner from '../../../../common/banner/banner'
   import { getNowFormatDate, formatDate } from '../../../../../common/js/utils'
-  import { getHeight } from '../../../../../common/js/storage'
   import $ from 'jquery'
 
   export default {
@@ -67,7 +66,8 @@
         pageContent: 'sizes',
         height: 500,
         buttonLoading: false,
-        order: ''
+        order: '',
+        dHeight: 500
       }
     },
     components: {
@@ -76,7 +76,9 @@
     created () {
       this.loading = true
       this.getDataInit()
-      this.height = parseInt(getHeight()) + 80
+    },
+    mounted () {
+      this.resizeHeight()
     },
     methods: {
       //每页显示数据量变更
@@ -148,6 +150,37 @@
           this.order = ''
         }
         this.search(this.order)
+      },
+      resizeHeight () {
+        this.setHeight()
+        window.onresize = this.setHeight
+      },
+      setHeight () {
+        console.log(11)
+        let docH = document.documentElement.clientHeight
+        let banner = document.getElementsByClassName('banner')[0]
+        let bannerH = 0
+        let filter = document.getElementsByClassName('date-filter')[0]
+        let filterH = 0
+        let page = document.getElementsByClassName('el-pagination')[0]
+        let pageH = 0
+        if (banner) {
+          bannerH = banner.offsetHeight
+        }
+        if (filter) {
+          filterH = filter.clientHeight
+        }
+        if (page) {
+          if (page.offsetHeight !== 0) {
+            pageH = page.offsetHeight
+          } else {
+            pageH = 32
+          }
+        } else {
+          pageH = 60
+        }
+        this.height = docH - filterH - bannerH - pageH - 105 /*90+20*/
+        this.dHeight = docH - 130 /*90+40*/
       }
     },
     updated () {

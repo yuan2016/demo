@@ -1,25 +1,35 @@
 <template>
-  <div class="promotionChannelStatistics" v-loading.body="loading" element-loading-text="拼命加载中" >
+  <div class="promotionChannelStatistics" v-loading.body="loading" element-loading-text="拼命加载中" :style="{ height: dHeight + 'px' }">
     <banner></banner>
     <div class="date-filter">
-      <span class="managerFront">渠道商名称：</span>
-      <el-select v-model.trim="channel_trader_name" filterable clearable size="small" placeholder="不限"
-                 class="promotionChannelSelect">
-        <el-option
-          v-for="item in options"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value">
-        </el-option>
-      </el-select>
-      <span class="managerFront">日期：</span>
-      <el-date-picker v-model.trim="startTime" type="date" size="small" placeholder="从" class="userListTimeSelect"></el-date-picker>
-      <el-date-picker v-model.trim="endTime" type="date" size="small" placeholder="到" class="userListTimeSelect"></el-date-picker>
-      <el-button type="primary" size="small" class="userButton" @click.prevent.stop="search">搜索</el-button>
-      <el-button type="primary" size="small" :loading="buttonLoading" @click.prevent.stop="refreshData">一键刷新</el-button>
-      <el-button type="primary" size="small" class="userButton">
-        <a :href="mosaicLink" class="promotionChannelStatisticsExcel">导出excel</a>
-      </el-button>
+      <li>
+        <span class="managerFront">渠道商名称：</span>
+        <el-select v-model.trim="channel_trader_name" filterable clearable size="small" placeholder="不限"
+                   class="promotionChannelSelect">
+          <el-option
+            v-for="item in options"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+          </el-option>
+        </el-select>
+      </li>
+      <li>
+        <span class="managerFront">日期：</span>
+        <el-date-picker v-model.trim="startTime" type="date" size="small" placeholder="从" class="userListTimeSelect"></el-date-picker>
+        <el-date-picker v-model.trim="endTime" type="date" size="small" placeholder="到" class="userListTimeSelect"></el-date-picker>
+      </li>
+      <li>
+        <el-button type="primary" size="small" class="userButton" @click.prevent.stop="search">搜索</el-button>
+      </li>
+      <li>
+        <el-button type="primary" size="small" :loading="buttonLoading" @click.prevent.stop="refreshData">一键刷新</el-button>
+      </li>
+      <li>
+        <el-button type="primary" size="small" class="userButton">
+          <a :href="mosaicLink" class="promotionChannelStatisticsExcel">导出excel</a>
+        </el-button>
+      </li>
     </div>
     <el-table :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto" :height="height" class="promotionChannelStatistics-table">
       <el-table-column property="d_date" sortable fixed label="日期"></el-table-column>
@@ -64,7 +74,6 @@
 <script type="text/ecmascript-6">
   import banner from '../../../common/banner/banner'
   import { getNowFormatDate, formatDate } from '../../../../common/js/utils'
-  import { getHeight } from '../../../../common/js/storage'
 
   export default {
     data () {
@@ -83,7 +92,8 @@
         startTime: '',
         endTime: '',
         height: 500,
-        buttonLoading: false
+        buttonLoading: false,
+        dHeight: 500
       }
     },
     components: {
@@ -93,7 +103,9 @@
       this.loading = true
       this.getSelectOptions()
       this.getDataInit()
-      this.height = parseInt(getHeight()) + 40
+    },
+    mounted () {
+      this.resizeHeight()
     },
     computed: {
       mosaicLink () {
@@ -203,6 +215,36 @@
           this.buttonLoading = false
           this.$message.error('推广统计(渠道)一键刷新出现错误，请检查网络或联系管理员')
         })
+      },
+      resizeHeight () {
+        this.setHeight()
+        window.onresize = this.setHeight
+      },
+      setHeight () {
+        let docH = document.documentElement.clientHeight
+        let banner = document.getElementsByClassName('banner')[0]
+        let bannerH = 0
+        let filter = document.getElementsByClassName('date-filter')[0]
+        let filterH = 0
+        let page = document.getElementsByClassName('el-pagination')[0]
+        let pageH = 0
+        if (banner) {
+          bannerH = banner.offsetHeight
+        }
+        if (filter) {
+          filterH = filter.clientHeight
+        }
+        if (page) {
+          if (page.offsetHeight !== 0) {
+            pageH = page.offsetHeight
+          } else {
+            pageH = 32
+          }
+        } else {
+          pageH = 60
+        }
+        this.height = docH - filterH - bannerH - pageH - 85 /*90+20*/
+        this.dHeight = docH - 90
       }
     }
   }
@@ -216,19 +258,23 @@
   .date-filter
     padding: 15px 0 15px 1px
     box-sizing border-box
-    height 60px
-    .managerFront
-      padding-left :5px
-      font-size: 14px
-      color: #666
-    .managerText
-      width: 180px
-    .userButton
-      margin-left: 5px
-    .promotionChannelSelect
-      width: 150px
-    .promotionChannelStatisticsExcel
-      color :#fff
+    display: flex
+    flex-wrap: wrap
+    li
+      margin-bottom: 5px
+      margin-right: 20px
+      .managerFront
+        padding-left :5px
+        font-size: 14px
+        color: #666
+      .managerText
+        width: 180px
+      .userButton
+        margin-left: 5px
+      .promotionChannelSelect
+        width: 150px
+      .promotionChannelStatisticsExcel
+        color :#fff
 
 
   .el-table .cell, .el-table th > div

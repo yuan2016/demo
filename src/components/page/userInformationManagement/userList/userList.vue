@@ -1,14 +1,18 @@
 <template>
-  <div class="userList" v-loading.body="loading" element-loading-text="拼命加载中">
+  <div class="userList" v-loading.body="loading" element-loading-text="拼命加载中" :style="{ height: dHeight + 'px' }">
     <banner></banner>
     <ul class="date-filter">
       <li>
         <span class="managerFront">用户ID：</span>
         <el-input size="small" type="text" placeholder="请输入内容" class="managerText" v-model.trim="id"
                   @keyup.enter.native="search" icon="el-icon-search"></el-input>
+      </li>
+      <li>
         <span class="managerFront">姓名：</span>
         <el-input size="small" type="text" placeholder="请输入内容" class="managerText" v-model.trim="realname"
                   @keyup.enter.native="search"></el-input>
+      </li>
+      <li>
         <span class="managerFront">证件号码：</span>
         <el-input size="small" type="text" placeholder="请输入内容" class="managerText" v-model.trim="id_number"
                   @keyup.enter.native="search"></el-input>
@@ -17,11 +21,15 @@
         <span class="managerFront">联系方式：</span>
         <el-input size="small" type="text" placeholder="请输入内容" class="managerText" v-model.trim="user_phone"
                   @keyup.enter.native="search"></el-input>
+      </li>
+      <li>
         <span class="managerFront">创建时间：</span>
         <el-date-picker v-model.trim="startTime" type="date" size="small" placeholder="从"
                         class="userListTimeSelect" @keyup.enter.native="search"></el-date-picker>
         <el-date-picker v-model.trim="endTime" type="date" size="small" placeholder="到"
                         class="userListTimeSelect" @keyup.enter.native="search"></el-date-picker>
+      </li>
+      <li>
         <span class="managerFront">是否黑名单：</span>
         <el-select v-model.trim="status" size="small" placeholder="不限" class="userListSelect"
                    @keyup.enter.native="search">
@@ -63,7 +71,6 @@
 <script type="text/ecmascript-6">
   import banner from '../../../common/banner/banner'
   import { getNowFormatDate, formatDate } from '../../../../common/js/utils'
-  import { getHeight } from '../../../../common/js/storage'
 
   export default {
     data () {
@@ -94,7 +101,8 @@
           value: '1',
           label: '否'
         }],
-        height: 500
+        height: 500,
+        dHeight: 500
       }
     },
     components: {
@@ -103,7 +111,9 @@
     created () {
       this.loading = true
       this.getDataInit()
-      this.height = parseInt(getHeight()) + 10
+    },
+    mounted () {
+      this.resizeHeight()
     },
     methods: {
       //每页显示数据量变更
@@ -271,6 +281,36 @@
           order = ' order by ' + info.prop + ' desc'
         }
         this.sortSearch(order)
+      },
+      resizeHeight () {
+        this.setHeight()
+        window.onresize = this.setHeight
+      },
+      setHeight () {
+        let docH = document.documentElement.clientHeight
+        let banner = document.getElementsByClassName('banner')[0]
+        let bannerH = 0
+        let filter = document.getElementsByClassName('date-filter')[0]
+        let filterH = 0
+        let page = document.getElementsByClassName('el-pagination')[0]
+        let pageH = 0
+        if (banner) {
+          bannerH = banner.offsetHeight
+        }
+        if (filter) {
+          filterH = filter.clientHeight
+        }
+        if (page) {
+          if (page.offsetHeight !== 0) {
+            pageH = page.offsetHeight
+          } else {
+           pageH = 32
+          }
+        } else {
+          pageH = 60
+        }
+        this.height = docH - filterH - bannerH - pageH - 85 /*90+20*/
+        this.dHeight = docH - 90
       }
     }
   }
@@ -281,25 +321,26 @@
     height: 100%
     .date-filter
       padding: 15px 0 15px 1px
-      box-sizing border-box
-      height 90px
+      box-sizing: border-box
+      display: flex
+      flex-wrap: wrap
       li
         margin-bottom: 5px
-      .managerFront
-        display: inline-block
-        padding-left: 5px
-        width: 90px
-        text-align: right
-        font-size: 14px
-        color: #666
-      .managerText
-        width: 188px
-      .userButton
-        margin-left: 5px
-      .userListTimeSelect
-        width: 120px
-      .userListSelect
-        width: 80px
+        margin-right: 20px
+        .managerFront
+          display: inline-block
+          width: 90px
+          padding-left: 5px
+          font-size: 14px
+          color: #666
+        .managerText
+          width: 160px
+        .userButton
+          margin-left: 5px
+        .userListTimeSelect
+          width: 120px
+        .userListSelect
+          width: 80px
     .userList-table
       border-radius :10px
     .el-table .cell, .el-table th > div
@@ -311,5 +352,15 @@
     .el-table th > .cell
       text-align: center
       font-weight: bold
+
+  @media (min-width:1368px)
+    .userList
+      .date-filter
+          li
+            margin-right: 0
+            .managerFront
+              text-align:right
+              width:auto
+
 
 </style>

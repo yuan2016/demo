@@ -1,26 +1,36 @@
 <template>
-  <div class="promoterManagement" v-loading.body="loading" element-loading-text="拼命加载中">
+  <div class="promoterManagement" v-loading.body="loading" element-loading-text="拼命加载中" :style="{ height: dHeight + 'px' }">
     <banner></banner>
     <div class="date-filter">
-      <span class="managerFront">推广员姓名：</span>
-      <el-input size="small" type="text" placeholder="请输入内容" class="managerText" v-model.trim="realname"></el-input>
-      <span class="managerFront">推广员电话：</span>
-      <el-input size="small" type="text" placeholder="请输入内容" class="managerText" v-model.trim="user_phone"></el-input>
-      <span class="managerFront">渠道商：</span>
-      <el-select v-model.trim="channel_name" filterable clearable size="small" placeholder="不限" class="promoterSelect">
-        <el-option
-          v-for="item in options"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value">
-        </el-option>
-      </el-select>
-      <span class="managerFront">创建时间：</span>
-      <el-date-picker v-model.trim="startTime" type="date" size="small" placeholder="从"
-                      class="userListTimeSelect"></el-date-picker>
-      <el-date-picker v-model.trim="endTime" type="date" size="small" placeholder="到"
-                      class="userListTimeSelect"></el-date-picker>
-      <el-button type="primary" size="small" class="userButton" @click.prevent.stop="search">搜索</el-button>
+      <li>
+        <span class="managerFront">推广员姓名：</span>
+        <el-input size="small" type="text" placeholder="请输入内容" class="managerText" v-model.trim="realname"></el-input>
+      </li>
+      <li>
+        <span class="managerFront">推广员电话：</span>
+        <el-input size="small" type="text" placeholder="请输入内容" class="managerText" v-model.trim="user_phone"></el-input>
+      </li>
+      <li>
+        <span class="managerFront">渠道商：</span>
+        <el-select v-model.trim="channel_name" filterable clearable size="small" placeholder="不限" class="promoterSelect">
+          <el-option
+            v-for="item in options"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+          </el-option>
+        </el-select>
+      </li>
+      <li>
+        <span class="managerFront">创建时间：</span>
+        <el-date-picker v-model.trim="startTime" type="date" size="small" placeholder="从"
+                        class="userListTimeSelect"></el-date-picker>
+        <el-date-picker v-model.trim="endTime" type="date" size="small" placeholder="到"
+                        class="userListTimeSelect"></el-date-picker>
+      </li>
+      <li>
+        <el-button type="primary" size="small" class="userButton" @click.prevent.stop="search">搜索</el-button>
+      </li>
     </div>
     <el-table :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto" :height="height" class="promoterManagement-table">
       <el-table-column prop="realname" label="推广员姓名" width="80"></el-table-column>
@@ -51,7 +61,6 @@
 <script type="text/ecmascript-6">
   import banner from '../../../common/banner/banner'
   import { getNowFormatDate, formatDate } from '../../../../common/js/utils'
-  import { getHeight } from '../../../../common/js/storage'
 
   export default {
     data () {
@@ -71,7 +80,8 @@
         endTime: '',
         options: [],
         status: '',
-        height: 500
+        height: 500,
+        dHeight: 500
       }
     },
     components: {
@@ -81,7 +91,9 @@
       this.loading = true
       this.getSelectOptions()
       this.getDataInit()
-      this.height = parseInt(getHeight()) + 40
+    },
+    mounted () {
+     this.resizeHeight()
     },
     methods: {
       //每页显示数据量变更
@@ -160,6 +172,36 @@
           this.endTime = formatDate(new Date(this.endTime), 'yyyy-MM-dd')
         }
         this.getDataInit()
+      },
+      resizeHeight () {
+        this.setHeight()
+        window.onresize = this.setHeight
+      },
+      setHeight () {
+        let docH = document.documentElement.clientHeight
+        let banner = document.getElementsByClassName('banner')[0]
+        let bannerH = 0
+        let filter = document.getElementsByClassName('date-filter')[0]
+        let filterH = 0
+        let page = document.getElementsByClassName('el-pagination')[0]
+        let pageH = 0
+        if (banner) {
+          bannerH = banner.offsetHeight
+        }
+        if (filter) {
+          filterH = filter.clientHeight
+        }
+        if (page) {
+          if (page.offsetHeight !== 0) {
+            pageH = page.offsetHeight
+          } else {
+            pageH = 32
+          }
+        } else {
+          pageH = 60
+        }
+        this.height = docH - filterH - bannerH - pageH - 85 /*90+20*/
+        this.dHeight = docH - 90
       }
     }
   }
@@ -173,19 +215,25 @@
     .date-filter
       padding: 15px 0 15px 1px
       box-sizing border-box
-      height 60px
-      .managerFront
-        padding-left: 5px
-        font-size: 14px
-        color: #666
-      .managerText
-        width: 150px
-      .userButton
-        margin-left: 5px
-      .userListTimeSelect
-        width: 120px
-      .promoterSelect
-        width: 120px
+      display: flex
+      flex-wrap: wrap
+      li
+        margin-bottom: 5px
+        margin-right: 20px
+        .managerFront
+          display: inline-block
+          width: 90px
+          padding-left: 5px
+          font-size: 14px
+          color: #666
+        .managerText
+          width: 150px
+        .userButton
+          margin-left: 5px
+        .userListTimeSelect
+          width: 120px
+        .promoterSelect
+          width: 120px
 
     .el-table .cell, .el-table th > div
       padding-left: 0
