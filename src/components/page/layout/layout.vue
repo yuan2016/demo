@@ -222,6 +222,8 @@
       },
       jumpToLogin (path) {
         clearToken()
+        this.clearTable()
+        this.clearInitTable()
         this.$router.push(path)
       },
       handleSelect (item) {
@@ -240,6 +242,12 @@
       },
       setInfo (info) {
         this.$store.dispatch('setInfo', info)
+      },
+      clearTable () {
+        this.$store.dispatch('clearTable')
+      },
+      clearInitTable () {
+        this.$store.dispatch('clearInitTable')
       }
     }
   }

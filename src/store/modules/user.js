@@ -27,6 +27,9 @@ const user = {
     },
     SET_PHONE: (state, phone) => {
       state.phone = phone
+    },
+    CLEAR_TABLE: (state) => {
+      state.table = ''
     }
   },
   actions: {
@@ -38,6 +41,9 @@ const user = {
       commit('SET_DEPARTMENT', info.department)
       commit('SET_SEX', info.user_sex)
       commit('SET_PHONE', info.user_mobile)
+    },
+    clearTable: ({commit}) => {
+      commit('CLEAR_TABLE')
     },
     // 获取用户信息
     GetInfo ({commit, state}, email) {

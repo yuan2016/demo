@@ -41,8 +41,9 @@ const permission = {
       state.addRouters = routers
       state.routers = constantRouterMap.concat(routers)
     },
-    SET_MARK: (state, mark) => {
-      state.mark = mark
+    CLEAR_INIT_TABLE: (state) => {
+      state.routers = constantRouterMap
+      state.routers = []
     }
   },
   actions: {
@@ -58,6 +59,9 @@ const permission = {
         commit('SET_ROUTERS', accessedRouters)
         resolve()
       })
+    },
+    clearInitTable: ({commit}) => {
+      commit('CLEAR_INIT_TABLE')
     }
   }
 }

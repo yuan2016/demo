@@ -86,7 +86,7 @@
                   message: '用户不存在',
                   type: 'warning'
                 })
-              } else if (response.data === 300) {
+              } else if (response.data.token === 300) {
                 this.$message.error('密码错误')
               } else {
                 this.$message({
