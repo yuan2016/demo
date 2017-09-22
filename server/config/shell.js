@@ -12,5 +12,6 @@ module.exports = {
   platformData: '/mnt/usr/local/data-integration/pan.sh -rep kettle -user admin -pass admin -dir /report -trans FRESH_数据分析_平台数据',
   promotionChannelStatistics: '/mnt/usr/local/data-integration/pan.sh -rep kettle -user admin -pass admin -dir /report -trans FRESH_推广管理_推广统计（渠道）',
   promotionRegionStatistics: '/mnt/usr/local/data-integration/pan.sh -rep kettle -user admin -pass admin -dir /report -trans FRESH_推广管理_推广统计（地区）',
-  promptAmount: '/mnt/usr/local/data-integration/pan.sh -rep kettle -user admin -pass admin -dir /report -trans 数据分析_在催金额'
+  promptAmount: '/mnt/usr/local/data-integration/pan.sh -rep kettle -user admin -pass admin -dir /report -trans 数据分析_在催金额',
+  promotionChannelStatistics7: '/mnt/usr/local/data-integration/kitchen.sh -rep kettle -user admin -pass admin -dir /report -job FRESH_推广管理_市场七日推广统计（渠道）'
 }

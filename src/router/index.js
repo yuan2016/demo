@@ -15,12 +15,18 @@ const userNameAuthenticationList = r => require.ensure([], () => r(require('../c
 const userAuthenticationList = r => require.ensure([], () => r(require('../components/page/userInformationManagement/userAuthenticationList/userAuthenticationList')), 'userAuthenticationList')
 //RMAB
 const rmabLayout = r => require.ensure([], () => r(require('../components/page/RMAB')), 'rmabLayout')
+const newPassRateLayout = r => require.ensure([], () => r(require('../components/page/RMAB/market/newUserPassRate')), 'newPassRateLayout')
 const loanThroughRate = r => require.ensure([], () => r(require('../components/page/RMAB/market/loanThroughRate/loanThroughRate')), 'loanThroughRate')
 const loanThroughRateAll = r => require.ensure([], () => r(require('../components/page/RMAB/market/loanThroughRate/loanThroughRateAll')), 'loanThroughRateAll')
 const loanOverdueRecallRate = r => require.ensure([], () => r(require('../components/page/RMAB/collection/loanOverdueRecallRate/loanOverdueRecallRate')), 'loanOverdueRecallRate')
 const userBasePortrait = r => require.ensure([], () => r(require('../components/page/RMAB/userPortrait/userBasePortrait/userBasePortrait')), 'userBasePortrait')
+const operationUserPortrait = r => require.ensure([], () => r(require('../components/page/RMAB/userPortrait/operationUserPortrait/operationUserPortrait')), 'operationUserPortrait')
 const invitationEvent = r => require.ensure([], () => r(require('../components/page/RMAB/operate/invitationEvent/invitationEvent')), 'invitationEvent')
-const PVUV = r => require.ensure([], () => r(require('../components/page/promotionManagement/PVUV/PVUV')), 'PVUV')
+//新用户通过率
+const tab1 = r => require.ensure([], () => r(require('../components/page/RMAB/market/newUserPassRate/tab1.vue')), 'tab1')
+const tab2 = r => require.ensure([], () => r(require('../components/page/RMAB/market/newUserPassRate/tab2.vue')), 'tab2')
+const tab3 = r => require.ensure([], () => r(require('../components/page/RMAB/market/newUserPassRate/tab3.vue')), 'tab3')
+
 //借款管理
 const assetInformation = r => require.ensure([], () => r(require('../components/page/loanManagement/assetInformation/assetInformation')), 'assetInformation')
 const loanApplicationsList = r => require.ensure([], () => r(require('../components/page/loanManagement/loanApplicationsList/loanApplicationsList')), 'loanApplicationsList')
@@ -63,9 +69,11 @@ const reportStatistics = r => require.ensure([], () => r(require('../components/
 const promotionChannel = r => require.ensure([], () => r(require('../components/page/promotionManagement/promotionChannel/promotionChannel')), 'promotionChannel')
 const promoterManagement = r => require.ensure([], () => r(require('../components/page/promotionManagement/promoterManagement/promoterManagement')), 'promoterManagement')
 const promotionChannelStatistics = r => require.ensure([], () => r(require('../components/page/promotionManagement/promotionChannelStatistics/promotionChannelStatistics')), 'promotionChannelStatistics')
+const promotionChannelStatistics7 = r => require.ensure([], () => r(require('../components/page/promotionManagement/promotionChannelStatistics7Days/promotionChannelStatistics7Days')), 'promotionChannelStatistics7')
 const promotionRegionStatistics = r => require.ensure([], () => r(require('../components/page/promotionManagement/promotionRegionStatistics/promotionRegionStatistics')), 'promotionRegionStatistics')
 const channelStatisticsSummary = r => require.ensure([], () => r(require('../components/page/promotionManagement/channelStatisticsSummary/channelStatisticsSummary')), 'channelStatisticsSummary')
 const registrationStatisticsReport = r => require.ensure([], () => r(require('../components/page/promotionManagement/registrationStatisticsReport/registrationStatisticsReport')), 'registrationStatisticsReport')
+const PVUV = r => require.ensure([], () => r(require('../components/page/promotionManagement/PVUV/PVUV')), 'PVUV')
 //权限管理
 const employeeList = r => require.ensure([], () => r(require('../components/page/privilegeManage/employeeList/employeeList')), 'employeeList')
 Vue.use(Router)
@@ -128,6 +136,38 @@ export const asyncRouterMap = [
           name: '新用户借款通过率',
           meta: ['RMAB', '借款通过率'],
           attr: {role: ['admin', 'boss']}
+        }, {
+          path: '/RMAB/market/newUserPassRate',
+          icon: 'el-icon-star-on',
+          component: newPassRateLayout,
+          redirect: '/RMAB/market/newUserPassRate/tab1',
+          name: '新用户通过率测试',
+          noDropdown: true,
+          haveTab: true,
+          meta: ['RMAB', '通过率测试'],
+          attr: {role: ['admin', 'boss']},
+          children: [{
+            path: 'tab1',
+            component: tab1,
+            hidden: true,
+            name: 'tab1',
+            meta: ['RMAB', '通过率测试', 'tab1'],
+            attr: {role: ['admin', 'boss']}
+          }, {
+            path: 'tab2',
+            component: tab2,
+            hidden: true,
+            name: 'tab2',
+            meta: ['RMAB', '通过率测试', 'tab2'],
+            attr: {role: ['admin', 'boss']}
+          }, {
+            path: 'tab3',
+            component: tab3,
+            hidden: true,
+            name: 'tab3',
+            meta: ['RMAB', '通过率测试', 'tab3'],
+            attr: {role: ['admin', 'boss']}
+          }]
         }]
       },
       {
@@ -181,6 +221,13 @@ export const asyncRouterMap = [
           component: userBasePortrait,
           name: '基础用户画像',
           meta: ['RMAB', '基础用户画像'],
+          attr: {role: ['admin', 'boss']}
+        }, {
+          path: 'operationUserPortrait',
+          icon: 'el-icon-star-on',
+          component: operationUserPortrait,
+          name: '运营用户画像',
+          meta: ['RMAB', '运营用户画像'],
           attr: {role: ['admin', 'boss']}
         }]
       }
@@ -552,6 +599,14 @@ export const asyncRouterMap = [
         icon: 'el-icon-star-on',
         attr: {role: ['finance', 'boss']},
         meta: ['推广管理', '推广统计(渠道)']
+      },
+      {
+        path: 'promotionChannelStatistics7',
+        component: promotionChannelStatistics7,
+        name: '七日推广统计(渠道)',
+        icon: 'el-icon-star-on',
+        attr: {role: ['finance', 'boss']},
+        meta: ['推广管理', '七日推广统计(渠道)']
       }, {
         path: 'promotionRegionStatistics',
         component: promotionRegionStatistics,

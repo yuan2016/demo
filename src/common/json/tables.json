@@ -5,6 +5,10 @@
       "address": "/RMAB/market/loanThroughRate"
     },
     {
+      "value": "新用户通过率测试",
+      "address": "/RMAB/market/newUserPassRate"
+    },
+    {
       "value": "邀请活动",
       "address": "/RMAB/operate/invitationEvent"
     },
@@ -15,6 +19,10 @@
     {
       "value": "基础用户画像",
       "address": "/RMAB/userPortrait/userBasePortrait"
+    },
+    {
+      "value": "运营用户画像",
+      "address": "/RMAB/userPortrait/operationUserPortrait"
     },
     {
       "value": "用户列表",
@@ -159,6 +167,10 @@
     {
       "value": "推广统计(渠道)",
       "address": "/promotionManagement/promotionChannelStatistics"
+    },
+    {
+      "value": "七日推广统计(渠道)",
+      "address": "/promotionManagement/promotionChannelStatistics7"
     },
     {
       "value": "推广统计(地区)",

@@ -156,7 +156,6 @@
         window.onresize = this.setHeight
       },
       setHeight () {
-        console.log(11)
         let docH = document.documentElement.clientHeight
         let banner = document.getElementsByClassName('banner')[0]
         let bannerH = 0
@@ -197,7 +196,7 @@
         let clientWidth = document.documentElement.clientWidth
         for (let i = 0; i < pops.length; i++) {
           $('.el-table__header>thead>tr>th:eq(' + pops[i] + ') ').on('mouseover', function (event) {
-            let x = clientWidth - event.clientX
+            let x = clientWidth - event.clientX + 20
             let y = event.clientY - 30
             popName[i].css('display', 'block').css('top', y).css('right', x)
           }).on('mouseout', function () {

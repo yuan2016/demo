@@ -39,6 +39,9 @@ module.exports = {
   // 用户基础画像
   userBasePortrait: path + '/userBasePortrait',
   userBasePortraitCount: path + '/userBasePortrait/count',
+  //运营用户画像
+  operationUserPortrait: path + '/operationUserPortrait',
+  operationUserPortraitCount: path + '/operationUserPortrait/count',
   /*借款管理*/
   // 借款申请列表
   loanApplicationsList: path + '/loanApplicationsList',
@@ -166,6 +169,12 @@ module.exports = {
   promotionChannelStatisticsRefresh: path + '/promotionChannelStatistics/refresh',
   promotionChannelStatisticsGetOptions: path + '/promotionChannelStatistics/getSelectOptions',
   promotionChannelStatisticsExcel: path + '/promotionChannelStatistics/excel',
+  // 七日推广统计(渠道)
+  promotionChannelStatistics7: path + '/promotionChannelStatistics7',
+  promotionChannelStatistics7Count: path + '/promotionChannelStatistics7/count',
+  promotionChannelStatistics7Refresh: path + '/promotionChannelStatistics7/refresh',
+  promotionChannelStatistics7GetOptions: path + '/promotionChannelStatistics7/getSelectOptions',
+  promotionChannelStatistics7Excel: path + '/promotionChannelStatistics7/excel',
   // 推广统计(地区)
   promotionRegionStatistics: path + '/promotionRegionStatistics',
   promotionRegionStatisticsCount: path + '/promotionRegionStatistics/count',

@@ -19,8 +19,9 @@ let loanThroughRate = require('../controller/RMAB/market/loanThroughRate/loanThr
 let loanThroughRateAll = require('../controller/RMAB/market/loanThroughRate/loanThroughRateAll')
 let loanOverdueRecallRate = require('../controller/RMAB/collection/loanOverdueRecallRate/loanOverdueRecallRate')
 let userBasePortrait = require('../controller/RMAB/userPortrait/userBasePortrait/userBasePortrait')
+let operationUserPortrait = require('../controller/RMAB/userPortrait/operationUserPortrait/operationUserPortrait')
 let invitationEvent = require('../controller/RMAB/operate/invitationEvent/invitationEvent')
-let PVUV = require('../controller/promotionManagement/PVUV/PVUV')
+
 //借款管理
 let loanApplicationsList = require('../controller/loanManagement/loanApplicationsList/loanApplicationsList')
 let loanAuditList = require('../controller/loanManagement/loanAuditList/loanAuditList')
@@ -59,8 +60,10 @@ let reportStatistics = require('../controller/financeAnalysis/reportStatistics/r
 let promotionChannel = require('../controller/promotionManagement/promotionChannel/promotionChannel')
 let promoterManagement = require('../controller/promotionManagement/promoterManagement/promoterManagement')
 let promotionChannelStatistics = require('../controller/promotionManagement/promotionChannelStatistics/promotionChannelStatistics')
+let promotionChannelStatistics7 = require('../controller/promotionManagement/promotionChannelStatistics7Days/promotionChannelStatistics7Days')
 let promotionRegionStatistics = require('../controller/promotionManagement/promotionRegionStatistics/promotionRegionStatistics')
 let channelStatisticsSummary = require('../controller/promotionManagement/channelStatisticsSummary/channelStatisticsSummary')
+let PVUV = require('../controller/promotionManagement/PVUV/PVUV')
 //权限管理
 //员工信息
 let employeeList = require('../controller/privilegeManage/employeeList/employeeList')
@@ -106,6 +109,9 @@ router.post(api.invitationEvent, invitationEvent.fetchAll)
 //用户基础画像
 router.post(api.userBasePortraitCount, userBasePortrait.getCount)
 router.post(api.userBasePortrait, userBasePortrait.fetchAll)
+//运营用户画像
+router.post(api.operationUserPortraitCount, operationUserPortrait.getCount)
+router.post(api.operationUserPortrait, operationUserPortrait.fetchAll)
 /*借款管理*/
 // 借款申请列表
 router.post(api.loanApplicationsListCount, loanApplicationsList.getCount)
@@ -245,6 +251,14 @@ router.post(api.promotionChannelStatistics, promotionChannelStatistics.fetchAll)
 router.post(api.promotionChannelStatisticsRefresh, promotionChannelStatistics.refreshData)
 router.post(api.promotionChannelStatisticsGetOptions, promotionChannelStatistics.getSelectOptions)
 router.get(api.promotionChannelStatisticsExcel, promotionChannelStatistics.getExcelData)
+
+//七日推广统计(渠道)
+router.post(api.promotionChannelStatistics7Count, promotionChannelStatistics7.getCount)
+router.post(api.promotionChannelStatistics7, promotionChannelStatistics7.fetchAll)
+router.post(api.promotionChannelStatistics7Refresh, promotionChannelStatistics7.refreshData)
+router.post(api.promotionChannelStatistics7GetOptions, promotionChannelStatistics7.getSelectOptions)
+router.get(api.promotionChannelStatistics7Excel, promotionChannelStatistics7.getExcelData)
+
 //推广统计(地区)
 router.post(api.promotionRegionStatisticsCount, promotionRegionStatistics.getCount)
 router.post(api.promotionRegionStatistics, promotionRegionStatistics.fetchAll)

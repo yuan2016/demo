@@ -25,6 +25,7 @@ module.exports = {
   loanThroughRateAll: 'pr_ds_order_analysis_all',
   loanOverdueRecallRate: 'pr_ds_odu_coll_analysis',
   userBasePortrait: 'up_yh_info_analysis',
+  operationUserPortrait: 'up_operate_analysis',
   invitationEvent: 'PR_DS_INVITATION_EVENT_RMAB_EXHIBITION',
   //PVUV
   PVUV: 'pr_ds_dkcspvuv_analysis',
@@ -140,6 +141,8 @@ module.exports = {
   },
   // 推广统计(渠道)
   promotionChannelStatistics: 'PR_PM_PROMOTION_STATISTIC_CHANNEL',
+  // 七日推广统计(渠道)
+  promotionChannelStatistics7: 'PR_PM_PROMOTION_STATISTIC_CHANNEL_SEVEN',
   // 推广统计(地区)
   promotionRegionStatistics: 'PR_PM_PROMOTION_STATISTIC_REGION',
   // 渠道统计汇总

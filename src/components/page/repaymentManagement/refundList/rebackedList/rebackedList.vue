@@ -94,7 +94,7 @@
           label: '支付宝'
         }, {
           value: '2',
-          label: '富有'
+          label: '富友'
         }, {
           value: '3',
           label: '连连'

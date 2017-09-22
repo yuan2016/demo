@@ -63,6 +63,12 @@ let sqlMap = {
     },
     invitationEvent: {
       selectAll: 'select AA,D1,D2,D3,D4,D5,D6,D7,DOD,W1,W2,W3,W4,WOW,M1,M2,M3,MOM from pr_ds_invite_event_analysis'
+    },
+    operationUserPortrait: {
+      select: 'select replace(user_age,"未知","--") as user_age,replace(user_sex,"未知","--") as user_sex,replace(addr_birth,"未知","--") as addr_birth,addr_now,zcl,zcl_zb,yxzcl,qysrz,hmd,jjs,loan,new_loan,old_loan,loan_suss,new_loan_suss,old_loan_suss,zdq,new_zdq,old_zdq,dq,new_dq,old_dq,yq,new_yq,old_yq,syyq,new_syyq,old_syyq,loan_day14,loan_stages21 from ??  where zcl>=100 ',
+      limit: ' limit ?,?',
+      order: ' order by user_age,zcl desc',
+      getCount: 'select count(*) as count from ?? where zcl>=100'
     }
   },
   //借款管理
@@ -197,6 +203,15 @@ let sqlMap = {
       getCount: 'select count(*) as count from ?? where (channel_trader_name is not null and channel_trader_name !="") and (d_date between ? and ?) and ',
       getSelectOptions: 'select channel_trader_name from ?? group by channel_trader_name',
       selectAllExcel: 'select d_date as "日期", channel_trader_name as "渠道商名称", settle_method as "结算方式", effe_cust_acqu_cost as "有效获客成本",day_consumption as "当日消耗",register_num as "注册量",all_fact_auth_num as "全要素认证人数",apply_loan_num as "申请借款人数",blacklist_num as "黑名单人数",entries_num as "进件数",nuser_apply_succ_num as "新用户申请成功人数", ouser_apply_succ_num as "老用户申请成功人数", nuser_loan_ratio as "新用户借款率",nuser_adoption_rate as "新用户通过率",nuser_loan_amount as "新用户放款金额",ouser_adoption_rate as "老用户通过率",ouser_loan_amount as "老用户放款金额",DUE_AMOUNT as "到期金额",overdue_num as "逾期人数", OVERDUE_AMOUNT as "逾期金额", BADDEBT_RATE as "坏账率", BADDEBT_amount as "坏账金额", UNITGROSS_PROFIT as "单位毛利润",baddebt_amount_unit as "单位坏账金额",create_time as "更新时间" from ?? where (channel_trader_name is not null and channel_trader_name !="") and (d_date between ? and ?) and '
+    },
+    //推广管理 七日推广统计（渠道）
+    promotionChannelStatistics7: {
+      selectAllFront: 'select * from ?? where (channel_trader_name is not null and channel_trader_name !="") ',
+      order: ' order by d_date desc,day_consumption desc, register_num desc',
+      limit: ' limit ?,?',
+      getCount: 'select count(*) as count from ?? where (channel_trader_name is not null and channel_trader_name !="") ',
+      getSelectOptions: 'select channel_trader_name from ?? group by channel_trader_name',
+      selectAllExcel: 'select d_date as "日期", channel_trader_name as "渠道商名称", effe_cust_acqu_cost as "七日获客成本",day_consumption as "七日消耗",register_num as "七日注册量",all_fact_auth_num as "七日全要素认证人数",apply_loan_num as "七日申请借款人数",blacklist_num as "七日黑名单人数",entries_num as "七日进件数",nuser_apply_succ_num as "七日新用户申请成功人数", ouser_apply_succ_num as "七日老用户申请成功人数", nuser_loan_ratio as "七日新用户借款率",nuser_adoption_rate as "七日新用户通过率",nuser_loan_amount as "七日新用户放款金额",ouser_adoption_rate as "七日老用户通过率",ouser_loan_amount as "七日老用户放款金额",DUE_AMOUNT as "七日到期金额",overdue_num as "七日逾期人数", OVERDUE_AMOUNT as "七日逾期金额", BADDEBT_RATE as "七日坏账率", BADDEBT_amount as "七日坏账金额", UNITGROSS_PROFIT as "七日单位毛利润",baddebt_amount_unit as "单位坏账金额",create_time as "更新时间" from ?? where (channel_trader_name is not null and channel_trader_name !="") '
     },
     //推广管理 推广统计（地区）
     promotionRegionStatistics: {

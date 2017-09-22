@@ -21,7 +21,8 @@
         <el-button type="primary" size="small" class="userButton" @click.prevent.stop="search">搜索</el-button>
       </li>
     </div>
-    <el-table :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto" :height="height" class="employeeList-table">
+    <el-table :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto" :height="height"
+              class="employeeList-table">
       <el-table-column property="user_name" label="姓名"></el-table-column>
       <el-table-column property="user_sex" label="性别"></el-table-column>
       <el-table-column property="department" label="部门"></el-table-column>
@@ -143,6 +144,19 @@
               id: 39,
               label: '新用户借款通过率',
               mark: ['新用户借款通过率', '市场', 'RMAB']
+            }, {
+              label: '新用户通过率测试',
+              mark: ['新用户通过率测试', '市场', 'RMAB'],
+              children: [{
+                label: 'tab1',
+                mark: ['tab1', '新用户通过率测试', '市场', 'RMAB']
+              }, {
+                label: 'tab2',
+                mark: ['tab2', '新用户通过率测试', '市场', 'RMAB']
+              }, {
+                label: 'tab3',
+                mark: ['tab3', '新用户通过率测试', '市场', 'RMAB']
+              }]
             }]
           }, {
             id: 10,
@@ -167,6 +181,9 @@
               id: 42,
               label: '基础用户画像',
               mark: ['基础用户画像', '用户画像', 'RMAB']
+            }, {
+              label: '运营用户画像',
+              mark: ['运营用户画像', '用户画像', 'RMAB']
             }]
           }]
         }, {
@@ -367,6 +384,9 @@
             label: '推广统计(渠道)',
             mark: ['推广统计(渠道)', '推广管理']
           }, {
+            label: '七日推广统计(渠道)',
+            mark: ['七日推广统计(渠道)', '推广管理']
+          }, {
             id: 35,
             label: '推广统计(地区)',
             mark: ['推广统计(地区)', '推广管理']
@@ -429,7 +449,7 @@
       this.getDataInit()
     },
     mounted () {
-     this.resizeHeight()
+      this.resizeHeight()
     },
     methods: {
       //每页显示数据量变更
@@ -570,7 +590,8 @@
         } else {
           pageH = 60
         }
-        this.height = docH - filterH - bannerH - pageH - 85 /*90+20*/
+        this.height = docH - filterH - bannerH - pageH - 85
+        /*90+20*/
         this.dHeight = docH - 90
       }
 //      selectBaseTable (arrays) {
@@ -592,7 +613,7 @@
   .employeeList
     height: 100%
     .employeeList-table
-      border-radius :10px
+      border-radius: 10px
     .date-filter
       padding: 15px 0 15px 1px
       box-sizing border-box

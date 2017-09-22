@@ -1,10 +1,16 @@
 <template>
   <div>
     <template v-for="item in routes">
-      <router-link v-if="!item.hidden&&item.noDropdown && item.children.length>0"
+      <router-link v-if="!item.hidden&&item.noDropdown&&!item.haveTab && item.children.length>0"
                    :to="item.path+'/'+item.children[0].path">
         <el-menu-item :index="item.path+'/'+item.children[0].path">
           <i class="elextra-icon-home"></i>{{item.children[0].name}}
+        </el-menu-item>
+      </router-link>
+      <router-link v-else-if="!item.hidden&&item.haveTab && item.children.length>0"
+                   :to="item.path+'/'+item.children[0].path">
+        <el-menu-item :index="item.path+'/'+item.children[0].path">
+          <i v-if='item.icon' :class="item.icon"></i>{{item.name}}
         </el-menu-item>
       </router-link>
       <el-submenu :index="item.name" v-if="!item.noDropdown&&!item.hidden">
