@@ -26,8 +26,8 @@
       </li>
     </div>
     <el-table :data="fundData" highlight-current-row border stripe class="PVUV-table"
-              style="width: 100%;overflow: auto" :height="height">
-      <el-table-column property="d_date" label="日期"></el-table-column>
+              style="width: 100%;overflow: auto" :height="height" @sort-change="sort">
+      <el-table-column property="d_date" sortable="custom" label="日期"></el-table-column>
       <el-table-column property="element" label="指标元素"></el-table-column>
       <el-table-column property="element_id" label="指标元素id"></el-table-column>
       <el-table-column property="title" label="渠道名称"></el-table-column>
@@ -68,7 +68,8 @@
         endTime: '',
         status: '',
         height: 500,
-        dHeight: 500
+        dHeight: 500,
+        order: ''
       }
     },
     components: {
@@ -125,18 +126,23 @@
       },
       getData () {
         return this.axios.post('/api/PVUV', {
-          title: this.title,
-          startTime: this.startTime || '1991-07-22',
-          endTime: this.endTime || getNowFormatDate(),
+          options: {
+            title: this.title
+          },
+          startTime: this.startTime,
+          endTime: this.endTime,
           limit: this.limit,
-          offset: this.offset
+          offset: this.offset,
+          order: this.order
         })
       },
       getCount () {
         return this.axios.post('/api/PVUV/count', {
-          title: this.title,
-          startTime: this.startTime || '1991-07-22',
-          endTime: this.endTime || getNowFormatDate()
+          options: {
+            title: this.title
+          },
+          startTime: this.startTime,
+          endTime: this.endTime
         })
       },
       getSelectOptions () {
@@ -184,6 +190,16 @@
         }
         this.height = docH - filterH - bannerH - pageH - 85 /*90+20*/
         this.dHeight = docH - 90
+      },
+      sort (info) {
+        if (info.order === 'ascending') {
+          this.order = ' order by ' + info.prop + ' asc'
+        } else if (info.order === 'descending') {
+          this.order = ' order by ' + info.prop + ' desc'
+        } else {
+          this.order = ''
+        }
+        this.search(this.order)
       }
     }
   }
@@ -197,11 +213,10 @@
     .date-filter
       padding: 15px 0 15px 1px
       box-sizing border-box
-        display: flex
+      display: flex
       flex-wrap: wrap
       li
         margin-bottom: 5px
-        margin-right: 20px
         .managerFront
           display: inline-block
           width: 70px
@@ -211,7 +226,7 @@
         .managerText
           width: 140px
         .userButton
-          margin-left: 5px
+          margin-left: 10px
         .userListTimeSelect
           width: 180px
         .promotionChannelSelect

@@ -71,7 +71,11 @@ module.exports = {
   fetchAll (req, res) {
     let params = req.body
     let queries = analysis(params)
-    let query = sql.promotionManagement.channelStatisticsSummary.selectAllFront + queries.slice(0, 1).join(' and ') + sql.promotionManagement.channelStatisticsSummary.selectAllBack
+    let order = ''
+    if (params.order) {
+      order = params.order
+    }
+    let query = sql.promotionManagement.channelStatisticsSummary.selectAllFront + queries.slice(0, 1).join(' and ') + order + sql.promotionManagement.channelStatisticsSummary.selectAllBack
     func.connPool1(query, [tableName.channelStatisticsSummary, params.offset, params.limit], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)

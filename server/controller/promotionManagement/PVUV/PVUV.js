@@ -2,7 +2,7 @@ let sql = require('../../../sql/sqlMap')
 let func = require('../../../sql/func')
 let moment = require('moment')
 let tableName = require('../../../config/tableName')
-let {analysis, formatInt} = require('../../../utils/utils')
+let {analysis, formatInt, handleProperty, handleTime, combine} = require('../../../utils/utils')
 
 function formatData (rows) {
   return rows.map(row => {
@@ -37,7 +37,6 @@ module.exports = {
   //用户通讯录数据
   fetchAll (req, res) {
     let params = req.body
-    let queries = analysis(params)
     // let startTime = params.startTime
     // let endTime = params.endTime
     // let timeLimit
@@ -50,8 +49,18 @@ module.exports = {
     // } else {
     //   timeLimit = 'd_date<="' + endTime + '" and d_date>="' + startTime + '"'
     // }
-    let query = sql.promotionManagement.PVUV.selectDayFront + queries.slice(0, 1) + sql.promotionManagement.PVUV.limit
-    func.connPool1(query, [tableName.PVUV, params.startTime, params.endTime, params.offset, params.limit], function (err, rs) {
+    let queries = handleProperty(params.options)
+    let timeOption = 'd_date'
+    let timeLimit = handleTime(timeOption, params.startTime, params.endTime)
+    let combined = combine(queries, timeLimit)
+    let order
+    if (params.order) {
+      order = params.order
+    } else {
+      order = sql.promotionManagement.PVUV.order
+    }
+    let query = sql.promotionManagement.PVUV.selectDayFront + combined + order + sql.promotionManagement.PVUV.limit
+    func.connPool1(query, [tableName.PVUV, params.offset, params.limit], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
         if (err.message === 'Query inactivity timeout') {
@@ -72,7 +81,6 @@ module.exports = {
   //用户通讯录总条数
   getCount (req, res) {
     let params = req.body
-    let queries = analysis(params)
     // let startTime = params.startTime
     // let endTime = params.endTime
     // let timeLimit
@@ -85,8 +93,12 @@ module.exports = {
     // } else {
     //   timeLimit = 'd_date<="' + endTime + '" and d_date>="' + startTime + '"'
     // }
-    let query = sql.promotionManagement.PVUV.getCount + queries.slice(0, 1)
-    func.connPool1(query, [tableName.PVUV, params.startTime, params.endTime], function (err, rs) {
+    let queries = handleProperty(params.options)
+    let timeOption = 'd_date'
+    let timeLimit = handleTime(timeOption, params.startTime, params.endTime)
+    let combined = combine(queries,timeLimit)
+    let query = sql.promotionManagement.PVUV.getCount + combined
+    func.connPool1(query, [tableName.PVUV], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
         if (err.message === 'Query inactivity timeout') {

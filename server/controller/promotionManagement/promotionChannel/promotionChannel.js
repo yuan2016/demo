@@ -5,7 +5,7 @@ let sql = require('../../../sql/sqlMap')
 let func = require('../../../sql/func')
 let moment = require('moment')
 let tableName = require('../../../config/tableName')
-let {analysis} = require('../../../utils/utils')
+let {analysis, handleProperty, handleTime, combine} = require('../../../utils/utils')
 
 function formatData (rows) {
   return rows.map(row => {
@@ -21,9 +21,24 @@ module.exports = {
   //用户通讯录数据
   fetchAll (req, res) {
     let params = req.body
-    let queries = analysis(params, 't')
-    let query = sql.promotionManagement.promotionChannel.selectAllFront + queries.slice(0, 3).join(' and ') + sql.promotionManagement.promotionChannel.selectAllBack
-    func.connPool2(query, [tableName.promotionChannel.t, tableName.promotionChannel.t1, params.startTime, params.endTime, params.offset, params.limit], function (err, rs) {
+    let queries = handleProperty(params.options)
+    if ( queries.length > 0) {
+      queries = ' and ' + queries
+    }
+    let timeOption = 't.created_at'
+    if( params.endTime != '') {
+      timeOption = ' date_format( ' + timeOption + ' ,\'%Y-%m-%d\') '
+    }
+    let timeLimit = handleTime(timeOption, params.startTime, params.endTime)
+    if( timeLimit != ''){
+      timeLimit = ' and ' + timeLimit
+    }
+    let order = ''
+    if (params.order) {
+      order = params.order
+    }
+    let query = sql.promotionManagement.promotionChannel.selectAllFront + queries + timeLimit + order + sql.promotionManagement.promotionChannel.selectAllBack
+    func.connPool2(query, [tableName.promotionChannel.t, tableName.promotionChannel.t1, params.offset, params.limit], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
         if (err.message === 'Query inactivity timeout') {
@@ -44,9 +59,20 @@ module.exports = {
   //用户通讯录总条数
   getCount (req, res) {
     let params = req.body
-    let queries = analysis(params, 't')
-    let query = sql.promotionManagement.promotionChannel.getCount + queries.slice(0, 3).join(' and ')
-    func.connPool2(query, [tableName.promotionChannel.t, tableName.promotionChannel.t1, params.startTime, params.endTime], function (err, rs) {
+    let queries = handleProperty(params.options)
+    if ( queries.length > 0) {
+      queries = ' and ' + queries
+    }
+    let timeOption  = 't.created_at'
+    if( params.endTime != '') {
+      timeOption = ' date_format( ' + timeOption + ' ,\'%Y-%m-%d\') '
+    }
+    let timeLimit = handleTime(timeOption, params.startTime, params.endTime)
+    if( timeLimit != ''){
+      timeLimit = ' and ' + timeLimit
+    }
+    let query = sql.promotionManagement.promotionChannel.getCount + queries + timeLimit
+    func.connPool2(query, [tableName.promotionChannel.t, tableName.promotionChannel.t1], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
         if (err.message === 'Query inactivity timeout') {

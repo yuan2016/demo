@@ -33,7 +33,7 @@
       </li>
     </ul>
     <el-table :data="fundData" class="renewalReconciliation-table"
-              highlight-current-row border stripe style="width: 100%;overflow: auto;" :height="height">
+              highlight-current-row border stripe style="width: 100%;overflow: auto;" :height="height" @sort-change="sort">
       <el-table-column property="user_id" label="用户ID" width="80px"></el-table-column>
       <el-table-column property="realname" label="姓名" width="80px"></el-table-column>
       <el-table-column property="user_phone" label="手机号"></el-table-column>
@@ -45,11 +45,11 @@
       <el-table-column property="renewal_day" label="续期天数"></el-table-column>
       <el-table-column property="reback_count" label="续期费(元)"></el-table-column>
       <el-table-column property="return_money" label="退款金额(元)"></el-table-column>
-      <el-table-column property="old_repayment_time" sortable label="续期前应还时间" width="130px"></el-table-column>
-      <el-table-column property="repayment_time" sortable label="续期后应还时间" width="130px"></el-table-column>
+      <el-table-column property="old_repayment_time" sortable="custom" label="续期前应还时间" width="130px"></el-table-column>
+      <el-table-column property="repayment_time" sortable="custom" label="续期后应还时间" width="130px"></el-table-column>
       <el-table-column property="renewal_type" label="续期方式"></el-table-column>
       <el-table-column property="renewal_status" label="续期状态"></el-table-column>
-      <el-table-column property="order_time" sortable label="续期时间" width="130"></el-table-column>
+      <el-table-column property="order_time" sortable="custom" label="续期时间" width="130"></el-table-column>
       <el-table-column property="lending_account" label="还款账户"></el-table-column>
     </el-table>
     <div class="pagination" style="text-align: center;margin-top: 10px;" v-show="fundData.length!=0">
@@ -103,7 +103,8 @@
           label: '益码通支付宝'
         }],
         height: 500,
-        dHeight: 500
+        dHeight: 500,
+        order: ''
       }
     },
     components: {
@@ -132,13 +133,16 @@
       },
       getDataInit () {
         this.axios.post('/api/renewalReconciliation', {
-          order_id: this.order_id,
-          renewal_type: this.renewal_type,
-          user_phone: this.user_phone,
-          startTime: this.startTime || '1991-07-22',
-          endTime: this.endTime || getNowFormatDate(),
+          options: {
+            order_id: this.order_id,
+            repayment_type: this.repayment_type,
+            user_phone: this.user_phone
+          },
+          startTime: this.startTime,
+          endTime: this.endTime,
           limit: this.limit,
-          offset: this.offset
+          offset: this.offset,
+          order: this.order
         }).then((response) => {
           if (response.data.code === '404') {
             this.$router.push('./404')
@@ -164,22 +168,27 @@
       },
       getData () {
         return this.axios.post('/api/renewalReconciliation', {
-          order_id: this.order_id,
-          renewal_type: this.renewal_type,
-          user_phone: this.user_phone,
-          startTime: this.startTime || '1991-07-22',
-          endTime: this.endTime || getNowFormatDate(),
+          options: {
+            order_id: this.order_id,
+            repayment_type: this.repayment_type,
+            user_phone: this.user_phone
+          },
+          startTime: this.startTime,
+          endTime: this.endTime,
           limit: this.limit,
-          offset: this.offset
+          offset: this.offset,
+          order: this.order
         })
       },
       getCount () {
         return this.axios.post('/api/renewalReconciliation/count', {
-          order_id: this.order_id,
-          renewal_type: this.renewal_type,
-          user_phone: this.user_phone,
-          startTime: this.startTime || '1991-07-22',
-          endTime: this.endTime || getNowFormatDate(),
+          options: {
+            order_id: this.order_id,
+            repayment_type: this.repayment_type,
+            user_phone: this.user_phone
+          },
+          startTime: this.startTime,
+          endTime: this.endTime,
           limit: this.limit,
           offset: this.offset
         })
@@ -257,6 +266,16 @@
         }
         this.height = docH - filterH - bannerH - pageH - 85 /*90+20*/
         this.dHeight = docH - 90
+      },
+      sort (info) {
+        if (info.order === 'ascending') {
+          this.order = ' order by ' + info.prop + ' asc'
+        } else if (info.order === 'descending') {
+          this.order = ' order by ' + info.prop + ' desc'
+        } else {
+          this.order = ''
+        }
+        this.search()
       }
     }
   }
@@ -274,7 +293,6 @@
       flex-wrap: wrap
       li
         margin-bottom: 5px
-        margin-right: 20px
         .managerFront,.managerFrontShort
           display: inline-block
           padding-left: 5px
@@ -287,7 +305,7 @@
         .managerText
           width: 135px
         .loanAuditButton
-          margin-left: 5px
+          margin-left: 10px
         .renewalSelect
           width: 130px
         .renewalReconciliationTimeSelect

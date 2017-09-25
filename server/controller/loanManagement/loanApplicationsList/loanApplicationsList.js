@@ -47,7 +47,11 @@ module.exports = {
   fetchAll (req, res) {
     let params = req.body
     let queries = analysis(params)
-    let query = sql.loanManagement.loanApplicationsList.selectAllFront + queries.slice(0, 5).join(' and ') + sql.loanManagement.loanApplicationsList.selectAllBack
+    let order = ''
+    if (params.order) {
+      order = params.order
+    }
+    let query = sql.loanManagement.loanApplicationsList.selectAllFront + queries.slice(0, 5).join(' and ') + order + sql.loanManagement.loanApplicationsList.selectAllBack
     func.connPool2(query, [tableName.loanApplicationsList, params.offset, params.limit], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)

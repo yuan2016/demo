@@ -38,7 +38,7 @@
         <el-button type="primary" size="small" class="userButton" @click.prevent.stop="search">搜索</el-button>
       </li>
     </ul>
-    <el-table :data="fundData" highlight-current-row border stripe :height="height" style="width: 100%;overflow: auto" class="bankCardsList-table">
+    <el-table :data="fundData" highlight-current-row border stripe :height="height" style="width: 100%;overflow: auto" class="bankCardsList-table" @sort-change="sort">
       <el-table-column property="id" label="ID" width="80px"></el-table-column>
       <el-table-column property="user_id" label="借款人ID" width="80px"></el-table-column>
       <el-table-column property="open_name" label="持卡人姓名"></el-table-column>
@@ -48,7 +48,7 @@
       <el-table-column property="main_card" label="是否主卡" width="80px"></el-table-column>
       <el-table-column property="type" label="卡片类型"></el-table-column>
       <el-table-column property="card_status" label="状态"></el-table-column>
-      <el-table-column property="create_time" sortable label="添加时间"width="140px"></el-table-column>
+      <el-table-column property="create_time" sortable="custom" label="添加时间"width="140px"></el-table-column>
     </el-table>
     <div style="text-align: center;margin-top: 10px;" v-show="fundData.length!=0">
       <el-pagination
@@ -97,7 +97,8 @@
           label: '无效'
         }],
         height: 500,
-        dHeight: 500
+        dHeight: 500,
+        order: ''
       }
     },
     components: {
@@ -126,15 +127,18 @@
       },
       getDataInit () {
         this.axios.post('/api/bankcardsList', {
-          user_id: this.user_id,
-          open_name: this.open_name,
-          phone: this.phone,
-          card_no: this.card_no,
-          status: this.status,
-          startTime: this.startTime || '1991-07-22',
-          endTime: this.endTime || getNowFormatDate(),
+          options: {
+            user_id: this.user_id,
+            open_name: this.open_name,
+            phone: this.phone,
+            card_no: this.card_no,
+            status: this.status
+          },
+          startTime: this.startTime,
+          endTime: this.endTime,
           limit: this.limit,
-          offset: this.offset
+          offset: this.offset,
+          order: this.order
         }).then((response) => {
           if (response.data.code === '404') {
             this.$router.push('./404')
@@ -160,26 +164,31 @@
       },
       getData () {
         return this.axios.post('/api/bankcardsList', {
-          user_id: this.user_id,
-          open_name: this.open_name,
-          phone: this.phone,
-          card_no: this.card_no,
-          status: this.status,
-          startTime: this.startTime || '1991-07-22',
-          endTime: this.endTime || getNowFormatDate(),
+          options: {
+            user_id: this.user_id,
+            open_name: this.open_name,
+            phone: this.phone,
+            card_no: this.card_no,
+            status: this.status
+          },
+          startTime: this.startTime,
+          endTime: this.endTime,
           limit: this.limit,
-          offset: this.offset
+          offset: this.offset,
+          order: this.order
         })
       },
       getCount () {
         return this.axios.post('/api/bankcardsList/count', {
-          user_id: this.user_id,
-          open_name: this.open_name,
-          phone: this.phone,
-          card_no: this.card_no,
-          status: this.status,
-          startTime: this.startTime || '1991-07-22',
-          endTime: this.endTime || getNowFormatDate(),
+          options: {
+            user_id: this.user_id,
+            open_name: this.open_name,
+            phone: this.phone,
+            card_no: this.card_no,
+            status: this.status
+          },
+          startTime: this.startTime,
+          endTime: this.endTime,
           limit: this.limit,
           offset: this.offset
         })
@@ -255,6 +264,16 @@
         }
         this.height = docH - filterH - bannerH - pageH - 85 /*90+20*/
         this.dHeight = docH - 90
+      },
+      sort (info) {
+        if (info.order === 'ascending') {
+          this.order = ' order by ' + info.prop + ' asc'
+        } else if (info.order === 'descending') {
+          this.order = ' order by ' + info.prop + ' desc'
+        } else {
+          this.order = ''
+        }
+        this.search(this.order)
       }
     }
   }

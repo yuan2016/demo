@@ -18,16 +18,16 @@
         </el-date-picker>
       </li>
      <li>
-       <el-button type="primary" size="small" @click.prevent.stop="search">搜索</el-button>
-       <el-button type="primary" size="small" :loading="buttonLoading" @click.prevent.stop="refreshData">一键刷新</el-button>
-       <el-button type="primary" size="small" class="userButton">
+       <el-button class="userButton" type="primary" size="small" @click.prevent.stop="search">搜索</el-button>
+       <el-button class="userButtonSpecial" type="primary" size="small" :loading="buttonLoading" @click.prevent.stop="refreshData">一键刷新</el-button>
+       <el-button class="userButtonSpecial" type="primary" size="small">
          <a :href="mosaicLink" class="overdueRepaymentStatisticsExcel">导出excel</a>
        </el-button>
      </li>
     </div>
     <el-table :data="fundData" highlight-current-row border stripe class="overdueRepaymentStatistics-table"
-              style="width: 100%;overflow: auto;" :height="height">
-      <el-table-column property="d_date" sortable label="日期" width="80"></el-table-column>
+              style="width: 100%;overflow: auto;" :height="height" @sort-change="sort">
+      <el-table-column property="d_date" sortable="custom" label="日期" width="80"></el-table-column>
       <el-table-column property="loan_amount_total" label="当前借款总数量" width="110"></el-table-column>
       <el-table-column property="loan_money_total" label="当前借款总额(元)" width="110"></el-table-column>
       <el-table-column property="repayment_amount_total" label="已经还款总数量" width="110"></el-table-column>
@@ -75,7 +75,8 @@
         endTime: '',
         height: 500,
         buttonLoading: false,
-        dHeight: 500
+        dHeight: 500,
+        order: ''
       }
     },
     components: {
@@ -90,8 +91,18 @@
     },
     computed: {
       mosaicLink () {
-        let startTime = this.startTime || '1991-07-22'
-        let endTime = this.endTime || getNowFormatDate()
+        let startTime
+        let endTime
+        if (this.startTime === '') {
+          startTime = this.startTime
+        } else {
+          startTime = formatDate(new Date(this.startTime), 'yyyy-MM-dd')
+        }
+        if (this.endTime === '') {
+          endTime = this.endTime
+        } else {
+          endTime = formatDate(new Date(this.endTime), 'yyyy-MM-dd')
+        }
         return 'api/overdueRepaymentStatistics/excel?startTime=' + startTime + '&endTime=' + endTime
       }
     },
@@ -140,14 +151,15 @@
         return this.axios.post('/api/overdueRepaymentStatistics', {
           limit: this.limit,
           offset: this.offset,
-          startTime: this.startTime || '1991-07-22',
-          endTime: this.endTime || getNowFormatDate()
+          startTime: this.startTime,
+          endTime: this.endTime,
+          order: this.order
         })
       },
       getCount () {
         return this.axios.post('/api/overdueRepaymentStatistics/count', {
-          startTime: this.startTime || '1991-07-22',
-          endTime: this.endTime || getNowFormatDate()
+          startTime: this.startTime,
+          endTime: this.endTime
         })
       },
       search () {
@@ -216,6 +228,16 @@
         }
         this.height = docH - filterH - bannerH - pageH - 85 /*90+20*/
         this.dHeight = docH - 90
+      },
+      sort (info) {
+        if (info.order === 'ascending') {
+          this.order = ' order by ' + info.prop + ' asc'
+        } else if (info.order === 'descending') {
+          this.order = ' order by ' + info.prop + ' desc'
+        } else {
+          this.order = ''
+        }
+        this.search(this.order)
       }
     }
   }
@@ -233,13 +255,16 @@
       flex-wrap: wrap
       li
         margin-bottom: 5px
-        margin-right: 20px
         .managerFront
           padding-left: 5px
           font-size: 14px
           color: #666
         .overdueRepaymentStatisticsExcel
           color :#ffffff
+        .userButton
+          margin-left :10px
+        .userButtonSpecial
+          margin-left :5px
 
     .el-table .cell, .el-table th > div
       padding-left: 0

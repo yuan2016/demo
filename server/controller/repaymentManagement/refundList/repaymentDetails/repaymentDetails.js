@@ -5,7 +5,7 @@ let sql = require('../../../../sql/sqlMap')
 let func = require('../../../../sql/func')
 let moment = require('moment')
 let tableName = require('../../../../config/tableName')
-let {mosaic, formatCurrency} = require('../../../../utils/utils')
+let {mosaic, formatCurrency, handleProperty, handleTime, combine} = require('../../../../utils/utils')
 
 function formatData (rows) {
   return rows.map(row => {
@@ -45,10 +45,26 @@ module.exports = {
   //用户通讯录数据
   fetchAll (req, res) {
     let params = req.body
+    let queries = handleProperty(params.options)
+    if ( queries.length > 0) {
+      queries = ' and ' + queries
+    }
+    let timeOption = 't1.order_time'
+    if( params.endTime !== '') {
+      timeOption = ' date_format( ' + timeOption + ' ,\'%Y-%m-%d\') '
+    }
+    let timeLimit = handleTime(timeOption, params.startTime, params.endTime)
+    if ( timeLimit !== '') {
+      timeLimit = ' and ' + timeLimit
+    }
     let add = mosaic(params, 'user_phone', 't2')
     let add1 = mosaic(params, 'repayment_type', 't1')
-    let query = sql.repaymentManagement.repaymentDetails.selectAllFront + add + add1 + sql.repaymentManagement.repaymentDetails.selectAllBack
-    func.connPool2(query, [tableName.repaymentDetails.t, tableName.repaymentDetails.t1, tableName.repaymentDetails.t2, params.startTime, params.endTime, params.offset, params.limit], function (err, rs) {
+    let order = ''
+    if (params.order) {
+      order = params.order
+    }
+    let query = sql.repaymentManagement.repaymentDetails.selectAllFront + queries + timeLimit + add + add1 + order + sql.repaymentManagement.repaymentDetails.selectAllBack
+    func.connPool2(query, [tableName.repaymentDetails.t, tableName.repaymentDetails.t1, tableName.repaymentDetails.t2, params.offset, params.limit], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
         if (err.message === 'Query inactivity timeout') {
@@ -69,10 +85,20 @@ module.exports = {
   //用户通讯录总条数
   getCount (req, res) {
     let params = req.body
+    let queries = handleProperty(params.options)
+    let timeOption = 't.repayment_real_time'
+    if( params.endTime !== '') {
+      timeOption = ' date_format( ' + timeOption + ' ,\'%Y-%m-%d\') '
+    }
+    let timeLimit = handleTime(timeOption, params.startTime, params.endTime)
+    if ( timeLimit !== '') {
+      timeLimit = ' and ' + timeLimit
+    }
+    let combined= combine(queries, timeLimit)
     let add = mosaic(params, 'user_phone', 't2')
     let add1 = mosaic(params, 'repayment_type', 't1')
-    let query = sql.repaymentManagement.repaymentDetails.getCount + add + add1
-    func.connPool2(query, [tableName.repaymentDetails.t, tableName.repaymentDetails.t1, tableName.repaymentDetails.t2, params.startTime, params.endTime], function (err, rs) {
+    let query = sql.repaymentManagement.repaymentDetails.getCount + combined + add + add1
+    func.connPool2(query, [tableName.repaymentDetails.t, tableName.repaymentDetails.t1, tableName.repaymentDetails.t2], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
         if (err.message === 'Query inactivity timeout') {

@@ -5,7 +5,7 @@ let sql = require('../../../sql/sqlMap')
 let func = require('../../../sql/func')
 let moment = require('moment')
 let tableName = require('../../../config/tableName')
-let {analysis} = require('../../../utils/utils')
+let {analysis, handleProperty, handleTime, combine} = require('../../../utils/utils')
 
 function formatData (rows) {
   return rows.map(row => {
@@ -21,10 +21,19 @@ module.exports = {
   //用户通讯录数据
   fetchAll (req, res) {
     let params = req.body
-    let queries = analysis(params)
-    let query = sql.userInformationManagement.bankcardsList.selectAllFront + queries.slice(0, 5).join(' and ') + sql.userInformationManagement.bankcardsList.selectAllBack
-    console.log(query)
-    func.connPool2(query, [tableName.bankcardsList, params.startTime, params.endTime, params.offset, params.limit], function (err, rs) {
+    let queries = handleProperty(params.options)
+    let timeOption = 'create_time'
+    if( params.endTime !== '') {
+      timeOption = ' date_format( ' + timeOption + ' ,\'%Y-%m-%d\') '
+    }
+    let timeLimit = handleTime(timeOption, params.startTime, params.endTime)
+    let combined = combine(queries, timeLimit)
+    let order = ''
+    if (params.order) {
+      order = params.order
+    }
+    let query = sql.userInformationManagement.bankcardsList.selectAllFront + combined + order + sql.userInformationManagement.bankcardsList.selectAllBack
+    func.connPool2(query, [tableName.bankcardsList, params.offset, params.limit], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
         if (err.message === 'Query inactivity timeout') {
@@ -45,10 +54,15 @@ module.exports = {
   //用户通讯录总条数
   getCount (req, res) {
     let params = req.body
-    let queries = analysis(params)
-    let query = sql.userInformationManagement.bankcardsList.getCount + queries.slice(0, 5).join(' and ')
-    console.log(query)
-    func.connPool2(query, [tableName.bankcardsList, params.startTime, params.endTime], function (err, rs) {
+    let queries = handleProperty(params.options)
+    let timeOption = 'create_time'
+    if( params.endTime !== '') {
+      timeOption = ' date_format( ' + timeOption + ' ,\'%Y-%m-%d\') '
+    }
+    let timeLimit = handleTime(timeOption, params.startTime, params.endTime)
+    let combined = combine(queries, timeLimit)
+    let query = sql.userInformationManagement.bankcardsList.getCount + combined
+    func.connPool2(query, [tableName.bankcardsList], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
         if (err.message === 'Query inactivity timeout') {

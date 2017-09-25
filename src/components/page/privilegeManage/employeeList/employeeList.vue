@@ -621,7 +621,6 @@
       flex-wrap: wrap
       li
         margin-bottom: 5px
-        margin-right: 20px
         .managerFront
           display: inline-block
           width: 56px
@@ -631,7 +630,7 @@
         .managerText
           width: 180px
         .userButton
-          margin-left: 5px
+          margin-left: 10px
         .promotionChannelSelect
           width: 150px
     .detail

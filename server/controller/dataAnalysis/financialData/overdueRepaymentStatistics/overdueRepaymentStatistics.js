@@ -2,7 +2,7 @@ let sql = require('../../../../sql/sqlMap')
 let func = require('../../../../sql/func')
 let moment = require('moment')
 let tableName = require('../../../../config/tableName')
-let {formatCurrency, formatInt, mosaicName} = require('../../../../utils/utils')
+let {formatCurrency, formatInt, mosaicName, handleProperty, handleTime, combine} = require('../../../../utils/utils')
 let shell = require('../../../../config/shell')
 let pro = require('child_process')
 let path = require('path')
@@ -119,7 +119,16 @@ module.exports = {
   //每日还款金额数据
   fetchAll (req, res) {
     let params = req.body
-    func.connPool1(sql.dataAnalysis.selectAll, [tableName.overdueRepaymentStatistics, params.startTime, params.endTime, params.offset, params.limit], function (err, rs) {
+    let timeLimit = handleTime('d_date', params.startTime, params.endTime)
+    let combined = combine(timeLimit)
+    let order = ''
+    if (params.order) {
+      order = params.order
+    } else {
+      order = sql.dataAnalysis.order
+    }
+    let query = sql.dataAnalysis.selectAll + combined + order + sql.dataAnalysis.selectAllBack
+    func.connPool1(query, [tableName.overdueRepaymentStatistics, params.offset, params.limit], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
         if (err.message === 'Query inactivity timeout') {
@@ -140,7 +149,10 @@ module.exports = {
   //每日还款金额数据总条数
   getCount (req, res) {
     let params = req.body
-    func.connPool1(sql.dataAnalysis.getCount, [tableName.overdueRepaymentStatistics, params.startTime, params.endTime], function (err, rs) {
+    let timeLimit = handleTime('d_date', params.startTime, params.endTime)
+    let combined = combine(timeLimit)
+    let query = sql.dataAnalysis.getCount + combined
+    func.connPool1(query, [tableName.overdueRepaymentStatistics], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
         if (err.message === 'Query inactivity timeout') {
@@ -179,8 +191,16 @@ module.exports = {
   },
   getExcelData (req, res) {
     let params = req.query
-    let query = sql.dataAnalysis.overdueRepaymentStatisticsExcel
-    func.connPool1(query, [tableName.overdueRepaymentStatistics, params.startTime, params.endTime], function (err, rs) {
+    let timeLimit = handleTime('d_date', params.startTime, params.endTime)
+    let combined = combine(timeLimit)
+    let order = ''
+    if (params.order) {
+      order = params.order
+    } else {
+      order = sql.dataAnalysis.order
+    }
+    let query = sql.dataAnalysis.overdueRepaymentStatisticsExcel + combined + order
+    func.connPool1(query, [tableName.overdueRepaymentStatistics], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
         if (err.message === 'Query inactivity timeout') {

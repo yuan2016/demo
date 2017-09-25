@@ -2,7 +2,7 @@ let sql = require('../../../sql/sqlMap')
 let func = require('../../../sql/func')
 let moment = require('moment')
 let tableName = require('../../../config/tableName')
-let {formatCurrency, mosaicName} = require('../../../utils/utils')
+let {formatCurrency, mosaicName, handleProperty, handleTime, combine} = require('../../../utils/utils')
 let {exportJsonToExcel} = require('../../../utils/excel')
 let fs = require('fs')
 let path = require('path')
@@ -92,8 +92,16 @@ module.exports = {
   //每日还款金额数据
   fetchAll (req, res) {
     let params = req.body
-    let query = sql.financeAnalysis.reconciliationAnalysis.selectAllFront + sql.financeAnalysis.reconciliationAnalysis.orderBy + sql.financeAnalysis.reconciliationAnalysis.selectAllBack
-    func.connPool1(query, [tableName.reconciliationAnalysis.t, tableName.reconciliationAnalysis.t1, params.startTime, params.endTime, params.offset, params.limit], function (err, rs) {
+    let timeLimit = handleTime('t.d_date', params.startTime, params.endTime)
+    let combined = combine(timeLimit)
+    let order = ''
+    if (params.order) {
+      order = params.order
+    } else {
+      order = sql.financeAnalysis.reconciliationAnalysis.orderBy
+    }
+    let query = sql.financeAnalysis.reconciliationAnalysis.selectAllFront + combined + order + sql.financeAnalysis.reconciliationAnalysis.selectAllBack
+    func.connPool1(query, [tableName.reconciliationAnalysis.t, tableName.reconciliationAnalysis.t1, params.offset, params.limit], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
         if (err.message === 'Query inactivity timeout') {
@@ -114,8 +122,10 @@ module.exports = {
   //每日还款金额数据总条数
   getCount (req, res) {
     let params = req.body
-    let query = sql.financeAnalysis.reconciliationAnalysis.getCount
-    func.connPool1(query, [tableName.reconciliationAnalysis.t, params.startTime, params.endTime], function (err, rs) {
+    let timeLimit = handleTime('d_date', params.startTime, params.endTime)
+    let combined = combine(timeLimit)
+    let query = sql.financeAnalysis.reconciliationAnalysis.getCount + combined
+    func.connPool1(query, [tableName.reconciliationAnalysis.t], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
         if (err.message === 'Query inactivity timeout') {
@@ -134,9 +144,10 @@ module.exports = {
   },
   getExcelData (req, res) {
     let params = req.query
-
-    let query = sql.financeAnalysis.reconciliationAnalysis.selectAllFront + sql.financeAnalysis.reconciliationAnalysis.orderBy
-    func.connPool1(query, [tableName.reconciliationAnalysis.t, tableName.reconciliationAnalysis.t1, params.startTime, params.endTime], function (err, rs) {
+    let timeLimit = handleTime('t.d_date', params.startTime, params.endTime)
+    let combined = combine(timeLimit)
+    let query = sql.financeAnalysis.reconciliationAnalysis.selectAllFront + combined + sql.financeAnalysis.reconciliationAnalysis.orderBy
+    func.connPool1(query, [tableName.reconciliationAnalysis.t, tableName.reconciliationAnalysis.t1], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
         if (err.message === 'Query inactivity timeout') {

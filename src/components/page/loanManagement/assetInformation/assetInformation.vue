@@ -48,7 +48,7 @@
         <el-button type="primary" size="small" class="loanAuditButton" @click.prevent.stop="search">搜索</el-button>
       </li>
     </ul>
-    <el-table stripe :data="fundData" highlight-current-row border style="width: 100%;overflow:auto;" :height="height">
+    <el-table stripe :data="fundData" highlight-current-row border style="width: 100%;overflow:auto;" :height="height" @sort-change="sort">
       <el-table-column property="asset_order_id" label="订单号" width="150px" class="assetInformation-table"></el-table-column>
       <el-table-column property="realname" label="姓名"></el-table-column>
       <el-table-column property="user_phone" label="手机号"></el-table-column>
@@ -57,9 +57,9 @@
       <el-table-column property="loan_term" label="借款期限" width="100"></el-table-column>
       <el-table-column property="apr" label="服务费利率(万分之一)" width="150"></el-table-column>
       <el-table-column property="loan_interests" label="服务费(元)"></el-table-column>
-      <el-table-column property="order_time" sortable label="下单时间"width="130"></el-table-column>
-      <el-table-column property="loan_time" sortable label="放款时间"width="130"></el-table-column>
-      <el-table-column property="updated_at" sortable label="更新时间"width="130"></el-table-column>
+      <el-table-column property="order_time" sortable="custom" label="下单时间"width="130"></el-table-column>
+      <el-table-column property="loan_time" sortable="custom" label="放款时间"width="130"></el-table-column>
+      <el-table-column property="updated_at" sortable="custom" label="更新时间"width="130"></el-table-column>
       <el-table-column property="assets_owned" label="资产所属"></el-table-column>
       <el-table-column property="credit_lv" label="资产类别"></el-table-column>
       <el-table-column property="status" label="状态"></el-table-column>
@@ -135,7 +135,8 @@
           label: 'C类'
         }],
         height: 500,
-        dHeight: 500
+        dHeight: 500,
+        order: ''
       }
     },
     components: {
@@ -164,14 +165,17 @@
       },
       getDataInit () {
         this.axios.post('/api/assetInformation', {
-          realname: this.realname,
-          user_phone: this.user_phone,
-          status: this.status,
+          options: {
+            realname: this.realname,
+            user_phone: this.user_phone,
+            status: this.status
+          },
           credit_lv: this.credit_lv,
-          startTime: this.startTime || '1991-07-22',
-          endTime: this.endTime || getNowFormatDate(),
+          startTime: this.startTime,
+          endTime: this.endTime,
           limit: this.limit,
-          offset: this.offset
+          offset: this.offset,
+          order: this.order
         }).then((response) => {
           if (response.data.code === '404') {
             this.$router.push('./404')
@@ -197,24 +201,29 @@
       },
       getData () {
         return this.axios.post('/api/assetInformation', {
-          realname: this.realname,
-          user_phone: this.user_phone,
-          status: this.status,
+          options: {
+            realname: this.realname,
+            user_phone: this.user_phone,
+            status: this.status
+          },
           credit_lv: this.credit_lv,
-          startTime: this.startTime || '1991-07-22',
-          endTime: this.endTime || getNowFormatDate(),
+          startTime: this.startTime,
+          endTime: this.endTime,
           limit: this.limit,
-          offset: this.offset
+          offset: this.offset,
+          order: this.order
         })
       },
       getCount () {
         return this.axios.post('/api/assetInformation/count', {
-          realname: this.realname,
-          user_phone: this.user_phone,
-          status: this.status,
+          options: {
+            realname: this.realname,
+            user_phone: this.user_phone,
+            status: this.status
+          },
           credit_lv: this.credit_lv,
-          startTime: this.startTime || '1991-07-22',
-          endTime: this.endTime || getNowFormatDate()
+          startTime: this.startTime,
+          endTime: this.endTime
         })
       },
       search () {
@@ -290,6 +299,16 @@
         }
         this.height = docH - filterH - bannerH - pageH - 85 /*90+20*/
         this.dHeight = docH - 90
+      },
+      sort (info) {
+        if (info.order === 'ascending') {
+          this.order = ' order by ' + info.prop + ' asc'
+        } else if (info.order === 'descending') {
+          this.order = ' order by ' + info.prop + ' desc'
+        } else {
+          this.order = ''
+        }
+        this.search(this.order)
       }
     }
   }
@@ -307,7 +326,6 @@
       flex-wrap: wrap
       li
         margin-bottom :5px
-        margin-right: 20px
         .managerFront
           display: inline-block
           padding-left: 5px
@@ -317,11 +335,11 @@
         .managerText
           width: 160px
         .loanAuditButton
-          margin-left: 5px
+          margin-left: 10px
         .assetInfoSelect
           width: 160px
         .assetInfoSelectLong
-          width: 232px
+          width: 120px
         .assetInformationTimeSelect
           width: 140px
 

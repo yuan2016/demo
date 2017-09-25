@@ -38,7 +38,7 @@
       </li>
     </ul>
     <el-table :data="fundData"
-              highlight-current-row border stripe style="width: 100%;overflow: auto" :height="height" class="reconciliationFunction-table">
+              highlight-current-row border stripe style="width: 100%;overflow: auto" :height="height" class="reconciliationFunction-table" @sort-change="sort">
       <el-table-column property="out_trade_no" label="订单号" width="150px"></el-table-column>
       <el-table-column property="yurref" label="打款订单号" width="170px"></el-table-column>
       <el-table-column property="realname" label="姓名"></el-table-column>
@@ -51,8 +51,8 @@
       <el-table-column property="sjloan_urgent_fee" label="加急费(元)"></el-table-column>
       <el-table-column property="apr" label="服务费利率(万分之一)" width="150px"></el-table-column>
       <el-table-column property="is_fenqi" label="是否分期"></el-table-column>
-      <el-table-column property="order_time" sortable label="下单时间"width="130px"></el-table-column>
-      <el-table-column property="loan_time" sortable label="放款时间"width="130px"></el-table-column>
+      <el-table-column property="order_time" sortable="custom" label="下单时间"width="130px"></el-table-column>
+      <el-table-column property="loan_time" sortable="custom" label="放款时间"width="130px"></el-table-column>
       <el-table-column property="child_type" label="子类型"></el-table-column>
       <el-table-column property="pay_remark" label="状态" width="120px"></el-table-column>
     </el-table>
@@ -103,7 +103,8 @@
           label: '老用户'
         }],
         height: 500,
-        dHeight: 500
+        dHeight: 500,
+        order: ''
       }
     },
     components: {
@@ -132,14 +133,17 @@
       },
       getDataInit () {
         this.axios.post('/api/reconciliationFunction', {
-          out_trade_no: this.out_trade_no,
-          realname: this.realname,
-          user_phone: this.user_phone,
-          customer_type: this.customer_type,
-          startTime: this.startTime || '1991-07-22',
-          endTime: this.endTime || getNowFormatDate(),
+          options: {
+            out_trade_no: this.out_trade_no,
+            realname: this.realname,
+            user_phone: this.user_phone,
+            customer_type: this.customer_type
+          },
+          startTime: this.startTime,
+          endTime: this.endTime,
           limit: this.limit,
-          offset: this.offset
+          offset: this.offset,
+          order: this.order
         }).then((response) => {
           if (response.data.code === '404') {
             this.$router.push('./404')
@@ -165,24 +169,29 @@
       },
       getData () {
         return this.axios.post('/api/reconciliationFunction', {
-          out_trade_no: this.out_trade_no,
-          realname: this.realname,
-          user_phone: this.user_phone,
-          customer_type: this.customer_type,
-          startTime: this.startTime || '1991-07-22',
-          endTime: this.endTime || getNowFormatDate(),
+          options: {
+            out_trade_no: this.out_trade_no,
+            realname: this.realname,
+            user_phone: this.user_phone,
+            customer_type: this.customer_type
+          },
+          startTime: this.startTime,
+          endTime: this.endTime,
           limit: this.limit,
-          offset: this.offset
+          offset: this.offset,
+          order: this.order
         })
       },
       getCount () {
         return this.axios.post('/api/reconciliationFunction/count', {
-          out_trade_no: this.out_trade_no,
-          realname: this.realname,
-          user_phone: this.user_phone,
-          customer_type: this.customer_type,
-          startTime: this.startTime || '1991-07-22',
-          endTime: this.endTime || getNowFormatDate()
+          options: {
+            out_trade_no: this.out_trade_no,
+            realname: this.realname,
+            user_phone: this.user_phone,
+            customer_type: this.customer_type
+          },
+          startTime: this.startTime,
+          endTime: this.endTime
         })
       },
       search () {
@@ -258,6 +267,16 @@
         }
         this.height = docH - filterH - bannerH - pageH - 85 /*90+20*/
         this.dHeight = docH - 90
+      },
+      sort (info) {
+        if (info.order === 'ascending') {
+          this.order = ' order by ' + info.prop + ' asc'
+        } else if (info.order === 'descending') {
+          this.order = ' order by ' + info.prop + ' desc'
+        } else {
+          this.order = ''
+        }
+        this.search(this.order)
       }
     }
   }
@@ -275,7 +294,6 @@
       flex-wrap: wrap
       li
         margin-bottom :5px
-        margin-right: 20px
         .managerFront,.managerFrontShort
           display: inline-block
           padding-left: 5px
@@ -289,7 +307,7 @@
         .managerTextShort
           width :100px
         .loanAuditButton
-          margin-left: 5px
+          margin-left: 10px
         .reconciliationSelect
           width: 126px
         .reconciliationTimeSelect

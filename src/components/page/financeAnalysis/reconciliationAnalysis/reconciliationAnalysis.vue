@@ -19,15 +19,15 @@
         </el-date-picker>
       </li>
       <li>
-        <el-button type="primary" size="small" @click.prevent.stop="search">搜索</el-button>
-        <el-button type="primary" size="small" class="userButton">
+        <el-button type="primary" size="small" @click.prevent.stop="search" class="userButton">搜索</el-button>
+        <el-button type="primary" size="small" class="userButtonSpecial">
           <a :href="mosaicLink" class="reconciliationAnalysisExcel">导出excel</a>
         </el-button>
       </li>
     </div>
     <!--<el-table :data="fundData" highlight-current-row border stripe class="reconciliationAnalysis-table"-->
     <!--style="width: 100%;overflow: auto" :height="height" @current-change="showChange">-->
-    <!--<el-table-column property="d_date" sortable label="日期" width="80px"></el-table-column>-->
+    <!--<el-table-column property="d_date" sortable="custom" label="日期" width="80px"></el-table-column>-->
     <!--<el-table-column label="富友账户">-->
     <!--<el-table-column property="AMT_FY" label="后台数据(元)" width="100"></el-table-column>-->
     <!--<el-table-column label="第三方数据" width="100">-->
@@ -116,8 +116,8 @@
     <!--</el-table>-->
     <el-table :data="fundData" highlight-current-row border stripe
               style="width: 100%;overflow: auto" :height="height" @row-dblclick="showData"
-              class="reconciliationAnalysis-table">
-      <el-table-column property="d_date" sortable label="日期" width="80px"></el-table-column>
+              class="reconciliationAnalysis-table" @sort-change="sort">
+      <el-table-column property="d_date" sortable="custom" label="日期" width="80px"></el-table-column>
       <el-table-column label="富友账户">
         <el-table-column property="AMT_FY" label="后台数据(元)" width="120"></el-table-column>
         <el-table-column property="AMT_FY_THIRD" label="第三方数据" width="120"></el-table-column>
@@ -264,13 +264,24 @@
           ]
         },
         currentRowData: {},
-        dHeight: 500
+        dHeight: 500,
+        order: ''
       }
     },
     computed: {
       mosaicLink () {
-        let startTime = this.startTime || '1991-07-22'
-        let endTime = this.endTime || getNowFormatDate()
+        let startTime
+        let endTime
+        if (this.startTime === '') {
+          startTime = this.startTime
+        } else {
+          startTime = formatDate(new Date(this.startTime), 'yyyy-MM-dd')
+        }
+        if (this.endTime === '') {
+          endTime = this.endTime
+        } else {
+          endTime = formatDate(new Date(this.endTime), 'yyyy-MM-dd')
+        }
         return 'api/reconciliationAnalysis/excel?startTime=' + startTime + '&endTime=' + endTime
       }
     },
@@ -437,14 +448,15 @@
         return this.axios.post('/api/reconciliationAnalysis', {
           limit: this.limit,
           offset: this.offset,
-          startTime: this.startTime || '1991-07-22',
-          endTime: this.endTime || getNowFormatDate()
+          startTime: this.startTime,
+          endTime: this.endTime,
+          order: this.order
         })
       },
       getCount () {
         return this.axios.post('/api/reconciliationAnalysis/count', {
-          startTime: this.startTime || '1991-07-22',
-          endTime: this.endTime || getNowFormatDate()
+          startTime: this.startTime,
+          endTime: this.endTime
         })
       },
       search () {
@@ -487,6 +499,16 @@
         this.height = docH - filterH - bannerH - pageH - 85
         /*90+20*/
         this.dHeight = docH - 90
+      },
+      sort (info) {
+        if (info.order === 'ascending') {
+          this.order = ' order by ' + 't.' + info.prop + ' asc'
+        } else if (info.order === 'descending') {
+          this.order = ' order by ' + 't.' + info.prop + ' desc'
+        } else {
+          this.order = ''
+        }
+        this.search(this.order)
       }
     }
   }
@@ -504,13 +526,16 @@
       flex-wrap: wrap
       li
         margin-bottom: 5px
-        margin-right: 20px
         .managerFront
           padding-left: 5px
           font-size: 14px
           color: #666
         .reconciliationAnalysisExcel
           color: #fff
+        .userButton
+          margin-left :10px
+        .userButtonSpecial
+          margin-left :5px
     .reconciliationAnalysis-table
       border-radius :10px
     .detail

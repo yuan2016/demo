@@ -32,7 +32,7 @@
         <el-button type="primary" size="small" class="loanAuditButton" @click.prevent.stop="search">搜索</el-button>
       </li>
     </div>
-    <el-table :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto" :height="height" class="returnedList-table">
+    <el-table :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto" :height="height" class="returnedList-table" @sort-change="sort">
       <el-table-column property="id" label="还款ID"></el-table-column>
       <el-table-column property="realname" label="姓名"></el-table-column>
       <el-table-column property="user_phone" label="手机号"></el-table-column>
@@ -42,9 +42,9 @@
       <el-table-column property="repayment_interest" label="服务费(元)"></el-table-column>
       <el-table-column property="repayment_amount" label="总需要还款金额(元)" width="130px"></el-table-column>
       <el-table-column property="repaymented_amount" label="已还金额(元)"></el-table-column>
-      <el-table-column property="credit_repayment_time" sortable label="放款时间" width="130px"></el-table-column>
-      <el-table-column property="repayment_real_time" sortable label="还款时间" width="130px"></el-table-column>
-      <el-table-column property="repayment_time" sortable label="到期日期"></el-table-column>
+      <el-table-column property="credit_repayment_time" sortable="custom" label="放款时间" width="130px"></el-table-column>
+      <el-table-column property="repayment_real_time" sortable="custom" label="还款时间" width="130px"></el-table-column>
+      <el-table-column property="repayment_time" sortable="custom" label="到期日期"></el-table-column>
       <el-table-column property="status" label="状态"></el-table-column>
       <el-table-column property="is_fenqi" label="是否分期"></el-table-column>
     </el-table>
@@ -93,7 +93,8 @@
           label: '逾期已还款'
         }],
         height: 500,
-        dHeight: 500
+        dHeight: 500,
+        order: ''
       }
     },
     components: {
@@ -122,13 +123,16 @@
       },
       getDataInit () {
         this.axios.post('/api/returnedList', {
-          realname: this.realname,
-          user_phone: this.user_phone,
-          startTime: this.startTime || '1991-07-22',
-          endTime: this.endTime || getNowFormatDate(),
+          options: {
+            realname: this.realname,
+            user_phone: this.user_phone
+          },
+          startTime: this.startTime,
+          endTime: this.endTime,
           status: this.status,
           limit: this.limit,
-          offset: this.offset
+          offset: this.offset,
+          order: this.order
         }).then((response) => {
           if (response.data.code === '404') {
             this.$router.push('./404')
@@ -154,21 +158,26 @@
       },
       getData () {
         return this.axios.post('/api/returnedList', {
-          realname: this.realname,
-          user_phone: this.user_phone,
-          startTime: this.startTime || '1991-07-22',
-          endTime: this.endTime || getNowFormatDate(),
+          options: {
+            realname: this.realname,
+            user_phone: this.user_phone
+          },
+          startTime: this.startTime,
+          endTime: this.endTime,
           status: this.status,
           limit: this.limit,
-          offset: this.offset
+          offset: this.offset,
+          order: this.order
         })
       },
       getCount () {
         return this.axios.post('/api/returnedList/count', {
-          realname: this.realname,
-          user_phone: this.user_phone,
-          startTime: this.startTime || '1991-07-22',
-          endTime: this.endTime || getNowFormatDate(),
+          options: {
+            realname: this.realname,
+            user_phone: this.user_phone
+          },
+          startTime: this.startTime,
+          endTime: this.endTime,
           status: this.status,
           limit: this.limit,
           offset: this.offset
@@ -247,6 +256,16 @@
         }
         this.height = docH - filterH - bannerH - pageH - 85 /*90+20*/
         this.dHeight = docH - 90
+      },
+      sort (info) {
+        if (info.order === 'ascending') {
+          this.order = ' order by ' + info.prop + ' asc'
+        } else if (info.order === 'descending') {
+          this.order = ' order by ' + info.prop + ' desc'
+        } else {
+          this.order = ''
+        }
+        this.search(this.order)
       }
     }
   }
@@ -271,7 +290,7 @@
       .managerText
         width: 150px
       .loanAuditButton
-        margin-left: 5px
+        margin-left: 10px
       .returnSelect
         width: 120px
       .userListTimeSelect

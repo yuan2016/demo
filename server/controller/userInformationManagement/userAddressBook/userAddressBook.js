@@ -19,8 +19,11 @@ module.exports = {
   fetchAll (req, res) {
     let params = req.body
     let queries = analysis(params)
-    let query = sql.userInformationManagement.userAddressBook.selectAllFront + queries.slice(0, 3).join(' and ') + sql.userInformationManagement.userAddressBook.selectAllBack
-    console.log(query)
+    let order = ''
+    if (params.order) {
+      order = params.order
+    }
+    let query = sql.userInformationManagement.userAddressBook.selectAllFront + queries.slice(0, 3).join(' and ') + order + sql.userInformationManagement.userAddressBook.selectAllBack
     func.connPool2(query, [tableName.userAddressBook, params.offset, params.limit], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
@@ -44,7 +47,6 @@ module.exports = {
     let params = req.body
     let queries = analysis(params)
     let query = sql.userInformationManagement.userAddressBook.getCount + queries.slice(0, 3).join(' and ')
-    console.log(query)
     func.connPool2(query, tableName.userAddressBook, function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)

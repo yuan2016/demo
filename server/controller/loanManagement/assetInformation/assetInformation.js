@@ -2,7 +2,7 @@ let sql = require('../../../sql/sqlMap')
 let func = require('../../../sql/func')
 let moment = require('moment')
 let tableName = require('../../../config/tableName')
-let {analysis, mosaic, formatCurrency, formatInt} = require('../../../utils/utils')
+let {analysis, mosaic, formatCurrency, formatInt, handleProperty, handleTime, combine, handlePropertyAnd} = require('../../../utils/utils')
 
 function formatData (rows) {
   return rows.map(row => {
@@ -40,10 +40,24 @@ module.exports = {
   //用户通讯录数据
   fetchAll (req, res) {
     let params = req.body
-    let queries = analysis(params, 't')
+    let queries = analysis(params.options, 't')
+    queries = handlePropertyAnd(queries)
+    let timeOption = 't.loan_time'
+    if( params.endTime !== '') {
+      timeOption = ' date_format( ' + timeOption + ' ,\'%Y-%m-%d\') '
+    }
+    let timeLimit = handleTime(timeOption, params.startTime, params.endTime)
+    let combined = combine(queries, timeLimit)
     let querySpecial = mosaic(params, 'credit_lv', 't1')
-    let query = sql.loanManagement.assetInformation.selectAllFront + queries.slice(0, 3).join(' and ') + querySpecial + sql.loanManagement.assetInformation.selectAllBack
-    func.connPool2(query, [tableName.assetInformation.t, tableName.assetInformation.t1, params.startTime, params.endTime, params.offset, params.limit], function (err, rs) {
+    if (combined === '') {
+      querySpecial = ' where ' + querySpecial.slice(4)
+    }
+    let order = ''
+    if (params.order) {
+      order = params.order
+    }
+    let query = sql.loanManagement.assetInformation.selectAllFront + combined + querySpecial + order + sql.loanManagement.assetInformation.selectAllBack
+    func.connPool2(query, [tableName.assetInformation.t, tableName.assetInformation.t1, params.offset, params.limit], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
         if (err.message === 'Query inactivity timeout') {
@@ -64,11 +78,20 @@ module.exports = {
   //用户通讯录总条数
   getCount (req, res) {
     let params = req.body
-    let queries = analysis(params, 't')
+    let queries = analysis(params.options, 't')
+    queries = handlePropertyAnd(queries)
+    let timeOption = 't.loan_time'
+    if( params.endTime !== '') {
+      timeOption = ' date_format( ' + timeOption + ' ,\'%Y-%m-%d\') '
+    }
+    let timeLimit = handleTime(timeOption, params.startTime, params.endTime)
+    let combined = combine(queries, timeLimit)
     let querySpecial = mosaic(params, 'credit_lv', 't1')
-    let query = sql.loanManagement.assetInformation.getCount + queries.slice(0, 3).join(' and ') + querySpecial
-    console.log(query)
-    func.connPool2(query, [tableName.assetInformation.t, tableName.assetInformation.t1, params.startTime, params.endTime], function (err, rs) {
+    if (combined === '') {
+      querySpecial = ' where ' + querySpecial.slice(4)
+    }
+    let query = sql.loanManagement.assetInformation.getCount + combined + querySpecial
+    func.connPool2(query, [tableName.assetInformation.t, tableName.assetInformation.t1], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
         if (err.message === 'Query inactivity timeout') {

@@ -2,7 +2,7 @@ let sql = require('../../../../sql/sqlMap')
 let func = require('../../../../sql/func')
 let moment = require('moment')
 let tableName = require('../../../../config/tableName')
-let {formatCurrency, formatInt} = require('../../../../utils/utils')
+let {formatCurrency, formatInt, handleProperty, handleTime, combine} = require('../../../../utils/utils')
 let process = require('child_process')
 let shell = require('../../../../config/shell')
 
@@ -91,7 +91,16 @@ module.exports = {
   //每日还款金额数据
   fetchAll (req, res) {
     let params = req.body
-    func.connPool1(sql.dataAnalysis.selectAll, [tableName.platformData, params.startTime, params.endTime, params.offset, params.limit], function (err, rs) {
+    let timeLimit = handleTime('d_date', params.startTime, params.endTime)
+    let combined = combine(timeLimit)
+    let order = ''
+    if (params.order) {
+      order = params.order
+    } else {
+      order = sql.dataAnalysis.order
+    }
+    let query = sql.dataAnalysis.selectAll + combined + order + sql.dataAnalysis.selectAllBack
+    func.connPool1(query, [tableName.platformData, params.offset, params.limit], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
         if (err.message === 'Query inactivity timeout') {
@@ -112,7 +121,10 @@ module.exports = {
   //每日还款金额数据总条数
   getCount (req, res) {
     let params = req.body
-    func.connPool1(sql.dataAnalysis.getCount, [tableName.platformData, params.startTime, params.endTime], function (err, rs) {
+    let timeLimit = handleTime('d_date', params.startTime, params.endTime)
+    let combined = combine(timeLimit)
+    let query = sql.dataAnalysis.getCount + combined
+    func.connPool1(query, [tableName.platformData], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
         if (err.message === 'Query inactivity timeout') {

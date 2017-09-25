@@ -49,7 +49,7 @@
       </li>
     </ul>
     <el-table :data="fundData"
-              highlight-current-row border stripe style="width: 100%;overflow: auto" :height="height" class="loanAuditList-table">
+              highlight-current-row border stripe style="width: 100%;overflow: auto" :height="height" class="loanAuditList-table" @sort-change="sort">
       <el-table-column property="id" fixed label="主键"></el-table-column>
       <el-table-column property="out_trade_no" label="订单号" width="150px"></el-table-column>
       <el-table-column property="yurref" label="打款订单" width="180px"></el-table-column>
@@ -60,11 +60,11 @@
       <el-table-column property="loan_term" label="天数"></el-table-column>
       <el-table-column property="apr" label="服务费利率(万分之一)" width="150px"></el-table-column>
       <el-table-column property="loan_interests" label="手续费(元)"></el-table-column>
-      <el-table-column property="into_money" sortable label="到账金额(元)" width="120px"></el-table-column>
-      <el-table-column property="order_time" sortable label="下单时间" width="130px"></el-table-column>
-      <el-table-column property="loan_time" sortable label="放款时间" width="130px"></el-table-column>
-      <el-table-column property="loan_end_time" sortable label="预计还款时间" width="130px"></el-table-column>
-      <el-table-column property="updated_at" sortable label="更新时间" width="130px"></el-table-column>
+      <el-table-column property="into_money" sortable="custom" label="到账金额(元)" width="120px"></el-table-column>
+      <el-table-column property="order_time" sortable="custom" label="下单时间" width="130px"></el-table-column>
+      <el-table-column property="loan_time" sortable="custom" label="放款时间" width="130px"></el-table-column>
+      <el-table-column property="loan_end_time" sortable="custom" label="预计还款时间" width="130px"></el-table-column>
+      <el-table-column property="updated_at" sortable="custom" label="更新时间" width="130px"></el-table-column>
       <el-table-column property="child_type" label="子类型"></el-table-column>
       <el-table-column property="states" label="放款状态"width="100px"></el-table-column>
       <el-table-column property="pay_remark" label="放款备注"width="180"></el-table-column>
@@ -136,7 +136,8 @@
           label: '复审通过,待放款'
         }],
         height: 500,
-        dHeight: 500
+        dHeight: 500,
+        order: ''
       }
     },
     components: {
@@ -165,15 +166,18 @@
       },
       getDataInit () {
         this.axios.post('/api/loanAuditList', {
-          out_trade_no: this.out_trade_no,
-          realname: this.realname,
-          user_phone: this.user_phone,
-          customer_type: this.customer_type,
-          status: this.status,
-          startTime: this.startTime || '1991-07-22',
-          endTime: this.endTime || getNowFormatDate(),
+          options: {
+            out_trade_no: this.out_trade_no,
+            realname: this.realname,
+            user_phone: this.user_phone,
+            customer_type: this.customer_type,
+            status: this.status
+          },
+          startTime: this.startTime,
+          endTime: this.endTime,
           limit: this.limit,
-          offset: this.offset
+          offset: this.offset,
+          order: this.order
         }).then((response) => {
           if (response.data.code === '404') {
             this.$router.push('./404')
@@ -199,26 +203,31 @@
       },
       getData () {
         return this.axios.post('/api/loanAuditList', {
-          out_trade_no: this.out_trade_no,
-          realname: this.realname,
-          user_phone: this.user_phone,
-          customer_type: this.customer_type,
-          status: this.status,
-          startTime: this.startTime || '1991-07-22',
-          endTime: this.endTime || getNowFormatDate(),
+          options: {
+            out_trade_no: this.out_trade_no,
+            realname: this.realname,
+            user_phone: this.user_phone,
+            customer_type: this.customer_type,
+            status: this.status
+          },
+          startTime: this.startTime,
+          endTime: this.endTime,
           limit: this.limit,
-          offset: this.offset
+          offset: this.offset,
+          order: this.order
         })
       },
       getCount () {
         return this.axios.post('/api/loanAuditList/count', {
-          out_trade_no: this.out_trade_no,
-          realname: this.realname,
-          user_phone: this.user_phone,
-          customer_type: this.customer_type,
-          status: this.status,
-          startTime: this.startTime || '1991-07-22',
-          endTime: this.endTime || getNowFormatDate()
+          options: {
+            out_trade_no: this.out_trade_no,
+            realname: this.realname,
+            user_phone: this.user_phone,
+            customer_type: this.customer_type,
+            status: this.status
+          },
+          startTime: this.startTime,
+          endTime: this.endTime
         })
       },
       search () {
@@ -294,6 +303,16 @@
         }
         this.height = docH - filterH - bannerH - pageH - 85 /*90+20*/
         this.dHeight = docH - 90
+      },
+      sort (info) {
+        if (info.order === 'ascending') {
+          this.order = ' order by ' + info.prop + ' asc'
+        } else if (info.order === 'descending') {
+          this.order = ' order by ' + info.prop + ' desc'
+        } else {
+          this.order = ''
+        }
+        this.search(this.order)
       }
     }
   }
@@ -311,7 +330,6 @@
       flex-wrap: wrap
       li
         margin-bottom: 5px
-        margin-right: 20px
         .managerFront
           display: inline-block
           padding-left: 5px
@@ -323,7 +341,7 @@
         .managerText
           width: 180px
         .loanAuditButton
-          margin-left: 5px
+          margin-left: 10px
         .loanAuditSelect
           width: 90px
         .loanAuditSelectLong

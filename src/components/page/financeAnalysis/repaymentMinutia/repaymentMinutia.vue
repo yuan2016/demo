@@ -30,14 +30,14 @@
         </el-select>
       </li>
       <li>
-        <el-button type="primary" size="small" class="loanAuditButton" @click.prevent.stop="search">搜索</el-button>
-        <el-button type="primary" size="small" class="userButton" :loading="buttonLoading">
+        <el-button class="userButton" type="primary" size="small" @click.prevent.stop="search">搜索</el-button>
+        <el-button type="primary" size="small" class="userButtonSpecial" :loading="buttonLoading">
           <a :href="mosaicLink" class="repaymentMinutiaExcel">导出excel</a>
         </el-button>
       </li>
     </div>
     <el-table :data="fundData" highlight-current-row border stripe class="repaymentMinutia-table"
-              style="width: 100%;overflow: auto" :height="height">
+              style="width: 100%;overflow: auto" :height="height" @sort-change="sort" >
       <el-table-column property="user_id" label="用户ID"></el-table-column>
       <el-table-column property="user_name" label="借款人姓名"></el-table-column>
       <el-table-column property="user_phone" label="手机号"></el-table-column>
@@ -50,9 +50,9 @@
       <el-table-column property="return_money" label="退款金额(元)"></el-table-column>
       <el-table-column property="repayment_channel" label="还款方式" width="110"></el-table-column>
       <el-table-column property="repayment_detail" label="还款详情" width="110"></el-table-column>
-      <el-table-column property="credit_repayment_time" sortable label="放款时间" width="130"></el-table-column>
-      <el-table-column property="repayment_time" sortable label="应还款时间" width="130"></el-table-column>
-      <el-table-column property="repayment_real_time" sortable label="实际还款时间" width="130"></el-table-column>
+      <el-table-column property="credit_repayment_time" sortable="custom" label="放款时间" width="130"></el-table-column>
+      <el-table-column property="repayment_time" sortable="custom" label="应还款时间" width="130"></el-table-column>
+      <el-table-column property="repayment_real_time" sortable="custom" label="实际还款时间" width="130"></el-table-column>
       <el-table-column property="late_day" label="逾期天数" width="60"></el-table-column>
     </el-table>
     <div style="text-align: center;margin-top: 10px;" v-show="fundData.length!=0">
@@ -104,6 +104,12 @@
           value: '拉卡拉',
           label: '拉卡拉'
         }, {
+          value: '新连连',
+          label: '新连连'
+        }, {
+          value: '招财猫连连',
+          label: '招财猫连连'
+        }, {
           value: '益码通支付宝',
           label: '益码通支付宝'
         }],
@@ -115,7 +121,8 @@
         endTime: '',
         pageContent: 'sizes',
         height: 500,
-        dHeight: 500
+        dHeight: 500,
+        order: ''
       }
     },
     computed: {
@@ -123,8 +130,18 @@
         let userName = this.user_name
         let userPhone = this.user_phone
         let repaymentChannel = this.repayment_channel
-        let startTime = this.startTime || '1991-07-22'
-        let endTime = this.endTime || getNowFormatDate()
+        let startTime
+        let endTime
+        if (this.startTime === '') {
+          startTime = this.startTime
+        } else {
+          startTime = formatDate(new Date(this.startTime), 'yyyy-MM-dd')
+        }
+        if (this.endTime === '') {
+          endTime = this.endTime
+        } else {
+          endTime = formatDate(new Date(this.endTime), 'yyyy-MM-dd')
+        }
         return 'api/repaymentMinutia/excel?user_name=' + userName + '&user_phone=' + userPhone + '&repayment_channel=' + repaymentChannel + '&startTime=' + startTime + '&endTime=' + endTime
       }
     },
@@ -189,7 +206,8 @@
           limit: this.limit,
           offset: this.offset,
           startTime: this.startTime,
-          endTime: this.endTime
+          endTime: this.endTime,
+          order: this.order
         })
       },
       getCount () {
@@ -242,6 +260,16 @@
         }
         this.height = docH - filterH - bannerH - pageH - 85 /*90+20*/
         this.dHeight = docH - 90
+      },
+      sort (info) {
+        if (info.order === 'ascending') {
+          this.order = ' order by ' + info.prop + ' asc'
+        } else if (info.order === 'descending') {
+          this.order = ' order by ' + info.prop + ' desc'
+        } else {
+          this.order = ''
+        }
+        this.search(this.order)
       }
     }
   }
@@ -259,7 +287,6 @@
       flex-wrap: wrap
       li
         margin-bottom: 5px
-        margin-right: 20px
         .managerFront
           padding-left: 5px
           font-size: 14px
@@ -268,7 +295,9 @@
           width: 120px
         .shortManagerText
           width: 100px
-        .loanAuditButton
+        .userButton
+          margin-left: 10px
+        .userButtonSpecial
           margin-left: 5px
         .minutiaSelect
           width: 120px

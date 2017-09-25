@@ -18,12 +18,12 @@
         </el-date-picker>
       </li>
       <li>
-        <el-button type="primary" size="small" @click.prevent.stop="search">搜索</el-button>
-        <el-button type="primary" size="small" :loading="buttonLoading" @click.prevent.stop="refreshData">一键刷新</el-button>
+        <el-button class="userButton" type="primary" size="small" @click.prevent.stop="search">搜索</el-button>
+        <el-button class="userButtonSpecial" type="primary" size="small" :loading="buttonLoading" @click.prevent.stop="refreshData">一键刷新</el-button>
       </li>
     </div>
-    <el-table :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto" :height="height" class="collectionManagement-table">
-      <el-table-column property="d_date" fixed sortable label="日期" width="80px"></el-table-column>
+    <el-table :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto" :height="height" class="collectionManagement-table" @sort-change="sort" >
+      <el-table-column property="d_date" fixed sortable="custom" label="日期" width="80px"></el-table-column>
       <el-table-column property="overdue_total" label="当日逾期总额(元)" width="100px"></el-table-column>
       <el-table-column label="S1">
         <el-table-column property="overdue_payment_s1" label="S1逾期回款(元)"width="100px"></el-table-column>
@@ -52,7 +52,7 @@
       </el-table-column>
       <el-table-column property="due_debt_m3" label="当日M3+逾期金额(元)" width="130px"></el-table-column>
       <el-table-column property="accu_late_fee" label="累计滞纳金收入(元)" width="110px"></el-table-column>
-      <el-table-column property="create_time" sortable label="更新时间" width="130"></el-table-column>
+      <el-table-column property="create_time" sortable="custom" label="更新时间" width="130"></el-table-column>
     </el-table>
     <div style="text-align: center;margin-top: 10px;" v-show="fundData.length!=0">
       <el-pagination
@@ -86,7 +86,8 @@
         endTime: '',
         height: 500,
         buttonLoading: false,
-        dHeight: 500
+        dHeight: 500,
+        order: ''
       }
     },
     components: {
@@ -144,14 +145,15 @@
         return this.axios.post('/api/collectionManagement', {
           limit: this.limit,
           offset: this.offset,
-          startTime: this.startTime || '1991-07-22',
-          endTime: this.endTime || getNowFormatDate()
+          startTime: this.startTime,
+          endTime: this.endTime,
+          order: this.order
         })
       },
       getCount () {
         return this.axios.post('/api/collectionManagement/count', {
-          startTime: this.startTime || '1991-07-22',
-          endTime: this.endTime || getNowFormatDate()
+          startTime: this.startTime,
+          endTime: this.endTime
         })
       },
       search () {
@@ -220,6 +222,16 @@
         }
         this.height = docH - filterH - bannerH - pageH - 85 /*90+20*/
         this.dHeight = docH - 90
+      },
+      sort (info) {
+        if (info.order === 'ascending') {
+          this.order = ' order by ' + info.prop + ' asc'
+        } else if (info.order === 'descending') {
+          this.order = ' order by ' + info.prop + ' desc'
+        } else {
+          this.order = ''
+        }
+        this.search(this.order)
       }
     }
   }
@@ -237,11 +249,14 @@
     flex-wrap: wrap
     li
       margin-bottom: 5px
-      margin-right: 20px
       .managerFront
         padding-left :5px
         font-size: 14px
         color: #666
+      .userButton
+        margin-left :10px
+      .userButtonSpecial
+        margin-left :5px
 
 
   .el-table .cell, .el-table th > div

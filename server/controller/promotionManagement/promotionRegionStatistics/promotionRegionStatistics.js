@@ -2,7 +2,7 @@ let sql = require('../../../sql/sqlMap')
 let func = require('../../../sql/func')
 let moment = require('moment')
 let tableName = require('../../../config/tableName')
-let {analysis, formatCurrency, formatInt} = require('../../../utils/utils')
+let {analysis, formatCurrency, formatInt, handleProperty, handleTime, combine} = require('../../../utils/utils')
 let shell = require('../../../config/shell')
 let process = require('child_process')
 
@@ -64,15 +64,27 @@ module.exports = {
   //每日还款金额数据
   fetchAll (req, res) {
     let params = req.body
-    if (params.province === '全国') {
-      params.province = ''
+    if (params.options.province === '全国') {
+      params.options.province = ''
     }
-    if (params.city === '全国' || params.city === '全部') {
-      params.city = ''
+    if (params.options.city === '全国' || params.options.city === '全部') {
+      params.options.city = ''
     }
-    let queries = analysis(params)
-    let query = sql.promotionManagement.promotionRegionStatistics.selectAllFront + queries.slice(0, 2).join(' and ') + sql.promotionManagement.promotionRegionStatistics.selectAllBack
-    func.connPool1(query, [tableName.promotionRegionStatistics, params.startTime, params.endTime, params.offset, params.limit], function (err, rs) {
+    let queries = handleProperty(params.options)
+    let timeOption = 'd_date'
+    if( params.endTime != '') {
+      timeOption = ' date_format( ' + timeOption + ' ,\'%Y-%m-%d\') '
+    }
+    let timeLimit = handleTime(timeOption, params.startTime, params.endTime)
+    let combined = combine(queries, timeLimit)
+    let order
+    if (params.order) {
+      order = params.order
+    } else {
+      order = sql.promotionManagement.promotionRegionStatistics.order
+    }
+    let query = sql.promotionManagement.promotionRegionStatistics.selectAllFront + combined + order + sql.promotionManagement.promotionRegionStatistics.selectAllBack
+    func.connPool1(query, [tableName.promotionRegionStatistics, params.offset, params.limit], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
         if (err.message === 'Query inactivity timeout') {
@@ -93,15 +105,21 @@ module.exports = {
   //每日还款金额数据总条数
   getCount (req, res) {
     let params = req.body
-    if (params.province === '全国') {
-      params.province = ''
+    if (params.options.province === '全国') {
+      params.options.province = ''
     }
-    if (params.city === '全国' || params.city === '全部') {
-      params.city = ''
+    if (params.options.city === '全国' || params.options.city === '全部') {
+      params.options.city = ''
     }
-    let queries = analysis(params)
-    let query = sql.promotionManagement.promotionRegionStatistics.getCount + queries.slice(0, 2).join(' and ')
-    func.connPool1(query, [tableName.promotionRegionStatistics, params.startTime, params.endTime], function (err, rs) {
+    let queries = handleProperty(params.options)
+    let timeOption = 'd_date'
+    if( params.endTime != '') {
+      timeOption = ' date_format( ' + timeOption + ' ,\'%Y-%m-%d\') '
+    }
+    let timeLimit = handleTime(timeOption, params.startTime, params.endTime)
+    let combined = combine(queries, timeLimit)
+    let query = sql.promotionManagement.promotionRegionStatistics.getCount + combined
+    func.connPool1(query, [tableName.promotionRegionStatistics], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
         if (err.message === 'Query inactivity timeout') {

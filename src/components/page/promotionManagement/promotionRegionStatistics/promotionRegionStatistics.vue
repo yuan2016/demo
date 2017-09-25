@@ -18,11 +18,11 @@
         <el-button type="primary" size="small" class="userButton" @click.prevent.stop="search">搜索</el-button>
       </li>
       <li>
-        <el-button type="primary" size="small" :loading="buttonLoading" @click.prevent.stop="refreshData">一键刷新</el-button>
+        <el-button type="primary" size="small" class="userButtonSpecial" :loading="buttonLoading" @click.prevent.stop="refreshData">一键刷新</el-button>
       </li>
     </div>
-    <el-table :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto;" :height="height" class="promotionRegionStatistics-table">
-      <el-table-column property="d_date" sortable label="日期"></el-table-column>
+    <el-table :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto;" :height="height" class="promotionRegionStatistics-table"  @sort-change="sort" >
+      <el-table-column property="d_date" sortable="custom" label="日期"></el-table-column>
       <el-table-column property="Province" label="省份"></el-table-column>
       <el-table-column property="city" label="城市"></el-table-column>
       <el-table-column property="register_num" label="注册量"></el-table-column>
@@ -86,7 +86,8 @@
         }],
         height: 500,
         buttonLoading: false,
-        dHeight: 500
+        dHeight: 500,
+        order: ''
       }
     },
     components: {
@@ -143,20 +144,25 @@
       },
       getData () {
         return this.axios.post('/api/promotionRegionStatistics', {
-          province: this.province,
-          city: this.city,
-          startTime: this.startTime || '1991-07-22',
-          endTime: this.endTime || getNowFormatDate(),
+          options: {
+            province: this.province,
+            city: this.city
+          },
+          startTime: this.startTime,
+          endTime: this.endTime,
           limit: this.limit,
-          offset: this.offset
+          offset: this.offset,
+          order: this.order
         })
       },
       getCount () {
         return this.axios.post('/api/promotionRegionStatistics/count', {
-          province: this.province,
-          city: this.city,
-          startTime: this.startTime || '1991-07-22',
-          endTime: this.endTime || getNowFormatDate()
+          options: {
+            province: this.province,
+            city: this.city
+          },
+          startTime: this.startTime,
+          endTime: this.endTime
         })
       },
       search () {
@@ -231,6 +237,16 @@
         }
         this.height = docH - filterH - bannerH - pageH - 85 /*90+20*/
         this.dHeight = docH - 90
+      },
+      sort (info) {
+        if (info.order === 'ascending') {
+          this.order = ' order by ' + info.prop + ' asc'
+        } else if (info.order === 'descending') {
+          this.order = ' order by ' + info.prop + ' desc'
+        } else {
+          this.order = ''
+        }
+        this.search(this.order)
       }
     }
   }
@@ -248,7 +264,6 @@
       flex-wrap: wrap
       li
         margin-bottom: 5px
-        margin-right: 20px
         .selectContent
           display: inline-block
           vertical-align: middle
@@ -261,7 +276,9 @@
         .managerText
           width: 180px
         .userButton
-          margin-left: 5px
+          margin-left: 10px
+        .userButtonSpecial
+          margin-left: 10px
         .userListTimeSelect
           width: 120px
         .userListSelect

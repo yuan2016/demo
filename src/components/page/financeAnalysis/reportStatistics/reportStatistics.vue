@@ -10,15 +10,15 @@
                        class="minutiaTimeSelect"></el-date-picker>
      </li>
       <li>
-        <el-button type="primary" size="small" class="loanAuditButton" @click.prevent.stop="search">搜索</el-button>
-        <el-button type="primary" size="small" class="userButton" :loading="buttonLoading">
+        <el-button class="userButton" type="primary" size="small" @click.prevent.stop="search">搜索</el-button>
+        <el-button class="userButtonSpecial" type="primary" size="small" :loading="buttonLoading">
           <a :href="mosaicLink" class="repaymentMinutiaExcel">导出excel</a>
         </el-button>
       </li>
     </div>
     <el-table :data="fundData" highlight-current-row border stripe class="repaymentMinutia-table"
-              style="width: 100%;overflow: auto" :height="height">
-      <el-table-column property="d_date" label="日期"></el-table-column>
+              style="width: 100%;overflow: auto" :height="height"  @sort-change="sort">
+      <el-table-column property="d_date" sortable="custom" label="日期"></el-table-column>
       <el-table-column property="service_charge" label="基础服务费(元)"></el-table-column>
       <el-table-column property="loan_urgent_fee" label="加急费(元)"></el-table-column>
       <el-table-column property="repaymented_amount" label="正常本金 (元)"></el-table-column>
@@ -64,13 +64,24 @@
         endTime: '',
         pageContent: 'sizes',
         height: 500,
-        dHeight: 500
+        dHeight: 500,
+        order: ''
       }
     },
     computed: {
       mosaicLink () {
-        let startTime = this.startTime || '1991-07-22'
-        let endTime = this.endTime || getNowFormatDate()
+        let startTime
+        let endTime
+        if (this.startTime === '') {
+          startTime = this.startTime
+        } else {
+          startTime = formatDate(new Date(this.startTime), 'yyyy-MM-dd')
+        }
+        if (this.endTime === '') {
+          endTime = this.endTime
+        } else {
+          endTime = formatDate(new Date(this.endTime), 'yyyy-MM-dd')
+        }
         return 'api/reportStatistics/excel?startTime=' + startTime + '&endTime=' + endTime
       }
     },
@@ -129,14 +140,15 @@
         return this.axios.post('/api/reportStatistics', {
           limit: this.limit,
           offset: this.offset,
-          startTime: this.startTime || '1991-07-22',
-          endTime: this.endTime || getNowFormatDate()
+          startTime: this.startTime,
+          endTime: this.endTime,
+          order: this.order
         })
       },
       getCount () {
         return this.axios.post('/api/reportStatistics/count', {
-          startTime: this.startTime || '1991-07-22',
-          endTime: this.endTime || getNowFormatDate()
+          startTime: this.startTime,
+          endTime: this.endTime
         })
       },
       search () {
@@ -178,6 +190,16 @@
         }
         this.height = docH - filterH - bannerH - pageH - 85 /*90+20*/
         this.dHeight = docH - 90
+      },
+      sort (info) {
+        if (info.order === 'ascending') {
+          this.order = ' order by ' + info.prop + ' asc'
+        } else if (info.order === 'descending') {
+          this.order = ' order by ' + info.prop + ' desc'
+        } else {
+          this.order = ''
+        }
+        this.search(this.order)
       }
     }
   }
@@ -195,7 +217,6 @@
       flex-wrap: wrap
       li
         margin-bottom: 5px
-        margin-right: 20px
         .managerFront
           padding-left: 5px
           font-size: 14px
@@ -204,8 +225,10 @@
           width: 120px
         .shortManagerText
           width: 100px
-        .loanAuditButton
-          margin-left: 5px
+        .userButton
+          margin-left: 10px
+        .userButtonSpecial
+          margin-left :5px
         .minutiaSelect
           width: 120px
         .minutiaTimeSelect

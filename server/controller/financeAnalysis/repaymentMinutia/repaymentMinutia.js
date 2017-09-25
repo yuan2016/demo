@@ -88,9 +88,19 @@ module.exports = {
   fetchAll (req, res) {
     let params = req.body
     let queries = handleProperty(params.options)
-    let timeLimit = handleTime('repayment_real_time', params.startTime, params.endTime)
+    let timeOption = 'repayment_real_time'
+    if( params.endTime != '') {
+      timeOption = ' date_format( ' + timeOption + ' ,\'%Y-%m-%d\') '
+    }
+    let timeLimit = handleTime(timeOption, params.startTime, params.endTime)
     let combined = combine(queries, timeLimit)
-    let query = sql.financeAnalysis.repaymentMinutia.selectAllFront + combined + sql.financeAnalysis.repaymentMinutia.orderBy + sql.financeAnalysis.repaymentMinutia.selectAllLimit
+    let order = ''
+    if (params.order) {
+      order = params.order
+    } else {
+      order = sql.financeAnalysis.repaymentMinutia.orderBy
+    }
+    let query = sql.financeAnalysis.repaymentMinutia.selectAllFront + combined + order + sql.financeAnalysis.repaymentMinutia.selectAllLimit
     func.connPool1(query, [tableName.repaymentMinutia, params.offset, params.limit], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
@@ -112,7 +122,11 @@ module.exports = {
   getCount (req, res) {
     let params = req.body
     let queries = handleProperty(params.options)
-    let timeLimit = handleTime('repayment_real_time', params.startTime, params.endTime)
+    let timeOption = 'repayment_real_time'
+    if( params.endTime != '') {
+      timeOption = ' date_format( ' + timeOption + ' ,\'%Y-%m-%d\') '
+    }
+    let timeLimit = handleTime(timeOption, params.startTime, params.endTime)
     let combined = combine(queries, timeLimit)
     let query = sql.financeAnalysis.repaymentMinutia.getCount + combined
     func.connPool1(query, tableName.repaymentMinutia, function (err, rs) {
@@ -135,8 +149,19 @@ module.exports = {
   getExcelData (req, res) {
     let params = req.query
     let queries = analysis(params)
-    let query = sql.financeAnalysis.repaymentMinutia.selectAllExcel + queries.slice(0, 3).join(' and ') + sql.financeAnalysis.repaymentMinutia.orderBy
-    func.connPool1(query, [tableName.repaymentMinutia, params.startTime, params.endTime], function (err, rs) {
+    let timeOption = 'repayment_real_time'
+    if( params.endTime !== '') {
+      timeOption = ' date_format( ' + timeOption + ' ,\'%Y-%m-%d\') '
+    }
+    let timeLimit = handleTime(timeOption, params.startTime, params.endTime)
+    let combined = combine(timeLimit)
+    if (combined === '') {
+      combined = ' where '
+    } else {
+      combined = combined + ' and '
+    }
+    let query = sql.financeAnalysis.repaymentMinutia.selectAllExcel + combined + queries.slice(0, 3).join(' and ') + sql.financeAnalysis.repaymentMinutia.orderBy
+    func.connPool1(query, [tableName.repaymentMinutia], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
         if (err.message === 'Query inactivity timeout') {

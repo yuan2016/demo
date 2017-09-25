@@ -32,13 +32,13 @@
         <el-button type="primary" size="small" class="userButton" @click.prevent.stop="search">搜索</el-button>
       </li>
     </div>
-    <el-table :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto" :height="height" class="promoterManagement-table">
+    <el-table :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto" :height="height" class="promoterManagement-table" @sort-change="sort">
       <el-table-column prop="realname" label="推广员姓名" width="80"></el-table-column>
       <el-table-column prop="user_phone" label="推广员电话"></el-table-column>
       <el-table-column prop="channel_name" label="渠道商名称"></el-table-column>
       <el-table-column prop="operator_name" label="负责人"></el-table-column>
       <el-table-column prop="channel_tel" label="联系方式"></el-table-column>
-      <el-table-column prop="created_at" sortable label="创建时间"></el-table-column>
+      <el-table-column prop="created_at" sortable="custom" label="创建时间"></el-table-column>
       <el-table-column prop="rel_path" label="推广二维码"></el-table-column>
       <el-table-column prop="remark" label="推广链接" width="100">
         <template scope="scope"><a :href="scope.row.remark">点击查看</a></template>
@@ -81,7 +81,8 @@
         options: [],
         status: '',
         height: 500,
-        dHeight: 500
+        dHeight: 500,
+        order: ''
       }
     },
     components: {
@@ -138,22 +139,27 @@
       },
       getData () {
         return this.axios.post('/api/promoterManagement', {
-          realname: this.realname,
-          user_phone: this.user_phone,
-          channel_name: this.channel_name,
-          startTime: this.startTime || '1991-07-22',
-          endTime: this.endTime || getNowFormatDate(),
+          options: {
+            realname: this.realname,
+            user_phone: this.user_phone,
+            channel_name: this.channel_name
+          },
+          startTime: this.startTime,
+          endTime: this.endTime,
           limit: this.limit,
-          offset: this.offset
+          offset: this.offset,
+          order: this.order
         })
       },
       getCount () {
         return this.axios.post('/api/promoterManagement/count', {
-          realname: this.realname,
-          user_phone: this.user_phone,
-          channel_name: this.channel_name,
-          startTime: this.startTime || '1991-07-22',
-          endTime: this.endTime || getNowFormatDate(),
+          options: {
+            realname: this.realname,
+            user_phone: this.user_phone,
+            channel_name: this.channel_name
+          },
+          startTime: this.startTime,
+          endTime: this.endTime,
           limit: this.limit,
           offset: this.offset
         })
@@ -202,6 +208,16 @@
         }
         this.height = docH - filterH - bannerH - pageH - 85 /*90+20*/
         this.dHeight = docH - 90
+      },
+      sort (info) {
+        if (info.order === 'ascending') {
+          this.order = ' order by ' + info.prop + ' asc'
+        } else if (info.order === 'descending') {
+          this.order = ' order by ' + info.prop + ' desc'
+        } else {
+          this.order = ''
+        }
+        this.search(this.order)
       }
     }
   }
@@ -219,7 +235,6 @@
       flex-wrap: wrap
       li
         margin-bottom: 5px
-        margin-right: 20px
         .managerFront
           display: inline-block
           width: 90px
@@ -229,7 +244,7 @@
         .managerText
           width: 150px
         .userButton
-          margin-left: 5px
+          margin-left: 10px
         .userListTimeSelect
           width: 120px
         .promoterSelect

@@ -38,7 +38,11 @@ module.exports = {
     let params = req.body
     let queries = analysis(params, 't1')
     let add = mosaic(params, 'status', 't')
-    let query = sql.repaymentManagement.waitingForReturnList.selectAllFront + queries.slice(0, 2).join(' and ') + add + sql.repaymentManagement.waitingForReturnList.selectAllBack
+    let order = ''
+    if (params.order) {
+      order = params.order
+    }
+    let query = sql.repaymentManagement.waitingForReturnList.selectAllFront + queries.slice(0, 2).join(' and ') + add + order + sql.repaymentManagement.waitingForReturnList.selectAllBack
     func.connPool2(query, [tableName.waitingForReturnList.t, tableName.waitingForReturnList.t1, params.offset, params.limit], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)

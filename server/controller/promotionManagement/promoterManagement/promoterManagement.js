@@ -5,7 +5,7 @@ let sql = require('../../../sql/sqlMap')
 let func = require('../../../sql/func')
 let moment = require('moment')
 let tableName = require('../../../config/tableName')
-let {analysis, mosaic} = require('../../../utils/utils')
+let {analysis, mosaic, handleProperty, handleTime, combine} = require('../../../utils/utils')
 
 function formatData (rows) {
   return rows.map(row => {
@@ -34,10 +34,25 @@ module.exports = {
   //用户通讯录数据
   fetchAll (req, res) {
     let params = req.body
-    let queries = analysis(params, 't1')
+    let queries = handleProperty(params.options)
+    if ( queries.length > 0) {
+      queries = ' and ' + queries
+    }
+    let timeOption  = 't.created_at'
+    if( params.endTime != '') {
+      timeOption = ' date_format( t.created_at ,\'%Y-%m-%d\') '
+    }
+    let timeLimit = handleTime(timeOption, params.startTime, params.endTime)
+    if( timeLimit != ''){
+      timeLimit = ' and ' + timeLimit
+    }
     let add = mosaic(params, 'channel_name', 't2')
-    let query = sql.promotionManagement.promoterManagement.selectAllFront + queries.slice(0, 2).join(' and ') + add + sql.promotionManagement.promoterManagement.selectAllBack
-    func.connPool2(query, [tableName.promoterManagement.t, tableName.promoterManagement.t1, tableName.promoterManagement.t2, params.startTime, params.endTime, params.offset, params.limit], function (err, rs) {
+    let order = ''
+    if (params.order) {
+      order = params.order
+    }
+    let query = sql.promotionManagement.promoterManagement.selectAllFront + queries + timeLimit + add + order + sql.promotionManagement.promoterManagement.selectAllBack
+    func.connPool2(query, [tableName.promoterManagement.t, tableName.promoterManagement.t1, tableName.promoterManagement.t2, params.offset, params.limit], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
         if (err.message === 'Query inactivity timeout') {
@@ -57,10 +72,21 @@ module.exports = {
   },
   getCount (req, res) {
     let params = req.body
-    let queries = analysis(params, 't1')
+    let queries = handleProperty(params.options)
+    if ( queries.length > 0) {
+      queries = ' and ' + queries
+    }
+    let timeOption  = 't.created_at'
+    if( params.endTime != '') {
+      timeOption = ' date_format( t.created_at ,\'%Y-%m-%d\') '
+    }
+    let timeLimit = handleTime(timeOption, params.startTime, params.endTime)
+    if( timeLimit != ''){
+      timeLimit = ' and ' + timeLimit
+    }
     let add = mosaic(params, 'channel_name', 't2')
-    let query = sql.promotionManagement.promoterManagement.getCount + queries.slice(0, 2).join(' and ') + add
-    func.connPool2(query, [tableName.promoterManagement.t, tableName.promoterManagement.t1, tableName.promoterManagement.t2, params.startTime, params.endTime], function (err, rs) {
+    let query = sql.promotionManagement.promoterManagement.getCount +  queries + timeLimit + add
+    func.connPool2(query, [tableName.promoterManagement.t, tableName.promoterManagement.t1, tableName.promoterManagement.t2], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
         if (err.message === 'Query inactivity timeout') {

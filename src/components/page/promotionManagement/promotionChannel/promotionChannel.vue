@@ -27,7 +27,7 @@
       </li>
     </div>
     <el-table :data="fundData" highlight-current-row border stripe class="promotionChannel-table"
-              style="width: 100%;overflow: auto" :height="height">
+              style="width: 100%;overflow: auto" :height="height" @sort-change="sort">
       <el-table-column property="channel_name" label="渠道商名称"></el-table-column>
       <el-table-column property="channel_code" label="渠道商编码"></el-table-column>
       <el-table-column property="operator_name" label="负责人"></el-table-column>
@@ -36,7 +36,7 @@
       <el-table-column property="channel_city" label="城市"></el-table-column>
       <el-table-column property="channel_area" label="地区"></el-table-column>
       <el-table-column property="canal_rate_name" label="计费方式"></el-table-column>
-      <el-table-column property="created_at" sortable label="创建时间"></el-table-column>
+      <el-table-column property="created_at" sortable="custom" label="创建时间"></el-table-column>
 
     </el-table>
     <div style="text-align: center;margin-top: 10px;" v-show="fundData.length!=0">
@@ -74,7 +74,8 @@
         endTime: '',
         status: '',
         height: 500,
-        dHeight: 500
+        dHeight: 500,
+        order: ''
       }
     },
     components: {
@@ -130,22 +131,27 @@
       },
       getData () {
         return this.axios.post('/api/promotionChannel', {
-          channel_name: this.channel_name,
-          operator_name: this.operator_name,
-          channel_tel: this.channel_tel,
-          startTime: this.startTime || '1991-07-22',
-          endTime: this.endTime || getNowFormatDate(),
+          options: {
+            channel_name: this.channel_name,
+            operator_name: this.operator_name,
+            channel_tel: this.channel_tel
+          },
+          startTime: this.startTime,
+          endTime: this.endTime,
           limit: this.limit,
-          offset: this.offset
+          offset: this.offset,
+          order: this.order
         })
       },
       getCount () {
         return this.axios.post('/api/promotionChannel/count', {
-          channel_name: this.channel_name,
-          operator_name: this.operator_name,
-          channel_tel: this.channel_tel,
-          startTime: this.startTime || '1991-07-22',
-          endTime: this.endTime || getNowFormatDate()
+          options: {
+            channel_name: this.channel_name,
+            operator_name: this.operator_name,
+            channel_tel: this.channel_tel
+          },
+          startTime: this.startTime,
+          endTime: this.endTime
         })
       },
       search () {
@@ -188,6 +194,16 @@
         }
         this.height = docH - filterH - bannerH - pageH - 85 /*90+20*/
         this.dHeight = docH - 90
+      },
+      sort (info) {
+        if (info.order === 'ascending') {
+          this.order = 'order by ' + 't.' + info.prop + ' asc'
+        } else if (info.order === 'descending') {
+          this.order = 'order by ' + 't.' + info.prop + ' desc'
+        } else {
+          this.order = ''
+        }
+        this.search(this.order)
       }
     }
   }
@@ -205,7 +221,6 @@
       flex-wrap: wrap
       li
         margin-bottom: 5px
-        margin-right: 20px
         .managerFront
           display: inline-block
           width: 90px
@@ -215,7 +230,7 @@
         .managerText
           width: 140px
         .userButton
-          margin-left: 5px
+          margin-left: 10px
         .userListTimeSelect
           width: 120px
         .userListSelect

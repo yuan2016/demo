@@ -18,12 +18,12 @@
         </el-date-picker>
       </li>
       <li>
-        <el-button type="primary" size="small" @click.prevent.stop="search">搜索</el-button>
-        <el-button type="primary" size="small" :loading="buttonLoading" @click.prevent.stop="refreshData">一键刷新</el-button>
+        <el-button class="userButton" type="primary" size="small" @click.prevent.stop="search">搜索</el-button>
+        <el-button class="userButtonSpecial" type="primary" size="small" :loading="buttonLoading" @click.prevent.stop="refreshData">一键刷新</el-button>
       </li>
     </div>
-    <el-table :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto" :height="height" class="fundAnalysisProduct-table">
-      <el-table-column property="D_DATE" sortable fixed label="日期"></el-table-column>
+    <el-table :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto" :height="height" class="fundAnalysisProduct-table" @sort-change="sort">
+      <el-table-column property="D_DATE" sortable="custom" fixed label="日期"></el-table-column>
       <el-table-column label="当日应还总额(元)">
       <el-table-column property="TOTAL_AMOUNT_14" label="14天"width="100"></el-table-column>
       <el-table-column property="TOTAL_AMOUNT_21F" label="21天"width="100"></el-table-column>
@@ -82,7 +82,7 @@
       <el-table-column property="CAPITAL_SURPLUS_21F" label="21天"width="100"></el-table-column>
       <el-table-column property="CAPITAL_SURPLUS_90F" label="90天"width="100"></el-table-column>
       </el-table-column>
-      <el-table-column property="UPDATE_TIME" sortable label="更新时间" width="130"></el-table-column>
+      <el-table-column property="UPDATE_TIME" sortable="custom" label="更新时间" width="130"></el-table-column>
     </el-table>
     <div style="text-align: center;margin-top: 10px;" v-show="fundData.length!=0">
       <el-pagination
@@ -116,7 +116,8 @@
         endTime: '',
         height: 500,
         buttonLoading: false,
-        dHeight: 500
+        dHeight: 500,
+        order: ''
       }
     },
     components: {
@@ -174,14 +175,15 @@
         return this.axios.post('/api/fundAnalysisProduct', {
           limit: this.limit,
           offset: this.offset,
-          startTime: this.startTime || '1991-07-22',
-          endTime: this.endTime || getNowFormatDate()
+          startTime: this.startTime,
+          endTime: this.endTime,
+          order: this.order
         })
       },
       getCount () {
         return this.axios.post('/api/fundAnalysisProduct/count', {
-          startTime: this.startTime || '1991-07-22',
-          endTime: this.endTime || getNowFormatDate()
+          startTime: this.startTime,
+          endTime: this.endTime
         })
       },
       search () {
@@ -250,6 +252,16 @@
         }
         this.height = docH - filterH - bannerH - pageH - 85 /*90+20*/
         this.dHeight = docH - 90
+      },
+      sort (info) {
+        if (info.order === 'ascending') {
+          this.order = ' order by ' + info.prop + ' asc'
+        } else if (info.order === 'descending') {
+          this.order = ' order by ' + info.prop + ' desc'
+        } else {
+          this.order = ''
+        }
+        this.search(this.order)
       }
     }
   }
@@ -267,12 +279,14 @@
     flex-wrap: wrap
     li
       margin-bottom: 5px
-      margin-right: 20px
       .managerFront
         padding-left :5px
         font-size: 14px
         color: #666
-
+      .userButton
+        margin-left :10px
+      .userButtonSpecial
+        margin-left :5px
 
   .el-table .cell, .el-table th > div
     padding-left: 0

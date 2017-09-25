@@ -5,7 +5,7 @@ let sql = require('../../../../sql/sqlMap')
 let func = require('../../../../sql/func')
 let moment = require('moment')
 let tableName = require('../../../../config/tableName')
-let {analysis, mosaic, formatCurrency, formatInt} = require('../../../../utils/utils')
+let {analysis, mosaic, formatCurrency, formatInt, handleProperty, handleTime, combine} = require('../../../../utils/utils')
 
 function formatData (rows) {
   return rows.map(row => {
@@ -33,10 +33,20 @@ module.exports = {
   //用户通讯录数据
   fetchAll (req, res) {
     let params = req.body
-    let queries = analysis(params, 't')
+    let queries = handleProperty(params.options)
+    let timeOption = 't1.repayment_time'
+    if( params.endTime !== '') {
+      timeOption = ' date_format( ' + timeOption + ' ,\'%Y-%m-%d\') '
+    }
+    let timeLimit = handleTime(timeOption, params.startTime, params.endTime)
+    let combined = combine(queries, timeLimit)
     let add = mosaic(params, 'status', 't1')
-    let query = sql.repaymentManagement.renewalsList.selectAllFront + queries.slice(0, 2).join(' and ') + add + sql.repaymentManagement.renewalsList.selectAllBack
-    func.connPool2(query, [tableName.renewalsList.t1, tableName.renewalsList.t, params.startTime, params.endTime, params.offset, params.limit], function (err, rs) {
+    let order = ''
+    if (params.order) {
+      order = params.order
+    }
+    let query = sql.repaymentManagement.renewalsList.selectAllFront + combined + add + order + sql.repaymentManagement.renewalsList.selectAllBack
+    func.connPool2(query, [tableName.renewalsList.t1, tableName.renewalsList.t, params.offset, params.limit], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
         if (err.message === 'Query inactivity timeout') {
@@ -57,10 +67,16 @@ module.exports = {
   //用户通讯录总条数
   getCount (req, res) {
     let params = req.body
-    let queries = analysis(params, 't')
+    let queries = handleProperty(params.options)
+    let timeOption = 't1.repayment_time'
+    if( params.endTime !== '') {
+      timeOption = ' date_format( ' + timeOption + ' ,\'%Y-%m-%d\') '
+    }
+    let timeLimit = handleTime(timeOption, params.startTime, params.endTime)
+    let combined = combine(queries, timeLimit)
     let add = mosaic(params, 'status', 't1')
-    let query = sql.repaymentManagement.renewalsList.getCount + queries.slice(0, 2).join(' and ') + add
-    func.connPool2(query, [tableName.renewalsList.t1, tableName.renewalsList.t, params.startTime, params.endTime], function (err, rs) {
+    let query = sql.repaymentManagement.renewalsList.getCount + combined + add
+    func.connPool2(query, [tableName.renewalsList.t1, tableName.renewalsList.t], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
         if (err.message === 'Query inactivity timeout') {

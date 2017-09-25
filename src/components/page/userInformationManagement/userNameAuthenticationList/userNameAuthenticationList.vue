@@ -13,12 +13,12 @@
         <el-button type="primary" size="small" class="userButton" @click.prevent.stop="search">搜索</el-button>
       </li>
     </div>
-    <el-table :data="fundData" stripe highlight-current-row border style="width: 100%;overflow: auto" :height="height" class="userNameAuthenticationList-table">
+    <el-table :data="fundData" stripe highlight-current-row border style="width: 100%;overflow: auto" :height="height" class="userNameAuthenticationList-table" @sort-change="sort">
       <el-table-column property="id" label="用户ID"></el-table-column>
       <el-table-column property="realname" label="真实姓名"></el-table-column>
       <el-table-column property="id_number" label="身份证号"></el-table-column>
-      <el-table-column property="create_time" sortable label="添加时间"></el-table-column>
-      <el-table-column property="update_time" sortable label="修改时间"></el-table-column>
+      <el-table-column property="create_time" sortable="custom" label="添加时间"></el-table-column>
+      <el-table-column property="update_time" sortable="custom" label="修改时间"></el-table-column>
     </el-table>
     <div style="text-align: center;margin-top: 10px;" v-show="fundData.length!=0">
       <el-pagination
@@ -52,7 +52,8 @@
         count: 0,
         currentPage: 1,
         height: 500,
-        dHeight: 500
+        dHeight: 500,
+        order: ''
       }
     },
     components: {
@@ -85,7 +86,8 @@
           realname: this.realname,
           id_number: this.id_number,
           limit: this.limit,
-          offset: this.offset
+          offset: this.offset,
+          order: this.order
         }).then((response) => {
           if (response.data.code === '404') {
             this.$router.push('./404')
@@ -115,7 +117,8 @@
           realname: this.realname,
           id_number: this.id_number,
           limit: this.limit,
-          offset: this.offset
+          offset: this.offset,
+          order: this.order
         })
       },
       getCount () {
@@ -190,6 +193,16 @@
         }
         this.height = docH - filterH - bannerH - pageH - 85 /*90+20*/
         this.dHeight = docH - 90
+      },
+      sort (info) {
+        if (info.order === 'ascending') {
+          this.order = ' order by ' + info.prop + ' asc'
+        } else if (info.order === 'descending') {
+          this.order = ' order by ' + info.prop + ' desc'
+        } else {
+          this.order = ''
+        }
+        this.search(this.order)
       }
     }
   }

@@ -3,17 +3,26 @@
     <banner></banner>
     <div class="date-filter">
       <div>
-        <el-button type="primary" size="small" class="userButton" @click.prevent.stop="search">搜索</el-button>
+        <span class="managerFront">渠道商：</span>
+        <el-select v-model.trim="channel_trader" filterable clearable size="small" placeholder="不限"
+                   class="promoterSelect">
+          <el-option
+            v-for="item in options"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+          </el-option>
+        </el-select>
       </div>
       <div>
         <el-button type="primary" size="small" class="userButton" @click.prevent.stop="search">搜索</el-button>
       </div>
     </div>
     <el-table :data="fundData"
-              highlight-current-row border stripe style="width: 100%;overflow: auto;" :height="height" class="channelStatisticsSummary-table">
+              highlight-current-row border stripe style="width: 100%;overflow: auto;" :height="height" class="channelStatisticsSummary-table" @sort-change="sort" >
       <el-table-column property="channel_trader" label="渠道商"></el-table-column>
       <el-table-column property="register_num" label="注册量"></el-table-column>
-      <el-table-column property="realname_auth_num" sortable label="实名认证"></el-table-column>
+      <el-table-column property="realname_auth_num" sortable="custom" label="实名认证"></el-table-column>
       <el-table-column property="card_bound_num" label="绑卡人数"></el-table-column>
       <el-table-column property="emergency_contact_num" label="紧急联系人"></el-table-column>
       <el-table-column property="operator_auth_num" label="运营商认证"></el-table-column>
@@ -57,7 +66,8 @@
         count: 0,
         currentPage: 1,
         height: 500,
-        dHeight: 500
+        dHeight: 500,
+        order: ''
       }
     },
     components: {
@@ -116,7 +126,8 @@
         return this.axios.post('/api/channelStatisticsSummary', {
           channel_trader: this.channel_trader,
           limit: this.limit,
-          offset: this.offset
+          offset: this.offset,
+          order: this.order
         })
       },
       getCount () {
@@ -162,6 +173,16 @@
         }
         this.height = docH - filterH - bannerH - pageH - 85 /*90+20*/
         this.dHeight = docH - 90
+      },
+      sort (info) {
+        if (info.order === 'ascending') {
+          this.order = ' order by ' + info.prop + ' asc'
+        } else if (info.order === 'descending') {
+          this.order = ' order by ' + info.prop + ' desc'
+        } else {
+          this.order = ''
+        }
+        this.search(this.order)
       }
     }
   }
@@ -179,7 +200,6 @@
       flex-wrap: wrap
       div
         margin-bottom: 5px
-        margin-right: 20px
         .managerFront
           padding-left: 5px
           font-size: 14px
@@ -187,7 +207,7 @@
         .managerText
           width: 180px
         .userButton
-          margin-left: 5px
+          margin-left: 10px
         .promoterSelect
           width: 180px
 

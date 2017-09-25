@@ -19,7 +19,7 @@
       </li>
     </div>
     <el-table :data="fundData" highlight-current-row border stripe
-              style="width: 100%;overflow: auto;" :height="height" class="raiseQuotaRecord-table">
+              style="width: 100%;overflow: auto;" :height="height" class="raiseQuotaRecord-table" @sort-change="sort">
       <el-table-column property="user_id" label="用户ID" width="70"></el-table-column>
       <el-table-column property="realname" label="姓名" width="70"></el-table-column>
       <el-table-column property="user_phone" label="手机号" width="100"></el-table-column>
@@ -29,9 +29,9 @@
       <el-table-column property="repayment_norm_count" label="正常还款次数"></el-table-column>
       <el-table-column property="repayment_succ_amount" label="成功还款金额(元)" width="110"></el-table-column>
       <el-table-column property="repayment_norm_amount" label="正常还款金额(元)" width="110"></el-table-column>
-      <el-table-column property="last_apply_at" sortable label="上次提额时间" width="120"></el-table-column>
-      <el-table-column property="create_at" sortable label="创建时间" width="130"></el-table-column>
-      <el-table-column property="updated_at" sortable label="更新时间" width="130"></el-table-column>
+      <el-table-column property="last_apply_at" sortable="custom" label="上次提额时间" width="120"></el-table-column>
+      <el-table-column property="create_at" sortable="custom" label="创建时间" width="130"></el-table-column>
+      <el-table-column property="updated_at" sortable="custom" label="更新时间" width="130"></el-table-column>
       <el-table-column property="status" label="状态"></el-table-column>
       <el-table-column property="audit_user" label="操作人"></el-table-column>
       <el-table-column property="remark" label="备注" width="230px"></el-table-column>
@@ -68,7 +68,8 @@
         count: 0,
         currentPage: 1,
         height: 500,
-        dHeight: 500
+        dHeight: 500,
+        order: ''
       }
     },
     components: {
@@ -101,7 +102,8 @@
           realname: this.realname,
           user_phone: this.user_phone,
           limit: this.limit,
-          offset: this.offset
+          offset: this.offset,
+          order: this.order
         }).then((response) => {
           if (response.data.code === '404') {
             this.$router.push('./404')
@@ -131,7 +133,8 @@
           realname: this.realname,
           user_phone: this.user_phone,
           limit: this.limit,
-          offset: this.offset
+          offset: this.offset,
+          order: this.order
         })
       },
       getCount () {
@@ -208,6 +211,16 @@
         }
         this.height = docH - filterH - bannerH - pageH - 85 /*90+20*/
         this.dHeight = docH - 90
+      },
+      sort (info) {
+        if (info.order === 'ascending') {
+          this.order = ' order by ' + info.prop + ' asc'
+        } else if (info.order === 'descending') {
+          this.order = ' order by ' + info.prop + ' desc'
+        } else {
+          this.order = ''
+        }
+        this.search(this.order)
       }
     }
   }
@@ -225,7 +238,6 @@
       flex-wrap: wrap
       li
         margin-bottom: 5px
-        margin-right: 20px
         .managerFront
           display: inline-block
           width: 56px
@@ -235,7 +247,7 @@
         .managerText
           width: 180px
         .userButton
-          margin-left: 5px
+          margin-left: 10px
 
     .el-table .cell, .el-table th > div
       padding-left: 0

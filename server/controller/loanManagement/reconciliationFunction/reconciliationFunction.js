@@ -5,7 +5,7 @@ let sql = require('../../../sql/sqlMap')
 let func = require('../../../sql/func')
 let moment = require('moment')
 let tableName = require('../../../config/tableName')
-let {formatCurrency, formatInt} = require('../../../utils/utils')
+let {formatCurrency, formatInt, handleProperty, analysis, handleTime, combine, handlePropertyAnd} = require('../../../utils/utils')
 
 function formatData (rows) {
   return rows.map(row => {
@@ -60,6 +60,14 @@ module.exports = {
   //用户通讯录数据
   fetchAll (req, res) {
     let params = req.body
+    let queries = analysis(params.options, 't')
+    queries = handlePropertyAnd(queries)
+    let timeOption = 't.loan_time'
+    if( params.endTime !== '') {
+      timeOption = ' date_format( ' + timeOption + ' ,\'%Y-%m-%d\') '
+    }
+    let timeLimit = handleTime(timeOption, params.startTime, params.endTime)
+    let combined = combine(queries, timeLimit)
     let add
     if (params.customer_type) {
       if (params.customer_type === '0') {
@@ -70,9 +78,12 @@ module.exports = {
     } else {
       add = ' and (t.customer_type IS NULL OR t.customer_type LIKE "%%")'
     }
-    let queries = handleQuery(params)
-    let query = sql.loanManagement.reconciliationFunction.selectAllFront + queries.slice(0, 3).join(' and ') + add + sql.loanManagement.reconciliationFunction.selectAllBack
-    func.connPool2(query, [tableName.reconciliationFunction.t1, tableName.reconciliationFunction.t, params.startTime, params.endTime, params.offset, params.limit], function (err, rs) {
+    let order = ''
+    if (params.order) {
+      order = params.order
+    }
+    let query = sql.loanManagement.reconciliationFunction.selectAllFront + combined + add + order + sql.loanManagement.reconciliationFunction.selectAllBack
+    func.connPool2(query, [tableName.reconciliationFunction.t1, tableName.reconciliationFunction.t, params.offset, params.limit], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
         if (err.message === 'Query inactivity timeout') {
@@ -93,6 +104,14 @@ module.exports = {
   //用户通讯录总条数
   getCount (req, res) {
     let params = req.body
+    let queries = analysis(params.options, 't')
+    queries = handlePropertyAnd(queries)
+    let timeOption = 't.loan_time'
+    if( params.endTime !== '') {
+      timeOption = ' date_format( ' + timeOption + ' ,\'%Y-%m-%d\') '
+    }
+    let timeLimit = handleTime(timeOption, params.startTime, params.endTime)
+    let combined = combine(queries, timeLimit)
     let add
     if (params.customer_type) {
       if (params.customer_type === '0') {
@@ -103,9 +122,8 @@ module.exports = {
     } else {
       add = ' and (t.customer_type IS NULL OR t.customer_type LIKE "%%")'
     }
-    let queries = handleQuery(params)
-    let query = sql.loanManagement.reconciliationFunction.getCount + queries.slice(0, 3).join(' and ') + add
-    func.connPool2(query, [tableName.reconciliationFunction.t1, tableName.reconciliationFunction.t, params.startTime, params.endTime], function (err, rs) {
+    let query = sql.loanManagement.reconciliationFunction.getCount + combined + add
+    func.connPool2(query, [tableName.reconciliationFunction.t1, tableName.reconciliationFunction.t], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
         if (err.message === 'Query inactivity timeout') {

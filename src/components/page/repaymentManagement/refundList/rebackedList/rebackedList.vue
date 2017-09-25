@@ -40,7 +40,7 @@
       </li>
     </ul>
     <el-table :data="fundData" class="rebackedList-table"
-              highlight-current-row border stripe style="width: 100%;overflow: auto" :height="height">
+              highlight-current-row border stripe style="width: 100%;overflow: auto" :height="height" @sort-change="sort">
       <el-table-column property="id" label="退款ID" width="80"></el-table-column>
       <el-table-column property="return_order_id" label="订单号" width="200px"></el-table-column>
       <el-table-column property="realname" label="姓名"></el-table-column>
@@ -50,7 +50,7 @@
       <el-table-column property="repayment_return_money" label="退款金额(元)"></el-table-column>
       <el-table-column property="return_type" label="退款方式"></el-table-column>
       <el-table-column property="return_source" label="退款来源"></el-table-column>
-      <el-table-column property="return_time" sortable label="退款时间" width="150"></el-table-column>
+      <el-table-column property="return_time" sortable="custom" label="退款时间" width="150"></el-table-column>
     </el-table>
     <div style="text-align: center;margin-top: 10px;" v-show="fundData.length!=0">
       <el-pagination
@@ -110,7 +110,8 @@
           label: '续期'
         }],
         height: 500,
-        dHeight: 500
+        dHeight: 500,
+        order: ''
       }
     },
     components: {
@@ -139,13 +140,16 @@
       },
       getDataInit () {
         this.axios.post('/api/rebackedList', {
-          return_type: this.return_type,
-          return_source: this.return_source,
-          user_phone: this.user_phone,
-          startTime: this.startTime || '1991-07-22',
-          endTime: this.endTime || getNowFormatDate(),
+          options: {
+            return_type: this.return_type,
+            return_source: this.return_source,
+            user_phone: this.user_phone
+          },
+          startTime: this.startTime,
+          endTime: this.endTime,
           limit: this.limit,
-          offset: this.offset
+          offset: this.offset,
+          order: this.order
         }).then((response) => {
           if (response.data.code === '404') {
             this.$router.push('./404')
@@ -171,22 +175,27 @@
       },
       getData () {
         return this.axios.post('/api/rebackedList', {
-          return_type: this.return_type,
-          return_source: this.return_source,
-          user_phone: this.user_phone,
-          startTime: this.startTime || '1991-07-22',
-          endTime: this.endTime || getNowFormatDate(),
+          options: {
+            return_type: this.return_type,
+            return_source: this.return_source,
+            user_phone: this.user_phone
+          },
+          startTime: this.startTime,
+          endTime: this.endTime,
           limit: this.limit,
-          offset: this.offset
+          offset: this.offset,
+          order: this.order
         })
       },
       getCount () {
         return this.axios.post('/api/rebackedList/count', {
-          return_type: this.return_type,
-          return_source: this.return_source,
-          user_phone: this.user_phone,
-          startTime: this.startTime || '1991-07-22',
-          endTime: this.endTime || getNowFormatDate(),
+          options: {
+            return_type: this.return_type,
+            return_source: this.return_source,
+            user_phone: this.user_phone
+          },
+          startTime: this.startTime,
+          endTime: this.endTime,
           limit: this.limit,
           offset: this.offset
         })
@@ -264,6 +273,16 @@
         }
         this.height = docH - filterH - bannerH - pageH - 85 /*90+20*/
         this.dHeight = docH - 90
+      },
+      sort (info) {
+        if (info.order === 'ascending') {
+          this.order = ' order by ' + info.prop + ' asc'
+        } else if (info.order === 'descending') {
+          this.order = ' order by ' + info.prop + ' desc'
+        } else {
+          this.order = ''
+        }
+        this.search()
       }
     }
   }
@@ -281,7 +300,6 @@
     flex-wrap: wrap
     li
       margin-bottom: 5px
-      margin-right: 20px
       .managerFront
         display: inline-block
         padding-left: 5px
@@ -291,7 +309,7 @@
       .managerText
         width: 150px
       .loanAuditButton
-        margin-left: 5px
+        margin-left: 10px
       .repaySelect
         width: 150px
       .repaySelectLong

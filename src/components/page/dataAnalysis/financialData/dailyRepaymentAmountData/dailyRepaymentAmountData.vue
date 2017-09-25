@@ -18,12 +18,12 @@
         </el-date-picker>
       </li>
       <li>
-        <el-button type="primary" size="small" @click.prevent.stop="search">搜索</el-button>
-        <el-button type="primary" size="small" :loading="buttonLoading" @click.prevent.stop="refreshData">一键刷新</el-button>
+        <el-button class="userbutton" type="primary" size="small" @click.prevent.stop="search">搜索</el-button>
+        <el-button class="userbuttonSpecial" type="primary" size="small" :loading="buttonLoading" @click.prevent.stop="refreshData">一键刷新</el-button>
       </li>
     </div>
-    <el-table :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto;" :height="height" class="dailyRepaymentAmountData-table">
-      <el-table-column property="d_date" fixed sortable label="日期" width="90"></el-table-column>
+    <el-table :data="fundData" highlight-current-row border stripe style="width: 100%;overflow: auto;" :height="height" class="dailyRepaymentAmountData-table" @sort-change="sort">
+      <el-table-column property="d_date" fixed sortable="custom" label="日期" width="90"></el-table-column>
       <el-table-column property="mature_money" label="到期金额(元)" width="100"></el-table-column>
       <el-table-column property="overdue_money" label="逾期金额(元)" width="100"></el-table-column>
       <el-table-column property="overdue_rate" label="逾期率" width="80"></el-table-column>
@@ -72,7 +72,8 @@
         endTime: '',
         height: 500,
         buttonLoading: false,
-        dHeight: 500
+        dHeight: 500,
+        order: ''
       }
     },
     components: {
@@ -130,14 +131,15 @@
         return this.axios.post('/api/dailyRepaymentAmountData', {
           limit: this.limit,
           offset: this.offset,
-          startTime: this.startTime || '1991-07-22',
-          endTime: this.endTime || getNowFormatDate()
+          startTime: this.startTime,
+          endTime: this.endTime,
+          order: this.order
         })
       },
       getCount () {
         return this.axios.post('/api/dailyRepaymentAmountData/count', {
-          startTime: this.startTime || '1991-07-22',
-          endTime: this.endTime || getNowFormatDate()
+          startTime: this.startTime,
+          endTime: this.endTime
         })
       },
       search () {
@@ -206,6 +208,16 @@
         }
         this.height = docH - filterH - bannerH - pageH - 85 /*90+20*/
         this.dHeight = docH - 90
+      },
+      sort (info) {
+        if (info.order === 'ascending') {
+          this.order = ' order by ' + info.prop + ' asc'
+        } else if (info.order === 'descending') {
+          this.order = ' order by ' + info.prop + ' desc'
+        } else {
+          this.order = ''
+        }
+        this.search(this.order)
       }
     }
   }
@@ -223,12 +235,14 @@
     flex-wrap: wrap
     li
       margin-bottom: 5px
-      margin-right: 20px
       .managerFront
         padding-left :5px
         font-size: 14px
         color: #666
-
+      .userbuttonSpecial
+        margin-left :5px
+      .userbutton
+        margin-left :10px
 
   .el-table .cell, .el-table th > div
     padding-left: 0

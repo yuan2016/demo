@@ -2,7 +2,7 @@ let sql = require('../../../sql/sqlMap')
 let func = require('../../../sql/func')
 let moment = require('moment')
 let tableName = require('../../../config/tableName')
-let {analysis, complexMosaic} = require('../../../utils/utils')
+let {analysis, complexMosaic, handleProperty, handleTime, combine} = require('../../../utils/utils')
 
 function formatData (rows) {
   return rows.map(row => {
@@ -21,16 +21,25 @@ module.exports = {
   fetchAll (req, res) {
     let order
     let params = req.body
-    let queries = analysis(params)
+    let queries = handleProperty(params.options)
+    let timeOption = 'create_time'
+    if( params.endTime !== '') {
+      timeOption = ' date_format( ' + timeOption + ' ,\'%Y-%m-%d\') '
+    }
+    let timeLimit = handleTime(timeOption, params.startTime, params.endTime)
+    let combined = combine(queries, timeLimit)
     let add = complexMosaic(params, 'status', '2')
-    console.log(params)
+    if ( combined === '' ) {
+      combined = ' where '
+      add = add.slice(4)
+    }
     if (params.order) {
       order = params.order
     } else {
       order = sql.userInformationManagement.userList.order
     }
-    let query = sql.userInformationManagement.userList.selectAllFront + queries.slice(0, 4).join(' and ') + add + order + sql.userInformationManagement.userList.limit
-    func.connPool2(query, [tableName.userList, params.startTime, params.endTime, params.offset, params.limit], function (err, rs) {
+    let query = sql.userInformationManagement.userList.selectAllFront + combined + add + order + sql.userInformationManagement.userList.limit
+    func.connPool2(query, [tableName.userList, params.offset, params.limit], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
         if (err.message === 'Query inactivity timeout') {
@@ -51,10 +60,16 @@ module.exports = {
   //用户列表总条数
   getCount (req, res) {
     let params = req.body
-    let queries = analysis(params)
+    let queries = handleProperty(params.options)
+    let timeOption = 'create_time'
+    if( params.endTime !== '') {
+      timeOption = ' date_format( ' + timeOption + ' ,\'%Y-%m-%d\') '
+    }
+    let timeLimit = handleTime(timeOption, params.startTime, params.endTime)
+    let combined = combine(queries, timeLimit)
     let add = complexMosaic(params, 'status', '2')
-    let query = sql.userInformationManagement.userList.getCount + queries.slice(0, 5).join(' and ') + add
-    func.connPool2(query, [tableName.userList, params.startTime, params.endTime], function (err, rs) {
+    let query = sql.userInformationManagement.userList.getCount + combined + add
+    func.connPool2(query, [tableName.userList], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
         console.log(err.message)

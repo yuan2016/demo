@@ -135,8 +135,30 @@ exports.handleProperty = function (params) {
     }
   }
   let len = strs.length
-  return strs.slice(0, len).join(' and ')
+  if (len > 0) {
+    return strs.slice(0, len).join(' and ')
+  } else {
+    return strs
+  }
 }
+
+exports.handlePropertyAnd = function (params) {
+  let strs = []
+  let arr = Object.entries(params)
+  for (let i of arr) {
+    if (i[1]) {
+      let str = i[1]
+      strs.push(str)
+    }
+  }
+  let len = strs.length
+  if (len > 0) {
+    return strs.slice(0, len).join(' and ')
+  } else {
+    return strs
+  }
+}
+
 //startTime endTime
 exports.handleTime = function (p, s, e) {
   let str
@@ -153,13 +175,17 @@ exports.handleTime = function (p, s, e) {
 }
 
 exports.combine = function (a, b) {
+  if (a.length === 0) {
+    a = ''
+  }
   let combined = ''
   if (a && b) {
-    combined = 'where ' + a + ' and ' + b
+    combined = ' where ' + a + ' and ' + b
   } else if (a && !b) {
-    combined = 'where ' + a
+    combined = ' where ' + a
   } else if (!a && b) {
-    combined = 'where ' + b
+    combined = ' where ' + b
   }
   return combined
 }
+

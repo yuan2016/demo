@@ -50,7 +50,7 @@
       <el-table-column property="company_name" label="公司名称"></el-table-column>
       <el-table-column property="user_phone" label="联系方式"></el-table-column>
       <el-table-column property="id_number" label="证件号码"></el-table-column>
-      <el-table-column property="birthday" sortable label="生日"></el-table-column>
+      <el-table-column property="birthday" sortable="custom" label="生日"></el-table-column>
       <el-table-column property="user_sex" label="性别" width="100"></el-table-column>
       <el-table-column property="status" label="是否黑名单"></el-table-column>
       <el-table-column property="create_time" sortable="custom" label="创建时间"></el-table-column>
@@ -131,13 +131,15 @@
       },
       getDataInit (order) {
         this.axios.post('/api/userList', {
-          id: this.id,
-          realname: this.realname,
-          id_number: this.id_number,
-          user_phone: this.user_phone,
-          status: this.status,
-          startTime: this.startTime || '1991-07-22',
-          endTime: this.endTime || getNowFormatDate(),
+          options: {
+            id: this.id,
+            realname: this.realname,
+            id_number: this.id_number,
+            user_phone: this.user_phone,
+            status: this.status
+          },
+          startTime: this.startTime,
+          endTime: this.endTime,
           limit: this.limit,
           offset: this.offset,
           order: order
@@ -166,13 +168,15 @@
       },
       getData (order) {
         return this.axios.post('/api/userList', {
-          id: this.id,
-          realname: this.realname,
-          id_number: this.id_number,
-          user_phone: this.user_phone,
-          status: this.status,
-          startTime: this.startTime || '1991-07-22',
-          endTime: this.endTime || getNowFormatDate(),
+          options: {
+            id: this.id,
+            realname: this.realname,
+            id_number: this.id_number,
+            user_phone: this.user_phone,
+            status: this.status
+          },
+          startTime: this.startTime,
+          endTime: this.endTime,
           limit: this.limit,
           offset: this.offset,
           order: order
@@ -180,13 +184,15 @@
       },
       getCount () {
         return this.axios.post('/api/userList/count', {
-          id: this.id,
-          realname: this.realname,
-          id_number: this.id_number,
-          user_phone: this.user_phone,
-          status: this.status,
-          startTime: this.startTime || '1991-07-22',
-          endTime: this.endTime || getNowFormatDate()
+          options: {
+            id: this.id,
+            realname: this.realname,
+            id_number: this.id_number,
+            user_phone: this.user_phone,
+            status: this.status
+          },
+          startTime: this.startTime,
+          endTime: this.endTime
         })
       },
       search () {
@@ -326,7 +332,6 @@
       flex-wrap: wrap
       li
         margin-bottom: 5px
-        margin-right: 20px
         .managerFront
           display: inline-block
           width: 90px

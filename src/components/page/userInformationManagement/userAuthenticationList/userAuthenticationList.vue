@@ -224,7 +224,6 @@
       flex-wrap: wrap
       div
         margin-bottom: 5px
-        margin-right: 20px
         .managerFront
           padding-left: 5px
           font-size: 14px

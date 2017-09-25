@@ -21,13 +21,13 @@
       </li>
     </div>
     <el-table class="userAddressBook-table" :data="fundData" stripe
-              highlight-current-row border :height="height" style="width: 100%;overflow: auto">
+              highlight-current-row border :height="height" style="width: 100%;overflow: auto" @sort-change="sort">
       <el-table-column property="id" label="ID"></el-table-column>
       <el-table-column property="user_id" label="用户ID"></el-table-column>
       <el-table-column property="user_name" label="用户姓名/手机"></el-table-column>
       <el-table-column property="contact_name" label="联系人"></el-table-column>
       <el-table-column property="contact_phone" label="联系人手机"></el-table-column>
-      <el-table-column property="create_time" sortable label="上传时间"></el-table-column>
+      <el-table-column property="create_time" sortable="custom" label="上传时间"></el-table-column>
     </el-table>
     <div style="text-align: center;margin-top: 10px;" v-show="fundData.length!=0">
       <el-pagination
@@ -61,7 +61,8 @@
         count: 0,
         currentPage: 1,
         height: 500,
-        dHeight: 500
+        dHeight: 500,
+        order: ''
       }
     },
     components: {
@@ -94,7 +95,8 @@
           contact_phone: this.contact_phone,
           contact_name: this.contact_name,
           limit: this.limit,
-          offset: this.offset
+          offset: this.offset,
+          order: this.order
         }).then((response) => {
           if (response.data.code === '404') {
             this.$router.push('./404')
@@ -124,7 +126,8 @@
           contact_phone: this.contact_phone,
           contact_name: this.contact_name,
           limit: this.limit,
-          offset: this.offset
+          offset: this.offset,
+          order: this.order
         })
       },
       getCount () {
@@ -201,6 +204,16 @@
         }
         this.height = docH - filterH - bannerH - pageH - 85 /*90+20*/
         this.dHeight = docH - 90
+      },
+      sort (info) {
+        if (info.order === 'ascending') {
+          this.order = ' order by ' + info.prop + ' asc'
+        } else if (info.order === 'descending') {
+          this.order = ' order by ' + info.prop + ' desc'
+        } else {
+          this.order = ''
+        }
+        this.search(this.order)
       }
     }
   }
@@ -216,7 +229,6 @@
       flex-wrap: wrap
       li
         margin-bottom: 5px
-        margin-right: 20px
         .managerFront
           padding-left: 5px
           font-size: 14px
@@ -224,7 +236,7 @@
         .managerText
           width: 180px
         .userButton
-          margin-left: 5px
+          margin-left: 10px
     .userAddressBook-table
       border-radius :10px
 

@@ -5,7 +5,7 @@ let sql = require('../../../../sql/sqlMap')
 let func = require('../../../../sql/func')
 let moment = require('moment')
 let tableName = require('../../../../config/tableName')
-let {analysis, complexMosaic, formatCurrency} = require('../../../../utils/utils')
+let {analysis, complexMosaic, formatCurrency, handleProperty, handleTime, combine} = require('../../../../utils/utils')
 
 function formatData (rows) {
   return rows.map(row => {
@@ -39,10 +39,25 @@ module.exports = {
   //用户通讯录数据
   fetchAll (req, res) {
     let params = req.body
-    let queries = analysis(params, 't1')
+    let queries = handleProperty(params.options)
+    if ( queries.length > 0) {
+      queries = ' and ' + queries
+    }
+    let timeOption = 'repayment_real_time'
+    if( params.endTime !== '') {
+      timeOption = ' date_format( ' + timeOption + ' ,\'%Y-%m-%d\') '
+    }
+    let timeLimit = handleTime(timeOption, params.startTime, params.endTime)
+    if ( timeLimit !== '') {
+      timeLimit = ' and ' + timeLimit
+    }
     let add = complexMosaic(params, 'status', '30', 't')
-    let query = sql.repaymentManagement.returnedList.selectAllFront + queries.slice(0, 2).join(' and ') + add + sql.repaymentManagement.returnedList.selectAllBack
-    func.connPool2(query, [tableName.returnedList.t, tableName.returnedList.t1, params.startTime, params.endTime, params.offset, params.limit], function (err, rs) {
+    let order = ''
+    if (params.order) {
+      order = params.order
+    }
+    let query = sql.repaymentManagement.returnedList.selectAllFront + queries + timeLimit + add + order + sql.repaymentManagement.returnedList.selectAllBack
+    func.connPool2(query, [tableName.returnedList.t, tableName.returnedList.t1, params.offset, params.limit], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
         if (err.message === 'Query inactivity timeout') {
@@ -63,10 +78,21 @@ module.exports = {
   //用户通讯录总条数
   getCount (req, res) {
     let params = req.body
-    let queries = analysis(params, 't1')
+    let queries = handleProperty(params.options)
+    if ( queries.length > 0) {
+      queries = ' and ' + queries
+    }
+    let timeOption = 'repayment_real_time'
+    if( params.endTime !== '') {
+      timeOption = ' date_format( ' + timeOption + ' ,\'%Y-%m-%d\') '
+    }
+    let timeLimit = handleTime(timeOption, params.startTime, params.endTime)
+    if ( timeLimit !== '') {
+      timeLimit = ' and ' + timeLimit
+    }
     let add = complexMosaic(params, 'status', '30', 't')
-    let query = sql.repaymentManagement.returnedList.getCount + queries.slice(0, 2).join(' and ') + add
-    func.connPool2(query, [tableName.returnedList.t, tableName.returnedList.t1, params.startTime, params.endTime], function (err, rs) {
+    let query = sql.repaymentManagement.returnedList.getCount + queries + timeLimit + add
+    func.connPool2(query, [tableName.returnedList.t, tableName.returnedList.t1], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
         throw new Error(err)

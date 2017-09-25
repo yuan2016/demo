@@ -42,7 +42,11 @@ module.exports = {
   fetchAll (req, res) {
     let params = req.body
     let queries = analysis(params)
-    let query = sql.loanManagement.raiseQuotaRecord.selectAllFront + queries.slice(0, 3).join(' and ') + sql.loanManagement.raiseQuotaRecord.selectAllBack
+    let order = ''
+    if (params.order) {
+      order = params.order
+    }
+    let query = sql.loanManagement.raiseQuotaRecord.selectAllFront + queries.slice(0, 3).join(' and ') + order + sql.loanManagement.raiseQuotaRecord.selectAllBack
     func.connPool2(query, [tableName.raiseQuotaRecord, params.offset, params.limit], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)

@@ -180,9 +180,26 @@ module.exports = {
   //每日还款金额数据
   fetchAll (req, res) {
     let params = req.body
-    let queries = analysis(params)
-    let query = sql.promotionManagement.promotionChannelStatistics.selectAllFront + queries.slice(0, 2).join(' and ') + sql.promotionManagement.promotionChannelStatistics.selectAllBack
-    func.connPool1(query, [tableName.promotionChannelStatistics, params.startTime, params.endTime, params.offset, params.limit], function (err, rs) {
+    let queries = handleProperty(params.options)
+    if ( queries.length > 0) {
+      queries = ' and ' + queries
+    }
+    let timeOption = 'd_date'
+    if( params.endTime !== '') {
+      timeOption = ' date_format(' + timeOption + ' ,\'%Y-%m-%d\') '
+    }
+    let timeLimit = handleTime(timeOption, params.startTime, params.endTime)
+    if( timeLimit !== ''){
+      timeLimit = ' and ' + timeLimit
+    }
+    let order
+    if (params.order) {
+      order = params.order
+    } else {
+      order = sql.promotionManagement.promotionChannelStatistics.order
+    }
+    let query = sql.promotionManagement.promotionChannelStatistics.selectAllFront + queries + timeLimit + order + sql.promotionManagement.promotionChannelStatistics.selectAllBack
+    func.connPool1(query, [tableName.promotionChannelStatistics, params.offset, params.limit], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
         if (err.message === 'Query inactivity timeout') {
@@ -203,9 +220,20 @@ module.exports = {
   //每日还款金额数据总条数
   getCount (req, res) {
     let params = req.body
-    let queries = analysis(params)
-    let query = sql.promotionManagement.promotionChannelStatistics.getCount + queries.slice(0, 2).join(' and ')
-    func.connPool1(query, [tableName.promotionChannelStatistics, params.startTime, params.endTime], function (err, rs) {
+    let queries = handleProperty(params.options)
+    if ( queries.length > 0) {
+      queries = ' and ' + queries
+    }
+    let timeOption = 'd_date'
+    if( params.endTime != '') {
+      timeOption = ' date_format(' + timeOption + ' ,\'%Y-%m-%d\') '
+    }
+    let timeLimit = handleTime(timeOption, params.startTime, params.endTime)
+    if( timeLimit != ''){
+      timeLimit = ' and ' + timeLimit
+    }
+    let query = sql.promotionManagement.promotionChannelStatistics.getCount + queries + timeLimit
+    func.connPool1(query, [tableName.promotionChannelStatistics], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
         if (err.message === 'Query inactivity timeout') {
@@ -253,9 +281,17 @@ module.exports = {
   },
   getExcelData (req, res) {
     let params = req.query
-    let queries = analysis(params)
-    let query = sql.promotionManagement.promotionChannelStatistics.selectAllExcel + queries.slice(0, 1).join(' and ')
-    func.connPool1(query, [tableName.promotionChannelStatistics, params.startTime, params.endTime], function (err, rs) {
+    let queries = ' and channel_trader_name like "%' + params.channel_trader_name + '%"'
+    let timeOption = 'd_date'
+    if( params.endTime != '') {
+      timeOption = ' date_format(' + timeOption + ' ,\'%Y-%m-%d\') '
+    }
+    let timeLimit = handleTime(timeOption, params.startTime, params.endTime)
+    if( timeLimit != ''){
+      timeLimit = ' and ' + timeLimit
+    }
+    let query = sql.promotionManagement.promotionChannelStatistics.selectAllExcel + queries + timeLimit
+    func.connPool1(query, [tableName.promotionChannelStatistics], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)
         if (err.message === 'Query inactivity timeout') {

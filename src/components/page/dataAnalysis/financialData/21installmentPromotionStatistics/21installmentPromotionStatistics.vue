@@ -18,28 +18,28 @@
         </el-date-picker>
       </li>
       <li>
-        <el-button type="primary" size="small" @click.prevent.stop="search">搜索</el-button>
-        <el-button type="primary" size="small" :loading="buttonLoading" @click.prevent.stop="refreshData">一键刷新</el-button>
+        <el-button class="userButton" type="primary" size="small" @click.prevent.stop="search">搜索</el-button>
+        <el-button class="userButtonSpecial" type="primary" size="small" :loading="buttonLoading" @click.prevent.stop="refreshData">一键刷新</el-button>
       </li>
     </div>
     <el-table :data="fundData" highlight-current-row border stripe class="installmentPromotionStatistics-table"
-              style="width: 100%;overflow: auto;" :height="height">
-      <el-table-column property="d_date" label="到期日" fixed sortable width="100"></el-table-column>
-      <el-table-column property="loan_date_f1" label="F1放款日" sortable width="100"></el-table-column>
+              style="width: 100%;overflow: auto;" :height="height" @sort-change="sort">
+      <el-table-column property="d_date" label="到期日" fixed sortable="custom" width="100"></el-table-column>
+      <el-table-column property="loan_date_f1" label="F1放款日" sortable="custom" width="100"></el-table-column>
       <el-table-column property="due_amount_f1" label="F1到期金额(元)" width="100"></el-table-column>
       <el-table-column property="repayment_amount_f1" label="F1还款金额(元)" width="100"></el-table-column>
       <el-table-column property="repayment_rate_f1" label="F1还款率" width="80"></el-table-column>
       <el-table-column property="overdue_rate_f1" label="F1逾期率" width="80"></el-table-column>
       <el-table-column property="overdue_rate_ouser_f1" label="F1老用户逾期率" width="100"></el-table-column>
       <el-table-column property="overdue_rate_nuser_f1" label="F1新用户逾期率" width="100"></el-table-column>
-      <el-table-column property="loan_date_f2" sortable label="F2放款日" width="100"></el-table-column>
+      <el-table-column property="loan_date_f2" sortable="custom" label="F2放款日" width="100"></el-table-column>
       <el-table-column property="due_amount_f2" label="F2到期金额(元)" width="100"></el-table-column>
       <el-table-column property="repayment_amount_f2" label="F2还款金额(元)" width="100"></el-table-column>
       <el-table-column property="repayment_rate_f2" label="F2还款率" width="80"></el-table-column>
       <el-table-column property="overdue_rate_f2" label="F2逾期率" width="80"></el-table-column>
       <el-table-column property="overdue_rate_ouser_f2" label="F2老用户逾期率" width="100"></el-table-column>
       <el-table-column property="overdue_rate_nuser_f2" label="F2新用户逾期率" width="100"></el-table-column>
-      <el-table-column property="loan_date_f3" sortable label="F3放款日" width="100"></el-table-column>
+      <el-table-column property="loan_date_f3" sortable="custom" label="F3放款日" width="100"></el-table-column>
       <el-table-column property="due_amount_f3" label="F3到期金额(元)" width="100"></el-table-column>
       <el-table-column property="repayment_amount_f3" label="F3还款金额(元)" width="100"></el-table-column>
       <el-table-column property="repayment_rate_f3" label="F3还款率" width="80"></el-table-column>
@@ -79,7 +79,8 @@
         endTime: '',
         height: 500,
         buttonLoading: false,
-        dHeight: 500
+        dHeight: 500,
+        order: ''
       }
     },
     components: {
@@ -137,14 +138,15 @@
         return this.axios.post('/api/installmentPromotionStatistics21', {
           limit: this.limit,
           offset: this.offset,
-          startTime: this.startTime || '1991-07-22',
-          endTime: this.endTime || getNowFormatDate()
+          startTime: this.startTime,
+          endTime: this.endTime,
+          order: this.order
         })
       },
       getCount () {
         return this.axios.post('/api/installmentPromotionStatistics21/count', {
-          startTime: this.startTime || '1991-07-22',
-          endTime: this.endTime || getNowFormatDate()
+          startTime: this.startTime,
+          endTime: this.endTime
         })
       },
       search () {
@@ -213,6 +215,16 @@
         }
         this.height = docH - filterH - bannerH - pageH - 85 /*90+20*/
         this.dHeight = docH - 90
+      },
+      sort (info) {
+        if (info.order === 'ascending') {
+          this.order = ' order by ' + info.prop + ' asc'
+        } else if (info.order === 'descending') {
+          this.order = ' order by ' + info.prop + ' desc'
+        } else {
+          this.order = ''
+        }
+        this.search(this.order)
       }
     }
   }
@@ -230,11 +242,14 @@
       flex-wrap: wrap
       li
         margin-bottom: 5px
-        margin-right: 20px
         .managerFront
           padding-left: 5px
           font-size: 14px
           color: #666
+        .userButton
+          margin-left :10px
+        .userButtonSpecial
+          margin-left :5px
 
     .el-table .cell, .el-table th > div
       padding-left: 0

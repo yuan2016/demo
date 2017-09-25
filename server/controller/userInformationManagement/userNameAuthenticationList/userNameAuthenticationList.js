@@ -21,7 +21,11 @@ module.exports = {
   fetchAll (req, res) {
     let params = req.body
     let queries = analysis(params)
-    let query = sql.userInformationManagement.userNameAuthenticationList.selectAllFront + queries.slice(0, 3).join(' and ') + sql.userInformationManagement.userNameAuthenticationList.selectAllBack
+    let order = ''
+    if (params.order) {
+      order = params.order
+    }
+    let query = sql.userInformationManagement.userNameAuthenticationList.selectAllFront + queries.slice(0, 3).join(' and ') + order + sql.userInformationManagement.userNameAuthenticationList.selectAllBack
     func.connPool2(query, [tableName.userNameAuthenticationList, params.offset, params.limit], function (err, rs) {
       if (err) {
         console.log('[query] - :' + err)

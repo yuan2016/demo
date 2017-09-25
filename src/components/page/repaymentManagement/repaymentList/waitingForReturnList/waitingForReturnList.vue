@@ -26,7 +26,7 @@
       </li>
     </div>
     <el-table :data="fundData" class="waitingForReturnList-table"
-              highlight-current-row border stripe style="width: 100%;overflow: auto" :height="height">
+              highlight-current-row border stripe style="width: 100%;overflow: auto" :height="height" @sort-change="sort">
       <el-table-column property="realname" label="姓名"></el-table-column>
       <el-table-column property="user_phone" label="手机号"></el-table-column>
       <el-table-column property="customer_type" label="用户类型"></el-table-column>
@@ -34,8 +34,8 @@
       <el-table-column property="repayment_interest" label="服务费(元)"></el-table-column>
       <el-table-column property="repayment_amount" label="需还款总金额(元)"></el-table-column>
       <el-table-column property="repaymented_amount" label="已还金额(元)"></el-table-column>
-      <el-table-column property="credit_repayment_time" sortable label="放款时间" width="130px"></el-table-column>
-      <el-table-column property="repayment_time" sortable label="到期日期" width="130px"></el-table-column>
+      <el-table-column property="credit_repayment_time" sortable="custom" label="放款时间" width="130px"></el-table-column>
+      <el-table-column property="repayment_time" sortable="custom" label="到期日期" width="130px"></el-table-column>
       <el-table-column property="late_day" label="逾期天数"></el-table-column>
       <el-table-column property="status" label="状态"></el-table-column>
       <el-table-column property="is_fenqi" label="是否分期"></el-table-column>
@@ -88,7 +88,8 @@
           label: '已坏账'
         }],
         height: 500,
-        dHeight: 500
+        dHeight: 500,
+        order: ''
       }
     },
     components: {
@@ -121,7 +122,8 @@
           user_phone: this.user_phone,
           status: this.status,
           limit: this.limit,
-          offset: this.offset
+          offset: this.offset,
+          order: this.order
         }).then((response) => {
           if (response.data.code === '404') {
             this.$router.push('./404')
@@ -151,7 +153,8 @@
           user_phone: this.user_phone,
           status: this.status,
           limit: this.limit,
-          offset: this.offset
+          offset: this.offset,
+          order: this.order
         })
       },
       getCount () {
@@ -228,6 +231,16 @@
         }
         this.height = docH - filterH - bannerH - pageH - 85 /*90+20*/
         this.dHeight = docH - 90
+      },
+      sort (info) {
+        if (info.order === 'ascending') {
+          this.order = ' order by ' + info.prop + ' asc'
+        } else if (info.order === 'descending') {
+          this.order = ' order by ' + info.prop + ' desc'
+        } else {
+          this.order = ''
+        }
+        this.search(this.order)
       }
     }
   }
@@ -245,7 +258,6 @@
       flex-wrap: wrap
       li
         margin-bottom: 5px
-        margin-right: 20px
         .managerFront
           padding-left: 5px
           font-size: 14px
@@ -253,7 +265,7 @@
         .managerText
           width: 180px
         .watingButton
-          margin-left: 5px
+          margin-left: 10px
         .watingSelect
           width: 130px
 
