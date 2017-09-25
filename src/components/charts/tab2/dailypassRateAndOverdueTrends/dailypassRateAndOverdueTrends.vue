@@ -1,6 +1,6 @@
 <template>
   <div class="dailypassRateAndOverdueTrends">
-    <div id="dailypassRateAndOverdueTrends-pic" style="width: 100%;height: 300px;"></div>
+    <div id="dailypassRateAndOverdueTrends-pic" style="width: 100%;height: 100%;"></div>
   </div>
 </template>
 
@@ -50,9 +50,9 @@
             }
           },
           grid: {
-            x: '1%',
+            x: 10,
             y: 50,
-            x2: '6%',
+            x2: 10,
             y2: 20,
             containLabel: true
           },
@@ -217,6 +217,18 @@
               end: 35
             }
           ],
+          //工具栏
+          toolbox: {
+            show: true,
+            x: 'left',
+            padding: [0, 0, 0, 40],
+            showTitle: false,
+            feature: {
+              magicType: {show: true, type: ['bar']},
+              restore: {show: true},
+              saveAsImage: {show: true}
+            }
+          },
           series: [
             {
               name: '通过率(%)',

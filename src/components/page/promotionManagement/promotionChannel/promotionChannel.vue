@@ -37,7 +37,6 @@
       <el-table-column property="channel_area" label="地区"></el-table-column>
       <el-table-column property="canal_rate_name" label="计费方式"></el-table-column>
       <el-table-column property="created_at" sortable="custom" label="创建时间"></el-table-column>
-
     </el-table>
     <div style="text-align: center;margin-top: 10px;" v-show="fundData.length!=0">
       <el-pagination

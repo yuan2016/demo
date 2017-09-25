@@ -1,6 +1,6 @@
 <template>
   <div class="channelRejectedReason">
-    <div id="channelRejectedReason-pic" style="width: 100%;height: 335px;"></div>
+    <div id="channelRejectedReason-pic" style="width: 100%;height: 100%;"></div>
   </div>
 </template>
 
@@ -53,7 +53,7 @@
             x: '1%',
             y: 50,
             x2: '6%',
-            y2: 0,
+            y2: -15,
             containLabel: true
           },
           //图例组件，颜色和名字
@@ -78,6 +78,18 @@
               fontStyle: 'normal',
               fontFamily: '微软雅黑',
               fontSize: 12
+            }
+          },
+          //工具栏
+          toolbox: {
+            show: true,
+            x: 'left',
+            padding: [20, 0, 0, 40],
+            showTitle: false,
+            feature: {
+              magicType: {show: true, type: ['line']},
+              restore: {show: true},
+              saveAsImage: {show: true}
             }
           },
           //横轴
@@ -186,7 +198,7 @@
               name: '1天',
               type: 'bar',
               data: [4.9, 7.3, 9.2, 5.6, 7.7, 5.6, 4.2, 3.6, 6, 6.4],
-              barWidth: 15,
+              barWidth: 20,
               barGap: 0,
               //柱间距离
               label: {//图形上的文本标签
@@ -222,7 +234,7 @@
               name: '1周',
               type: 'bar',
               data: [2.9, 5, 4.4, 2.7, 5.7, 4.6, 1.2, 2.7, 4.8, 6.0, 3.5, 2.5, 4.5],
-              barWidth: 15,
+              barWidth: 20,
               barGap: 0.2,
               //柱间距离
               label: {//图形上的文本标签
@@ -255,7 +267,7 @@
             {
               name: '1月',
               type: 'bar',
-              barWidth: 15,
+              barWidth: 20,
               barGap: 0.2,
               //柱间距离
               label: {//图形上的文本标签

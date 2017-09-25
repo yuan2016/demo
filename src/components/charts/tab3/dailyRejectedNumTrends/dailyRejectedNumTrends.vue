@@ -1,6 +1,6 @@
 <template>
   <div class="dailyRejectedNumTrends">
-    <div id="dailyRejectedNumTrends-pic" style="width: 100%;height: 300px;"></div>
+    <div id="dailyRejectedNumTrends-pic" style="width: 100%;height: 100%;"></div>
   </div>
 </template>
 
@@ -34,7 +34,8 @@
               fontStyle: 'normal',
               fontFamily: '微软雅黑',
               fontSize: 14
-            }
+            },
+            padding: [20, 0, 0, 0]
           },
           //背景
           backgroundColor: '#fff',
@@ -77,6 +78,18 @@
               fontStyle: 'normal',
               fontFamily: '微软雅黑',
               fontSize: 12
+            }
+          },
+          //工具栏
+          toolbox: {
+            show: true,
+            x: 'left',
+            padding: [30, 0, 0, 40],
+            showTitle: false,
+            feature: {
+              magicType: {show: true, type: ['bar']},
+              restore: {show: true},
+              saveAsImage: {show: true}
             }
           },
           //横轴

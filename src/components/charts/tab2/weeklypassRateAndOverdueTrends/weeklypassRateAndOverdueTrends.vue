@@ -1,6 +1,6 @@
 <template>
   <div class="weeklypassRateAndOverdueTrends">
-    <div id="weeklypassRateAndOverdueTrends-pic" style="width: 100%;height: 300px;"></div>
+    <div id="weeklypassRateAndOverdueTrends-pic" style="width: 100%;height: 100%;"></div>
   </div>
 </template>
 
@@ -50,9 +50,9 @@
             }
           },
           grid: {
-            x: '1%',
+            x: 17,
             y: 50,
-            x2: '6%',
+            x2: 32,
             y2: 20,
             containLabel: true
           },
@@ -181,12 +181,24 @@
               end: 35
             }
           ],
+          //工具栏
+          toolbox: {
+            show: true,
+            x: 'left',
+            padding: [20, 0, 0, 40],
+            showTitle: false,
+            feature: {
+              magicType: {show: true, type: ['bar']},
+              restore: {show: true},
+              saveAsImage: {show: true}
+            }
+          },
           series: [
             {
               name: '通过率(%)',
               type: 'bar',
               data: [4.9, 7.3, 9.2, 5.6, 7.7, 5.6, 4.2, 3.6, 6, 6.4],
-              barWidth: 15,
+              barWidth: 20,
               barGap: 0,
               //柱间距离
               label: {//图形上的文本标签
@@ -222,7 +234,7 @@
               name: '逾期率(%)',
               type: 'bar',
               data: [2.9, 5, 4.4, 2.7, 5.7, 4.6, 1.2, 2.7, 4.8, 6.0, 3.5, 2.5, 4.5],
-              barWidth: 15,
+              barWidth: 20,
               barGap: 0.2,
               //柱间距离
               label: {//图形上的文本标签

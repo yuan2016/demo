@@ -263,10 +263,12 @@
     padding-bottom: 50px
     z-index: 2
     .header
-      position: relative
+      position: fixed
       height: 50px
+      width: 100%
       margin-top: -50px
       background-color: #324157
+      z-index: 2000
       .pic-container
         padding-left: 15px
       .head-text
