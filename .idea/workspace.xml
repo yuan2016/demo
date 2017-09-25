@@ -2,176 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="181d2e6f-b045-479f-8e94-e4e94e6e67e8" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/charts/tab2/dailypassRateAndOverdueTrends/dailypassRateAndOverdueTrends.vue" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/charts/tab2/weeklypassRateAndOverdueTrends/weeklypassRateAndOverdueTrends.vue" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/charts/tab3/channelRejectedReason/channelRejectedReason.vue" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/charts/tab3/dailyRejectedNumTrends/dailyRejectedNumTrends.vue" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/components/charts/keyboard/keyboard.vue" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/components/charts/mixchart/mixchart.vue" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/components/charts/ring/visitorPie.vue" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/components/charts/riskControlStatistics/riskControlStatistics.vue" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/components/charts/userStatistics/userStatistics.vue" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/components/charts/visitoPie/visitorPie.vue" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.babelrc" afterPath="$PROJECT_DIR$/.babelrc" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.editorconfig" afterPath="$PROJECT_DIR$/.editorconfig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.eslintignore" afterPath="$PROJECT_DIR$/.eslintignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.eslintrc.js" afterPath="$PROJECT_DIR$/.eslintrc.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.postcssrc.js" afterPath="$PROJECT_DIR$/.postcssrc.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/build.js" afterPath="$PROJECT_DIR$/build/build.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/check-versions.js" afterPath="$PROJECT_DIR$/build/check-versions.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/dev-client.js" afterPath="$PROJECT_DIR$/build/dev-client.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/dev-server.js" afterPath="$PROJECT_DIR$/build/dev-server.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/utils.js" afterPath="$PROJECT_DIR$/build/utils.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/vue-loader.conf.js" afterPath="$PROJECT_DIR$/build/vue-loader.conf.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/webpack.base.conf.js" afterPath="$PROJECT_DIR$/build/webpack.base.conf.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/webpack.dev.conf.js" afterPath="$PROJECT_DIR$/build/webpack.dev.conf.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/webpack.prod.conf.js" afterPath="$PROJECT_DIR$/build/webpack.prod.conf.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/dev.env.js" afterPath="$PROJECT_DIR$/config/dev.env.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/index.js" afterPath="$PROJECT_DIR$/config/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/prod.env.js" afterPath="$PROJECT_DIR$/config/prod.env.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/api.js" afterPath="$PROJECT_DIR$/server/api.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/app.js" afterPath="$PROJECT_DIR$/server/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/config/db.js" afterPath="$PROJECT_DIR$/server/config/db.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/config/shell.js" afterPath="$PROJECT_DIR$/server/config/shell.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/config/tableName.js" afterPath="$PROJECT_DIR$/server/config/tableName.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controller/RMAB/collection/loanOverdueRecallRate/loanOverdueRecallRate.js" afterPath="$PROJECT_DIR$/server/controller/RMAB/collection/loanOverdueRecallRate/loanOverdueRecallRate.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controller/RMAB/market/loanThroughRate/loanThroughRate.js" afterPath="$PROJECT_DIR$/server/controller/RMAB/market/loanThroughRate/loanThroughRate.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controller/RMAB/market/loanThroughRate/loanThroughRateAll.js" afterPath="$PROJECT_DIR$/server/controller/RMAB/market/loanThroughRate/loanThroughRateAll.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controller/RMAB/operate/invitationEvent/invitationEvent.js" afterPath="$PROJECT_DIR$/server/controller/RMAB/operate/invitationEvent/invitationEvent.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controller/RMAB/userPortrait/userBasePortrait/userBasePortrait.js" afterPath="$PROJECT_DIR$/server/controller/RMAB/userPortrait/userBasePortrait/userBasePortrait.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controller/dataAnalysis/dataReport/platformData/platformData.js" afterPath="$PROJECT_DIR$/server/controller/dataAnalysis/dataReport/platformData/platformData.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controller/dataAnalysis/financialData/21daysStageStatistics/21daysStageStatistics.js" afterPath="$PROJECT_DIR$/server/controller/dataAnalysis/financialData/21daysStageStatistics/21daysStageStatistics.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controller/dataAnalysis/financialData/21installmentPromotionStatistics/21installmentPromotionStatistics.js" afterPath="$PROJECT_DIR$/server/controller/dataAnalysis/financialData/21installmentPromotionStatistics/21installmentPromotionStatistics.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controller/dataAnalysis/financialData/collectionManagement/collectionManagement.js" afterPath="$PROJECT_DIR$/server/controller/dataAnalysis/financialData/collectionManagement/collectionManagement.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controller/dataAnalysis/financialData/dailyLendingData/dailyLendingData.js" afterPath="$PROJECT_DIR$/server/controller/dataAnalysis/financialData/dailyLendingData/dailyLendingData.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controller/dataAnalysis/financialData/dailyRepaymentAmountData/dailyRepaymentAmountData.js" afterPath="$PROJECT_DIR$/server/controller/dataAnalysis/financialData/dailyRepaymentAmountData/dailyRepaymentAmountData.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controller/dataAnalysis/financialData/dailyRepaymentUnitData/dailyRepaymentUnitData.js" afterPath="$PROJECT_DIR$/server/controller/dataAnalysis/financialData/dailyRepaymentUnitData/dailyRepaymentUnitData.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controller/dataAnalysis/financialData/fundAnalysis/fundAnalysis.js" afterPath="$PROJECT_DIR$/server/controller/dataAnalysis/financialData/fundAnalysis/fundAnalysis.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controller/dataAnalysis/financialData/fundAnalysisProduct/fundAnalysisProduct.js" afterPath="$PROJECT_DIR$/server/controller/dataAnalysis/financialData/fundAnalysisProduct/fundAnalysisProduct.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controller/dataAnalysis/financialData/overdueRepaymentStatistics/overdueRepaymentStatistics.js" afterPath="$PROJECT_DIR$/server/controller/dataAnalysis/financialData/overdueRepaymentStatistics/overdueRepaymentStatistics.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controller/dataAnalysis/financialData/promptAmount/promptAmount.js" afterPath="$PROJECT_DIR$/server/controller/dataAnalysis/financialData/promptAmount/promptAmount.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controller/financeAnalysis/reconciliationAnalysis/reconciliationAnalysis.js" afterPath="$PROJECT_DIR$/server/controller/financeAnalysis/reconciliationAnalysis/reconciliationAnalysis.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controller/financeAnalysis/repaymentMinutia/repaymentMinutia.js" afterPath="$PROJECT_DIR$/server/controller/financeAnalysis/repaymentMinutia/repaymentMinutia.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controller/getLoginInfo/getLoginInfo.js" afterPath="$PROJECT_DIR$/server/controller/getLoginInfo/getLoginInfo.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controller/loanManagement/assetInformation/assetInformation.js" afterPath="$PROJECT_DIR$/server/controller/loanManagement/assetInformation/assetInformation.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controller/loanManagement/loanApplicationsList/loanApplicationsList.js" afterPath="$PROJECT_DIR$/server/controller/loanManagement/loanApplicationsList/loanApplicationsList.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controller/loanManagement/loanAuditList/loanAuditList.js" afterPath="$PROJECT_DIR$/server/controller/loanManagement/loanAuditList/loanAuditList.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controller/loanManagement/raiseQuotaRecord/raiseQuotaRecord.js" afterPath="$PROJECT_DIR$/server/controller/loanManagement/raiseQuotaRecord/raiseQuotaRecord.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controller/loanManagement/reconciliationFunction/reconciliationFunction.js" afterPath="$PROJECT_DIR$/server/controller/loanManagement/reconciliationFunction/reconciliationFunction.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controller/login/login.js" afterPath="$PROJECT_DIR$/server/controller/login/login.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controller/main/main.js" afterPath="$PROJECT_DIR$/server/controller/main/main.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controller/passwordModify/passwordModify.js" afterPath="$PROJECT_DIR$/server/controller/passwordModify/passwordModify.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controller/privilegeManage/employeeList/employeeList.js" afterPath="$PROJECT_DIR$/server/controller/privilegeManage/employeeList/employeeList.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controller/promotionManagement/PVUV/PVUV.js" afterPath="$PROJECT_DIR$/server/controller/promotionManagement/PVUV/PVUV.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controller/promotionManagement/channelStatisticsSummary/channelStatisticsSummary.js" afterPath="$PROJECT_DIR$/server/controller/promotionManagement/channelStatisticsSummary/channelStatisticsSummary.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controller/promotionManagement/promoterManagement/promoterManagement.js" afterPath="$PROJECT_DIR$/server/controller/promotionManagement/promoterManagement/promoterManagement.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controller/promotionManagement/promotionChannel/promotionChannel.js" afterPath="$PROJECT_DIR$/server/controller/promotionManagement/promotionChannel/promotionChannel.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controller/promotionManagement/promotionChannelStatistics/promotionChannelStatistics.js" afterPath="$PROJECT_DIR$/server/controller/promotionManagement/promotionChannelStatistics/promotionChannelStatistics.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controller/promotionManagement/promotionRegionStatistics/promotionRegionStatistics.js" afterPath="$PROJECT_DIR$/server/controller/promotionManagement/promotionRegionStatistics/promotionRegionStatistics.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controller/repaymentManagement/reconciliationList/renewalReconciliation/renewalReconciliation.js" afterPath="$PROJECT_DIR$/server/controller/repaymentManagement/reconciliationList/renewalReconciliation/renewalReconciliation.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controller/repaymentManagement/reconciliationList/repaymentReconciliation/repaymentReconciliation.js" afterPath="$PROJECT_DIR$/server/controller/repaymentManagement/reconciliationList/repaymentReconciliation/repaymentReconciliation.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controller/repaymentManagement/refundList/rebackedList/rebackedList.js" afterPath="$PROJECT_DIR$/server/controller/repaymentManagement/refundList/rebackedList/rebackedList.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controller/repaymentManagement/refundList/renewalParticulars/renewalParticulars.js" afterPath="$PROJECT_DIR$/server/controller/repaymentManagement/refundList/renewalParticulars/renewalParticulars.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controller/repaymentManagement/refundList/repaymentDetails/repaymentDetails.js" afterPath="$PROJECT_DIR$/server/controller/repaymentManagement/refundList/repaymentDetails/repaymentDetails.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controller/repaymentManagement/renewalManagement/renewalsList/renewalsList.js" afterPath="$PROJECT_DIR$/server/controller/repaymentManagement/renewalManagement/renewalsList/renewalsList.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controller/repaymentManagement/repaymentList/returnedList/returnedList.js" afterPath="$PROJECT_DIR$/server/controller/repaymentManagement/repaymentList/returnedList/returnedList.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controller/repaymentManagement/repaymentList/waitingForReturnList/waitingForReturnList.js" afterPath="$PROJECT_DIR$/server/controller/repaymentManagement/repaymentList/waitingForReturnList/waitingForReturnList.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controller/userInformationManagement/bankcardsList/bankcardsList.js" afterPath="$PROJECT_DIR$/server/controller/userInformationManagement/bankcardsList/bankcardsList.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controller/userInformationManagement/userAddressBook/userAddressBook.js" afterPath="$PROJECT_DIR$/server/controller/userInformationManagement/userAddressBook/userAddressBook.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controller/userInformationManagement/userAuthenticationList/userAuthenticationList.js" afterPath="$PROJECT_DIR$/server/controller/userInformationManagement/userAuthenticationList/userAuthenticationList.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controller/userInformationManagement/userList/userList.js" afterPath="$PROJECT_DIR$/server/controller/userInformationManagement/userList/userList.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controller/userInformationManagement/userNameAuthenticationList/userNameAuthenticationList.js" afterPath="$PROJECT_DIR$/server/controller/userInformationManagement/userNameAuthenticationList/userNameAuthenticationList.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/error.html" afterPath="$PROJECT_DIR$/server/error.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/package.json" afterPath="$PROJECT_DIR$/server/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/route/router.js" afterPath="$PROJECT_DIR$/server/route/router.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/sql/func.js" afterPath="$PROJECT_DIR$/server/sql/func.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/sql/sqlMap.js" afterPath="$PROJECT_DIR$/server/sql/sqlMap.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/utils/Blob.js" afterPath="$PROJECT_DIR$/server/utils/Blob.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/utils/excel.js" afterPath="$PROJECT_DIR$/server/utils/excel.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/utils/utils.js" afterPath="$PROJECT_DIR$/server/utils/utils.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/App.vue" afterPath="$PROJECT_DIR$/src/App.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/fonts/icomoon.svg" afterPath="$PROJECT_DIR$/src/common/fonts/icomoon.svg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/js/storage.js" afterPath="$PROJECT_DIR$/src/common/js/storage.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/js/utils.js" afterPath="$PROJECT_DIR$/src/common/js/utils.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/js/validate.js" afterPath="$PROJECT_DIR$/src/common/js/validate.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/json/tables.json" afterPath="$PROJECT_DIR$/src/common/json/tables.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/stylus/base.styl" afterPath="$PROJECT_DIR$/src/common/stylus/base.styl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/stylus/icon.styl" afterPath="$PROJECT_DIR$/src/common/stylus/icon.styl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/stylus/include.styl" afterPath="$PROJECT_DIR$/src/common/stylus/include.styl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/common/banner/banner.vue" afterPath="$PROJECT_DIR$/src/components/common/banner/banner.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/common/provincesAndCitiesSelect/provincesAndCitiesSelect.vue" afterPath="$PROJECT_DIR$/src/components/common/provincesAndCitiesSelect/provincesAndCitiesSelect.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/home/home.vue" afterPath="$PROJECT_DIR$/src/components/home/home.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/others/passwordModify/passwordModify.vue" afterPath="$PROJECT_DIR$/src/components/others/passwordModify/passwordModify.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/404/404.vue" afterPath="$PROJECT_DIR$/src/components/page/404/404.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/RMAB/collection/loanOverdueRecallRate/loanOverdueRecallRate.vue" afterPath="$PROJECT_DIR$/src/components/page/RMAB/collection/loanOverdueRecallRate/loanOverdueRecallRate.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/RMAB/index.vue" afterPath="$PROJECT_DIR$/src/components/page/RMAB/index.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/RMAB/market/loanThroughRate/loanThroughRate.vue" afterPath="$PROJECT_DIR$/src/components/page/RMAB/market/loanThroughRate/loanThroughRate.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/RMAB/market/loanThroughRate/loanThroughRateAll.vue" afterPath="$PROJECT_DIR$/src/components/page/RMAB/market/loanThroughRate/loanThroughRateAll.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/RMAB/operate/invitationEvent/invitationEvent.vue" afterPath="$PROJECT_DIR$/src/components/page/RMAB/operate/invitationEvent/invitationEvent.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/RMAB/userPortrait/userBasePortrait/userBasePortrait.vue" afterPath="$PROJECT_DIR$/src/components/page/RMAB/userPortrait/userBasePortrait/userBasePortrait.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/dataAnalysis/dataReport/platformData/platformData.vue" afterPath="$PROJECT_DIR$/src/components/page/dataAnalysis/dataReport/platformData/platformData.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/dataAnalysis/financialData/21daysStageStatistics/21daysStageStatistics.vue" afterPath="$PROJECT_DIR$/src/components/page/dataAnalysis/financialData/21daysStageStatistics/21daysStageStatistics.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/dataAnalysis/financialData/21installmentPromotionStatistics/21installmentPromotionStatistics.vue" afterPath="$PROJECT_DIR$/src/components/page/dataAnalysis/financialData/21installmentPromotionStatistics/21installmentPromotionStatistics.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/dataAnalysis/financialData/90daysStageStatistics/90daysStageStatistics.vue" afterPath="$PROJECT_DIR$/src/components/page/dataAnalysis/financialData/90daysStageStatistics/90daysStageStatistics.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/dataAnalysis/financialData/collectionManagement/collectionManagement.vue" afterPath="$PROJECT_DIR$/src/components/page/dataAnalysis/financialData/collectionManagement/collectionManagement.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/dataAnalysis/financialData/dailyLendingData/dailyLendingData.vue" afterPath="$PROJECT_DIR$/src/components/page/dataAnalysis/financialData/dailyLendingData/dailyLendingData.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/dataAnalysis/financialData/dailyRepaymentAmountData/dailyRepaymentAmountData.vue" afterPath="$PROJECT_DIR$/src/components/page/dataAnalysis/financialData/dailyRepaymentAmountData/dailyRepaymentAmountData.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/dataAnalysis/financialData/dailyRepaymentUnitData/dailyRepaymentUnitData.vue" afterPath="$PROJECT_DIR$/src/components/page/dataAnalysis/financialData/dailyRepaymentUnitData/dailyRepaymentUnitData.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/dataAnalysis/financialData/fundAnalysis/fundAnalysis.vue" afterPath="$PROJECT_DIR$/src/components/page/dataAnalysis/financialData/fundAnalysis/fundAnalysis.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/dataAnalysis/financialData/fundAnalysisProduct/fundAnalysisProduct.vue" afterPath="$PROJECT_DIR$/src/components/page/dataAnalysis/financialData/fundAnalysisProduct/fundAnalysisProduct.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/dataAnalysis/financialData/overdueRepaymentStatistics/overdueRepaymentStatistics.vue" afterPath="$PROJECT_DIR$/src/components/page/dataAnalysis/financialData/overdueRepaymentStatistics/overdueRepaymentStatistics.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/dataAnalysis/financialData/promptAmount/promptAmount.vue" afterPath="$PROJECT_DIR$/src/components/page/dataAnalysis/financialData/promptAmount/promptAmount.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/financeAnalysis/reconciliationAnalysis/reconciliationAnalysis.vue" afterPath="$PROJECT_DIR$/src/components/page/financeAnalysis/reconciliationAnalysis/reconciliationAnalysis.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/financeAnalysis/repaymentMinutia/repaymentMinutia.vue" afterPath="$PROJECT_DIR$/src/components/page/financeAnalysis/repaymentMinutia/repaymentMinutia.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/financeAnalysis/reportStatistics/reportStatistics.vue" afterPath="$PROJECT_DIR$/src/components/page/financeAnalysis/reportStatistics/reportStatistics.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/layout/AppMain.vue" afterPath="$PROJECT_DIR$/src/components/page/layout/AppMain.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/layout/Sidebar.vue" afterPath="$PROJECT_DIR$/src/components/page/layout/Sidebar.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/layout/SidebarItem.vue" afterPath="$PROJECT_DIR$/src/components/page/layout/SidebarItem.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/layout/layout.vue" afterPath="$PROJECT_DIR$/src/components/page/layout/layout.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/loanManagement/assetInformation/assetInformation.vue" afterPath="$PROJECT_DIR$/src/components/page/loanManagement/assetInformation/assetInformation.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/loanManagement/loanApplicationsList/loanApplicationsList.vue" afterPath="$PROJECT_DIR$/src/components/page/loanManagement/loanApplicationsList/loanApplicationsList.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/loanManagement/loanAuditList/loanAuditList.vue" afterPath="$PROJECT_DIR$/src/components/page/loanManagement/loanAuditList/loanAuditList.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/loanManagement/raiseQuotaRecord/raiseQuotaRecord.vue" afterPath="$PROJECT_DIR$/src/components/page/loanManagement/raiseQuotaRecord/raiseQuotaRecord.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/loanManagement/reconciliationFunction/reconciliationFunction.vue" afterPath="$PROJECT_DIR$/src/components/page/loanManagement/reconciliationFunction/reconciliationFunction.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/login/login.vue" afterPath="$PROJECT_DIR$/src/components/page/login/login.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/main/main.vue" afterPath="$PROJECT_DIR$/src/components/page/main/main.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/privilegeManage/employeeList/employeeList.vue" afterPath="$PROJECT_DIR$/src/components/page/privilegeManage/employeeList/employeeList.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/promotionManagement/PVUV/PVUV.vue" afterPath="$PROJECT_DIR$/src/components/page/promotionManagement/PVUV/PVUV.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/promotionManagement/channelStatisticsSummary/channelStatisticsSummary.vue" afterPath="$PROJECT_DIR$/src/components/page/promotionManagement/channelStatisticsSummary/channelStatisticsSummary.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/promotionManagement/promoterManagement/promoterManagement.vue" afterPath="$PROJECT_DIR$/src/components/page/promotionManagement/promoterManagement/promoterManagement.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/promotionManagement/promotionChannel/promotionChannel.vue" afterPath="$PROJECT_DIR$/src/components/page/promotionManagement/promotionChannel/promotionChannel.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/promotionManagement/promotionChannelStatistics/promotionChannelStatistics.vue" afterPath="$PROJECT_DIR$/src/components/page/promotionManagement/promotionChannelStatistics/promotionChannelStatistics.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/promotionManagement/promotionRegionStatistics/promotionRegionStatistics.vue" afterPath="$PROJECT_DIR$/src/components/page/promotionManagement/promotionRegionStatistics/promotionRegionStatistics.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/promotionManagement/registrationStatisticsReport/registrationStatisticsReport.vue" afterPath="$PROJECT_DIR$/src/components/page/promotionManagement/registrationStatisticsReport/registrationStatisticsReport.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/repaymentManagement/reconciliationList/renewalReconciliation/renewalReconciliation.vue" afterPath="$PROJECT_DIR$/src/components/page/repaymentManagement/reconciliationList/renewalReconciliation/renewalReconciliation.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/repaymentManagement/reconciliationList/repaymentReconciliation/repaymentReconciliation.vue" afterPath="$PROJECT_DIR$/src/components/page/repaymentManagement/reconciliationList/repaymentReconciliation/repaymentReconciliation.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/repaymentManagement/refundList/rebackedList/rebackedList.vue" afterPath="$PROJECT_DIR$/src/components/page/repaymentManagement/refundList/rebackedList/rebackedList.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/repaymentManagement/refundList/renewalParticulars/renewalParticulars.vue" afterPath="$PROJECT_DIR$/src/components/page/repaymentManagement/refundList/renewalParticulars/renewalParticulars.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/repaymentManagement/refundList/repaymentDetails/repaymentDetails.vue" afterPath="$PROJECT_DIR$/src/components/page/repaymentManagement/refundList/repaymentDetails/repaymentDetails.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/repaymentManagement/renewalManagement/renewalsList/renewalsList.vue" afterPath="$PROJECT_DIR$/src/components/page/repaymentManagement/renewalManagement/renewalsList/renewalsList.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/repaymentManagement/repaymentList/returnedList/returnedList.vue" afterPath="$PROJECT_DIR$/src/components/page/repaymentManagement/repaymentList/returnedList/returnedList.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/repaymentManagement/repaymentList/waitingForReturnList/waitingForReturnList.vue" afterPath="$PROJECT_DIR$/src/components/page/repaymentManagement/repaymentList/waitingForReturnList/waitingForReturnList.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/userInformationManagement/bankCardsList/bankCardsList.vue" afterPath="$PROJECT_DIR$/src/components/page/userInformationManagement/bankCardsList/bankCardsList.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/userInformationManagement/userAddressBook/userAddressBook.vue" afterPath="$PROJECT_DIR$/src/components/page/userInformationManagement/userAddressBook/userAddressBook.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/userInformationManagement/userAuthenticationList/userAuthenticationList.vue" afterPath="$PROJECT_DIR$/src/components/page/userInformationManagement/userAuthenticationList/userAuthenticationList.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/userInformationManagement/userList/userList.vue" afterPath="$PROJECT_DIR$/src/components/page/userInformationManagement/userList/userList.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/page/userInformationManagement/userNameAuthenticationList/userNameAuthenticationList.vue" afterPath="$PROJECT_DIR$/src/components/page/userInformationManagement/userNameAuthenticationList/userNameAuthenticationList.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/config/height.js" afterPath="$PROJECT_DIR$/src/config/height.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main.js" afterPath="$PROJECT_DIR$/src/main.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/router/index.js" afterPath="$PROJECT_DIR$/src/router/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/store/getters.js" afterPath="$PROJECT_DIR$/src/store/getters.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/store/index.js" afterPath="$PROJECT_DIR$/src/store/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/store/modules/app.js" afterPath="$PROJECT_DIR$/src/store/modules/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/store/modules/permission.js" afterPath="$PROJECT_DIR$/src/store/modules/permission.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/store/modules/user.js" afterPath="$PROJECT_DIR$/src/store/modules/user.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/vendor/Blob.js" afterPath="$PROJECT_DIR$/src/vendor/Blob.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/vendor/Export2Excel.js" afterPath="$PROJECT_DIR$/src/vendor/Export2Excel.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/css/reset.css" afterPath="$PROJECT_DIR$/static/css/reset.css" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -579,7 +410,7 @@
       <workItem from="1505699513143" duration="58262000" />
       <workItem from="1505870589476" duration="66183000" />
       <workItem from="1506046245780" duration="20698000" />
-      <workItem from="1506224427812" duration="2621000" />
+      <workItem from="1506224427812" duration="2690000" />
     </task>
     <task id="LOCAL-00001" summary="删除">
       <created>1500891212654</created>
@@ -742,11 +573,18 @@
       <option name="project" value="LOCAL" />
       <updated>1506050325751</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="20170925修改">
+      <created>1506306547375</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1506306547375</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1386699000" />
+    <option name="totallyTimeSpent" value="1386768000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -796,7 +634,8 @@
     <MESSAGE value="20170919修改" />
     <MESSAGE value="20170920修改" />
     <MESSAGE value="20170922修改" />
-    <option name="LAST_COMMIT_MESSAGE" value="20170922修改" />
+    <MESSAGE value="20170925修改" />
+    <option name="LAST_COMMIT_MESSAGE" value="20170925修改" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -816,6 +655,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="69">
           <caret line="3" column="57" lean-forward="false" selection-start-line="3" selection-start-column="57" selection-end-line="3" selection-end-column="57" />
+          <folding>
+            <element signature="e#1525#1558#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -857,6 +699,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-190">
           <caret line="198" column="52" lean-forward="false" selection-start-line="198" selection-start-column="52" selection-end-line="198" selection-end-column="52" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -872,6 +717,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="548">
           <caret line="172" column="66" lean-forward="false" selection-start-line="172" selection-start-column="66" selection-end-line="172" selection-end-column="66" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -887,6 +733,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="460">
           <caret line="30" column="4" lean-forward="true" selection-start-line="30" selection-start-column="4" selection-end-line="30" selection-end-column="24" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -910,6 +757,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="8696">
           <caret line="547" column="36" lean-forward="false" selection-start-line="547" selection-start-column="36" selection-end-line="547" selection-end-column="36" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -917,6 +765,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="23">
           <caret line="20" column="49" lean-forward="true" selection-start-line="20" selection-start-column="49" selection-end-line="20" selection-end-column="49" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -924,6 +773,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-690">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -939,6 +789,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-184">
           <caret line="122" column="24" lean-forward="false" selection-start-line="122" selection-start-column="24" selection-end-line="122" selection-end-column="24" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -946,6 +797,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1794">
           <caret line="196" column="9" lean-forward="false" selection-start-line="196" selection-start-column="9" selection-end-line="196" selection-end-column="20" />
+          <folding>
+            <element signature="n#style#0;n#el-table#0;n#div#0;n#template#0;n#!!top" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -953,6 +807,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -960,6 +815,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -967,6 +823,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -974,6 +831,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="621">
           <caret line="15" column="2" lean-forward="false" selection-start-line="15" selection-start-column="2" selection-end-line="15" selection-end-column="2" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -989,6 +847,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="9">
           <caret line="35" column="11" lean-forward="true" selection-start-line="35" selection-start-column="11" selection-end-line="35" selection-end-column="11" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1004,6 +863,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="8039">
           <caret line="387" column="22" lean-forward="false" selection-start-line="387" selection-start-column="22" selection-end-line="387" selection-end-column="22" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1011,6 +871,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="318">
           <caret line="345" column="2" lean-forward="false" selection-start-line="345" selection-start-column="2" selection-end-line="349" selection-end-column="21" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1039,6 +900,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="667">
           <caret line="29" column="26" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="294" selection-end-column="0" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="e#237#267#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1046,6 +911,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="483">
           <caret line="93" column="124" lean-forward="false" selection-start-line="93" selection-start-column="124" selection-end-line="93" selection-end-column="124" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="e#209#239#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1053,6 +922,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="161">
           <caret line="6" column="7" lean-forward="true" selection-start-line="6" selection-start-column="7" selection-end-line="14" selection-end-column="20" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1060,6 +930,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="437">
           <caret line="19" column="8" lean-forward="false" selection-start-line="19" selection-start-column="8" selection-end-line="20" selection-end-column="68" />
+          <folding>
+            <element signature="n#style#0;n#el-table#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1067,6 +940,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4485">
           <caret line="203" column="22" lean-forward="false" selection-start-line="203" selection-start-column="22" selection-end-line="203" selection-end-column="22" />
+          <folding>
+            <element signature="e#235#271#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1074,6 +950,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
           <caret line="33" column="0" lean-forward="true" selection-start-line="33" selection-start-column="0" selection-end-line="41" selection-end-column="18" />
+          <folding>
+            <element signature="n#style#0;n#el-table#0;n#div#1;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="e#2460#2587#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1081,6 +961,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="460">
           <caret line="20" column="22" lean-forward="false" selection-start-line="20" selection-start-column="22" selection-end-line="20" selection-end-column="22" />
+          <folding>
+            <element signature="e#760#848#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
