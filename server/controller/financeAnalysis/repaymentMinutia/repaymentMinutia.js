@@ -3,17 +3,9 @@ let func = require('../../../sql/func')
 let moment = require('moment')
 let tableName = require('../../../config/tableName')
 let {analysis, formatCurrency, mosaicName, handleProperty, handleTime, combine} = require('../../../utils/utils')
-// let {exportJsonToExcel} = require('../../../utils/excel')
 let path = require('path')
 let fs = require('fs')
 let XLSXWriter = require('xlsx-writestream')
-
-// const tHeader = ['日期', '用户ID', '借款人姓名', '手机号', '债权ID', '还款ID', '借款金额', '总应还款金额', '已还金额', '服务费', '加急费', '本金', '利息', '分期费', '续期服务费', '续期手续费', '逾期滞纳金', '实还金额', '退款金额', '借款状态', '还款方式', '还款通道', '还款详情', '还款状态', '放款时间', '预期还款时间', '实际还款时间', '还款期限', '续期期限', '滞纳天数', '基础服务费率', '加急费率', '借款利率', '分期费率', '续期利率', '逾期费率']
-// const filterVal = ['d_date', 'user_id', 'user_name', 'user_phone', 'order_id', 'loan_id', 'loan_money', 'repayment_amount', 'repaymented_amount', 'repayment_Service', 'loan_urgent_fee', 'Principal_amount', 'loan_accrual', 'stages_fee', 'renewal_service_fee', 'renewal_fee', 'Overdue_fine', 'repayment_real_money', 'return_money', 'loan_status', 'repayment_type', 'repayment_channel', 'repayment_detail', 'repayment_status', 'credit_repayment_time', 'repayment_time', 'repayment_real_time', 'repayment_term', 'renewal_term', 'late_day', 'service_rate', 'Urgent_rate', 'Loan_interest_rate', 'Installment_rate', 'Renewal_rate', 'Overdue_rate']
-
-// function formatJson (filterVal, jsonData) {
-//   return jsonData.map(v => filterVal.map(j => v[j]))
-// }
 
 function formatData (rows) {
   return rows.map(row => {
@@ -76,8 +68,52 @@ function formatExcelData (rows) {
     if (row.实还金额) {
       row.实还金额 = formatCurrency(row.实还金额)
     }
+    if (row.服务费) {
+      row.服务费 = formatCurrency(row.服务费)
+    }
+    if (row.加急费) {
+      row.加急费 = formatCurrency(row.加急费)
+    }
+    if (row.本金) {
+      row.本金 = formatCurrency(row.本金)
+    }
+    if (row.利息) {
+      row.利息 = formatCurrency(row.利息)
+    }
+    if (row.分期费) {
+      row.分期费 = formatCurrency(row.分期费)
+    }
+    if (row.续期服务费) {
+      row.续期服务费 = formatCurrency(row.续期服务费)
+    }
+    if (row.续期手续费) {
+      row.续期手续费 = formatCurrency(row.续期手续费)
+    }
+    if (row.逾期滞纳金) {
+      row.逾期滞纳金 = formatCurrency(row.逾期滞纳金)
+    }
     if (row.退款金额) {
       row.退款金额 = formatCurrency(row.退款金额)
+    }
+
+    //利率
+    if (row.基础服务费率) {
+      row.基础服务费率 = (row.基础服务费率 * 100).toFixed(2) + '%'
+    }
+    if (row.加急费率) {
+      row.加急费率 = (row.加急费率 * 100).toFixed(2) + '%'
+    }
+    if (row.借款利率) {
+      row.借款利率 = (row.借款利率 * 100).toFixed(2) + '%'
+    }
+    if (row.分期费率) {
+      row.分期费率 = (row.分期费率 * 100).toFixed(2) + '%'
+    }
+    if (row.续期利率) {
+      row.续期利率 = (row.续期利率 * 100).toFixed(2) + '%'
+    }
+    if (row.逾期费率) {
+      row.逾期费率 = (row.逾期费率 * 100).toFixed(2) + '%'
     }
     return row
   })
@@ -89,7 +125,7 @@ module.exports = {
     let params = req.body
     let queries = handleProperty(params.options)
     let timeOption = 'repayment_real_time'
-    if( params.endTime != '') {
+    if (params.endTime !== '') {
       timeOption = ' date_format( ' + timeOption + ' ,\'%Y-%m-%d\') '
     }
     let timeLimit = handleTime(timeOption, params.startTime, params.endTime)
@@ -123,7 +159,7 @@ module.exports = {
     let params = req.body
     let queries = handleProperty(params.options)
     let timeOption = 'repayment_real_time'
-    if( params.endTime != '') {
+    if (params.endTime !== '') {
       timeOption = ' date_format( ' + timeOption + ' ,\'%Y-%m-%d\') '
     }
     let timeLimit = handleTime(timeOption, params.startTime, params.endTime)
@@ -150,7 +186,7 @@ module.exports = {
     let params = req.query
     let queries = analysis(params)
     let timeOption = 'repayment_real_time'
-    if( params.endTime !== '') {
+    if (params.endTime !== '') {
       timeOption = ' date_format( ' + timeOption + ' ,\'%Y-%m-%d\') '
     }
     let timeLimit = handleTime(timeOption, params.startTime, params.endTime)

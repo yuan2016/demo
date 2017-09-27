@@ -202,7 +202,7 @@
 
 <script type="text/ecmascript-6">
   import banner from '../../../common/banner/banner'
-  import { getNowFormatDate, formatDate } from '../../../../common/js/utils'
+  import { getNowFormatDate, formatDate, formatCurrency } from '../../../../common/js/utils'
   import { getHeight } from '../../../../common/js/storage'
 
   export default {
@@ -432,6 +432,25 @@
             } else {
               this.count = acct.data[0].count
               this.fundData = perms.data
+//              this.fundData = this.fundData.map(fund => {
+//                if (fund.AMT_FY !== '' && fund.AMT_FY !== null && fund.AMT_FY_THIRD !== null && fund.AMT_FY_THIRD !== null) {
+//                  fund.AMT_FY_DIFF = formatCurrency(parseFloat(fund.AMT_FY.split(',').join('')) - parseFloat(fund.AMT_FY_THIRD.split(',').join('')))
+//                }
+//                if (fund.AMT_LL !== '' && fund.AMT_LL !== null && fund.AMT_LL_THIRD !== null && fund.AMT_LL_THIRD !== null) {
+//                  fund.AMT_LL_DIFF = formatCurrency(parseFloat(fund.AMT_LL.split(',').join('')) - parseFloat(fund.AMT_LL_THIRD.split(',').join('')))
+//                }
+//                if (fund.AMT_ZFB !== '' && fund.AMT_ZFB !== null && fund.AMT_ZFB_THIRD !== null && fund.AMT_ZFB_THIRD !== null) {
+//                  fund.AMT_ZFB_DIFF = formatCurrency(parseFloat(fund.AMT_ZFB.split(',').join('')) - parseFloat(fund.AMT_ZFB_THIRD.split(',').join('')))
+//                }
+//                if (fund.AMT_YMT !== '' && fund.AMT_YMT !== null && fund.AMT_YMT_THIRD !== null && fund.AMT_YMT_THIRD !== null) {
+//                  fund.AMT_YMT_DIFF = formatCurrency(parseFloat(fund.AMT_YMT.split(',').join('')) - parseFloat(fund.AMT_YMT_THIRD.split(',').join('')))
+//                }
+//                if (fund.AMT_LKL !== '' && fund.AMT_LKL !== null && fund.AMT_LKL_THIRD !== null && fund.AMT_LKL_THIRD !== null) {
+//                  fund.AMT_LKL_DIFF = formatCurrency(parseFloat(fund.AMT_LKL.split(',').join('')) - parseFloat(fund.AMT_LKL_THIRD.split(',').join('')))
+//                }
+//                console.log(fund)
+//                return fund
+//              })
               this.loading = false
               this.pageContent = 'total, sizes, prev, pager, next, jumper'
             }
@@ -533,11 +552,11 @@
         .reconciliationAnalysisExcel
           color: #fff
         .userButton
-          margin-left :10px
+          margin-left: 10px
         .userButtonSpecial
-          margin-left :5px
+          margin-left: 5px
     .reconciliationAnalysis-table
-      border-radius :10px
+      border-radius: 10px
     .detail
       position: fixed
       top: 0

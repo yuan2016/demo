@@ -54,3 +54,33 @@ export function getProperty (obj) {
   return values
 }
 
+export function formatCurrency (s, n) {
+  n = n > 0 && n <= 20 ? n : 2
+  let k = false
+  if (parseFloat(s) < 0) {
+    k = true
+  }
+  s = parseFloat((Math.abs(s) + '').replace(/[^\d\.-]/g, '')) + ''
+  let l = s.split('.')[0].split('').reverse()
+  let r = s.split('.')[1]
+  let t = ''
+  for (let i = 0; i < l.length; i++) {
+    t += l[i] + ((i + 1) % 3 == 0 && (i + 1) != l.length ? ',' : '')
+  }
+  if (!r) {
+    r = '0'
+  }
+  if (r.length < n) {
+    for (let i = r.length; i < n; i++) {
+      r += '0'
+    }
+  } else {
+    r = r.substr(0, n)
+  }
+  let result = t.split('').reverse().join('') + '.' + r
+  if (k) {
+    result = '-' + result
+  }
+  return result
+}
+

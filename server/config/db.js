@@ -5,7 +5,8 @@ module.exports = {
     user: 'report',
     password: 'report',
     database: 'report',
-    connectionLimit: 100
+    connectionLimit: 100,
+    multipleStatements: true
   },
   xianjinkd: {
     host: 'rr-uf6s9izb0x73214n0o.mysql.rds.aliyuncs.com',
@@ -13,6 +14,7 @@ module.exports = {
     user: 'canshman',
     password: 'Ajiushibuaini123',
     database: 'xianjinkd',
-    connectionLimit: 100
+    connectionLimit: 100,
+    multipleStatements: true
   }
 }

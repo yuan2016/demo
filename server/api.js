@@ -36,6 +36,13 @@ module.exports = {
   loanThroughRateExcel: path + '/loanThroughRate/excel',
   loanOverdueRecallRate: path + '/loanOverdueRecallRate',
   invitationEvent: path + '/invitationEvent',
+  //图表
+  daylyPassRateTrendsHoursly: path + '/daylyPassRateTrends/hoursly',
+  daylyPassRateTrendsDaily: path + '/daylyPassRateTrends/daily',
+  daylyPassRateTrendsWeekly: path + '/daylyPassRateTrends/weekly',
+  daylyPassRateTrendsMonthly: path + '/daylyPassRateTrends/monthly',
+  daylyPassRateTrendsCompare: path + '/daylyPassRateTrends/compare',
+  daylyPassRateTrendsGetRatio: path + '/daylyPassRateTrends/getRatio',
   // 用户基础画像
   userBasePortrait: path + '/userBasePortrait',
   userBasePortraitCount: path + '/userBasePortrait/count',

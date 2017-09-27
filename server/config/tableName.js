@@ -27,6 +27,8 @@ module.exports = {
   userBasePortrait: 'up_yh_info_analysis',
   operationUserPortrait: 'up_operate_analysis',
   invitationEvent: 'PR_DS_INVITATION_EVENT_RMAB_EXHIBITION',
+  //图表 新用户通过率
+  newUserPassRateRatio: 'pr_new_passrate_analysis',
   //PVUV
   PVUV: 'pr_ds_dkcspvuv_analysis',
   /*借款管理*/

@@ -21,6 +21,8 @@ let loanOverdueRecallRate = require('../controller/RMAB/collection/loanOverdueRe
 let userBasePortrait = require('../controller/RMAB/userPortrait/userBasePortrait/userBasePortrait')
 let operationUserPortrait = require('../controller/RMAB/userPortrait/operationUserPortrait/operationUserPortrait')
 let invitationEvent = require('../controller/RMAB/operate/invitationEvent/invitationEvent')
+//图表
+let daylyPassRateTrends = require('../controller/charts/tab1/passRateTrends')
 
 //借款管理
 let loanApplicationsList = require('../controller/loanManagement/loanApplicationsList/loanApplicationsList')
@@ -106,6 +108,13 @@ router.post(api.loanThroughRateAll, loanThroughRateAll.fetchAll)
 router.get(api.loanThroughRateExcel, loanThroughRate.getExcelData)
 router.post(api.loanOverdueRecallRate, loanOverdueRecallRate.fetchAll)
 router.post(api.invitationEvent, invitationEvent.fetchAll)
+//图表
+router.post(api.daylyPassRateTrendsHoursly, daylyPassRateTrends.getHoursly)
+router.post(api.daylyPassRateTrendsDaily, daylyPassRateTrends.getDaily)
+router.post(api.daylyPassRateTrendsWeekly, daylyPassRateTrends.getweekly)
+router.post(api.daylyPassRateTrendsMonthly, daylyPassRateTrends.getMonthly)
+router.post(api.daylyPassRateTrendsCompare, daylyPassRateTrends.compare)
+router.post(api.daylyPassRateTrendsGetRatio, daylyPassRateTrends.getRatio)
 //用户基础画像
 router.post(api.userBasePortraitCount, userBasePortrait.getCount)
 router.post(api.userBasePortrait, userBasePortrait.fetchAll)
